@@ -15,8 +15,6 @@ let value: CountedCriblLakeDataset = {
           enableAcceleration: true,
           fieldList: [
             "<value 1>",
-            "<value 2>",
-            "<value 3>",
           ],
           scanMode: "detailed",
         },

@@ -20,6 +20,9 @@ export type FunctionConfSchemaRegexFilter = {
    * Regex to test against
    */
   regex?: string | undefined;
+  /**
+   * Additional regex patterns to test against the field.
+   */
   regexList?: Array<RegexList> | undefined;
   /**
    * Name of the field to apply the regex on (defaults to _raw)

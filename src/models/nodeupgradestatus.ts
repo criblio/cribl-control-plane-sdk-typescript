@@ -29,6 +29,9 @@ export type NodeUpgradeStatus = {
   failed?: NodeFailedUpgradeStatus | undefined;
   skipped?: NodeSkippedUpgradeStatus | undefined;
   state: NodeUpgradeState;
+  /**
+   * Timestamp (in Unix time) when the node entered the upgrade state, in milliseconds.
+   */
   timestamp: number;
 };
 

@@ -7,13 +7,20 @@ import { PipelineInput } from "cribl-control-plane/models";
 
 let value: PipelineInput = {
   id: "<id>",
-  conf: {},
+  conf: {
+    functions: [
+      {
+        id: "otlp_traces",
+        conf: {},
+      },
+    ],
+  },
 };
 ```
 
 ## Fields
 
-| Field                                      | Type                                       | Required                                   | Description                                |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| `id`                                       | *string*                                   | :heavy_check_mark:                         | N/A                                        |
-| `conf`                                     | [models.ConfInput](../models/confinput.md) | :heavy_check_mark:                         | N/A                                        |
+| Field                                                             | Type                                                              | Required                                                          | Description                                                       |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `id`                                                              | *string*                                                          | :heavy_check_mark:                                                | Unique identifier for the Pipeline.                               |
+| `conf`                                                            | [models.ConfInput](../models/confinput.md)                        | :heavy_check_mark:                                                | Configuration for the Pipeline, including functions and settings. |

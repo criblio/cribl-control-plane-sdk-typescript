@@ -66,7 +66,7 @@ export type OutputSecurityLake = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -246,6 +246,9 @@ export type OutputSecurityLake = {
    * Parquet tools can use the checksum of a Parquet page to verify data integrity
    */
   enablePageChecksum?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)

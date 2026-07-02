@@ -63,6 +63,9 @@ export type InputWinEventLogsInput = {
    */
   id?: string | undefined;
   type: "win_event_logs";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -81,7 +84,7 @@ export type InputWinEventLogsInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -121,6 +124,9 @@ export type InputWinEventLogsInput = {
    * The maximum number of bytes in an event before it is flushed to the pipelines
    */
   maxEventBytes?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
@@ -204,7 +210,7 @@ export const InputWinEventLogsInput$outboundSchema: z.ZodType<
   interval: z.number().optional(),
   batchSize: z.number().optional(),
   metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
-  maxEventBytes: z.number().optional(),
+  maxEventBytes: z.number().int().optional(),
   description: z.string().optional(),
   disableJsonRendering: z.boolean().optional(),
   disableXmlRendering: z.boolean().optional(),

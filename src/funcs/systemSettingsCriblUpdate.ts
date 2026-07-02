@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  * Update system settings
  *
  * @remarks
- * Update Cribl system settings.
+ * Update the specified Cribl system settings.<br/><br/>Provide a complete representation of the system settings that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the system settings.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated system settings might not function as expected.
  */
 export function systemSettingsCriblUpdate(
   client: CriblControlPlaneCore,
@@ -168,8 +168,9 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, models.CountedSystemSettingsConf$inboundSchema),
+    M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail([400, 403, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

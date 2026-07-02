@@ -13,7 +13,7 @@ let value: GitInfo = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `remote`           | *models.Remote*    | :heavy_check_mark: | N/A                |
-| `versioning`       | *boolean*          | :heavy_check_mark: | N/A                |
+| Field                                                                                                                  | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `remote`                                                                                                               | *models.Remote*                                                                                                        | :heavy_check_mark:                                                                                                     | URL of the configured remote Git repository, with credentials redacted. <code>false</code> if no remote is configured. |
+| `versioning`                                                                                                           | *boolean*                                                                                                              | :heavy_check_mark:                                                                                                     | If <code>true</code>, Git versioning is enabled for this Cribl instance. Otherwise, <code>false</code>.                |

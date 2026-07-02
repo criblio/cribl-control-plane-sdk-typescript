@@ -3,18 +3,36 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type GetDatabaseConnectionConfigRequest = {
   /**
-   * Type of Database Connections to include in the results.
+   * Filter results by database engine type. Use this parameter to return only Database Connections for the specified engine.
    */
   databaseType?: models.DatabaseConnectionType | undefined;
+  /**
+   * Maximum number of Database Connections to return in the response for this request. Use with <code>offset</code> to paginate the response into manageable batches.
+   */
+  limit?: number | undefined;
+  /**
+   * Starting point from which to retrieve results for this request. Use with <code>limit</code> to paginate the response into manageable batches.
+   */
+  offset?: number | undefined;
+};
+
+export type GetDatabaseConnectionConfigResponse = {
+  result: models.DatabaseConnectionResponseEnvelope;
 };
 
 /** @internal */
 export type GetDatabaseConnectionConfigRequest$Outbound = {
   databaseType?: string | undefined;
+  limit?: number | undefined;
+  offset?: number | undefined;
 };
 
 /** @internal */
@@ -24,6 +42,8 @@ export const GetDatabaseConnectionConfigRequest$outboundSchema: z.ZodType<
   GetDatabaseConnectionConfigRequest
 > = z.object({
   databaseType: models.DatabaseConnectionType$outboundSchema.optional(),
+  limit: z.number().int().optional(),
+  offset: z.number().int().optional(),
 });
 
 export function getDatabaseConnectionConfigRequestToJSON(
@@ -33,5 +53,29 @@ export function getDatabaseConnectionConfigRequestToJSON(
     GetDatabaseConnectionConfigRequest$outboundSchema.parse(
       getDatabaseConnectionConfigRequest,
     ),
+  );
+}
+
+/** @internal */
+export const GetDatabaseConnectionConfigResponse$inboundSchema: z.ZodType<
+  GetDatabaseConnectionConfigResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: models.DatabaseConnectionResponseEnvelope$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+
+export function getDatabaseConnectionConfigResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetDatabaseConnectionConfigResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetDatabaseConnectionConfigResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetDatabaseConnectionConfigResponse' from JSON`,
   );
 }

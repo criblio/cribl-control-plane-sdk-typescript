@@ -3,6 +3,11 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { smartUnion } from "../../types/smartUnion.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type ListOutputRequest = {
@@ -10,11 +15,32 @@ export type ListOutputRequest = {
    * Type of Destination to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
    */
   type?: models.DestinationType | undefined;
+  /**
+   * Pagination offset
+   */
+  offset?: number | undefined;
+  /**
+   * Maximum number of items to return
+   */
+  limit?: number | undefined;
+};
+
+/**
+ * List of Destination objects.
+ */
+export type ListOutputResponseBody =
+  | models.PaginatedOutputResponse
+  | models.CountedOutputResponse;
+
+export type ListOutputResponse = {
+  result: models.PaginatedOutputResponse | models.CountedOutputResponse;
 };
 
 /** @internal */
 export type ListOutputRequest$Outbound = {
   type?: string | undefined;
+  offset?: number | undefined;
+  limit?: number | undefined;
 };
 
 /** @internal */
@@ -24,6 +50,8 @@ export const ListOutputRequest$outboundSchema: z.ZodType<
   ListOutputRequest
 > = z.object({
   type: models.DestinationType$outboundSchema.optional(),
+  offset: z.number().int().optional(),
+  limit: z.number().int().optional(),
 });
 
 export function listOutputRequestToJSON(
@@ -31,5 +59,51 @@ export function listOutputRequestToJSON(
 ): string {
   return JSON.stringify(
     ListOutputRequest$outboundSchema.parse(listOutputRequest),
+  );
+}
+
+/** @internal */
+export const ListOutputResponseBody$inboundSchema: z.ZodType<
+  ListOutputResponseBody,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([
+  models.PaginatedOutputResponse$inboundSchema,
+  models.CountedOutputResponse$inboundSchema,
+]);
+
+export function listOutputResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<ListOutputResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListOutputResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListOutputResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListOutputResponse$inboundSchema: z.ZodType<
+  ListOutputResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: smartUnion([
+    models.PaginatedOutputResponse$inboundSchema,
+    models.CountedOutputResponse$inboundSchema,
+  ]),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+
+export function listOutputResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ListOutputResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListOutputResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListOutputResponse' from JSON`,
   );
 }

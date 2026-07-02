@@ -48,6 +48,9 @@ export type InputOpenaiComplianceLogsInput = {
    */
   id?: string | undefined;
   type: "openai_compliance_logs";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -66,7 +69,7 @@ export type InputOpenaiComplianceLogsInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -138,6 +141,9 @@ export type InputOpenaiComplianceLogsInput = {
    */
   staleChannelFlushMs?: number | undefined;
   retryRules?: RetryRulesType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * The ID of the ChatGPT workspace to collect logs from (UUID format)

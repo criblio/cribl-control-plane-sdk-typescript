@@ -8,9 +8,21 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Custom logo configuration for the Cribl UI login page and navigation bar.
+ */
 export type CustomLogoTypeSystemSettingsConf = {
+  /**
+   * If <code>true</code>, display the custom logo in the UI. Otherwise, <code>false</code>.
+   */
   enabled: boolean;
+  /**
+   * Description text displayed alongside the custom logo.
+   */
   logoDescription?: string | undefined;
+  /**
+   * Custom logo image as a base64-encoded data URI (PNG or JPEG, maximum 2 MB).
+   */
   logoImage?: string | undefined;
 };
 

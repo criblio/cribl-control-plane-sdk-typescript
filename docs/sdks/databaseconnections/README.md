@@ -6,8 +6,8 @@ Actions related to DatabaseConnections
 
 ### Available Operations
 
-* [list](#list) - List Database Connections
-* [create](#create) - Create Database Connection
+* [list](#list) - List all Database Connections
+* [create](#create) - Create a Database Connection
 * [get](#get) - Get a Database Connection
 * [update](#update) - Update a Database Connection
 * [delete](#delete) - Delete a Database Connection
@@ -18,7 +18,7 @@ Get a list of all Database Connections.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getDatabaseConnectionConfig" method="get" path="/lib/database-connections" -->
+<!-- UsageSnippet language="typescript" operationID="getDatabaseConnectionConfig" method="get" path="/lib/database-connections" example="DatabaseConnectionListResponseExamplesDatabaseConnectionList" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -32,7 +32,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.databaseConnections.list();
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -59,7 +61,9 @@ async function run() {
   const res = await databaseConnectionsList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("databaseConnectionsList failed:", res.error);
   }
@@ -79,12 +83,13 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedDatabaseConnectionConfig](../../models/counteddatabaseconnectionconfig.md)\>**
+**Promise\<[operations.GetDatabaseConnectionConfigResponse](../../models/operations/getdatabaseconnectionconfigresponse.md)\>**
 
 ### Errors
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -92,6 +97,85 @@ run();
 
 Create a new Database Connection.
 
+### Example Usage: DatabaseConnectionBadRequestResponseExamplesInvalidDatabaseConnectionRequest
+
+<!-- UsageSnippet language="typescript" operationID="createDatabaseConnectionConfig" method="post" path="/lib/database-connections" example="DatabaseConnectionBadRequestResponseExamplesInvalidDatabaseConnectionRequest" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.create({
+    authType: "connectionString",
+    configObj: "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"trustServerCertificate\":false,\"connectTimeout\":20000}}",
+    connectionString: "mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true",
+    connectionTimeout: 10000,
+    credsSecrets: "oracle-production-credentials",
+    databaseType: "postgres",
+    description: "Production MySQL database for customer data",
+    id: "mysql-prod-db",
+    password: "yourPassword",
+    requestTimeout: 30000,
+    tags: "production,mysql,customer-data",
+    textSecret: "mysql-production-connection",
+    user: "yourUsername",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsCreate } from "cribl-control-plane/funcs/databaseConnectionsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsCreate(criblControlPlane, {
+    authType: "connectionString",
+    configObj: "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"trustServerCertificate\":false,\"connectTimeout\":20000}}",
+    connectionString: "mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true",
+    connectionTimeout: 10000,
+    credsSecrets: "oracle-production-credentials",
+    databaseType: "postgres",
+    description: "Production MySQL database for customer data",
+    id: "mysql-prod-db",
+    password: "yourPassword",
+    requestTimeout: 30000,
+    tags: "production,mysql,customer-data",
+    textSecret: "mysql-production-connection",
+    user: "yourUsername",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: DatabaseConnectionExamplesMySQLWithConnectionString
 
 <!-- UsageSnippet language="typescript" operationID="createDatabaseConnectionConfig" method="post" path="/lib/database-connections" example="DatabaseConnectionExamplesMySQLWithConnectionString" -->
@@ -108,7 +192,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.databaseConnections.create({
     authType: "connectionString",
-    connectionString: "mysql://admin:password123@mysql.example.com:3306/production?ssl=true",
+    connectionString: "mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true",
     connectionTimeout: 10000,
     databaseType: "mysql",
     description: "Production MySQL database for customer data",
@@ -142,7 +226,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await databaseConnectionsCreate(criblControlPlane, {
     authType: "connectionString",
-    connectionString: "mysql://admin:password123@mysql.example.com:3306/production?ssl=true",
+    connectionString: "mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true",
     connectionTimeout: 10000,
     databaseType: "mysql",
     description: "Production MySQL database for customer data",
@@ -247,9 +331,9 @@ async function run() {
     databaseType: "oracle",
     description: "Oracle ERP database",
     id: "oracle-erp",
-    password: "Oracle_Pass456!",
+    password: "yourPassword",
     tags: "erp,oracle,finance",
-    user: "erp_user",
+    user: "yourUsername",
   });
 
   console.log(result);
@@ -283,9 +367,9 @@ async function run() {
     databaseType: "oracle",
     description: "Oracle ERP database",
     id: "oracle-erp",
-    password: "Oracle_Pass456!",
+    password: "yourPassword",
     tags: "erp,oracle,finance",
-    user: "erp_user",
+    user: "yourUsername",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -366,6 +450,85 @@ async function run() {
 
 run();
 ```
+### Example Usage: DatabaseConnectionExamplesOracleWithMutualTLS
+
+<!-- UsageSnippet language="typescript" operationID="createDatabaseConnectionConfig" method="post" path="/lib/database-connections" example="DatabaseConnectionExamplesOracleWithMutualTLS" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.create({
+    authType: "connectionString",
+    connectionString: "tcps://oracle.example.com:2484/ORCL",
+    connectionTimeout: 15000,
+    databaseType: "oracle",
+    description: "Oracle database reached over TCPS with mutual TLS",
+    id: "oracle-mtls-db",
+    password: "Oracle_Pass456!",
+    tags: "erp,oracle,mtls,production",
+    tls: {
+      disabled: false,
+      rejectUnauthorized: true,
+    },
+    user: "erp_user",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsCreate } from "cribl-control-plane/funcs/databaseConnectionsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsCreate(criblControlPlane, {
+    authType: "connectionString",
+    connectionString: "tcps://oracle.example.com:2484/ORCL",
+    connectionTimeout: 15000,
+    databaseType: "oracle",
+    description: "Oracle database reached over TCPS with mutual TLS",
+    id: "oracle-mtls-db",
+    password: "Oracle_Pass456!",
+    tags: "erp,oracle,mtls,production",
+    tls: {
+      disabled: false,
+      rejectUnauthorized: true,
+    },
+    user: "erp_user",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: DatabaseConnectionExamplesOracleWithSecret
 
 <!-- UsageSnippet language="typescript" operationID="createDatabaseConnectionConfig" method="post" path="/lib/database-connections" example="DatabaseConnectionExamplesOracleWithSecret" -->
@@ -386,10 +549,10 @@ async function run() {
     databaseType: "oracle",
     description: "Oracle data warehouse",
     id: "oracle-warehouse",
-    password: "Warehouse_Pass789!",
+    password: "yourPassword",
     tags: "warehouse,oracle,reporting",
     textSecret: "oracle-warehouse-connection",
-    user: "warehouse_user",
+    user: "yourUsername",
   });
 
   console.log(result);
@@ -422,10 +585,10 @@ async function run() {
     databaseType: "oracle",
     description: "Oracle data warehouse",
     id: "oracle-warehouse",
-    password: "Warehouse_Pass789!",
+    password: "yourPassword",
     tags: "warehouse,oracle,reporting",
     textSecret: "oracle-warehouse-connection",
-    user: "warehouse_user",
+    user: "yourUsername",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -453,7 +616,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.databaseConnections.create({
     authType: "connectionString",
-    connectionString: "postgresql://warehouse_user:SecurePass456@postgres.example.com:5432/warehouse?sslmode=require",
+    connectionString: "postgresql://yourUsername:yourPassword@postgres.example.com:5432/warehouse?sslmode=require",
     connectionTimeout: 15000,
     databaseType: "postgres",
     description: "Data warehouse PostgreSQL database",
@@ -487,7 +650,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await databaseConnectionsCreate(criblControlPlane, {
     authType: "connectionString",
-    connectionString: "postgresql://warehouse_user:SecurePass456@postgres.example.com:5432/warehouse?sslmode=require",
+    connectionString: "postgresql://yourUsername:yourPassword@postgres.example.com:5432/warehouse?sslmode=require",
     connectionTimeout: 15000,
     databaseType: "postgres",
     description: "Data warehouse PostgreSQL database",
@@ -587,7 +750,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.databaseConnections.create({
     authType: "configObj",
-    configObj: "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"report_user\",\"password\":\"Report_Pass123!\",\"options\":{\"encrypt\":true,\"trustServerCertificate\":false,\"connectTimeout\":20000}}",
+    configObj: "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"encrypt\":true,\"trustServerCertificate\":false,\"connectTimeout\":20000}}",
     databaseType: "sqlserver",
     description: "Reporting SQL Server database with custom config",
     id: "sqlserver-reporting",
@@ -621,7 +784,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await databaseConnectionsCreate(criblControlPlane, {
     authType: "configObj",
-    configObj: "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"report_user\",\"password\":\"Report_Pass123!\",\"options\":{\"encrypt\":true,\"trustServerCertificate\":false,\"connectTimeout\":20000}}",
+    configObj: "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"encrypt\":true,\"trustServerCertificate\":false,\"connectTimeout\":20000}}",
     databaseType: "sqlserver",
     description: "Reporting SQL Server database with custom config",
     id: "sqlserver-reporting",
@@ -654,7 +817,7 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.databaseConnections.create({
     authType: "connectionString",
-    connectionString: "Server=sqlserver.example.com;Database=ERP;User Id=erp_admin;Password=ERP_Pass789!;Encrypt=true",
+    connectionString: "Server=sqlserver.example.com;Database=ERP;User Id=yourUsername;Password=yourPassword;Encrypt=true",
     connectionTimeout: 15000,
     databaseType: "sqlserver",
     description: "ERP SQL Server database",
@@ -689,7 +852,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await databaseConnectionsCreate(criblControlPlane, {
     authType: "connectionString",
-    connectionString: "Server=sqlserver.example.com;Database=ERP;User Id=erp_admin;Password=ERP_Pass789!;Encrypt=true",
+    connectionString: "Server=sqlserver.example.com;Database=ERP;User Id=yourUsername;Password=yourPassword;Encrypt=true",
     connectionTimeout: 15000,
     databaseType: "sqlserver",
     description: "ERP SQL Server database",
@@ -776,6 +939,85 @@ async function run() {
 
 run();
 ```
+### Example Usage: DatabaseConnectionResponseExamplesMySQLDatabaseConnection
+
+<!-- UsageSnippet language="typescript" operationID="createDatabaseConnectionConfig" method="post" path="/lib/database-connections" example="DatabaseConnectionResponseExamplesMySQLDatabaseConnection" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.create({
+    authType: "connectionString",
+    configObj: "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"trustServerCertificate\":false,\"connectTimeout\":20000}}",
+    connectionString: "mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true",
+    connectionTimeout: 10000,
+    credsSecrets: "oracle-production-credentials",
+    databaseType: "postgres",
+    description: "Production MySQL database for customer data",
+    id: "mysql-prod-db",
+    password: "yourPassword",
+    requestTimeout: 30000,
+    tags: "production,mysql,customer-data",
+    textSecret: "mysql-production-connection",
+    user: "yourUsername",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsCreate } from "cribl-control-plane/funcs/databaseConnectionsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsCreate(criblControlPlane, {
+    authType: "connectionString",
+    configObj: "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"trustServerCertificate\":false,\"connectTimeout\":20000}}",
+    connectionString: "mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true",
+    connectionTimeout: 10000,
+    credsSecrets: "oracle-production-credentials",
+    databaseType: "postgres",
+    description: "Production MySQL database for customer data",
+    id: "mysql-prod-db",
+    password: "yourPassword",
+    requestTimeout: 30000,
+    tags: "production,mysql,customer-data",
+    textSecret: "mysql-production-connection",
+    user: "yourUsername",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsCreate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -788,12 +1030,14 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedDatabaseConnectionConfig](../../models/counteddatabaseconnectionconfig.md)\>**
+**Promise\<[models.DatabaseConnectionResponseEnvelope](../../models/databaseconnectionresponseenvelope.md)\>**
 
 ### Errors
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.RestApiJsonError              | 400                                  | application/json                     |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -803,7 +1047,7 @@ Get the specified Database Connection.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getDatabaseConnectionConfigById" method="get" path="/lib/database-connections/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="getDatabaseConnectionConfigById" method="get" path="/lib/database-connections/{id}" example="DatabaseConnectionResponseExamplesMySQLDatabaseConnection" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -868,12 +1112,14 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedDatabaseConnectionConfig](../../models/counteddatabaseconnectionconfig.md)\>**
+**Promise\<[models.DatabaseConnectionResponseEnvelope](../../models/databaseconnectionresponseenvelope.md)\>**
 
 ### Errors
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
+| errors.RestApiJsonError              | 404                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -881,6 +1127,91 @@ run();
 
 Update the specified Database Connection.<br/><br/>Provide a complete representation of the Database Connection that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Database Connection.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Database Connection might not function as expected.
 
+### Example Usage: DatabaseConnectionBadRequestResponseExamplesInvalidDatabaseConnectionRequest
+
+<!-- UsageSnippet language="typescript" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="DatabaseConnectionBadRequestResponseExamplesInvalidDatabaseConnectionRequest" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.update({
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "configObj",
+      configObj: "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"trustServerCertificate\":false,\"connectTimeout\":20000}}",
+      connectionString: "mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true",
+      connectionTimeout: 10000,
+      credsSecrets: "oracle-production-credentials",
+      databaseType: "sqlserver",
+      description: "Production MySQL database for customer data",
+      id: "mysql-prod-db",
+      password: "yourPassword",
+      requestTimeout: 30000,
+      tags: "production,mysql,customer-data",
+      textSecret: "mysql-production-connection",
+      user: "yourUsername",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsUpdate } from "cribl-control-plane/funcs/databaseConnectionsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsUpdate(criblControlPlane, {
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "configObj",
+      configObj: "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"trustServerCertificate\":false,\"connectTimeout\":20000}}",
+      connectionString: "mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true",
+      connectionTimeout: 10000,
+      credsSecrets: "oracle-production-credentials",
+      databaseType: "sqlserver",
+      description: "Production MySQL database for customer data",
+      id: "mysql-prod-db",
+      password: "yourPassword",
+      requestTimeout: 30000,
+      tags: "production,mysql,customer-data",
+      textSecret: "mysql-production-connection",
+      user: "yourUsername",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: DatabaseConnectionExamplesMySQLWithConnectionString
 
 <!-- UsageSnippet language="typescript" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="DatabaseConnectionExamplesMySQLWithConnectionString" -->
@@ -1613,6 +1944,91 @@ async function run() {
       requestTimeout: 15000,
       tags: "crm,sqlserver,sales",
       textSecret: "sqlserver-crm-connection",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: DatabaseConnectionResponseExamplesMySQLDatabaseConnection
+
+<!-- UsageSnippet language="typescript" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="DatabaseConnectionResponseExamplesMySQLDatabaseConnection" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.update({
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "configObj",
+      configObj: "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"trustServerCertificate\":false,\"connectTimeout\":20000}}",
+      connectionString: "mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true",
+      connectionTimeout: 10000,
+      credsSecrets: "oracle-production-credentials",
+      databaseType: "sqlserver",
+      description: "Production MySQL database for customer data",
+      id: "mysql-prod-db",
+      password: "yourPassword",
+      requestTimeout: 30000,
+      tags: "production,mysql,customer-data",
+      textSecret: "mysql-production-connection",
+      user: "yourUsername",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsUpdate } from "cribl-control-plane/funcs/databaseConnectionsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsUpdate(criblControlPlane, {
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "configObj",
+      configObj: "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"trustServerCertificate\":false,\"connectTimeout\":20000}}",
+      connectionString: "mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true",
+      connectionTimeout: 10000,
+      credsSecrets: "oracle-production-credentials",
+      databaseType: "sqlserver",
+      description: "Production MySQL database for customer data",
+      id: "mysql-prod-db",
+      password: "yourPassword",
+      requestTimeout: 30000,
+      tags: "production,mysql,customer-data",
+      textSecret: "mysql-production-connection",
+      user: "yourUsername",
     },
   });
   if (res.ok) {
@@ -2369,6 +2785,750 @@ async function run() {
 
 run();
 ```
+### Example Usage: UpdateDatabaseConnectionExamplesUpdateMySQLDatabaseConnectionWithConnectionString
+
+<!-- UsageSnippet language="typescript" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesUpdateMySQLDatabaseConnectionWithConnectionString" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.update({
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "connectionString",
+      connectionString: "mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true",
+      connectionTimeout: 10000,
+      databaseType: "mysql",
+      description: "Production MySQL database for customer data",
+      id: "mysql-prod-db",
+      tags: "production,mysql,customer-data",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsUpdate } from "cribl-control-plane/funcs/databaseConnectionsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsUpdate(criblControlPlane, {
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "connectionString",
+      connectionString: "mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true",
+      connectionTimeout: 10000,
+      databaseType: "mysql",
+      description: "Production MySQL database for customer data",
+      id: "mysql-prod-db",
+      tags: "production,mysql,customer-data",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateDatabaseConnectionExamplesUpdateMySQLDatabaseConnectionWithSecret
+
+<!-- UsageSnippet language="typescript" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesUpdateMySQLDatabaseConnectionWithSecret" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.update({
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "secret",
+      connectionTimeout: 15000,
+      databaseType: "mysql",
+      description: "Analytics MySQL database",
+      id: "mysql-analytics-db",
+      tags: "analytics,mysql",
+      textSecret: "mysql-analytics-connection",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsUpdate } from "cribl-control-plane/funcs/databaseConnectionsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsUpdate(criblControlPlane, {
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "secret",
+      connectionTimeout: 15000,
+      databaseType: "mysql",
+      description: "Analytics MySQL database",
+      id: "mysql-analytics-db",
+      tags: "analytics,mysql",
+      textSecret: "mysql-analytics-connection",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateDatabaseConnectionExamplesUpdateOracleDatabaseConnectionWithConnectionString
+
+<!-- UsageSnippet language="typescript" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesUpdateOracleDatabaseConnectionWithConnectionString" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.update({
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "connectionString",
+      connectionString: "oracle.example.com:1521/ORCL",
+      connectionTimeout: 15000,
+      databaseType: "oracle",
+      description: "Oracle ERP database",
+      id: "oracle-erp",
+      password: "yourPassword",
+      tags: "erp,oracle,finance",
+      user: "yourUsername",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsUpdate } from "cribl-control-plane/funcs/databaseConnectionsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsUpdate(criblControlPlane, {
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "connectionString",
+      connectionString: "oracle.example.com:1521/ORCL",
+      connectionTimeout: 15000,
+      databaseType: "oracle",
+      description: "Oracle ERP database",
+      id: "oracle-erp",
+      password: "yourPassword",
+      tags: "erp,oracle,finance",
+      user: "yourUsername",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateDatabaseConnectionExamplesUpdateOracleDatabaseConnectionWithCredentialsSecrets
+
+<!-- UsageSnippet language="typescript" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesUpdateOracleDatabaseConnectionWithCredentialsSecrets" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.update({
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "secrets",
+      connectionTimeout: 15000,
+      credsSecrets: "oracle-secure-credentials",
+      databaseType: "oracle",
+      description: "High-security Oracle database with credential secrets",
+      id: "oracle-secure-db",
+      tags: "secure,oracle,sensitive-data",
+      textSecret: "oracle-secure-connection",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsUpdate } from "cribl-control-plane/funcs/databaseConnectionsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsUpdate(criblControlPlane, {
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "secrets",
+      connectionTimeout: 15000,
+      credsSecrets: "oracle-secure-credentials",
+      databaseType: "oracle",
+      description: "High-security Oracle database with credential secrets",
+      id: "oracle-secure-db",
+      tags: "secure,oracle,sensitive-data",
+      textSecret: "oracle-secure-connection",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateDatabaseConnectionExamplesUpdateOracleDatabaseConnectionWithSecret
+
+<!-- UsageSnippet language="typescript" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesUpdateOracleDatabaseConnectionWithSecret" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.update({
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "secret",
+      connectionTimeout: 20000,
+      databaseType: "oracle",
+      description: "Oracle data warehouse",
+      id: "oracle-warehouse",
+      password: "yourPassword",
+      tags: "warehouse,oracle,reporting",
+      textSecret: "oracle-warehouse-connection",
+      user: "yourUsername",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsUpdate } from "cribl-control-plane/funcs/databaseConnectionsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsUpdate(criblControlPlane, {
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "secret",
+      connectionTimeout: 20000,
+      databaseType: "oracle",
+      description: "Oracle data warehouse",
+      id: "oracle-warehouse",
+      password: "yourPassword",
+      tags: "warehouse,oracle,reporting",
+      textSecret: "oracle-warehouse-connection",
+      user: "yourUsername",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateDatabaseConnectionExamplesUpdatePostgreSQLDatabaseConnectionWithConnectionString
+
+<!-- UsageSnippet language="typescript" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesUpdatePostgreSQLDatabaseConnectionWithConnectionString" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.update({
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "connectionString",
+      connectionString: "postgresql://yourUsername:yourPassword@postgres.example.com:5432/warehouse?sslmode=require",
+      connectionTimeout: 15000,
+      databaseType: "postgres",
+      description: "Data warehouse PostgreSQL database",
+      id: "postgres-warehouse",
+      tags: "warehouse,postgres,reporting",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsUpdate } from "cribl-control-plane/funcs/databaseConnectionsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsUpdate(criblControlPlane, {
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "connectionString",
+      connectionString: "postgresql://yourUsername:yourPassword@postgres.example.com:5432/warehouse?sslmode=require",
+      connectionTimeout: 15000,
+      databaseType: "postgres",
+      description: "Data warehouse PostgreSQL database",
+      id: "postgres-warehouse",
+      tags: "warehouse,postgres,reporting",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateDatabaseConnectionExamplesUpdatePostgreSQLDatabaseConnectionWithSecret
+
+<!-- UsageSnippet language="typescript" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesUpdatePostgreSQLDatabaseConnectionWithSecret" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.update({
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "secret",
+      connectionTimeout: 10000,
+      databaseType: "postgres",
+      description: "Logs PostgreSQL database",
+      id: "postgres-logs",
+      tags: "logs,postgres",
+      textSecret: "postgres-logs-connection",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsUpdate } from "cribl-control-plane/funcs/databaseConnectionsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsUpdate(criblControlPlane, {
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "secret",
+      connectionTimeout: 10000,
+      databaseType: "postgres",
+      description: "Logs PostgreSQL database",
+      id: "postgres-logs",
+      tags: "logs,postgres",
+      textSecret: "postgres-logs-connection",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateDatabaseConnectionExamplesUpdateSQLServerDatabaseConnectionWithConfigObject
+
+<!-- UsageSnippet language="typescript" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesUpdateSQLServerDatabaseConnectionWithConfigObject" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.update({
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "configObj",
+      configObj: "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"encrypt\":true,\"trustServerCertificate\":false,\"connectTimeout\":20000}}",
+      databaseType: "sqlserver",
+      description: "Reporting SQL Server database with custom config",
+      id: "sqlserver-reporting",
+      requestTimeout: 60000,
+      tags: "reporting,sqlserver,analytics",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsUpdate } from "cribl-control-plane/funcs/databaseConnectionsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsUpdate(criblControlPlane, {
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "configObj",
+      configObj: "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"encrypt\":true,\"trustServerCertificate\":false,\"connectTimeout\":20000}}",
+      databaseType: "sqlserver",
+      description: "Reporting SQL Server database with custom config",
+      id: "sqlserver-reporting",
+      requestTimeout: 60000,
+      tags: "reporting,sqlserver,analytics",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateDatabaseConnectionExamplesUpdateSQLServerDatabaseConnectionWithConnectionString
+
+<!-- UsageSnippet language="typescript" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesUpdateSQLServerDatabaseConnectionWithConnectionString" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.update({
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "connectionString",
+      connectionString: "Server=sqlserver.example.com;Database=ERP;User Id=yourUsername;Password=yourPassword;Encrypt=true",
+      connectionTimeout: 15000,
+      databaseType: "sqlserver",
+      description: "ERP SQL Server database",
+      id: "sqlserver-erp",
+      requestTimeout: 30000,
+      tags: "erp,sqlserver,finance",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsUpdate } from "cribl-control-plane/funcs/databaseConnectionsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsUpdate(criblControlPlane, {
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "connectionString",
+      connectionString: "Server=sqlserver.example.com;Database=ERP;User Id=yourUsername;Password=yourPassword;Encrypt=true",
+      connectionTimeout: 15000,
+      databaseType: "sqlserver",
+      description: "ERP SQL Server database",
+      id: "sqlserver-erp",
+      requestTimeout: 30000,
+      tags: "erp,sqlserver,finance",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateDatabaseConnectionExamplesUpdateSQLServerDatabaseConnectionWithSecret
+
+<!-- UsageSnippet language="typescript" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesUpdateSQLServerDatabaseConnectionWithSecret" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.update({
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "secret",
+      connectionTimeout: 15000,
+      databaseType: "sqlserver",
+      description: "CRM SQL Server database",
+      id: "sqlserver-crm",
+      requestTimeout: 15000,
+      tags: "crm,sqlserver,sales",
+      textSecret: "sqlserver-crm-connection",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { databaseConnectionsUpdate } from "cribl-control-plane/funcs/databaseConnectionsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await databaseConnectionsUpdate(criblControlPlane, {
+    id: "<id>",
+    databaseConnectionConfig: {
+      authType: "secret",
+      connectionTimeout: 15000,
+      databaseType: "sqlserver",
+      description: "CRM SQL Server database",
+      id: "sqlserver-crm",
+      requestTimeout: 15000,
+      tags: "crm,sqlserver,sales",
+      textSecret: "sqlserver-crm-connection",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("databaseConnectionsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -2381,12 +3541,14 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedDatabaseConnectionConfig](../../models/counteddatabaseconnectionconfig.md)\>**
+**Promise\<[models.DatabaseConnectionResponseEnvelope](../../models/databaseconnectionresponseenvelope.md)\>**
 
 ### Errors
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
+| errors.RestApiJsonError              | 400, 404                             | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -2396,7 +3558,7 @@ Delete the specified Database Connection.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="deleteDatabaseConnectionConfigById" method="delete" path="/lib/database-connections/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="deleteDatabaseConnectionConfigById" method="delete" path="/lib/database-connections/{id}" example="DatabaseConnectionResponseExamplesMySQLDatabaseConnection" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -2461,11 +3623,13 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedDatabaseConnectionConfig](../../models/counteddatabaseconnectionconfig.md)\>**
+**Promise\<[models.DatabaseConnectionResponseEnvelope](../../models/databaseconnectionresponseenvelope.md)\>**
 
 ### Errors
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
+| errors.RestApiJsonError              | 404                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

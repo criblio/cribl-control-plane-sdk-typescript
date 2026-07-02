@@ -58,6 +58,9 @@ export type InputOffice365MsgTraceInput = {
    */
   id?: string | undefined;
   type: "office365_msg_trace";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -76,7 +79,7 @@ export type InputOffice365MsgTraceInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -149,6 +152,9 @@ export type InputOffice365MsgTraceInput = {
    */
   logLevel?: LogLevelOptionsDebugError | undefined;
   retryRules?: RetryRulesTypeCodesEnableHeader | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Username to run Message Trace API call.

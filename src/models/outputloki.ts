@@ -34,10 +34,10 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
-  RequestParamConfInputOpenai,
-  RequestParamConfInputOpenai$Outbound,
-  RequestParamConfInputOpenai$outboundSchema,
-} from "./requestparamconfinputopenai.js";
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+} from "./refreshrequestparamconfhealthcheckauthenticationoauthsecret.js";
 import {
   ResponseRetrySettingConfOutputWebhook,
   ResponseRetrySettingConfOutputWebhook$Outbound,
@@ -70,7 +70,7 @@ export type OutputLoki = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -88,7 +88,9 @@ export type OutputLoki = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<RequestParamConfInputOpenai> | undefined;
+  labels?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
   authType?:
     | AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret
     | undefined;
@@ -159,6 +161,9 @@ export type OutputLoki = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Compress the payload body before sending
@@ -225,7 +230,7 @@ export type OutputLoki = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputLokiPqControls | undefined;
@@ -272,7 +277,11 @@ export type OutputLoki$Outbound = {
   url: string;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<RequestParamConfInputOpenai$Outbound> | undefined;
+  labels?:
+    | Array<
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
+    | undefined;
   authType?: string | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
@@ -333,7 +342,9 @@ export const OutputLoki$outboundSchema: z.ZodType<
   url: z.string(),
   message: z.string().optional(),
   messageFormat: MessageFormatOptions$outboundSchema.optional(),
-  labels: z.array(RequestParamConfInputOpenai$outboundSchema).optional(),
+  labels: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+  ).optional(),
   authType:
     AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$outboundSchema
       .optional(),

@@ -33,6 +33,9 @@ export type InputSyslogSyslogInput2 = {
    */
   id?: string | undefined;
   type: InputSyslogType2;
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -51,7 +54,7 @@ export type InputSyslogSyslogInput2 = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -140,6 +143,9 @@ export type InputSyslogSyslogInput2 = {
    * Load balance traffic across all Worker Processes
    */
   enableLoadBalancing?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
@@ -182,6 +188,9 @@ export type InputSyslogSyslogInput1 = {
    */
   id?: string | undefined;
   type: InputSyslogType1;
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -200,7 +209,7 @@ export type InputSyslogSyslogInput1 = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -289,6 +298,9 @@ export type InputSyslogSyslogInput1 = {
    * Load balance traffic across all Worker Processes
    */
   enableLoadBalancing?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.

@@ -13,7 +13,7 @@ let value: Policy = {
       targetId: "<id>",
     },
   ],
-  order: 3142.86,
+  order: 314286,
 };
 ```
 

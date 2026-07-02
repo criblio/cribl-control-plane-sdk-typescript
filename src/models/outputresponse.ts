@@ -85,6 +85,10 @@ import {
   FailedRequestLoggingModeOptions$inboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
+  GoogleAuthenticationMethodOptions,
+  GoogleAuthenticationMethodOptions$inboundSchema,
+} from "./googleauthenticationmethodoptions.js";
+import {
   HostConfOutputSyslog,
   HostConfOutputSyslog$inboundSchema,
 } from "./hostconfoutputsyslog.js";
@@ -92,6 +96,10 @@ import {
   KeyValueMetadataConfOutputFilesystem,
   KeyValueMetadataConfOutputFilesystem$inboundSchema,
 } from "./keyvaluemetadataconfoutputfilesystem.js";
+import {
+  LogLabelConfOutputGoogleCloudLogging,
+  LogLabelConfOutputGoogleCloudLogging$inboundSchema,
+} from "./loglabelconfoutputgooglecloudlogging.js";
 import {
   MaxS2SVersionOptions,
   MaxS2SVersionOptions$inboundSchema,
@@ -123,20 +131,26 @@ import {
   ObjectAclOptions$inboundSchema,
 } from "./objectacloptions.js";
 import {
+  ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol,
+  ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$inboundSchema,
+} from "./objectacloptionsauthenticatedreadbucketownerfullcontrol.js";
+import {
   OrphanFileRecoveryType,
   OrphanFileRecoveryType$inboundSchema,
 } from "./orphanfilerecoverytype.js";
 import {
-  AuthenticationMethodGoogleChronicle,
-  AuthenticationMethodGoogleChronicle$inboundSchema,
-  OutputResponseAPIVersion,
-  OutputResponseAPIVersion$inboundSchema,
-  OutputResponseExtraLogType,
-  OutputResponseExtraLogType$inboundSchema,
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+} from "./parquetversionoptions.js";
+import {
+  OutputResponseLogLocationType,
+  OutputResponseLogLocationType$inboundSchema,
   OutputResponseOutputAlibabaCloudS3,
   OutputResponseOutputAlibabaCloudS3$inboundSchema,
   OutputResponseOutputAlphasocS3,
   OutputResponseOutputAlphasocS3$inboundSchema,
+  OutputResponseOutputAmazonManagedPrometheus,
+  OutputResponseOutputAmazonManagedPrometheus$inboundSchema,
   OutputResponseOutputChronicle,
   OutputResponseOutputChronicle$inboundSchema,
   OutputResponseOutputClickHouse,
@@ -159,6 +173,8 @@ import {
   OutputResponseOutputCriblTcp$inboundSchema,
   OutputResponseOutputCrowdstrikeNextGenSiem,
   OutputResponseOutputCrowdstrikeNextGenSiem$inboundSchema,
+  OutputResponseOutputCustomerMetricsStorage,
+  OutputResponseOutputCustomerMetricsStorage$inboundSchema,
   OutputResponseOutputDatabricks,
   OutputResponseOutputDatabricks$inboundSchema,
   OutputResponseOutputDatadog,
@@ -181,10 +197,8 @@ import {
   OutputResponseOutputElasticCloud$inboundSchema,
   OutputResponseOutputExabeam,
   OutputResponseOutputExabeam$inboundSchema,
-  OutputResponseOutputGoogleCloudLogging,
-  OutputResponseOutputGoogleCloudLogging$inboundSchema,
-  OutputResponseOutputGoogleCloudStorage,
-  OutputResponseOutputGoogleCloudStorage$inboundSchema,
+  OutputResponseOutputGoogleCloudObservability,
+  OutputResponseOutputGoogleCloudObservability$inboundSchema,
   OutputResponseOutputGooglePubsub,
   OutputResponseOutputGooglePubsub$inboundSchema,
   OutputResponseOutputGrafanaCloudUnion,
@@ -193,6 +207,8 @@ import {
   OutputResponseOutputGraphite$inboundSchema,
   OutputResponseOutputHumioHec,
   OutputResponseOutputHumioHec$inboundSchema,
+  OutputResponseOutputIbmCloudS3,
+  OutputResponseOutputIbmCloudS3$inboundSchema,
   OutputResponseOutputInfluxdb,
   OutputResponseOutputInfluxdb$inboundSchema,
   OutputResponseOutputKafka,
@@ -247,15 +263,11 @@ import {
   OutputResponseOutputSumoLogic$inboundSchema,
   OutputResponseOutputXsiam,
   OutputResponseOutputXsiam$inboundSchema,
-  OutputResponseSendEventsAs,
-  OutputResponseSendEventsAs$inboundSchema,
-  OutputResponseUDMType,
-  OutputResponseUDMType$inboundSchema,
-} from "./outputresponseudmtype.js";
-import {
-  ParquetVersionOptions,
-  ParquetVersionOptions$inboundSchema,
-} from "./parquetversionoptions.js";
+  OutputResponsePayloadFormat,
+  OutputResponsePayloadFormat$inboundSchema,
+  PqControlsGoogleCloudLogging,
+  PqControlsGoogleCloudLogging$inboundSchema,
+} from "./pqcontrolsgooglecloudlogging.js";
 import {
   QueueFullBehaviorOptions,
   QueueFullBehaviorOptions$inboundSchema,
@@ -264,6 +276,10 @@ import {
   RecordDataFormatOptions,
   RecordDataFormatOptions$inboundSchema,
 } from "./recorddataformatoptions.js";
+import {
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$inboundSchema,
+} from "./refreshrequestparamconfhealthcheckauthenticationoauthsecret.js";
 import {
   ResponseRetrySettingConfOutputWebhook,
   ResponseRetrySettingConfOutputWebhook$inboundSchema,
@@ -282,6 +298,10 @@ import {
   StorageClassOptions$inboundSchema,
 } from "./storageclassoptions.js";
 import {
+  StorageClassOptionsArchiveColdline,
+  StorageClassOptionsArchiveColdline$inboundSchema,
+} from "./storageclassoptionsarchivecoldline.js";
+import {
   TimeoutRetrySettingsType,
   TimeoutRetrySettingsType$inboundSchema,
 } from "./timeoutretrysettingstype.js";
@@ -297,6 +317,711 @@ import {
   TlsSettingsClientSideTypeCaPathCertPathExtended,
   TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpathextended.js";
+
+export type OutputResponseOutputGoogleCloudLogging = {
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: "google_cloud_logging";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  logLocationType: OutputResponseLogLocationType;
+  /**
+   * JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+   */
+  logNameExpression: string;
+  sanitizeLogNames?: boolean | undefined;
+  /**
+   * Format to use when sending payload. Defaults to Text.
+   */
+  payloadFormat?: OutputResponsePayloadFormat | undefined;
+  /**
+   * Labels to apply to the log entry
+   */
+  logLabels?: Array<LogLabelConfOutputGoogleCloudLogging> | undefined;
+  /**
+   * JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
+   */
+  resourceTypeExpression?: string | undefined;
+  /**
+   * Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
+   */
+  resourceTypeLabels?: Array<LogLabelConfOutputGoogleCloudLogging> | undefined;
+  /**
+   * JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
+   */
+  severityExpression?: string | undefined;
+  /**
+   * JavaScript expression to compute the value of the insert ID field.
+   */
+  insertIdExpression?: string | undefined;
+  /**
+   * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+   */
+  googleAuthMethod?: GoogleAuthenticationMethodOptions | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  secret?: string | undefined;
+  /**
+   * Maximum size, in KB, of the request body.
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Max number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it.
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum number of requests to limit to per second.
+   */
+  throttleRateReqPerSec?: number | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  requestMethodExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  requestUrlExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  requestSizeExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  statusExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  responseSizeExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  userAgentExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  remoteIpExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  serverIpExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  refererExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  latencyExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  cacheLookupExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  cacheHitExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  cacheValidatedExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  cacheFillBytesExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  protocolExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+   */
+  idExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+   */
+  producerExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+   */
+  firstExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+   */
+  lastExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+   */
+  fileExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+   */
+  lineExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+   */
+  functionExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+   */
+  uidExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+   */
+  indexExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+   */
+  totalSplitsExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+   */
+  traceExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+   */
+  spanIdExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+   */
+  traceSampledExpression?: string | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+   */
+  logLocationExpression: string;
+  /**
+   * JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
+   */
+  payloadExpression?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: ModeOptions | undefined;
+  /**
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: PqControlsGoogleCloudLogging | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'logLocationType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationType' at runtime.
+   */
+  __template_logLocationType?: string | undefined;
+  /**
+   * Binds 'logNameExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logNameExpression' at runtime.
+   */
+  __template_logNameExpression?: string | undefined;
+  /**
+   * Binds 'payloadFormat' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadFormat' at runtime.
+   */
+  __template_payloadFormat?: string | undefined;
+  /**
+   * Binds 'resourceTypeExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resourceTypeExpression' at runtime.
+   */
+  __template_resourceTypeExpression?: string | undefined;
+  /**
+   * Binds 'severityExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'severityExpression' at runtime.
+   */
+  __template_severityExpression?: string | undefined;
+  /**
+   * Binds 'insertIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'insertIdExpression' at runtime.
+   */
+  __template_insertIdExpression?: string | undefined;
+  /**
+   * Binds 'traceExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceExpression' at runtime.
+   */
+  __template_traceExpression?: string | undefined;
+  /**
+   * Binds 'spanIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'spanIdExpression' at runtime.
+   */
+  __template_spanIdExpression?: string | undefined;
+  /**
+   * Binds 'traceSampledExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceSampledExpression' at runtime.
+   */
+  __template_traceSampledExpression?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'logLocationExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationExpression' at runtime.
+   */
+  __template_logLocationExpression?: string | undefined;
+  /**
+   * Binds 'payloadExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadExpression' at runtime.
+   */
+  __template_payloadExpression?: string | undefined;
+  /**
+   * Notifications attached to the Destination.
+   */
+  notifications?: Array<NotificationUnion> | undefined;
+  /**
+   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
+   */
+  status?: StatusType | undefined;
+};
+
+export const AuthenticationMethodGoogleCloudStorage = {
+  /**
+   * auto
+   */
+  Auto: "auto",
+  /**
+   * manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+export type AuthenticationMethodGoogleCloudStorage = OpenEnum<
+  typeof AuthenticationMethodGoogleCloudStorage
+>;
+
+export type OutputResponseOutputGoogleCloudStorage = {
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: "google_cloud_storage";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * Region where the bucket is located
+   */
+  region: string;
+  /**
+   * Google Cloud Storage service endpoint
+   */
+  endpoint: string;
+  awsAuthenticationMethod?: AuthenticationMethodGoogleCloudStorage | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath: string;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?:
+    | ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol
+    | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClassOptionsArchiveColdline | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: DataFormatOptions | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: BackpressureBehaviorOptionsBlockDrop | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: RetrySettingsType | undefined;
+  orphans?: OrphanFileRecoveryType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Data compression format to apply to HTTP content before it is delivered
+   */
+  compress?: CompressionOptionsHttp | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: DataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+   */
+  __template_destPath?: string | undefined;
+  /**
+   * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+   */
+  __template_objectACL?: string | undefined;
+  /**
+   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+   */
+  __template_storageClass?: string | undefined;
+  /**
+   * Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+   */
+  __template_partitionExpr?: string | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
+  /**
+   * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+   */
+  __template_baseFileName?: string | undefined;
+  /**
+   * Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+   */
+  __template_fileNameSuffix?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+   */
+  __template_compress?: string | undefined;
+  /**
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+   */
+  __template_parquetSchema?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Notifications attached to the Destination.
+   */
+  notifications?: Array<NotificationUnion> | undefined;
+  /**
+   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
+   */
+  status?: StatusType | undefined;
+};
+
+export const OutputResponseAPIVersion = {
+  /**
+   * V1
+   */
+  V1: "v1",
+  /**
+   * V2
+   */
+  V2: "v2",
+} as const;
+export type OutputResponseAPIVersion = OpenEnum<
+  typeof OutputResponseAPIVersion
+>;
+
+export const AuthenticationMethodGoogleChronicle = {
+  /**
+   * API key
+   */
+  Manual: "manual",
+  /**
+   * API key secret
+   */
+  Secret: "secret",
+  /**
+   * Service account credentials
+   */
+  ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
+  ServiceAccountSecret: "serviceAccountSecret",
+} as const;
+export type AuthenticationMethodGoogleChronicle = OpenEnum<
+  typeof AuthenticationMethodGoogleChronicle
+>;
+
+export const OutputResponseSendEventsAs = {
+  /**
+   * Unstructured
+   */
+  Unstructured: "unstructured",
+  /**
+   * UDM
+   */
+  Udm: "udm",
+} as const;
+export type OutputResponseSendEventsAs = OpenEnum<
+  typeof OutputResponseSendEventsAs
+>;
+
+export type OutputResponseExtraLogType = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export const OutputResponseUDMType = {
+  Entities: "entities",
+  Logs: "logs",
+} as const;
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export type OutputResponseUDMType = OpenEnum<typeof OutputResponseUDMType>;
 
 export type PqControlsGoogleChronicle = {};
 
@@ -319,7 +1044,7 @@ export type OutputResponseOutputGoogleChronicle = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   apiVersion?: OutputResponseAPIVersion | undefined;
@@ -396,6 +1121,9 @@ export type OutputResponseOutputGoogleChronicle = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
@@ -482,7 +1210,7 @@ export type OutputResponseOutputGoogleChronicle = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsGoogleChronicle | undefined;
@@ -520,6 +1248,173 @@ export type OutputResponseOutputGoogleChronicle = {
   status?: StatusType | undefined;
 };
 
+/**
+ * Choose Auto to use Google Application Default Credentials (ADC), or Secret to select or create a stored secret that references Google service account credentials
+ */
+export const GoogleAuthenticationMethodGoogleBigquery = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Secret
+   */
+  Secret: "secret",
+} as const;
+/**
+ * Choose Auto to use Google Application Default Credentials (ADC), or Secret to select or create a stored secret that references Google service account credentials
+ */
+export type GoogleAuthenticationMethodGoogleBigquery = OpenEnum<
+  typeof GoogleAuthenticationMethodGoogleBigquery
+>;
+
+export type PqControlsGoogleBigquery = {};
+
+export type OutputResponseOutputGoogleBigquery = {
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: "google_bigquery";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Google Cloud project ID that contains the BigQuery dataset
+   */
+  projectId: string;
+  /**
+   * BigQuery dataset ID
+   */
+  datasetId: string;
+  /**
+   * BigQuery table ID
+   */
+  tableId: string;
+  /**
+   * Column name to write event time (`_time`) as a BigQuery TIMESTAMP. Used for time partitioning
+   */
+  timestampColumn?: string | undefined;
+  /**
+   * Choose Auto to use Google Application Default Credentials (ADC), or Secret to select or create a stored secret that references Google service account credentials
+   */
+  googleAuthMethod: GoogleAuthenticationMethodGoogleBigquery;
+  /**
+   * Select or create a stored text secret
+   */
+  secret?: string | undefined;
+  /**
+   * Maximum time to wait before sending a batch (when batch size limit is not reached)
+   */
+  flushPeriod?: number | undefined;
+  /**
+   * Maximum number of queued batches before blocking
+   */
+  maxQueueSize?: number | undefined;
+  /**
+   * Maximum size (KB) of a single append request. BigQuery limit is 10 MB
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * The maximum number of in-progress API requests before backpressure is applied
+   */
+  maxInProgress?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: ModeOptions | undefined;
+  /**
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: PqControlsGoogleBigquery | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'projectId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'projectId' at runtime.
+   */
+  __template_projectId?: string | undefined;
+  /**
+   * Binds 'datasetId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'datasetId' at runtime.
+   */
+  __template_datasetId?: string | undefined;
+  /**
+   * Binds 'tableId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableId' at runtime.
+   */
+  __template_tableId?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Notifications attached to the Destination.
+   */
+  notifications?: Array<NotificationUnion> | undefined;
+  /**
+   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
+   */
+  status?: StatusType | undefined;
+};
+
 export type PqControlsAzureEventhub = {};
 
 export type OutputResponseOutputAzureEventhub = {
@@ -541,7 +1436,7 @@ export type OutputResponseOutputAzureEventhub = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -613,6 +1508,9 @@ export type OutputResponseOutputAzureEventhub = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -655,7 +1553,7 @@ export type OutputResponseOutputAzureEventhub = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsAzureEventhub | undefined;
@@ -710,7 +1608,7 @@ export type OutputResponseOutputHoneycomb = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -784,6 +1682,9 @@ export type OutputResponseOutputHoneycomb = {
    * Enter API key directly, or select a stored secret
    */
   authType?: AuthenticationMethodOptionsApi | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -826,7 +1727,7 @@ export type OutputResponseOutputHoneycomb = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsHoneycomb | undefined;
@@ -901,7 +1802,7 @@ export type OutputResponseOutputKinesis = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -973,6 +1874,9 @@ export type OutputResponseOutputKinesis = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -1024,7 +1928,7 @@ export type OutputResponseOutputKinesis = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsKinesis | undefined;
@@ -1109,7 +2013,7 @@ export type OutputResponseOutputAzureLogs = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1188,6 +2092,9 @@ export type OutputResponseOutputAzureLogs = {
    * Enter workspace ID and workspace key directly, or select a stored secret
    */
   authType?: AuthenticationMethodAzureLogs | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -1230,7 +2137,7 @@ export type OutputResponseOutputAzureLogs = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsAzureLogs | undefined;
@@ -1418,7 +2325,7 @@ export type OutputResponseOutputAzureDataExplorer = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1458,6 +2365,9 @@ export type OutputResponseOutputAzureDataExplorer = {
    * The type of OAuth 2.0 client credentials grant flow to use
    */
   oauthType: AuthenticationMethodAzureDataExplorer;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * The client secret that you generated for your app in the Azure portal
@@ -1722,7 +2632,7 @@ export type OutputResponseOutputAzureDataExplorer = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsAzureDataExplorer | undefined;
@@ -1845,7 +2755,7 @@ export type OutputResponseOutputAzureBlob = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1936,6 +2846,9 @@ export type OutputResponseOutputAzureBlob = {
   orphans?: OrphanFileRecoveryType | undefined;
   authType?: AuthenticationMethodOptions | undefined;
   storageClass?: OutputResponseBlobAccessTier | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -2127,7 +3040,7 @@ export type OutputResponseOutputS3 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2278,6 +3191,9 @@ export type OutputResponseOutputS3 = {
    * ID or ARN of the KMS customer-managed key to use for encryption
    */
   kmsKeyId?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
@@ -2464,7 +3380,7 @@ export type OutputResponseOutputFilesystem = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2541,6 +3457,9 @@ export type OutputResponseOutputFilesystem = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
   orphans?: OrphanFileRecoveryType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -2673,7 +3592,7 @@ export type OutputResponseOutputSignalfx = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2747,6 +3666,9 @@ export type OutputResponseOutputSignalfx = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * SignalFx API access token (see [here](https://docs.signalfx.com/en/latest/admin-guide/tokens.html#working-with-access-tokens))
@@ -2797,7 +3719,7 @@ export type OutputResponseOutputSignalfx = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSignalfx | undefined;
@@ -2844,7 +3766,7 @@ export type OutputResponseOutputWavefront = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2918,6 +3840,9 @@ export type OutputResponseOutputWavefront = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * WaveFront API authentication token (see [here](https://docs.wavefront.com/wavefront_api.html#generating-an-api-token))
@@ -2968,7 +3893,7 @@ export type OutputResponseOutputWavefront = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsWavefront | undefined;
@@ -3015,7 +3940,7 @@ export type OutputResponseOutputTcpjson = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3059,6 +3984,9 @@ export type OutputResponseOutputTcpjson = {
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
   authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * The hostname of the receiver
@@ -3129,7 +4057,7 @@ export type OutputResponseOutputTcpjson = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsTcpjson | undefined;
@@ -3188,17 +4116,9 @@ export type OutputResponseOutputWizHec = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
-  /**
-   * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
-   */
-  nextQueue?: string | undefined;
-  /**
-   * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
-   */
-  tcpRouting?: string | undefined;
   tls?: TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum number of ongoing requests before blocking
@@ -3260,10 +4180,6 @@ export type OutputResponseOutputWizHec = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: BackpressureBehaviorOptions | undefined;
-  /**
    * The unique identifier for the specific Cribl connector defined in your Wiz Settings. This is used to cross-validate the bearer token and ensure traffic is originating from the authorized integration.
    */
   wiz_connector_id: string;
@@ -3276,7 +4192,22 @@ export type OutputResponseOutputWizHec = {
    */
   data_center: string;
   wiz_sourcetype: string;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Wiz Defend Auth token
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -3318,18 +4249,10 @@ export type OutputResponseOutputWizHec = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsWizHec | undefined;
-  /**
-   * Wiz Defend Auth token
-   */
-  token?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -3338,10 +4261,6 @@ export type OutputResponseOutputWizHec = {
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
-  /**
-   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
-   */
-  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'wiz_environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_environment' at runtime.
    */
@@ -3354,6 +4273,10 @@ export type OutputResponseOutputWizHec = {
    * Binds 'wiz_sourcetype' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_sourcetype' at runtime.
    */
   __template_wiz_sourcetype?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
   /**
    * Notifications attached to the Destination.
    */
@@ -3400,21 +4323,13 @@ export type OutputResponseOutputSplunkHec = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
    * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
    */
   loadBalanced?: boolean | undefined;
-  /**
-   * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
-   */
-  nextQueue?: string | undefined;
-  /**
-   * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
-   */
-  tcpRouting?: string | undefined;
   tls?: TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum number of ongoing requests before blocking
@@ -3480,9 +4395,20 @@ export type OutputResponseOutputSplunkHec = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
+   * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
+   */
+  nextQueue?: string | undefined;
+  /**
+   * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
+   */
+  tcpRouting?: string | undefined;
+  /**
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
@@ -3554,7 +4480,7 @@ export type OutputResponseOutputSplunkHec = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSplunkHec | undefined;
@@ -3658,7 +4584,7 @@ export type OutputResponseOutputSplunkLb = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3722,6 +4648,9 @@ export type OutputResponseOutputSplunkLb = {
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
   authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
@@ -3784,7 +4713,7 @@ export type OutputResponseOutputSplunkLb = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSplunkLb | undefined;
@@ -3847,7 +4776,7 @@ export type OutputResponseOutputSplunk = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3899,6 +4828,9 @@ export type OutputResponseOutputSplunk = {
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
   authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
@@ -3949,7 +4881,7 @@ export type OutputResponseOutputSplunk = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSplunk | undefined;
@@ -4218,7 +5150,7 @@ export type OutputResponseOutputSyslog = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -4257,6 +5189,9 @@ export type OutputResponseOutputSyslog = {
    * Use to troubleshoot issues with sending data
    */
   logFailedRequests?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs.  If this setting is disabled, consider enabling round-robin DNS.
@@ -4356,7 +5291,7 @@ export type OutputResponseOutputSyslog = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSyslog | undefined;
@@ -4405,7 +5340,7 @@ export type OutputResponseOutputDevnull = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -4476,7 +5411,7 @@ export type OutputResponseOutputSentinel = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -4556,6 +5491,24 @@ export type OutputResponseOutputSentinel = {
    */
   secret: string;
   /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, @{product} will use the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * @{product} will update the stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, @{product} sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
+  /**
    * JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
    */
   client_id: string;
@@ -4571,6 +5524,9 @@ export type OutputResponseOutputSentinel = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   format?: FormatSentinel | undefined;
   /**
@@ -4646,7 +5602,7 @@ export type OutputResponseOutputSentinel = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: PqControlsSentinel | undefined;
@@ -4686,6 +5642,10 @@ export type OutputResponseOutputSentinel = {
    * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
    */
   __template_secret?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
   /**
    * Binds 'client_id' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'client_id' at runtime.
    */
@@ -4827,7 +5787,7 @@ export type OutputResponseOutputWebhookWebhook2 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -4918,6 +5878,9 @@ export type OutputResponseOutputWebhookWebhook2 = {
    * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
    */
   loadBalanced?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
@@ -4992,7 +5955,7 @@ export type OutputResponseOutputWebhookWebhook2 = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputResponseOutputWebhookPqControls2 | undefined;
@@ -5043,6 +6006,24 @@ export type OutputResponseOutputWebhookWebhook2 = {
    */
   oauthHeaders?: Array<OauthHeaderConfInputServicenowTable> | undefined;
   /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, @{product} will use the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * @{product} will update the stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, @{product} sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
+  /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
   url?: string | undefined;
@@ -5079,6 +6060,10 @@ export type OutputResponseOutputWebhookWebhook2 = {
    * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
    */
   __template_secret?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
@@ -5200,7 +6185,7 @@ export type OutputResponseOutputWebhookWebhook1 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -5291,6 +6276,9 @@ export type OutputResponseOutputWebhookWebhook1 = {
    * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
    */
   loadBalanced?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
@@ -5365,7 +6353,7 @@ export type OutputResponseOutputWebhookWebhook1 = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputResponseOutputWebhookPqControls1 | undefined;
@@ -5416,6 +6404,24 @@ export type OutputResponseOutputWebhookWebhook1 = {
    */
   oauthHeaders?: Array<OauthHeaderConfInputServicenowTable> | undefined;
   /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, @{product} will use the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * @{product} will update the stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, @{product} sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
+  /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
   url: string;
@@ -5453,6 +6459,10 @@ export type OutputResponseOutputWebhookWebhook1 = {
    */
   __template_secret?: string | undefined;
   /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -5489,7 +6499,7 @@ export type OutputResponseOutputDefault = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -5537,9 +6547,11 @@ export type OutputResponse =
   | OutputResponseOutputKinesis
   | OutputResponseOutputHoneycomb
   | OutputResponseOutputAzureEventhub
+  | OutputResponseOutputGoogleBigquery
   | OutputResponseOutputGoogleChronicle
   | OutputResponseOutputGoogleCloudStorage
   | OutputResponseOutputGoogleCloudLogging
+  | OutputResponseOutputGoogleCloudObservability
   | OutputResponseOutputGooglePubsub
   | OutputResponseOutputExabeam
   | OutputResponseOutputKafka
@@ -5563,6 +6575,7 @@ export type OutputResponse =
   | OutputResponseOutputDatadog
   | (OutputResponseOutputGrafanaCloudUnion & { type: "grafana_cloud" })
   | OutputResponseOutputLoki
+  | OutputResponseOutputAmazonManagedPrometheus
   | OutputResponseOutputPrometheus
   | OutputResponseOutputRing
   | OutputResponseOutputOpenTelemetry
@@ -5578,6 +6591,7 @@ export type OutputResponse =
   | OutputResponseOutputCriblLake
   | OutputResponseOutputDiskSpool
   | OutputResponseOutputClickHouse
+  | OutputResponseOutputCustomerMetricsStorage
   | OutputResponseOutputLocalSearchStorage
   | OutputResponseOutputXsiam
   | OutputResponseOutputNetflow
@@ -5595,7 +6609,278 @@ export type OutputResponse =
   | OutputResponseOutputCloudianS3
   | OutputResponseOutputScalityS3
   | OutputResponseOutputAlibabaCloudS3
+  | OutputResponseOutputIbmCloudS3
   | discriminatedUnionTypes.Unknown<"type">;
+
+/** @internal */
+export const OutputResponseOutputGoogleCloudLogging$inboundSchema: z.ZodType<
+  OutputResponseOutputGoogleCloudLogging,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.optional(types.string()),
+  type: types.literal("google_cloud_logging"),
+  pipeline: types.optional(types.string()),
+  systemFields: types.optional(z.array(types.string())),
+  environment: types.optional(types.string()),
+  streamtags: types.optional(z.array(types.string())),
+  logLocationType: OutputResponseLogLocationType$inboundSchema,
+  logNameExpression: types.string(),
+  sanitizeLogNames: types.optional(types.boolean()),
+  payloadFormat: types.optional(OutputResponsePayloadFormat$inboundSchema),
+  logLabels: types.optional(
+    z.array(LogLabelConfOutputGoogleCloudLogging$inboundSchema),
+  ),
+  resourceTypeExpression: types.optional(types.string()),
+  resourceTypeLabels: types.optional(
+    z.array(LogLabelConfOutputGoogleCloudLogging$inboundSchema),
+  ),
+  severityExpression: types.optional(types.string()),
+  insertIdExpression: types.optional(types.string()),
+  googleAuthMethod: types.optional(
+    GoogleAuthenticationMethodOptions$inboundSchema,
+  ),
+  serviceAccountCredentials: types.optional(types.string()),
+  secret: types.optional(types.string()),
+  maxPayloadSizeKB: types.optional(types.number()),
+  maxPayloadEvents: types.optional(types.number()),
+  flushPeriodSec: types.optional(types.number()),
+  concurrency: types.optional(types.number()),
+  connectionTimeout: types.optional(types.number()),
+  timeoutSec: types.optional(types.number()),
+  throttleRateReqPerSec: types.optional(types.number()),
+  requestMethodExpression: types.optional(types.string()),
+  requestUrlExpression: types.optional(types.string()),
+  requestSizeExpression: types.optional(types.string()),
+  statusExpression: types.optional(types.string()),
+  responseSizeExpression: types.optional(types.string()),
+  userAgentExpression: types.optional(types.string()),
+  remoteIpExpression: types.optional(types.string()),
+  serverIpExpression: types.optional(types.string()),
+  refererExpression: types.optional(types.string()),
+  latencyExpression: types.optional(types.string()),
+  cacheLookupExpression: types.optional(types.string()),
+  cacheHitExpression: types.optional(types.string()),
+  cacheValidatedExpression: types.optional(types.string()),
+  cacheFillBytesExpression: types.optional(types.string()),
+  protocolExpression: types.optional(types.string()),
+  idExpression: types.optional(types.string()),
+  producerExpression: types.optional(types.string()),
+  firstExpression: types.optional(types.string()),
+  lastExpression: types.optional(types.string()),
+  fileExpression: types.optional(types.string()),
+  lineExpression: types.optional(types.string()),
+  functionExpression: types.optional(types.string()),
+  uidExpression: types.optional(types.string()),
+  indexExpression: types.optional(types.string()),
+  totalSplitsExpression: types.optional(types.string()),
+  traceExpression: types.optional(types.string()),
+  spanIdExpression: types.optional(types.string()),
+  traceSampledExpression: types.optional(types.string()),
+  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
+  totalMemoryLimitKB: types.optional(types.number()),
+  description: types.optional(types.string()),
+  logLocationExpression: types.string(),
+  payloadExpression: types.optional(types.string()),
+  pqStrictOrdering: types.optional(types.boolean()),
+  pqRatePerSec: types.optional(types.number()),
+  pqMode: types.optional(ModeOptions$inboundSchema),
+  pqMaxBufferSize: types.optional(types.number()),
+  pqMaxBackpressureSec: types.optional(types.number()),
+  pqMaxFileSize: types.optional(types.string()),
+  pqMaxSize: types.optional(types.string()),
+  pqPath: types.optional(types.string()),
+  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
+  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
+  pqMaxBufferSizeBytes: types.optional(types.string()),
+  pqControls: types.optional(PqControlsGoogleCloudLogging$inboundSchema),
+  __template_streamtags: types.optional(types.string()),
+  __template_logLocationType: types.optional(types.string()),
+  __template_logNameExpression: types.optional(types.string()),
+  __template_payloadFormat: types.optional(types.string()),
+  __template_resourceTypeExpression: types.optional(types.string()),
+  __template_severityExpression: types.optional(types.string()),
+  __template_insertIdExpression: types.optional(types.string()),
+  __template_traceExpression: types.optional(types.string()),
+  __template_spanIdExpression: types.optional(types.string()),
+  __template_traceSampledExpression: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
+  __template_logLocationExpression: types.optional(types.string()),
+  __template_payloadExpression: types.optional(types.string()),
+  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
+  status: types.optional(StatusType$inboundSchema),
+});
+
+export function outputResponseOutputGoogleCloudLoggingFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputResponseOutputGoogleCloudLogging, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputResponseOutputGoogleCloudLogging$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputResponseOutputGoogleCloudLogging' from JSON`,
+  );
+}
+
+/** @internal */
+export const AuthenticationMethodGoogleCloudStorage$inboundSchema: z.ZodType<
+  AuthenticationMethodGoogleCloudStorage,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(AuthenticationMethodGoogleCloudStorage);
+
+/** @internal */
+export const OutputResponseOutputGoogleCloudStorage$inboundSchema: z.ZodType<
+  OutputResponseOutputGoogleCloudStorage,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.optional(types.string()),
+  type: types.literal("google_cloud_storage"),
+  pipeline: types.optional(types.string()),
+  systemFields: types.optional(z.array(types.string())),
+  environment: types.optional(types.string()),
+  streamtags: types.optional(z.array(types.string())),
+  bucket: types.string(),
+  region: types.string(),
+  endpoint: types.string(),
+  awsAuthenticationMethod: types.optional(
+    AuthenticationMethodGoogleCloudStorage$inboundSchema,
+  ),
+  stagePath: types.string(),
+  destPath: types.optional(types.string()),
+  verifyPermissions: types.optional(types.boolean()),
+  objectACL: types.optional(
+    ObjectAclOptionsAuthenticatedreadBucketownerfullcontrol$inboundSchema,
+  ),
+  storageClass: types.optional(
+    StorageClassOptionsArchiveColdline$inboundSchema,
+  ),
+  reuseConnections: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  addIdToStagePath: types.optional(types.boolean()),
+  removeEmptyDirs: types.optional(types.boolean()),
+  partitionExpr: types.optional(types.string()),
+  format: types.optional(DataFormatOptions$inboundSchema),
+  baseFileName: types.optional(types.string()),
+  fileNameSuffix: types.optional(types.string()),
+  maxFileSizeMB: types.optional(types.number()),
+  maxFileOpenTimeSec: types.optional(types.number()),
+  maxFileIdleTimeSec: types.optional(types.number()),
+  maxOpenFiles: types.optional(types.number()),
+  headerLine: types.optional(types.string()),
+  writeHighWaterMark: types.optional(types.number()),
+  onBackpressure: types.optional(
+    BackpressureBehaviorOptionsBlockDrop$inboundSchema,
+  ),
+  deadletterEnabled: types.optional(types.boolean()),
+  onDiskFullBackpressure: types.optional(
+    DiskSpaceProtectionOptions$inboundSchema,
+  ),
+  forceCloseOnShutdown: types.optional(types.boolean()),
+  retrySettings: types.optional(RetrySettingsType$inboundSchema),
+  orphans: types.optional(OrphanFileRecoveryType$inboundSchema),
+  description: types.optional(types.string()),
+  compress: types.optional(CompressionOptionsHttp$inboundSchema),
+  compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
+  automaticSchema: types.optional(types.boolean()),
+  parquetSchema: types.optional(types.string()),
+  parquetVersion: types.optional(ParquetVersionOptions$inboundSchema),
+  parquetDataPageVersion: types.optional(DataPageVersionOptions$inboundSchema),
+  parquetRowGroupLength: types.optional(types.number()),
+  parquetPageSize: types.optional(types.string()),
+  shouldLogInvalidRows: types.optional(types.boolean()),
+  keyValueMetadata: types.optional(
+    z.array(KeyValueMetadataConfOutputFilesystem$inboundSchema),
+  ),
+  enableStatistics: types.optional(types.boolean()),
+  enableWritePageIndex: types.optional(types.boolean()),
+  enablePageChecksum: types.optional(types.boolean()),
+  emptyDirCleanupSec: types.optional(types.number()),
+  directoryBatchSize: types.optional(types.number()),
+  deadletterPath: types.optional(types.string()),
+  maxRetryNum: types.optional(types.number()),
+  awsApiKey: types.optional(types.string()),
+  awsSecretKey: types.optional(types.string()),
+  awsSecret: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  __template_bucket: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_destPath: types.optional(types.string()),
+  __template_objectACL: types.optional(types.string()),
+  __template_storageClass: types.optional(types.string()),
+  __template_partitionExpr: types.optional(types.string()),
+  __template_format: types.optional(types.string()),
+  __template_baseFileName: types.optional(types.string()),
+  __template_fileNameSuffix: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
+  __template_compress: types.optional(types.string()),
+  __template_parquetSchema: types.optional(types.string()),
+  __template_awsApiKey: types.optional(types.string()),
+  __template_awsSecretKey: types.optional(types.string()),
+  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
+  status: types.optional(StatusType$inboundSchema),
+});
+
+export function outputResponseOutputGoogleCloudStorageFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputResponseOutputGoogleCloudStorage, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputResponseOutputGoogleCloudStorage$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputResponseOutputGoogleCloudStorage' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputResponseAPIVersion$inboundSchema: z.ZodType<
+  OutputResponseAPIVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputResponseAPIVersion);
+
+/** @internal */
+export const AuthenticationMethodGoogleChronicle$inboundSchema: z.ZodType<
+  AuthenticationMethodGoogleChronicle,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(AuthenticationMethodGoogleChronicle);
+
+/** @internal */
+export const OutputResponseSendEventsAs$inboundSchema: z.ZodType<
+  OutputResponseSendEventsAs,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputResponseSendEventsAs);
+
+/** @internal */
+export const OutputResponseExtraLogType$inboundSchema: z.ZodType<
+  OutputResponseExtraLogType,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  logType: types.string(),
+  description: types.optional(types.string()),
+});
+
+export function outputResponseExtraLogTypeFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputResponseExtraLogType, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputResponseExtraLogType$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputResponseExtraLogType' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputResponseUDMType$inboundSchema: z.ZodType<
+  OutputResponseUDMType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputResponseUDMType);
 
 /** @internal */
 export const PqControlsGoogleChronicle$inboundSchema: z.ZodType<
@@ -5656,7 +6941,7 @@ export const OutputResponseOutputGoogleChronicle$inboundSchema: z.ZodType<
   totalMemoryLimitKB: types.optional(types.number()),
   description: types.optional(types.string()),
   extraLogTypes: types.optional(
-    z.array(OutputResponseExtraLogType$inboundSchema),
+    z.array(z.lazy(() => OutputResponseExtraLogType$inboundSchema)),
   ),
   logType: types.optional(types.string()),
   logTextField: types.optional(types.string()),
@@ -5702,6 +6987,88 @@ export function outputResponseOutputGoogleChronicleFromJSON(
     (x) =>
       OutputResponseOutputGoogleChronicle$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'OutputResponseOutputGoogleChronicle' from JSON`,
+  );
+}
+
+/** @internal */
+export const GoogleAuthenticationMethodGoogleBigquery$inboundSchema: z.ZodType<
+  GoogleAuthenticationMethodGoogleBigquery,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(GoogleAuthenticationMethodGoogleBigquery);
+
+/** @internal */
+export const PqControlsGoogleBigquery$inboundSchema: z.ZodType<
+  PqControlsGoogleBigquery,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+export function pqControlsGoogleBigqueryFromJSON(
+  jsonString: string,
+): SafeParseResult<PqControlsGoogleBigquery, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PqControlsGoogleBigquery$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PqControlsGoogleBigquery' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputResponseOutputGoogleBigquery$inboundSchema: z.ZodType<
+  OutputResponseOutputGoogleBigquery,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.optional(types.string()),
+  type: types.literal("google_bigquery"),
+  pipeline: types.optional(types.string()),
+  systemFields: types.optional(z.array(types.string())),
+  environment: types.optional(types.string()),
+  streamtags: types.optional(z.array(types.string())),
+  projectId: types.string(),
+  datasetId: types.string(),
+  tableId: types.string(),
+  timestampColumn: types.optional(types.string()),
+  googleAuthMethod: GoogleAuthenticationMethodGoogleBigquery$inboundSchema,
+  secret: types.optional(types.string()),
+  flushPeriod: types.optional(types.number()),
+  maxQueueSize: types.optional(types.number()),
+  maxRecordSizeKB: types.optional(types.number()),
+  maxInProgress: types.optional(types.number()),
+  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
+  description: types.optional(types.string()),
+  pqStrictOrdering: types.optional(types.boolean()),
+  pqRatePerSec: types.optional(types.number()),
+  pqMode: types.optional(ModeOptions$inboundSchema),
+  pqMaxBufferSize: types.optional(types.number()),
+  pqMaxBackpressureSec: types.optional(types.number()),
+  pqMaxFileSize: types.optional(types.string()),
+  pqMaxSize: types.optional(types.string()),
+  pqPath: types.optional(types.string()),
+  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
+  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
+  pqMaxBufferSizeBytes: types.optional(types.string()),
+  pqControls: types.optional(
+    z.lazy(() => PqControlsGoogleBigquery$inboundSchema),
+  ),
+  __template_streamtags: types.optional(types.string()),
+  __template_projectId: types.optional(types.string()),
+  __template_datasetId: types.optional(types.string()),
+  __template_tableId: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
+  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
+  status: types.optional(StatusType$inboundSchema),
+});
+
+export function outputResponseOutputGoogleBigqueryFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputResponseOutputGoogleBigquery, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputResponseOutputGoogleBigquery$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputResponseOutputGoogleBigquery' from JSON`,
   );
 }
 
@@ -6910,8 +8277,6 @@ export const OutputResponseOutputWizHec$inboundSchema: z.ZodType<
   systemFields: types.optional(z.array(types.string())),
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
-  nextQueue: types.optional(types.string()),
-  tcpRouting: types.optional(types.string()),
   tls: types.optional(
     TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
   ),
@@ -6937,12 +8302,14 @@ export const OutputResponseOutputWizHec$inboundSchema: z.ZodType<
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
-  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   wiz_connector_id: types.string(),
   wiz_environment: types.string(),
   data_center: types.string(),
   wiz_sourcetype: types.string(),
+  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   description: types.optional(types.string()),
+  token: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
   pqStrictOrdering: types.optional(types.boolean()),
   pqRatePerSec: types.optional(types.number()),
   pqMode: types.optional(ModeOptions$inboundSchema),
@@ -6955,14 +8322,12 @@ export const OutputResponseOutputWizHec$inboundSchema: z.ZodType<
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
   pqMaxBufferSizeBytes: types.optional(types.string()),
   pqControls: types.optional(z.lazy(() => PqControlsWizHec$inboundSchema)),
-  token: types.optional(types.string()),
-  textSecret: types.optional(types.string()),
   __template_streamtags: types.optional(types.string()),
   __template_failedRequestLoggingMode: types.optional(types.string()),
-  __template_onBackpressure: types.optional(types.string()),
   __template_wiz_environment: types.optional(types.string()),
   __template_data_center: types.optional(types.string()),
   __template_wiz_sourcetype: types.optional(types.string()),
+  __template_onBackpressure: types.optional(types.string()),
   notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
   status: types.optional(StatusType$inboundSchema),
 });
@@ -7028,8 +8393,6 @@ export const OutputResponseOutputSplunkHec$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
   loadBalanced: types.optional(types.boolean()),
-  nextQueue: types.optional(types.string()),
-  tcpRouting: types.optional(types.string()),
   tls: types.optional(
     TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
   ),
@@ -7056,6 +8419,8 @@ export const OutputResponseOutputSplunkHec$inboundSchema: z.ZodType<
   ),
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
+  nextQueue: types.optional(types.string()),
+  tcpRouting: types.optional(types.string()),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   description: types.optional(types.string()),
   url: types.optional(types.string()),
@@ -7541,6 +8906,14 @@ export const OutputResponseOutputSentinel$inboundSchema: z.ZodType<
   authType: types.optional(OutputResponseAuthType$inboundSchema),
   loginUrl: types.string(),
   secret: types.string(),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$inboundSchema,
+    ),
+  ),
   client_id: types.string(),
   scope: types.optional(types.string()),
   endpointURLConfiguration: OutputResponseEndpointConfiguration$inboundSchema,
@@ -7576,6 +8949,7 @@ export const OutputResponseOutputSentinel$inboundSchema: z.ZodType<
   __template_onBackpressure: types.optional(types.string()),
   __template_loginUrl: types.optional(types.string()),
   __template_secret: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
   __template_client_id: types.optional(types.string()),
   __template_scope: types.optional(types.string()),
   __template_url: types.optional(types.string()),
@@ -7739,6 +9113,14 @@ export const OutputResponseOutputWebhookWebhook2$inboundSchema: z.ZodType<
   oauthHeaders: types.optional(
     z.array(OauthHeaderConfInputServicenowTable$inboundSchema),
   ),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$inboundSchema,
+    ),
+  ),
   url: types.optional(types.string()),
   excludeSelf: types.optional(types.boolean()),
   urls: z.array(z.lazy(() => OutputResponseOutputWebhookUrl2$inboundSchema)),
@@ -7749,6 +9131,7 @@ export const OutputResponseOutputWebhookWebhook2$inboundSchema: z.ZodType<
   __template_onBackpressure: types.optional(types.string()),
   __template_loginUrl: types.optional(types.string()),
   __template_secret: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
   __template_url: types.optional(types.string()),
   notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
   status: types.optional(StatusType$inboundSchema),
@@ -7908,6 +9291,14 @@ export const OutputResponseOutputWebhookWebhook1$inboundSchema: z.ZodType<
   oauthHeaders: types.optional(
     z.array(OauthHeaderConfInputServicenowTable$inboundSchema),
   ),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$inboundSchema,
+    ),
+  ),
   url: types.string(),
   excludeSelf: types.optional(types.boolean()),
   urls: types.optional(
@@ -7920,6 +9311,7 @@ export const OutputResponseOutputWebhookWebhook1$inboundSchema: z.ZodType<
   __template_onBackpressure: types.optional(types.string()),
   __template_loginUrl: types.optional(types.string()),
   __template_secret: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
   __template_url: types.optional(types.string()),
   notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
   status: types.optional(StatusType$inboundSchema),
@@ -8015,11 +9407,20 @@ export const OutputResponse$inboundSchema: z.ZodType<
   kinesis: z.lazy(() => OutputResponseOutputKinesis$inboundSchema),
   honeycomb: z.lazy(() => OutputResponseOutputHoneycomb$inboundSchema),
   azure_eventhub: z.lazy(() => OutputResponseOutputAzureEventhub$inboundSchema),
+  google_bigquery: z.lazy(() =>
+    OutputResponseOutputGoogleBigquery$inboundSchema
+  ),
   google_chronicle: z.lazy(() =>
     OutputResponseOutputGoogleChronicle$inboundSchema
   ),
-  google_cloud_storage: OutputResponseOutputGoogleCloudStorage$inboundSchema,
-  google_cloud_logging: OutputResponseOutputGoogleCloudLogging$inboundSchema,
+  google_cloud_storage: z.lazy(() =>
+    OutputResponseOutputGoogleCloudStorage$inboundSchema
+  ),
+  google_cloud_logging: z.lazy(() =>
+    OutputResponseOutputGoogleCloudLogging$inboundSchema
+  ),
+  google_cloud_observability:
+    OutputResponseOutputGoogleCloudObservability$inboundSchema,
   google_pubsub: OutputResponseOutputGooglePubsub$inboundSchema,
   exabeam: OutputResponseOutputExabeam$inboundSchema,
   kafka: OutputResponseOutputKafka$inboundSchema,
@@ -8045,6 +9446,8 @@ export const OutputResponse$inboundSchema: z.ZodType<
     z.object({ type: z.literal("grafana_cloud") }),
   ),
   loki: OutputResponseOutputLoki$inboundSchema,
+  amazon_managed_prometheus:
+    OutputResponseOutputAmazonManagedPrometheus$inboundSchema,
   prometheus: OutputResponseOutputPrometheus$inboundSchema,
   ring: OutputResponseOutputRing$inboundSchema,
   open_telemetry: OutputResponseOutputOpenTelemetry$inboundSchema,
@@ -8061,6 +9464,8 @@ export const OutputResponse$inboundSchema: z.ZodType<
   cribl_lake: OutputResponseOutputCriblLake$inboundSchema,
   disk_spool: OutputResponseOutputDiskSpool$inboundSchema,
   click_house: OutputResponseOutputClickHouse$inboundSchema,
+  customer_metrics_storage:
+    OutputResponseOutputCustomerMetricsStorage$inboundSchema,
   local_search_storage: OutputResponseOutputLocalSearchStorage$inboundSchema,
   xsiam: OutputResponseOutputXsiam$inboundSchema,
   netflow: OutputResponseOutputNetflow$inboundSchema,
@@ -8078,6 +9483,7 @@ export const OutputResponse$inboundSchema: z.ZodType<
   cloudian_s3: OutputResponseOutputCloudianS3$inboundSchema,
   scality_s3: OutputResponseOutputScalityS3$inboundSchema,
   alibaba_cloud_s3: OutputResponseOutputAlibabaCloudS3$inboundSchema,
+  ibm_cloud_s3: OutputResponseOutputIbmCloudS3$inboundSchema,
 });
 
 export function outputResponseFromJSON(

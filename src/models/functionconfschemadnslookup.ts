@@ -87,6 +87,9 @@ export type ReverseLookupField = {
   outFieldName?: string | undefined;
 };
 
+/**
+ * Log level to use when a DNS lookup fails.
+ */
 export const LogLevelForFailedLookups = {
   /**
    * silly
@@ -109,6 +112,9 @@ export const LogLevelForFailedLookups = {
    */
   Error: "error",
 } as const;
+/**
+ * Log level to use when a DNS lookup fails.
+ */
 export type LogLevelForFailedLookups = OpenEnum<
   typeof LogLevelForFailedLookups
 >;
@@ -146,6 +152,9 @@ export type FunctionConfSchemaDnsLookup = {
    * Specify fallback values for the DNS resolver to use when it cannot resolve a DNS short name
    */
   domainOverrides?: Array<string> | undefined;
+  /**
+   * Log level to use when a DNS lookup fails.
+   */
   lookupFailLogLevel?: LogLevelForFailedLookups | undefined;
   [additionalProperties: string]: unknown;
 };

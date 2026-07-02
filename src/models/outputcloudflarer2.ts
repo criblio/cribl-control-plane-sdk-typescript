@@ -3,8 +3,10 @@
  */
 
 import * as z from "zod/v3";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
+import {
+  AuthenticationMethodOptionsAutoSecret,
+  AuthenticationMethodOptionsAutoSecret$outboundSchema,
+} from "./authenticationmethodoptionsautosecret.js";
 import {
   BackpressureBehaviorOptionsBlockDrop,
   BackpressureBehaviorOptionsBlockDrop$outboundSchema,
@@ -57,26 +59,6 @@ import {
   StorageClassOptionsReducedredundancyStandard$outboundSchema,
 } from "./storageclassoptionsreducedredundancystandard.js";
 
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const OutputCloudflareR2AuthenticationMethod = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type OutputCloudflareR2AuthenticationMethod = OpenEnum<
-  typeof OutputCloudflareR2AuthenticationMethod
->;
-
 export type OutputCloudflareR2 = {
   /**
    * Unique ID for this output
@@ -96,13 +78,13 @@ export type OutputCloudflareR2 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: OutputCloudflareR2AuthenticationMethod | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptionsAutoSecret | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -219,6 +201,9 @@ export type OutputCloudflareR2 = {
   serverSideEncryption?:
     | ServerSideEncryptionForUploadedObjectsOptionsAes256
     | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -347,13 +332,6 @@ export type OutputCloudflareR2 = {
 };
 
 /** @internal */
-export const OutputCloudflareR2AuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputCloudflareR2AuthenticationMethod
-> = openEnums.outboundSchema(OutputCloudflareR2AuthenticationMethod);
-
-/** @internal */
 export type OutputCloudflareR2$Outbound = {
   id?: string | undefined;
   type: "cloudflare_r2";
@@ -440,7 +418,7 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  awsAuthenticationMethod: OutputCloudflareR2AuthenticationMethod$outboundSchema
+  awsAuthenticationMethod: AuthenticationMethodOptionsAutoSecret$outboundSchema
     .optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),

@@ -8,9 +8,21 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Deleted line in a Git diff hunk.
+ */
 export type DiffLineDelete = {
+  /**
+   * Line change type. Always <code>delete</code> for deleted lines.
+   */
   type: "delete";
+  /**
+   * Line number in the original file.
+   */
   oldNumber: number;
+  /**
+   * Full content of the line, including the diff prefix character.
+   */
   content: string;
 };
 

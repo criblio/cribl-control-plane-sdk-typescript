@@ -6,6 +6,7 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
+import { smartUnion } from "../../types/smartUnion.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
@@ -40,8 +41,15 @@ export type GetProductsWorkersByProductRequest = {
   offset?: number | undefined;
 };
 
+/**
+ * List of MasterWorkerEntry objects.
+ */
+export type GetProductsWorkersByProductResponseBody =
+  | models.PaginatedMasterWorkerEntry
+  | models.CountedMasterWorkerEntry;
+
 export type GetProductsWorkersByProductResponse = {
-  result: models.CountedMasterWorkerEntry;
+  result: models.PaginatedMasterWorkerEntry | models.CountedMasterWorkerEntry;
 };
 
 /** @internal */
@@ -81,12 +89,41 @@ export function getProductsWorkersByProductRequestToJSON(
 }
 
 /** @internal */
+export const GetProductsWorkersByProductResponseBody$inboundSchema: z.ZodType<
+  GetProductsWorkersByProductResponseBody,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([
+  models.PaginatedMasterWorkerEntry$inboundSchema,
+  models.CountedMasterWorkerEntry$inboundSchema,
+]);
+
+export function getProductsWorkersByProductResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetProductsWorkersByProductResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetProductsWorkersByProductResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetProductsWorkersByProductResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetProductsWorkersByProductResponse$inboundSchema: z.ZodType<
   GetProductsWorkersByProductResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Result: models.CountedMasterWorkerEntry$inboundSchema,
+  Result: smartUnion([
+    models.PaginatedMasterWorkerEntry$inboundSchema,
+    models.CountedMasterWorkerEntry$inboundSchema,
+  ]),
 }).transform((v) => {
   return remap$(v, {
     "Result": "result",

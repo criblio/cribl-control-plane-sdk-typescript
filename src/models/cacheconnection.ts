@@ -25,16 +25,16 @@ export type CacheConnection = {
   acceleratedFields?: Array<string> | undefined;
   backfillStatus?: CacheConnectionBackfillStatus | undefined;
   /**
-   * Identifier of the Lakehouse cache referenced by the Dataset.
+   * Unique identifier for the Lakehouse cache referenced by the Dataset.
    */
   cacheRef: string;
   /**
-   * Timestamp when the continuous data feed to the Lakehouse cache started, in Unix time (milliseconds).
+   * Timestamp (in Unix time) when the continuous data feed to the Lakehouse cache started, in milliseconds.
    */
   createdAt: number;
   lakehouseConnectionType?: LakehouseConnectionType | undefined;
   /**
-   * Query identifier of the active Lakehouse migration. Omitted if no migration is in progress.
+   * Unique identifier for the active Lakehouse migration query. Omitted if no migration is in progress.
    */
   migrationQueryId?: string | undefined;
   /**

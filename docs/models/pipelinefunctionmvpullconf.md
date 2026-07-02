@@ -1,5 +1,7 @@
 # PipelineFunctionMvPullConf
 
+Configuration specific to the Pipeline Function.
+
 ## Example Usage
 
 ```typescript

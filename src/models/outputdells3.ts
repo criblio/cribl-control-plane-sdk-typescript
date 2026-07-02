@@ -74,7 +74,7 @@ export type OutputDellS3 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -191,6 +191,9 @@ export type OutputDellS3 = {
    * Dell PowerScale OneFS S3-compatible endpoint URL (example: https://powerscale.example.com:9021)
    */
   endpoint: string;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key

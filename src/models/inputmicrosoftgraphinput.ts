@@ -84,6 +84,9 @@ export type InputMicrosoftGraphInput = {
    */
   id?: string | undefined;
   type: "microsoft_graph";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -102,7 +105,7 @@ export type InputMicrosoftGraphInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -179,6 +182,9 @@ export type InputMicrosoftGraphInput = {
    */
   logLevel?: LogLevelOptionsDebugError | undefined;
   retryRules?: RetryRulesTypeCodesEnableHeader | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * client_secret to pass in the OAuth request parameter.

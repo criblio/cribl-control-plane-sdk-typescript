@@ -13,7 +13,7 @@ Get information about the latest job to clear the persistent queue (PQ) for the 
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getInputPqById" method="get" path="/system/inputs/{id}/pq" -->
+<!-- UsageSnippet language="typescript" operationID="getInputPqById" method="get" path="/system/inputs/{id}/pq" example="PQStatusResponseExamplesCompletedJob" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -84,6 +84,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -93,7 +94,7 @@ Clear the persistent queue (PQ) for the specified Source.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="deleteInputPqById" method="delete" path="/system/inputs/{id}/pq" -->
+<!-- UsageSnippet language="typescript" operationID="deleteInputPqById" method="delete" path="/system/inputs/{id}/pq" example="ClearPQResponseExamplesClearPQJob" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -164,5 +165,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

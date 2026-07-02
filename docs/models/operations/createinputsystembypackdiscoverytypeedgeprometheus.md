@@ -7,7 +7,8 @@ Target discovery mechanism. Use static to manually enter a list of targets.
 ```typescript
 import { CreateInputSystemByPackDiscoveryTypeEdgePrometheus } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackDiscoveryTypeEdgePrometheus = "k8s-pods";
+let value: CreateInputSystemByPackDiscoveryTypeEdgePrometheus =
+  "k8s-service-monitor";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -15,5 +16,5 @@ let value: CreateInputSystemByPackDiscoveryTypeEdgePrometheus = "k8s-pods";
 ## Values
 
 ```typescript
-"static" | "dns" | "ec2" | "k8s-node" | "k8s-pods" | "k8s-service-monitor" | Unrecognized<string>
+"static" | "dns" | "ec2" | "k8s-node" | "k8s-pods" | "k8s-service-monitor" | "http_sd" | Unrecognized<string>
 ```

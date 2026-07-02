@@ -19,7 +19,7 @@ Get a list of all Worker Groups, Outpost Groups, or Edge Fleets for the specifie
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="listConfigGroupByProduct" method="get" path="/products/{product}/groups" -->
+<!-- UsageSnippet language="typescript" operationID="getProductsGroupsByProduct" method="get" path="/products/{product}/groups" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -32,11 +32,13 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.groups.list({
-    product: "edge",
+    product: "stream",
     fields: "<value>",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -61,12 +63,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await groupsList(criblControlPlane, {
-    product: "edge",
+    product: "stream",
     fields: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("groupsList failed:", res.error);
   }
@@ -79,19 +83,20 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.ListConfigGroupByProductRequest](../../models/operations/listconfiggroupbyproductrequest.md)                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetProductsGroupsByProductRequest](../../models/operations/getproductsgroupsbyproductrequest.md)                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[models.CountedConfigGroup](../../models/countedconfiggroup.md)\>**
+**Promise\<[operations.GetProductsGroupsByProductResponse](../../models/operations/getproductsgroupsbyproductresponse.md)\>**
 
 ### Errors
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -101,7 +106,7 @@ Create a new Worker Group, Outpost Group, or Edge Fleet for the specified Cribl 
 
 ### Example Usage: CreateGroupExamplesCloneWg
 
-<!-- UsageSnippet language="typescript" operationID="createConfigGroupByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesCloneWg" -->
+<!-- UsageSnippet language="typescript" operationID="createProductsGroupsByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesCloneWg" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -114,7 +119,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.groups.create({
-    product: "edge",
+    product: "stream",
     groupCreateRequest: {
       description: "Worker Group cloned from goatOnPremIanWg with identical configuration",
       id: "goatOnPremDollyWg",
@@ -151,7 +156,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await groupsCreate(criblControlPlane, {
-    product: "edge",
+    product: "stream",
     groupCreateRequest: {
       description: "Worker Group cloned from goatOnPremIanWg with identical configuration",
       id: "goatOnPremDollyWg",
@@ -174,7 +179,7 @@ run();
 ```
 ### Example Usage: CreateGroupExamplesCloudWg
 
-<!-- UsageSnippet language="typescript" operationID="createConfigGroupByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesCloudWg" -->
+<!-- UsageSnippet language="typescript" operationID="createProductsGroupsByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesCloudWg" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -255,7 +260,7 @@ run();
 ```
 ### Example Usage: CreateGroupExamplesEdgeFleet
 
-<!-- UsageSnippet language="typescript" operationID="createConfigGroupByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesEdgeFleet" -->
+<!-- UsageSnippet language="typescript" operationID="createProductsGroupsByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesEdgeFleet" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -268,7 +273,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.groups.create({
-    product: "edge",
+    product: "outpost",
     groupCreateRequest: {
       description: "Create a new Edge Fleet",
       id: "goatIanEdgeFleet",
@@ -304,7 +309,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await groupsCreate(criblControlPlane, {
-    product: "edge",
+    product: "outpost",
     groupCreateRequest: {
       description: "Create a new Edge Fleet",
       id: "goatIanEdgeFleet",
@@ -326,7 +331,7 @@ run();
 ```
 ### Example Usage: CreateGroupExamplesOnPremWg
 
-<!-- UsageSnippet language="typescript" operationID="createConfigGroupByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesOnPremWg" -->
+<!-- UsageSnippet language="typescript" operationID="createProductsGroupsByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesOnPremWg" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -339,7 +344,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.groups.create({
-    product: "edge",
+    product: "stream",
     groupCreateRequest: {
       description: "Worker group in customer-managed deployment",
       id: "goatOnPremIanWg",
@@ -375,7 +380,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await groupsCreate(criblControlPlane, {
-    product: "edge",
+    product: "stream",
     groupCreateRequest: {
       description: "Worker group in customer-managed deployment",
       id: "goatOnPremIanWg",
@@ -400,7 +405,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.CreateConfigGroupByProductRequest](../../models/operations/createconfiggroupbyproductrequest.md)                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateProductsGroupsByProductRequest](../../models/operations/createproductsgroupsbyproductrequest.md)                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -413,6 +418,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -422,7 +428,7 @@ Get the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getConfigGroupByProductAndId" method="get" path="/products/{product}/groups/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="getProductsGroupsByProductAndId" method="get" path="/products/{product}/groups/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -437,7 +443,6 @@ async function run() {
   const result = await criblControlPlane.groups.get({
     product: "edge",
     id: "<id>",
-    fields: "<value>",
   });
 
   console.log(result);
@@ -467,7 +472,6 @@ async function run() {
   const res = await groupsGet(criblControlPlane, {
     product: "edge",
     id: "<id>",
-    fields: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -484,7 +488,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetConfigGroupByProductAndIdRequest](../../models/operations/getconfiggroupbyproductandidrequest.md)                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetProductsGroupsByProductAndIdRequest](../../models/operations/getproductsgroupsbyproductandidrequest.md)                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -497,6 +501,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -506,7 +511,7 @@ Update the specified Worker Group, Outpost Group, or Edge Fleet.<br/><br/>Provid
 
 ### Example Usage: UpdateGroupExamplesScaleCloudWorkerGroup
 
-<!-- UsageSnippet language="typescript" operationID="updateConfigGroupByProductAndId" method="patch" path="/products/{product}/groups/{id}" example="UpdateGroupExamplesScaleCloudWorkerGroup" -->
+<!-- UsageSnippet language="typescript" operationID="updateProductsGroupsByProductAndId" method="patch" path="/products/{product}/groups/{id}" example="UpdateGroupExamplesScaleCloudWorkerGroup" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -519,7 +524,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.groups.update({
-    product: "edge",
+    product: "stream",
     id: "<id>",
     configGroup: {
       cloud: {
@@ -567,7 +572,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await groupsUpdate(criblControlPlane, {
-    product: "edge",
+    product: "stream",
     id: "<id>",
     configGroup: {
       cloud: {
@@ -601,7 +606,7 @@ run();
 ```
 ### Example Usage: UpdateGroupExamplesUpdateOnPremWorkerGroup
 
-<!-- UsageSnippet language="typescript" operationID="updateConfigGroupByProductAndId" method="patch" path="/products/{product}/groups/{id}" example="UpdateGroupExamplesUpdateOnPremWorkerGroup" -->
+<!-- UsageSnippet language="typescript" operationID="updateProductsGroupsByProductAndId" method="patch" path="/products/{product}/groups/{id}" example="UpdateGroupExamplesUpdateOnPremWorkerGroup" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -687,7 +692,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.UpdateConfigGroupByProductAndIdRequest](../../models/operations/updateconfiggroupbyproductandidrequest.md)                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.UpdateProductsGroupsByProductAndIdRequest](../../models/operations/updateproductsgroupsbyproductandidrequest.md)                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -700,6 +705,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -709,7 +715,7 @@ Delete the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="deleteConfigGroupByProductAndId" method="delete" path="/products/{product}/groups/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="deleteProductsGroupsByProductAndId" method="delete" path="/products/{product}/groups/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -769,7 +775,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeleteConfigGroupByProductAndIdRequest](../../models/operations/deleteconfiggroupbyproductandidrequest.md)                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.DeleteProductsGroupsByProductAndIdRequest](../../models/operations/deleteproductsgroupsbyproductandidrequest.md)                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -782,6 +788,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -791,7 +798,7 @@ Deploy commits to the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="updateConfigGroupDeployByProductAndId" method="patch" path="/products/{product}/groups/{id}/deploy" -->
+<!-- UsageSnippet language="typescript" operationID="updateProductsGroupsDeployByProductAndId" method="patch" path="/products/{product}/groups/{id}/deploy" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -804,7 +811,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.groups.deploy({
-    product: "stream",
+    product: "edge",
     id: "<id>",
     deployRequest: {
       version: "<value>",
@@ -836,7 +843,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await groupsDeploy(criblControlPlane, {
-    product: "stream",
+    product: "edge",
     id: "<id>",
     deployRequest: {
       version: "<value>",
@@ -857,7 +864,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.UpdateConfigGroupDeployByProductAndIdRequest](../../models/operations/updateconfiggroupdeploybyproductandidrequest.md)                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.UpdateProductsGroupsDeployByProductAndIdRequest](../../models/operations/updateproductsgroupsdeploybyproductandidrequest.md)                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -870,5 +877,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

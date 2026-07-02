@@ -66,7 +66,7 @@ export type OutputDatabricks = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -179,6 +179,9 @@ export type OutputDatabricks = {
    * Amount of time, in seconds, to wait for a request to complete before canceling it.
    */
   timeoutSec?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered

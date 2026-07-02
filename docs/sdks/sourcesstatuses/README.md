@@ -11,9 +11,9 @@
 
 List status information and optional metrics for all configured Sources in the Worker Group or Edge Fleet.
 
-### Example Usage
+### Example Usage: InputStatusResponseExamplesGreenSource
 
-<!-- UsageSnippet language="typescript" operationID="getInputStatus" method="get" path="/system/status/inputs" -->
+<!-- UsageSnippet language="typescript" operationID="getInputStatus" method="get" path="/system/status/inputs" example="InputStatusResponseExamplesGreenSource" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -25,10 +25,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.sources.statuses.list({
-    metrics: true,
-    type: false,
-  });
+  const result = await criblControlPlane.sources.statuses.list();
 
   for await (const page of result) {
     console.log(page);
@@ -56,10 +53,62 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await sourcesStatusesList(criblControlPlane, {
-    metrics: true,
-    type: false,
-  });
+  const res = await sourcesStatusesList(criblControlPlane);
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
+    console.log(page);
+  }
+  } else {
+    console.log("sourcesStatusesList failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: InputStatusResponseExamplesYellowSource
+
+<!-- UsageSnippet language="typescript" operationID="getInputStatus" method="get" path="/system/status/inputs" example="InputStatusResponseExamplesYellowSource" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.statuses.list();
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesStatusesList } from "cribl-control-plane/funcs/sourcesStatusesList.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesStatusesList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     for await (const page of result) {
@@ -90,6 +139,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -97,9 +147,9 @@ run();
 
 Get the status and optional metrics for the specified Source.
 
-### Example Usage
+### Example Usage: InputStatusResponseExamplesGreenSource
 
-<!-- UsageSnippet language="typescript" operationID="getInputStatusById" method="get" path="/system/status/inputs/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="getInputStatusById" method="get" path="/system/status/inputs/{id}" example="InputStatusResponseExamplesGreenSource" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -113,8 +163,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.sources.statuses.get({
     id: "<id>",
-    metrics: true,
-    type: true,
   });
 
   console.log(result);
@@ -143,8 +191,61 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await sourcesStatusesGet(criblControlPlane, {
     id: "<id>",
-    metrics: true,
-    type: true,
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesStatusesGet failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: InputStatusResponseExamplesYellowSource
+
+<!-- UsageSnippet language="typescript" operationID="getInputStatusById" method="get" path="/system/status/inputs/{id}" example="InputStatusResponseExamplesYellowSource" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.statuses.get({
+    id: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesStatusesGet } from "cribl-control-plane/funcs/sourcesStatusesGet.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesStatusesGet(criblControlPlane, {
+    id: "<id>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -174,5 +275,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

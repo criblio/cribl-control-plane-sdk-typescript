@@ -12,7 +12,7 @@ Get the Access Control List (ACL) for the specified Worker Group, Outpost Group,
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getConfigGroupAclByProductAndId" method="get" path="/products/{product}/groups/{id}/acl" -->
+<!-- UsageSnippet language="typescript" operationID="getProductsGroupsAclByProductAndId" method="get" path="/products/{product}/groups/{id}/acl" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -25,9 +25,8 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.groups.acl.get({
-    product: "edge",
+    product: "outpost",
     id: "<id>",
-    type: "macros",
   });
 
   console.log(result);
@@ -55,9 +54,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await groupsAclGet(criblControlPlane, {
-    product: "edge",
+    product: "outpost",
     id: "<id>",
-    type: "macros",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -74,7 +72,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetConfigGroupAclByProductAndIdRequest](../../models/operations/getconfiggroupaclbyproductandidrequest.md)                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetProductsGroupsAclByProductAndIdRequest](../../models/operations/getproductsgroupsaclbyproductandidrequest.md)                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -87,5 +85,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

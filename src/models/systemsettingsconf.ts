@@ -105,21 +105,48 @@ import {
 } from "./workerstypesystemsettingsconf.js";
 
 export type SystemSettingsConf = {
+  /**
+   * API server configuration for the Cribl instance.
+   */
   api: ApiTypeSystemSettingsConf;
+  /**
+   * App configuration.
+   */
   apps?: AppsTypeSystemSettingsConf | undefined;
   backups: BackupsSettingsUnion;
+  /**
+   * Custom logo configuration for the Cribl UI login page and navigation bar.
+   */
   customLogo?: CustomLogoTypeSystemSettingsConf | undefined;
   pii: PiiSettingsUnion;
+  /**
+   * HTTP proxy configuration for outbound connections.
+   */
   proxy: ProxyTypeSystemSettingsConf;
   rollback: RollbackSettingsUnion;
+  /**
+   * Graceful shutdown configuration.
+   */
   shutdown: ShutdownTypeSystemSettingsConf;
   sni: SniSettingsUnion;
+  /**
+   * Unix domain socket configuration.
+   */
   sockets?: SocketsTypeSystemSettingsConf | undefined;
+  /**
+   * Support and diagnostics settings.
+   */
   support?: SupportTypeSystemSettingsConf | undefined;
+  /**
+   * System-level operational settings for the Cribl instance.
+   */
   system: SystemTypeSystemSettingsConf;
   tls: TlsSettingsUnion;
   upgradeGroupSettings: UpgradeGroupSettings;
   upgradeSettings: UpgradeSettings;
+  /**
+   * Worker Process configuration.
+   */
   workers: WorkersTypeSystemSettingsConf;
 };
 

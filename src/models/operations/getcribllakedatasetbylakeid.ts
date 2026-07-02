@@ -3,8 +3,14 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
 import * as openEnums from "../../types/enums.js";
 import { OpenEnum } from "../../types/enums.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { smartUnion } from "../../types/smartUnion.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 /**
  * Filter datasets by format. Set to <code>ddss</code> to return only DDSS datasets.
@@ -37,6 +43,10 @@ export type GetCriblLakeDatasetByLakeIdRequest = {
    */
   excludeDDSS?: boolean | undefined;
   /**
+   * Exclude Netskope format datasets from the response.
+   */
+  excludeNetskope?: boolean | undefined;
+  /**
    * Exclude deleted datasets from the response.
    */
   excludeDeleted?: boolean | undefined;
@@ -52,6 +62,25 @@ export type GetCriblLakeDatasetByLakeIdRequest = {
    * Set to <code>true</code> to include storage metrics for each Lake Dataset. Otherwise, <code>false</code> (default). Requires a Cribl Lake metrics license.
    */
   includeMetrics?: boolean | undefined;
+  /**
+   * Pagination offset
+   */
+  offset?: number | undefined;
+  /**
+   * Maximum number of items to return
+   */
+  limit?: number | undefined;
+};
+
+/**
+ * List of CriblLakeDataset objects.
+ */
+export type GetCriblLakeDatasetByLakeIdResponseBody =
+  | models.PaginatedCriblLakeDataset
+  | models.CountedCriblLakeDataset;
+
+export type GetCriblLakeDatasetByLakeIdResponse = {
+  result: models.PaginatedCriblLakeDataset | models.CountedCriblLakeDataset;
 };
 
 /** @internal */
@@ -67,10 +96,13 @@ export type GetCriblLakeDatasetByLakeIdRequest$Outbound = {
   storageLocationId?: string | undefined;
   format?: string | undefined;
   excludeDDSS?: boolean | undefined;
+  excludeNetskope?: boolean | undefined;
   excludeDeleted?: boolean | undefined;
   excludeInternal?: boolean | undefined;
   excludeBYOS?: boolean | undefined;
   includeMetrics?: boolean | undefined;
+  offset?: number | undefined;
+  limit?: number | undefined;
 };
 
 /** @internal */
@@ -83,10 +115,13 @@ export const GetCriblLakeDatasetByLakeIdRequest$outboundSchema: z.ZodType<
   storageLocationId: z.string().optional(),
   format: GetCriblLakeDatasetByLakeIdFormat$outboundSchema.optional(),
   excludeDDSS: z.boolean().optional(),
+  excludeNetskope: z.boolean().optional(),
   excludeDeleted: z.boolean().optional(),
   excludeInternal: z.boolean().optional(),
   excludeBYOS: z.boolean().optional(),
   includeMetrics: z.boolean().optional(),
+  offset: z.number().int().optional(),
+  limit: z.number().int().optional(),
 });
 
 export function getCriblLakeDatasetByLakeIdRequestToJSON(
@@ -96,5 +131,58 @@ export function getCriblLakeDatasetByLakeIdRequestToJSON(
     GetCriblLakeDatasetByLakeIdRequest$outboundSchema.parse(
       getCriblLakeDatasetByLakeIdRequest,
     ),
+  );
+}
+
+/** @internal */
+export const GetCriblLakeDatasetByLakeIdResponseBody$inboundSchema: z.ZodType<
+  GetCriblLakeDatasetByLakeIdResponseBody,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([
+  models.PaginatedCriblLakeDataset$inboundSchema,
+  models.CountedCriblLakeDataset$inboundSchema,
+]);
+
+export function getCriblLakeDatasetByLakeIdResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetCriblLakeDatasetByLakeIdResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetCriblLakeDatasetByLakeIdResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetCriblLakeDatasetByLakeIdResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetCriblLakeDatasetByLakeIdResponse$inboundSchema: z.ZodType<
+  GetCriblLakeDatasetByLakeIdResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: smartUnion([
+    models.PaginatedCriblLakeDataset$inboundSchema,
+    models.CountedCriblLakeDataset$inboundSchema,
+  ]),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+
+export function getCriblLakeDatasetByLakeIdResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetCriblLakeDatasetByLakeIdResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetCriblLakeDatasetByLakeIdResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetCriblLakeDatasetByLakeIdResponse' from JSON`,
   );
 }

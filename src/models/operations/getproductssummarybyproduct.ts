@@ -3,6 +3,11 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { smartUnion } from "../../types/smartUnion.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type GetProductsSummaryByProductRequest = {
@@ -10,11 +15,32 @@ export type GetProductsSummaryByProductRequest = {
    * Name of the Cribl product to get the summary for.
    */
   product: models.ProductsBase;
+  /**
+   * Pagination offset
+   */
+  offset?: number | undefined;
+  /**
+   * Maximum number of items to return
+   */
+  limit?: number | undefined;
+};
+
+/**
+ * List of DistributedSummary objects.
+ */
+export type GetProductsSummaryByProductResponseBody =
+  | models.PaginatedDistributedSummary
+  | models.CountedDistributedSummary;
+
+export type GetProductsSummaryByProductResponse = {
+  result: models.PaginatedDistributedSummary | models.CountedDistributedSummary;
 };
 
 /** @internal */
 export type GetProductsSummaryByProductRequest$Outbound = {
   product: string;
+  offset?: number | undefined;
+  limit?: number | undefined;
 };
 
 /** @internal */
@@ -24,6 +50,8 @@ export const GetProductsSummaryByProductRequest$outboundSchema: z.ZodType<
   GetProductsSummaryByProductRequest
 > = z.object({
   product: models.ProductsBase$outboundSchema,
+  offset: z.number().int().optional(),
+  limit: z.number().int().optional(),
 });
 
 export function getProductsSummaryByProductRequestToJSON(
@@ -33,5 +61,58 @@ export function getProductsSummaryByProductRequestToJSON(
     GetProductsSummaryByProductRequest$outboundSchema.parse(
       getProductsSummaryByProductRequest,
     ),
+  );
+}
+
+/** @internal */
+export const GetProductsSummaryByProductResponseBody$inboundSchema: z.ZodType<
+  GetProductsSummaryByProductResponseBody,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([
+  models.PaginatedDistributedSummary$inboundSchema,
+  models.CountedDistributedSummary$inboundSchema,
+]);
+
+export function getProductsSummaryByProductResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetProductsSummaryByProductResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetProductsSummaryByProductResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetProductsSummaryByProductResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetProductsSummaryByProductResponse$inboundSchema: z.ZodType<
+  GetProductsSummaryByProductResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: smartUnion([
+    models.PaginatedDistributedSummary$inboundSchema,
+    models.CountedDistributedSummary$inboundSchema,
+  ]),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+
+export function getProductsSummaryByProductResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetProductsSummaryByProductResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetProductsSummaryByProductResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetProductsSummaryByProductResponse' from JSON`,
   );
 }

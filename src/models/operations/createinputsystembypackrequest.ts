@@ -12,9 +12,6 @@ import {
   CreateInputSystemByPackAuth,
   CreateInputSystemByPackAuth$Outbound,
   CreateInputSystemByPackAuth$outboundSchema,
-  CreateInputSystemByPackCheckpointing,
-  CreateInputSystemByPackCheckpointing$Outbound,
-  CreateInputSystemByPackCheckpointing$outboundSchema,
   CreateInputSystemByPackInputAnthropicCompliance,
   CreateInputSystemByPackInputAnthropicCompliance$Outbound,
   CreateInputSystemByPackInputAnthropicCompliance$outboundSchema,
@@ -123,6 +120,9 @@ import {
   CreateInputSystemByPackInputSqs,
   CreateInputSystemByPackInputSqs$Outbound,
   CreateInputSystemByPackInputSqs$outboundSchema,
+  CreateInputSystemByPackInputSysdigHec,
+  CreateInputSystemByPackInputSysdigHec$Outbound,
+  CreateInputSystemByPackInputSysdigHec$outboundSchema,
   CreateInputSystemByPackInputSyslogUnion,
   CreateInputSystemByPackInputSyslogUnion$Outbound,
   CreateInputSystemByPackInputSyslogUnion$outboundSchema,
@@ -138,6 +138,9 @@ import {
   CreateInputSystemByPackInputTcpjson,
   CreateInputSystemByPackInputTcpjson$Outbound,
   CreateInputSystemByPackInputTcpjson$outboundSchema,
+  CreateInputSystemByPackInputUpwindHec,
+  CreateInputSystemByPackInputUpwindHec$Outbound,
+  CreateInputSystemByPackInputUpwindHec$outboundSchema,
   CreateInputSystemByPackInputWef,
   CreateInputSystemByPackInputWef$Outbound,
   CreateInputSystemByPackInputWef$outboundSchema,
@@ -156,7 +159,75 @@ import {
   CreateInputSystemByPackInputZscalerHec,
   CreateInputSystemByPackInputZscalerHec$Outbound,
   CreateInputSystemByPackInputZscalerHec$outboundSchema,
-} from "./createinputsystembypackcheckpointing.js";
+} from "./createinputsystembypackauth.js";
+
+export const CreateInputSystemByPackBlobStoreAuthenticationMethod = {
+  Secret: "secret",
+  ClientSecret: "clientSecret",
+  ClientCert: "clientCert",
+  ClientAssertion: "clientAssertion",
+  ClientAssertionRpc: "clientAssertion_rpc",
+} as const;
+export type CreateInputSystemByPackBlobStoreAuthenticationMethod = OpenEnum<
+  typeof CreateInputSystemByPackBlobStoreAuthenticationMethod
+>;
+
+export type CreateInputSystemByPackAzureBlobStorage = {
+  /**
+   * Azure Blob Storage container used to store checkpoints. Must be 3–63 lowercase alphanumeric characters or hyphens.
+   */
+  containerName: string;
+  authType?: CreateInputSystemByPackBlobStoreAuthenticationMethod | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  /**
+   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: models.CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  /**
+   * Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+   */
+  __template_storageAccountName?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+   */
+  __template_azureCloud?: string | undefined;
+};
+
+export type CreateInputSystemByPackCheckpointing = {
+  blobStore: CreateInputSystemByPackAzureBlobStorage;
+};
 
 export type CreateInputSystemByPackInputEventhubAmqp = {
   /**
@@ -164,6 +235,9 @@ export type CreateInputSystemByPackInputEventhubAmqp = {
    */
   id: string;
   type: "eventhub_amqp";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -182,7 +256,7 @@ export type CreateInputSystemByPackInputEventhubAmqp = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -248,6 +322,9 @@ export type CreateInputSystemByPackInputEventhubAmqp = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -265,6 +342,9 @@ export type CreateInputSystemByPackInputEventhub = {
    */
   id: string;
   type: "eventhub";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -283,7 +363,7 @@ export type CreateInputSystemByPackInputEventhub = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -387,6 +467,9 @@ export type CreateInputSystemByPackInputEventhub = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -462,6 +545,9 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
    */
   id: string;
   type: "microsoft_graph";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -480,7 +566,7 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -559,6 +645,9 @@ export type CreateInputSystemByPackInputMicrosoftGraph = {
    */
   logLevel?: models.LogLevelOptionsDebugError | undefined;
   retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * client_secret to pass in the OAuth request parameter.
@@ -637,6 +726,9 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
    */
   id: string;
   type: "office365_msg_trace";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -655,7 +747,7 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -730,6 +822,9 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
    */
   logLevel?: models.LogLevelOptionsDebugError | undefined;
   retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Username to run Message Trace API call.
@@ -821,6 +916,9 @@ export type CreateInputSystemByPackInputOffice365Service = {
    */
   id: string;
   type: "office365_service";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -839,7 +937,7 @@ export type CreateInputSystemByPackInputOffice365Service = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -898,6 +996,9 @@ export type CreateInputSystemByPackInputOffice365Service = {
    * Enter client secret directly, or select a stored secret
    */
   authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Microsoft 365 Azure client secret
@@ -956,6 +1057,9 @@ export type CreateInputSystemByPackInputOffice365Mgmt = {
    */
   id: string;
   type: "office365_mgmt";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -974,7 +1078,7 @@ export type CreateInputSystemByPackInputOffice365Mgmt = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1041,6 +1145,9 @@ export type CreateInputSystemByPackInputOffice365Mgmt = {
    * Enter client secret directly, or select a stored secret
    */
   authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Microsoft 365 Azure client secret
@@ -1108,6 +1215,10 @@ export const CreateInputSystemByPackDiscoveryTypeEdgePrometheus = {
    * Kubernetes Service Monitor (v4.18+)
    */
   K8sServiceMonitor: "k8s-service-monitor",
+  /**
+   * HTTP SD
+   */
+  HttpSd: "http_sd",
 } as const;
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -1166,6 +1277,9 @@ export type CreateInputSystemByPackInputEdgePrometheus = {
    */
   id: string;
   type: "edge_prometheus";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1184,7 +1298,7 @@ export type CreateInputSystemByPackInputEdgePrometheus = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1223,6 +1337,9 @@ export type CreateInputSystemByPackInputEdgePrometheus = {
   authType?:
     | CreateInputSystemByPackAuthenticationMethodEdgePrometheus
     | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   targets?: Array<CreateInputSystemByPackTarget> | undefined;
   /**
@@ -1319,6 +1436,24 @@ export type CreateInputSystemByPackInputEdgePrometheus = {
    */
   podFilter?: Array<CreateInputSystemByPackPodFilter> | undefined;
   /**
+   * URL to fetch target groups from (must be http or https)
+   */
+  httpDiscoveryUrl?: string | undefined;
+  /**
+   * Extra headers to send with the discovery request
+   */
+  httpDiscoveryHeaders?:
+    | Array<models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
+  /**
+   * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+   */
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  /**
+   * Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+   */
+  maxResponseBodySize?: string | undefined;
+  /**
    * Username for Prometheus Basic authentication
    */
   username?: string | undefined;
@@ -1388,6 +1523,10 @@ export const CreateInputSystemByPackDiscoveryTypePrometheus = {
    * AWS EC2
    */
   Ec2: "ec2",
+  /**
+   * HTTP SD
+   */
+  HttpSd: "http_sd",
 } as const;
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -1416,6 +1555,9 @@ export type CreateInputSystemByPackInputPrometheus = {
    */
   id: string;
   type: "prometheus";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1434,7 +1576,7 @@ export type CreateInputSystemByPackInputPrometheus = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1498,6 +1640,9 @@ export type CreateInputSystemByPackInputPrometheus = {
    * Enter credentials directly, or select a stored secret
    */
   authType?: models.AuthenticationMethodOptionsSasl | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
@@ -1569,6 +1714,24 @@ export type CreateInputSystemByPackInputPrometheus = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
+  /**
+   * URL to fetch target groups from (must be http or https)
+   */
+  httpDiscoveryUrl?: string | undefined;
+  /**
+   * Extra headers to send with the discovery request
+   */
+  httpDiscoveryHeaders?:
+    | Array<models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
+  /**
+   * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+   */
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  /**
+   * Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+   */
+  maxResponseBodySize?: string | undefined;
   /**
    * Username for Prometheus Basic authentication
    */
@@ -1648,7 +1811,13 @@ export type CreateInputSystemByPackInputPrometheusRw = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "prometheus_rw";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1667,7 +1836,7 @@ export type CreateInputSystemByPackInputPrometheusRw = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1740,6 +1909,9 @@ export type CreateInputSystemByPackInputPrometheusRw = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -1786,7 +1958,13 @@ export type CreateInputSystemByPackInputLoki = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "loki";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1805,7 +1983,7 @@ export type CreateInputSystemByPackInputLoki = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1878,6 +2056,9 @@ export type CreateInputSystemByPackInputLoki = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -1915,9 +2096,15 @@ export type CreateInputSystemByPackInputLoki = {
   __template_lokiAPI?: string | undefined;
 };
 
+/**
+ * Source type identifier.
+ */
 export const CreateInputSystemByPackInputGrafanaType2 = {
   Grafana: "grafana",
 } as const;
+/**
+ * Source type identifier.
+ */
 export type CreateInputSystemByPackInputGrafanaType2 = ClosedEnum<
   typeof CreateInputSystemByPackInputGrafanaType2
 >;
@@ -1969,7 +2156,13 @@ export type CreateInputSystemByPackInputGrafanaGrafana2 = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: CreateInputSystemByPackInputGrafanaType2;
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1988,7 +2181,7 @@ export type CreateInputSystemByPackInputGrafanaGrafana2 = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2063,6 +2256,9 @@ export type CreateInputSystemByPackInputGrafanaGrafana2 = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2090,9 +2286,15 @@ export type CreateInputSystemByPackInputGrafanaGrafana2 = {
   __template_lokiAPI?: string | undefined;
 };
 
+/**
+ * Source type identifier.
+ */
 export const CreateInputSystemByPackInputGrafanaType1 = {
   Grafana: "grafana",
 } as const;
+/**
+ * Source type identifier.
+ */
 export type CreateInputSystemByPackInputGrafanaType1 = ClosedEnum<
   typeof CreateInputSystemByPackInputGrafanaType1
 >;
@@ -2144,7 +2346,13 @@ export type CreateInputSystemByPackInputGrafanaGrafana1 = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: CreateInputSystemByPackInputGrafanaType1;
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2163,7 +2371,7 @@ export type CreateInputSystemByPackInputGrafanaGrafana1 = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2238,6 +2446,9 @@ export type CreateInputSystemByPackInputGrafanaGrafana1 = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2275,6 +2486,9 @@ export type CreateInputSystemByPackInputConfluentCloud = {
    */
   id: string;
   type: "confluent_cloud";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2293,7 +2507,7 @@ export type CreateInputSystemByPackInputConfluentCloud = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2400,6 +2614,9 @@ export type CreateInputSystemByPackInputConfluentCloud = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2526,7 +2743,13 @@ export type CreateInputSystemByPackInputElastic = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "elastic";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2545,7 +2768,7 @@ export type CreateInputSystemByPackInputElastic = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2624,6 +2847,9 @@ export type CreateInputSystemByPackInputElastic = {
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
   proxyMode?: CreateInputSystemByPackProxyModeElastic | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -2671,6 +2897,9 @@ export type CreateInputSystemByPackInputAzureBlob = {
    */
   id: string;
   type: "azure_blob";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2689,7 +2918,7 @@ export type CreateInputSystemByPackInputAzureBlob = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2746,6 +2975,9 @@ export type CreateInputSystemByPackInputAzureBlob = {
    */
   parquetChunkDownloadTimeout?: number | undefined;
   authType?: models.AuthenticationMethodOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -2827,6 +3059,9 @@ export type CreateInputSystemByPackAuthTokenSplunkHec = {
    * Shared secret to be provided by any client (Authorization: <token>)
    */
   token: string;
+  /**
+   * If true, the token is active and can be used for authentication.
+   */
   enabled?: boolean | undefined;
   /**
    * Optional token description
@@ -2847,7 +3082,13 @@ export type CreateInputSystemByPackInputSplunkHec = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "splunk_hec";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2866,7 +3107,7 @@ export type CreateInputSystemByPackInputSplunkHec = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2975,6 +3216,9 @@ export type CreateInputSystemByPackInputSplunkHec = {
    * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
    */
   emitTokenMetrics?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -3068,6 +3312,9 @@ export type CreateInputSystemByPackInputSplunkSearch = {
    */
   id: string;
   type: "splunk_search";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3086,7 +3333,7 @@ export type CreateInputSystemByPackInputSplunkSearch = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3187,6 +3434,9 @@ export type CreateInputSystemByPackInputSplunkSearch = {
    * Splunk Search authentication type
    */
   authType: CreateInputSystemByPackAuthenticationTypeSplunkSearch;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -3294,6 +3544,9 @@ export type CreateInputSystemByPackInputSplunk = {
    */
   id: string;
   type: "splunk";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3312,7 +3565,7 @@ export type CreateInputSystemByPackInputSplunk = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3373,6 +3626,9 @@ export type CreateInputSystemByPackInputSplunk = {
    * The highest S2S protocol version to advertise during handshake
    */
   maxS2Sversion?: CreateInputSystemByPackMaxS2SVersion | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
@@ -3421,7 +3677,13 @@ export type CreateInputSystemByPackInputHttp = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "http";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3440,7 +3702,7 @@ export type CreateInputSystemByPackInputHttp = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3526,6 +3788,9 @@ export type CreateInputSystemByPackInputHttp = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokensExt?: Array<models.AuthTokensExtConfInputHttp> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -3567,6 +3832,9 @@ export type CreateInputSystemByPackInputMsk = {
    */
   id: string;
   type: "msk";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3585,7 +3853,7 @@ export type CreateInputSystemByPackInputMsk = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3725,6 +3993,9 @@ export type CreateInputSystemByPackInputMsk = {
    * Maximum number of network errors before the consumer re-creates a socket
    */
   maxSocketErrors?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -3783,6 +4054,9 @@ export type CreateInputSystemByPackInputKafka = {
    */
   id: string;
   type: "kafka";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3801,7 +4075,7 @@ export type CreateInputSystemByPackInputKafka = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3908,6 +4182,9 @@ export type CreateInputSystemByPackInputKafka = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -3937,6 +4214,9 @@ export type CreateInputSystemByPackInputCollection = {
    */
   id: string;
   type: "collection";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process results
@@ -3955,7 +4235,7 @@ export type CreateInputSystemByPackInputCollection = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -4066,6 +4346,8 @@ export type CreateInputSystemByPackRequestBody =
   | CreateInputSystemByPackInputServicenowTable
   | CreateInputSystemByPackInputZscalerHec
   | CreateInputSystemByPackInputCloudflareHec
+  | CreateInputSystemByPackInputSysdigHec
+  | CreateInputSystemByPackInputUpwindHec
   | CreateInputSystemByPackInputOpenaiComplianceLogs
   | CreateInputSystemByPackInputAnthropicCompliance
   | CreateInputSystemByPackInputOkta;
@@ -4147,10 +4429,103 @@ export type CreateInputSystemByPackRequest = {
     | CreateInputSystemByPackInputServicenowTable
     | CreateInputSystemByPackInputZscalerHec
     | CreateInputSystemByPackInputCloudflareHec
+    | CreateInputSystemByPackInputSysdigHec
+    | CreateInputSystemByPackInputUpwindHec
     | CreateInputSystemByPackInputOpenaiComplianceLogs
     | CreateInputSystemByPackInputAnthropicCompliance
     | CreateInputSystemByPackInputOkta;
 };
+
+/** @internal */
+export const CreateInputSystemByPackBlobStoreAuthenticationMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputSystemByPackBlobStoreAuthenticationMethod
+  > = openEnums.outboundSchema(
+    CreateInputSystemByPackBlobStoreAuthenticationMethod,
+  );
+
+/** @internal */
+export type CreateInputSystemByPackAzureBlobStorage$Outbound = {
+  containerName: string;
+  authType?: string | undefined;
+  textSecret?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  azureCloud?: string | undefined;
+  endpointSuffix?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?:
+    | models.CertificateTypeAzureBlobAuthTypeClientCert$Outbound
+    | undefined;
+  __template_storageAccountName?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_azureCloud?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputSystemByPackAzureBlobStorage$outboundSchema: z.ZodType<
+  CreateInputSystemByPackAzureBlobStorage$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemByPackAzureBlobStorage
+> = z.object({
+  containerName: z.string(),
+  authType: CreateInputSystemByPackBlobStoreAuthenticationMethod$outboundSchema
+    .optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: models.CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
+    .optional(),
+  __template_storageAccountName: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_azureCloud: z.string().optional(),
+});
+
+export function createInputSystemByPackAzureBlobStorageToJSON(
+  createInputSystemByPackAzureBlobStorage:
+    CreateInputSystemByPackAzureBlobStorage,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackAzureBlobStorage$outboundSchema.parse(
+      createInputSystemByPackAzureBlobStorage,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputSystemByPackCheckpointing$Outbound = {
+  blobStore: CreateInputSystemByPackAzureBlobStorage$Outbound;
+};
+
+/** @internal */
+export const CreateInputSystemByPackCheckpointing$outboundSchema: z.ZodType<
+  CreateInputSystemByPackCheckpointing$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemByPackCheckpointing
+> = z.object({
+  blobStore: z.lazy(() =>
+    CreateInputSystemByPackAzureBlobStorage$outboundSchema
+  ),
+});
+
+export function createInputSystemByPackCheckpointingToJSON(
+  createInputSystemByPackCheckpointing: CreateInputSystemByPackCheckpointing,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackCheckpointing$outboundSchema.parse(
+      createInputSystemByPackCheckpointing,
+    ),
+  );
+}
 
 /** @internal */
 export type CreateInputSystemByPackInputEventhubAmqp$Outbound = {
@@ -4207,7 +4582,9 @@ export const CreateInputSystemByPackInputEventhubAmqp$outboundSchema: z.ZodType<
   eventHubName: z.string().optional(),
   consumerGroup: z.string(),
   auth: CreateInputSystemByPackAuth$outboundSchema.optional(),
-  checkpointing: CreateInputSystemByPackCheckpointing$outboundSchema,
+  checkpointing: z.lazy(() =>
+    CreateInputSystemByPackCheckpointing$outboundSchema
+  ),
   fromBeginning: z.boolean().optional(),
   maxBatchSize: z.number().int().optional(),
   maxWaitTimeInSeconds: z.number().int().optional(),
@@ -5010,6 +5387,14 @@ export type CreateInputSystemByPackInputEdgePrometheus$Outbound = {
   scrapePortExpr?: string | undefined;
   scrapePathExpr?: string | undefined;
   podFilter?: Array<CreateInputSystemByPackPodFilter$Outbound> | undefined;
+  httpDiscoveryUrl?: string | undefined;
+  httpDiscoveryHeaders?:
+    | Array<
+      models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
+    | undefined;
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  maxResponseBodySize?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -5086,6 +5471,13 @@ export const CreateInputSystemByPackInputEdgePrometheus$outboundSchema:
     podFilter: z.array(
       z.lazy(() => CreateInputSystemByPackPodFilter$outboundSchema),
     ).optional(),
+    httpDiscoveryUrl: z.string().optional(),
+    httpDiscoveryHeaders: z.array(
+      models
+        .RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+    ).optional(),
+    httpDiscoveryRejectUnauthorized: z.boolean().optional(),
+    maxResponseBodySize: z.string().optional(),
     username: z.string().optional(),
     password: z.string().optional(),
     credentialsSecret: z.string().optional(),
@@ -5177,6 +5569,14 @@ export type CreateInputSystemByPackInputPrometheus$Outbound = {
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
+  httpDiscoveryUrl?: string | undefined;
+  httpDiscoveryHeaders?:
+    | Array<
+      models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
+    | undefined;
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  maxResponseBodySize?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -5252,6 +5652,13 @@ export const CreateInputSystemByPackInputPrometheus$outboundSchema: z.ZodType<
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
+  httpDiscoveryUrl: z.string().optional(),
+  httpDiscoveryHeaders: z.array(
+    models
+      .RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+  ).optional(),
+  httpDiscoveryRejectUnauthorized: z.boolean().optional(),
+  maxResponseBodySize: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -7271,6 +7678,8 @@ export type CreateInputSystemByPackRequestBody$Outbound =
   | CreateInputSystemByPackInputServicenowTable$Outbound
   | CreateInputSystemByPackInputZscalerHec$Outbound
   | CreateInputSystemByPackInputCloudflareHec$Outbound
+  | CreateInputSystemByPackInputSysdigHec$Outbound
+  | CreateInputSystemByPackInputUpwindHec$Outbound
   | CreateInputSystemByPackInputOpenaiComplianceLogs$Outbound
   | CreateInputSystemByPackInputAnthropicCompliance$Outbound
   | CreateInputSystemByPackInputOkta$Outbound;
@@ -7351,6 +7760,8 @@ export const CreateInputSystemByPackRequestBody$outboundSchema: z.ZodType<
   CreateInputSystemByPackInputServicenowTable$outboundSchema,
   CreateInputSystemByPackInputZscalerHec$outboundSchema,
   CreateInputSystemByPackInputCloudflareHec$outboundSchema,
+  CreateInputSystemByPackInputSysdigHec$outboundSchema,
+  CreateInputSystemByPackInputUpwindHec$outboundSchema,
   CreateInputSystemByPackInputOpenaiComplianceLogs$outboundSchema,
   CreateInputSystemByPackInputAnthropicCompliance$outboundSchema,
   CreateInputSystemByPackInputOkta$outboundSchema,
@@ -7440,6 +7851,8 @@ export type CreateInputSystemByPackRequest$Outbound = {
     | CreateInputSystemByPackInputServicenowTable$Outbound
     | CreateInputSystemByPackInputZscalerHec$Outbound
     | CreateInputSystemByPackInputCloudflareHec$Outbound
+    | CreateInputSystemByPackInputSysdigHec$Outbound
+    | CreateInputSystemByPackInputUpwindHec$Outbound
     | CreateInputSystemByPackInputOpenaiComplianceLogs$Outbound
     | CreateInputSystemByPackInputAnthropicCompliance$Outbound
     | CreateInputSystemByPackInputOkta$Outbound;
@@ -7523,6 +7936,8 @@ export const CreateInputSystemByPackRequest$outboundSchema: z.ZodType<
     CreateInputSystemByPackInputServicenowTable$outboundSchema,
     CreateInputSystemByPackInputZscalerHec$outboundSchema,
     CreateInputSystemByPackInputCloudflareHec$outboundSchema,
+    CreateInputSystemByPackInputSysdigHec$outboundSchema,
+    CreateInputSystemByPackInputUpwindHec$outboundSchema,
     CreateInputSystemByPackInputOpenaiComplianceLogs$outboundSchema,
     CreateInputSystemByPackInputAnthropicCompliance$outboundSchema,
     CreateInputSystemByPackInputOkta$outboundSchema,

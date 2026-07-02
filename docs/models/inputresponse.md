@@ -168,7 +168,7 @@ const value: models.InputResponseInputPrometheus = {
 ```typescript
 const value: models.InputResponseInputEdgePrometheus = {
   type: "edge_prometheus",
-  discoveryType: "dns",
+  discoveryType: "ec2",
   interval: 785.78,
 };
 ```
@@ -710,6 +710,28 @@ const value: models.InputResponseInputCloudflareHec = {
 };
 ```
 
+### `models.InputResponseInputSysdigHec`
+
+```typescript
+const value: models.InputResponseInputSysdigHec = {
+  type: "sysdig_hec",
+  host: "staid-straw.info",
+  port: 1375.43,
+  hecAPI: "<value>",
+};
+```
+
+### `models.InputResponseInputUpwindHec`
+
+```typescript
+const value: models.InputResponseInputUpwindHec = {
+  type: "upwind_hec",
+  host: "wise-place.info",
+  port: 555.86,
+  hecAPI: "<value>",
+};
+```
+
 ### `models.InputResponseInputOpenaiComplianceLogs`
 
 ```typescript
@@ -729,10 +751,8 @@ const value: models.InputResponseInputAnthropicCompliance = {
   textSecret: "<value>",
   contentConfig: [
     {
-      contentType: "<value>",
+      contentType: "activities",
       cronSchedule: "<value>",
-      earliest: "<value>",
-      latest: "<value>",
     },
   ],
 };

@@ -5,14 +5,19 @@
 ```typescript
 import { HealthCountType } from "cribl-control-plane/models";
 
-let value: HealthCountType = {};
+let value: HealthCountType = {
+  Green: 814759,
+  Red: 110538,
+  Unknown: 709945,
+  Yellow: 671192,
+};
 ```
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `green`            | *number*           | :heavy_minus_sign: | N/A                |
-| `yellow`           | *number*           | :heavy_minus_sign: | N/A                |
-| `red`              | *number*           | :heavy_minus_sign: | N/A                |
-| `unknown`          | *number*           | :heavy_minus_sign: | N/A                |
+| Field                                                            | Type                                                             | Required                                                         | Description                                                      |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `green`                                                          | *number*                                                         | :heavy_check_mark:                                               | Number of Worker Processes reporting a healthy (Green) status.   |
+| `red`                                                            | *number*                                                         | :heavy_check_mark:                                               | Number of Worker Processes reporting a critical (Red) status.    |
+| `unknown`                                                        | *number*                                                         | :heavy_check_mark:                                               | Number of Worker Processes reporting an unknown health status.   |
+| `yellow`                                                         | *number*                                                         | :heavy_check_mark:                                               | Number of Worker Processes reporting a degraded (Yellow) status. |

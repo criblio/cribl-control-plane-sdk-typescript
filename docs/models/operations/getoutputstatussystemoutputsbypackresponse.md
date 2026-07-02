@@ -12,6 +12,6 @@ let value: GetOutputStatusSystemOutputsByPackResponse = {
 
 ## Fields
 
-| Field                                                             | Type                                                              | Required                                                          | Description                                                       |
-| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
-| `result`                                                          | [models.CountedOutputStatus](../../models/countedoutputstatus.md) | :heavy_check_mark:                                                | N/A                                                               |
+| Field                                                       | Type                                                        | Required                                                    | Description                                                 |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `result`                                                    | *operations.GetOutputStatusSystemOutputsByPackResponseBody* | :heavy_check_mark:                                          | N/A                                                         |

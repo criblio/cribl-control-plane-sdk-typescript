@@ -3,17 +3,44 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { smartUnion } from "../../types/smartUnion.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type GetVersionRequest = {
   /**
    * Maximum number of commits to return in the response for this request.
    */
   count?: number | undefined;
+  /**
+   * Pagination offset
+   */
+  offset?: number | undefined;
+  /**
+   * Maximum number of items to return
+   */
+  limit?: number | undefined;
+};
+
+/**
+ * List of GitLogResult objects.
+ */
+export type GetVersionResponseBody =
+  | models.PaginatedGitLogResult
+  | models.CountedGitLogResult;
+
+export type GetVersionResponse = {
+  result: models.PaginatedGitLogResult | models.CountedGitLogResult;
 };
 
 /** @internal */
 export type GetVersionRequest$Outbound = {
   count?: number | undefined;
+  offset?: number | undefined;
+  limit?: number | undefined;
 };
 
 /** @internal */
@@ -23,6 +50,8 @@ export const GetVersionRequest$outboundSchema: z.ZodType<
   GetVersionRequest
 > = z.object({
   count: z.number().int().optional(),
+  offset: z.number().int().optional(),
+  limit: z.number().int().optional(),
 });
 
 export function getVersionRequestToJSON(
@@ -30,5 +59,51 @@ export function getVersionRequestToJSON(
 ): string {
   return JSON.stringify(
     GetVersionRequest$outboundSchema.parse(getVersionRequest),
+  );
+}
+
+/** @internal */
+export const GetVersionResponseBody$inboundSchema: z.ZodType<
+  GetVersionResponseBody,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([
+  models.PaginatedGitLogResult$inboundSchema,
+  models.CountedGitLogResult$inboundSchema,
+]);
+
+export function getVersionResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<GetVersionResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetVersionResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetVersionResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetVersionResponse$inboundSchema: z.ZodType<
+  GetVersionResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: smartUnion([
+    models.PaginatedGitLogResult$inboundSchema,
+    models.CountedGitLogResult$inboundSchema,
+  ]),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+
+export function getVersionResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetVersionResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetVersionResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetVersionResponse' from JSON`,
   );
 }

@@ -9,7 +9,13 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FeatureFlagOverrideConfSystemSettingsConf = {
+  /**
+   * If <code>true</code>, the feature flag is disabled. Otherwise, <code>false</code>.
+   */
   disabled: boolean;
+  /**
+   * Unique identifier of the feature flag to override.
+   */
   flagId: string;
 };
 

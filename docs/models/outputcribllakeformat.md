@@ -5,7 +5,7 @@
 ```typescript
 import { OutputCriblLakeFormat } from "cribl-control-plane/models";
 
-let value: OutputCriblLakeFormat = "ddss";
+let value: OutputCriblLakeFormat = "parquet";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -13,5 +13,5 @@ let value: OutputCriblLakeFormat = "ddss";
 ## Values
 
 ```typescript
-"json" | "parquet" | "ddss" | "netskope" | Unrecognized<string>
+"json" | "parquet" | "raw" | Unrecognized<string>
 ```

@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  * Revert a commit in the local repository
  *
  * @remarks
- * Revert a commit in the local repository.
+ * Revert a commit in the local repository by creating a new commit that undoes the changes introduced by the specified commit.<br/><br/>Use the <code>force</code> field to proceed even when the working directory is not clean.
  */
 export function versionsCommitsRevert(
   client: CriblControlPlaneCore,
@@ -168,8 +168,9 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, models.CountedGitRevertResult$inboundSchema),
+    M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

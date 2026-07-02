@@ -78,6 +78,9 @@ export type InputSplunkInput = {
    */
   id?: string | undefined;
   type: "splunk";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -96,7 +99,7 @@ export type InputSplunkInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -157,6 +160,9 @@ export type InputSplunkInput = {
    * The highest S2S protocol version to advertise during handshake
    */
   maxS2Sversion?: InputSplunkMaxS2SVersion | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
