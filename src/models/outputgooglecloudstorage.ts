@@ -94,7 +94,7 @@ export type OutputGoogleCloudStorage = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -208,6 +208,9 @@ export type OutputGoogleCloudStorage = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
   orphans?: OrphanFileRecoveryType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered

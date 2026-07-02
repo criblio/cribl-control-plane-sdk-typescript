@@ -30,6 +30,11 @@ import {
   RecordTypeOptions$outboundSchema,
 } from "./recordtypeoptions.js";
 import {
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+} from "./refreshrequestparamconfhealthcheckauthenticationoauthsecret.js";
+import {
   SearchFilterConfInputPrometheus,
   SearchFilterConfInputPrometheus$Outbound,
   SearchFilterConfInputPrometheus$outboundSchema,
@@ -63,6 +68,10 @@ export const InputEdgePrometheusDiscoveryType = {
    * Kubernetes Service Monitor (v4.18+)
    */
   K8sServiceMonitor: "k8s-service-monitor",
+  /**
+   * HTTP SD
+   */
+  HttpSd: "http_sd",
 } as const;
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -122,6 +131,9 @@ export type InputEdgePrometheusInput = {
    */
   id?: string | undefined;
   type: "edge_prometheus";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -140,7 +152,7 @@ export type InputEdgePrometheusInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -177,6 +189,9 @@ export type InputEdgePrometheusInput = {
    * Enter credentials directly, or select a stored secret
    */
   authType?: InputEdgePrometheusAuthenticationMethod | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   targets?: Array<InputEdgePrometheusTarget> | undefined;
   /**
@@ -272,6 +287,24 @@ export type InputEdgePrometheusInput = {
    * expressions evaluate to true.
    */
   podFilter?: Array<InputEdgePrometheusPodFilter> | undefined;
+  /**
+   * URL to fetch target groups from (must be http or https)
+   */
+  httpDiscoveryUrl?: string | undefined;
+  /**
+   * Extra headers to send with the discovery request
+   */
+  httpDiscoveryHeaders?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
+  /**
+   * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+   */
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  /**
+   * Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+   */
+  maxResponseBodySize?: string | undefined;
   /**
    * Username for Prometheus Basic authentication
    */
@@ -440,6 +473,14 @@ export type InputEdgePrometheusInput$Outbound = {
   scrapePortExpr?: string | undefined;
   scrapePathExpr?: string | undefined;
   podFilter?: Array<InputEdgePrometheusPodFilter$Outbound> | undefined;
+  httpDiscoveryUrl?: string | undefined;
+  httpDiscoveryHeaders?:
+    | Array<
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
+    | undefined;
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  maxResponseBodySize?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -508,6 +549,12 @@ export const InputEdgePrometheusInput$outboundSchema: z.ZodType<
   scrapePathExpr: z.string().optional(),
   podFilter: z.array(z.lazy(() => InputEdgePrometheusPodFilter$outboundSchema))
     .optional(),
+  httpDiscoveryUrl: z.string().optional(),
+  httpDiscoveryHeaders: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+  ).optional(),
+  httpDiscoveryRejectUnauthorized: z.boolean().optional(),
+  maxResponseBodySize: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),

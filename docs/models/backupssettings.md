@@ -13,7 +13,7 @@ let value: BackupsSettings = {
 
 ## Fields
 
-| Field               | Type                | Required            | Description         |
-| ------------------- | ------------------- | ------------------- | ------------------- |
-| `backupPersistence` | *string*            | :heavy_check_mark:  | N/A                 |
-| `backupsDirectory`  | *string*            | :heavy_check_mark:  | N/A                 |
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `backupPersistence`                                                              | *string*                                                                         | :heavy_check_mark:                                                               | How long to retain backups. Value is a duration string such as <code>24h</code>. |
+| `backupsDirectory`                                                               | *string*                                                                         | :heavy_check_mark:                                                               | Filesystem path where configuration backups are stored.                          |

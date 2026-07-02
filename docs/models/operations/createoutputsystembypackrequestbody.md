@@ -220,6 +220,19 @@ const value: operations.CreateOutputSystemByPackOutputAzureEventhub = {
 };
 ```
 
+### `operations.CreateOutputSystemByPackOutputGoogleBigquery`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputGoogleBigquery = {
+  id: "<id>",
+  type: "google_bigquery",
+  projectId: "<id>",
+  datasetId: "<id>",
+  tableId: "<id>",
+  googleAuthMethod: "auto",
+};
+```
+
 ### `operations.CreateOutputSystemByPackOutputGoogleChronicle`
 
 ```typescript
@@ -253,6 +266,17 @@ const value: operations.CreateOutputSystemByPackOutputGoogleCloudLogging = {
   logNameExpression: "<value>",
   logLocationExpression: "<value>",
 };
+```
+
+### `operations.CreateOutputSystemByPackOutputGoogleCloudObservability`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputGoogleCloudObservability =
+  {
+    id: "<id>",
+    type: "google_cloud_observability",
+    googleAuthMethod: "secret",
+  };
 ```
 
 ### `operations.CreateOutputSystemByPackOutputGooglePubsub`
@@ -518,6 +542,19 @@ const value: operations.CreateOutputSystemByPackOutputLoki = {
 };
 ```
 
+### `operations.CreateOutputSystemByPackOutputAmazonManagedPrometheus`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputAmazonManagedPrometheus =
+  {
+    id: "<id>",
+    type: "amazon_managed_prometheus",
+    url: "https://neat-brochure.info",
+    awsAuthenticationMethod: "secret",
+    region: "<value>",
+  };
+```
+
 ### `operations.CreateOutputSystemByPackOutputPrometheus`
 
 ```typescript
@@ -669,6 +706,18 @@ const value: operations.CreateOutputSystemByPackOutputClickHouse = {
   id: "<id>",
   type: "click_house",
   url: "https://grave-skeleton.com/",
+  database: "<value>",
+  tableName: "<value>",
+};
+```
+
+### `operations.CreateOutputSystemByPackOutputCustomerMetricsStorage`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputCustomerMetricsStorage = {
+  id: "<id>",
+  type: "customer_metrics_storage",
+  url: "https://fussy-vestment.info/",
   database: "<value>",
   tableName: "<value>",
 };
@@ -879,6 +928,18 @@ const value: operations.CreateOutputSystemByPackOutputAlibabaCloudS3 = {
   bucket: "<value>",
   stagePath: "<value>",
   endpoint: "<value>",
+};
+```
+
+### `operations.CreateOutputSystemByPackOutputIbmCloudS3`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputIbmCloudS3 = {
+  id: "<id>",
+  type: "ibm_cloud_s3",
+  endpoint: "<value>",
+  bucket: "<value>",
+  stagePath: "<value>",
 };
 ```
 

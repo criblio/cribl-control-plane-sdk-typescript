@@ -13,7 +13,7 @@ export class Cribl extends ClientSDK {
    * Get system settings
    *
    * @remarks
-   * Get Cribl system settings.
+   * Get the current Cribl system settings.
    */
   async list(
     options?: RequestOptions,
@@ -28,7 +28,7 @@ export class Cribl extends ClientSDK {
    * Update system settings
    *
    * @remarks
-   * Update Cribl system settings.
+   * Update the specified Cribl system settings.<br/><br/>Provide a complete representation of the system settings that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the system settings.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated system settings might not function as expected.
    */
   async update(
     request: models.SystemSettingsConf,

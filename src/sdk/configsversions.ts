@@ -16,7 +16,7 @@ export class ConfigsVersions extends ClientSDK {
    * Get the configuration version for the specified Worker Group, Outpost Group, or Edge Fleet.
    */
   async get(
-    request: operations.GetConfigGroupConfigVersionByProductAndIdRequest,
+    request: operations.GetProductsGroupsConfigVersionByProductAndIdRequest,
     options?: RequestOptions,
   ): Promise<models.CountedString> {
     return unwrapAsync(groupsConfigsVersionsGet(

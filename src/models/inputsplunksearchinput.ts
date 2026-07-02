@@ -96,6 +96,9 @@ export type InputSplunkSearchInput = {
    */
   id?: string | undefined;
   type: "splunk_search";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -114,7 +117,7 @@ export type InputSplunkSearchInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -215,6 +218,9 @@ export type InputSplunkSearchInput = {
    * Splunk Search authentication type
    */
   authType: InputSplunkSearchAuthenticationType;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;

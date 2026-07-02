@@ -214,7 +214,7 @@ export type OutputAzureDataExplorer = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -254,6 +254,9 @@ export type OutputAzureDataExplorer = {
    * The type of OAuth 2.0 client credentials grant flow to use
    */
   oauthType: OutputAzureDataExplorerAuthenticationMethod;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * The client secret that you generated for your app in the Azure portal
@@ -522,7 +525,7 @@ export type OutputAzureDataExplorer = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputAzureDataExplorerPqControls | undefined;

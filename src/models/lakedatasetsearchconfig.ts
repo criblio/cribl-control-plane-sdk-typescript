@@ -31,7 +31,7 @@ export type LakeDatasetSearchConfig = {
    */
   datatypes?: Array<string> | undefined;
   /**
-   * Brief description of Dataset search configuration.
+   * Brief description of the Dataset search configuration.
    */
   description?: string | undefined;
   metadata?: DatasetMetadata | undefined;

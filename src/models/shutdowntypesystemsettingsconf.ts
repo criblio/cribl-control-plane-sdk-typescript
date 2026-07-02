@@ -8,7 +8,13 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Graceful shutdown configuration.
+ */
 export type ShutdownTypeSystemSettingsConf = {
+  /**
+   * Maximum time in milliseconds to wait for in-flight events to drain before forcing a shutdown.
+   */
   drainTimeout: number;
 };
 
@@ -31,7 +37,7 @@ export const ShutdownTypeSystemSettingsConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ShutdownTypeSystemSettingsConf
 > = z.object({
-  drainTimeout: z.number(),
+  drainTimeout: z.number().int(),
 });
 
 export function shutdownTypeSystemSettingsConfToJSON(

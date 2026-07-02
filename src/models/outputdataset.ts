@@ -125,7 +125,7 @@ export type OutputDataset = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -223,6 +223,9 @@ export type OutputDataset = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
@@ -266,7 +269,7 @@ export type OutputDataset = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputDatasetPqControls | undefined;

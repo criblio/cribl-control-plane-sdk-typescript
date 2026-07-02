@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * Update a Pipeline within a Pack
  *
  * @remarks
- * Update the specified Pipeline within the specified Pack.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
+ * Update the specified Pipeline within the specified Pack.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body.<br/><br/>This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request.<br/><br/>If the configuration is incorrect, the updated Pipeline might not function as expected.
  */
 export function packsPipelinesUpdate(
   client: CriblControlPlaneCore,
@@ -180,8 +180,9 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, models.CountedPipeline$inboundSchema),
+    M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail([400, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

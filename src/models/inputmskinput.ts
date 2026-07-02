@@ -31,6 +31,9 @@ export type InputMskInput = {
    */
   id?: string | undefined;
   type: "msk";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -49,7 +52,7 @@ export type InputMskInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -187,6 +190,9 @@ export type InputMskInput = {
    * Maximum number of network errors before the consumer re-creates a socket
    */
   maxSocketErrors?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**

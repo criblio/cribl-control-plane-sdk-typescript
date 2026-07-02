@@ -31,6 +31,9 @@ export const NotificationMode3 = {
  */
 export type NotificationMode3 = OpenEnum<typeof NotificationMode3>;
 
+/**
+ * Email recipient settings for the Notification target.
+ */
 export type EmailRecipient3 = {
   /**
    * Recipients' email addresses
@@ -46,6 +49,9 @@ export type EmailRecipient3 = {
   bcc?: string | undefined;
 };
 
+/**
+ * Simple Mail Transfer Protocol (SMTP) configuration for the Notification target.
+ */
 export type NotificationConfigForSMTPTarget3 = {
   /**
    * Email subject
@@ -55,11 +61,20 @@ export type NotificationConfigForSMTPTarget3 = {
    * Email body
    */
   body?: string | undefined;
+  /**
+   * Email recipient settings for the Notification target.
+   */
   emailRecipient?: EmailRecipient3 | undefined;
 };
 
 export type TargetConfig3 = {
+  /**
+   * Simple Mail Transfer Protocol (SMTP) configuration for the Notification target.
+   */
   conf?: NotificationConfigForSMTPTarget3 | undefined;
+  /**
+   * The <code>id</code> of the Notification target.
+   */
   id: string;
 };
 
@@ -131,6 +146,9 @@ export const NotificationMode2 = {
  */
 export type NotificationMode2 = OpenEnum<typeof NotificationMode2>;
 
+/**
+ * Email recipient settings for the Notification target.
+ */
 export type EmailRecipient2 = {
   /**
    * Recipients' email addresses
@@ -146,6 +164,9 @@ export type EmailRecipient2 = {
   bcc?: string | undefined;
 };
 
+/**
+ * Simple Mail Transfer Protocol (SMTP) configuration for the Notification target.
+ */
 export type NotificationConfigForSMTPTarget2 = {
   /**
    * Email subject
@@ -155,11 +176,20 @@ export type NotificationConfigForSMTPTarget2 = {
    * Email body
    */
   body?: string | undefined;
+  /**
+   * Email recipient settings for the Notification target.
+   */
   emailRecipient?: EmailRecipient2 | undefined;
 };
 
 export type TargetConfig2 = {
+  /**
+   * Simple Mail Transfer Protocol (SMTP) configuration for the Notification target.
+   */
   conf?: NotificationConfigForSMTPTarget2 | undefined;
+  /**
+   * The <code>id</code> of the Notification target.
+   */
   id: string;
 };
 
@@ -231,6 +261,9 @@ export const NotificationMode1 = {
  */
 export type NotificationMode1 = OpenEnum<typeof NotificationMode1>;
 
+/**
+ * Email recipient settings for the Notification target.
+ */
 export type EmailRecipient1 = {
   /**
    * Recipients' email addresses
@@ -246,6 +279,9 @@ export type EmailRecipient1 = {
   bcc?: string | undefined;
 };
 
+/**
+ * Simple Mail Transfer Protocol (SMTP) configuration for the Notification target.
+ */
 export type NotificationConfigForSMTPTarget1 = {
   /**
    * Email subject
@@ -255,11 +291,20 @@ export type NotificationConfigForSMTPTarget1 = {
    * Email body
    */
   body?: string | undefined;
+  /**
+   * Email recipient settings for the Notification target.
+   */
   emailRecipient?: EmailRecipient1 | undefined;
 };
 
 export type TargetConfig1 = {
+  /**
+   * Simple Mail Transfer Protocol (SMTP) configuration for the Notification target.
+   */
   conf?: NotificationConfigForSMTPTarget1 | undefined;
+  /**
+   * The <code>id</code> of the Notification target.
+   */
   id: string;
 };
 

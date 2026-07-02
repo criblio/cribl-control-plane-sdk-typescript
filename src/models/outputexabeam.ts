@@ -49,7 +49,7 @@ export type OutputExabeam = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -151,6 +151,9 @@ export type OutputExabeam = {
    * HMAC secret. Can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
    */
   awsSecretKey?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * How frequently, in seconds, to clean up empty directories

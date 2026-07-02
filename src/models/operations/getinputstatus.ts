@@ -6,6 +6,7 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
+import { smartUnion } from "../../types/smartUnion.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
@@ -28,8 +29,15 @@ export type GetInputStatusRequest = {
   limit?: number | undefined;
 };
 
+/**
+ * List of Source status objects.
+ */
+export type GetInputStatusResponseBody =
+  | models.PaginatedInputStatus
+  | models.CountedInputStatus;
+
 export type GetInputStatusResponse = {
-  result: models.CountedInputStatus;
+  result: models.PaginatedInputStatus | models.CountedInputStatus;
 };
 
 /** @internal */
@@ -61,12 +69,35 @@ export function getInputStatusRequestToJSON(
 }
 
 /** @internal */
+export const GetInputStatusResponseBody$inboundSchema: z.ZodType<
+  GetInputStatusResponseBody,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([
+  models.PaginatedInputStatus$inboundSchema,
+  models.CountedInputStatus$inboundSchema,
+]);
+
+export function getInputStatusResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<GetInputStatusResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetInputStatusResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetInputStatusResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetInputStatusResponse$inboundSchema: z.ZodType<
   GetInputStatusResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Result: models.CountedInputStatus$inboundSchema,
+  Result: smartUnion([
+    models.PaginatedInputStatus$inboundSchema,
+    models.CountedInputStatus$inboundSchema,
+  ]),
 }).transform((v) => {
   return remap$(v, {
     "Result": "result",

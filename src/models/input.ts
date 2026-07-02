@@ -289,6 +289,11 @@ import {
   InputSqsInput$outboundSchema,
 } from "./inputsqsinput.js";
 import {
+  InputSysdigHecInput,
+  InputSysdigHecInput$Outbound,
+  InputSysdigHecInput$outboundSchema,
+} from "./inputsysdighecinput.js";
+import {
   InputSyslogInputUnion,
   InputSyslogInputUnion$Outbound,
   InputSyslogInputUnion$outboundSchema,
@@ -313,6 +318,11 @@ import {
   InputTcpjsonInput$Outbound,
   InputTcpjsonInput$outboundSchema,
 } from "./inputtcpjsoninput.js";
+import {
+  InputUpwindHecInput,
+  InputUpwindHecInput$Outbound,
+  InputUpwindHecInput$outboundSchema,
+} from "./inputupwindhecinput.js";
 import {
   InputWefInput,
   InputWefInput$Outbound,
@@ -410,6 +420,8 @@ export type Input =
   | InputServicenowTableInput
   | InputZscalerHecInput
   | InputCloudflareHecInput
+  | InputSysdigHecInput
+  | InputUpwindHecInput
   | InputOpenaiComplianceLogsInput
   | InputAnthropicComplianceInput
   | InputOktaInput;
@@ -481,6 +493,8 @@ export type Input$Outbound =
   | InputServicenowTableInput$Outbound
   | InputZscalerHecInput$Outbound
   | InputCloudflareHecInput$Outbound
+  | InputSysdigHecInput$Outbound
+  | InputUpwindHecInput$Outbound
   | InputOpenaiComplianceLogsInput$Outbound
   | InputAnthropicComplianceInput$Outbound
   | InputOktaInput$Outbound;
@@ -560,6 +574,8 @@ export const Input$outboundSchema: z.ZodType<
   InputServicenowTableInput$outboundSchema,
   InputZscalerHecInput$outboundSchema,
   InputCloudflareHecInput$outboundSchema,
+  InputSysdigHecInput$outboundSchema,
+  InputUpwindHecInput$outboundSchema,
   InputOpenaiComplianceLogsInput$outboundSchema,
   InputAnthropicComplianceInput$outboundSchema,
   InputOktaInput$outboundSchema,

@@ -5,7 +5,26 @@
 ```typescript
 import { CountedPipeline } from "cribl-control-plane/models";
 
-let value: CountedPipeline = {};
+let value: CountedPipeline = {
+  items: [
+    {
+      id: "<id>",
+      conf: {
+        functions: [
+          {
+            id: "eventstats",
+            conf: {
+              aggregations: [
+                "<value 1>",
+                "<value 2>",
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+};
 ```
 
 ## Fields

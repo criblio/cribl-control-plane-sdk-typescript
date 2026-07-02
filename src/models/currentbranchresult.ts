@@ -9,6 +9,9 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type CurrentBranchResult = {
+  /**
+   * Name of the Git branch that the Cribl configuration is currently checked out to.
+   */
   branch: string;
 };
 

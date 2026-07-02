@@ -6,6 +6,7 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
+import { smartUnion } from "../../types/smartUnion.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
@@ -32,8 +33,15 @@ export type GetOutputStatusSystemOutputsByPackRequest = {
   pack: string;
 };
 
+/**
+ * List of Destination status objects.
+ */
+export type GetOutputStatusSystemOutputsByPackResponseBody =
+  | models.PaginatedOutputStatus
+  | models.CountedOutputStatus;
+
 export type GetOutputStatusSystemOutputsByPackResponse = {
-  result: models.CountedOutputStatus;
+  result: models.PaginatedOutputStatus | models.CountedOutputStatus;
 };
 
 /** @internal */
@@ -71,10 +79,40 @@ export function getOutputStatusSystemOutputsByPackRequestToJSON(
 }
 
 /** @internal */
+export const GetOutputStatusSystemOutputsByPackResponseBody$inboundSchema:
+  z.ZodType<
+    GetOutputStatusSystemOutputsByPackResponseBody,
+    z.ZodTypeDef,
+    unknown
+  > = smartUnion([
+    models.PaginatedOutputStatus$inboundSchema,
+    models.CountedOutputStatus$inboundSchema,
+  ]);
+
+export function getOutputStatusSystemOutputsByPackResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetOutputStatusSystemOutputsByPackResponseBody,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetOutputStatusSystemOutputsByPackResponseBody$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetOutputStatusSystemOutputsByPackResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
 export const GetOutputStatusSystemOutputsByPackResponse$inboundSchema:
   z.ZodType<GetOutputStatusSystemOutputsByPackResponse, z.ZodTypeDef, unknown> =
     z.object({
-      Result: models.CountedOutputStatus$inboundSchema,
+      Result: smartUnion([
+        models.PaginatedOutputStatus$inboundSchema,
+        models.CountedOutputStatus$inboundSchema,
+      ]),
     }).transform((v) => {
       return remap$(v, {
         "Result": "result",

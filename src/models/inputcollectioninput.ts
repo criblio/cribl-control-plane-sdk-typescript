@@ -26,6 +26,9 @@ export type InputCollectionInput = {
    */
   id?: string | undefined;
   type: "collection";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process results
@@ -44,7 +47,7 @@ export type InputCollectionInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**

@@ -179,7 +179,6 @@ const value: models.PipelineFunctionEventstats = {
     aggregations: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
   },
 };
@@ -473,6 +472,7 @@ const value: models.PipelineFunctionPack = {
   conf: {
     unpackedFields: [
       "<value 1>",
+      "<value 2>",
     ],
   },
 };

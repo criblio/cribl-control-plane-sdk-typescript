@@ -78,7 +78,7 @@ export type OutputDlS3 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -229,6 +229,9 @@ export type OutputDlS3 = {
    * List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
    */
   partitioningFields?: Array<string> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)

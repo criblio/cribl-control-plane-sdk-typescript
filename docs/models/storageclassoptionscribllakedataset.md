@@ -7,7 +7,7 @@ Storage class used for objects written to the Dataset.
 ```typescript
 import { StorageClassOptionsCriblLakeDataset } from "cribl-control-plane/models";
 
-let value: StorageClassOptionsCriblLakeDataset = "INTELLIGENT_TIERING";
+let value: StorageClassOptionsCriblLakeDataset = "Hot";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -15,5 +15,5 @@ let value: StorageClassOptionsCriblLakeDataset = "INTELLIGENT_TIERING";
 ## Values
 
 ```typescript
-"DEEP_ARCHIVE" | "GLACIER" | "GLACIER_IR" | "INTELLIGENT_TIERING" | "ONEZONE_IA" | "STANDARD" | "STANDARD_IA" | Unrecognized<string>
+"Archive" | "Cold" | "Cool" | "DEEP_ARCHIVE" | "GLACIER" | "GLACIER_IR" | "Hot" | "Inferred" | "INTELLIGENT_TIERING" | "ONEZONE_IA" | "STANDARD" | "STANDARD_IA" | Unrecognized<string>
 ```

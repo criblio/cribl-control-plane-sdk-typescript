@@ -12,6 +12,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 import { Acl } from "./acl.js";
 import { GroupsConfigs } from "./groupsconfigs.js";
 
@@ -33,10 +34,15 @@ export class Groups extends ClientSDK {
    * Get a list of all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product.
    */
   async list(
-    request: operations.ListConfigGroupByProductRequest,
+    request: operations.GetProductsGroupsByProductRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedConfigGroup> {
-    return unwrapAsync(groupsList(
+  ): Promise<
+    PageIterator<
+      operations.GetProductsGroupsByProductResponse,
+      { offset: number }
+    >
+  > {
+    return unwrapResultIterator(groupsList(
       this,
       request,
       options,
@@ -50,7 +56,7 @@ export class Groups extends ClientSDK {
    * Create a new Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product.
    */
   async create(
-    request: operations.CreateConfigGroupByProductRequest,
+    request: operations.CreateProductsGroupsByProductRequest,
     options?: RequestOptions,
   ): Promise<models.CountedConfigGroup> {
     return unwrapAsync(groupsCreate(
@@ -67,7 +73,7 @@ export class Groups extends ClientSDK {
    * Get the specified Worker Group, Outpost Group, or Edge Fleet.
    */
   async get(
-    request: operations.GetConfigGroupByProductAndIdRequest,
+    request: operations.GetProductsGroupsByProductAndIdRequest,
     options?: RequestOptions,
   ): Promise<models.CountedConfigGroup> {
     return unwrapAsync(groupsGet(
@@ -84,7 +90,7 @@ export class Groups extends ClientSDK {
    * Update the specified Worker Group, Outpost Group, or Edge Fleet.<br/><br/>Provide a complete representation of the Group or Fleet that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Group or Fleet.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Group or Fleet might not function as expected.<br/><br/>**Warning**: Do not change the values for the following parameters in the body of PATCH requests. The request body must include the values as they appear in the <code>GET /products/{product}/groups/{id}</code> response.<br/> - <code>configVersion</code><br/> - <code>deployingWorkerCount</code><br/> - <code>incompatibleWorkerCount</code><br/> - <code>workerCount</code><br/> - <code>lookupDeployments</code>.
    */
   async update(
-    request: operations.UpdateConfigGroupByProductAndIdRequest,
+    request: operations.UpdateProductsGroupsByProductAndIdRequest,
     options?: RequestOptions,
   ): Promise<models.CountedConfigGroup> {
     return unwrapAsync(groupsUpdate(
@@ -101,7 +107,7 @@ export class Groups extends ClientSDK {
    * Delete the specified Worker Group, Outpost Group, or Edge Fleet.
    */
   async delete(
-    request: operations.DeleteConfigGroupByProductAndIdRequest,
+    request: operations.DeleteProductsGroupsByProductAndIdRequest,
     options?: RequestOptions,
   ): Promise<models.CountedConfigGroup> {
     return unwrapAsync(groupsDelete(
@@ -118,7 +124,7 @@ export class Groups extends ClientSDK {
    * Deploy commits to the specified Worker Group, Outpost Group, or Edge Fleet.
    */
   async deploy(
-    request: operations.UpdateConfigGroupDeployByProductAndIdRequest,
+    request: operations.UpdateProductsGroupsDeployByProductAndIdRequest,
     options?: RequestOptions,
   ): Promise<models.CountedConfigGroup> {
     return unwrapAsync(groupsDeploy(

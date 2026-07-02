@@ -18,6 +18,9 @@ import {
   ModeOptionsPq$outboundSchema,
 } from "./modeoptionspq.js";
 
+/**
+ * Management controls for the persistent queue.
+ */
 export type PqTypePqControls = {};
 
 export type PqType = {
@@ -26,7 +29,7 @@ export type PqType = {
    */
   mode?: ModeOptionsPq | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   maxBufferSizeBytes?: string | undefined;
   /**
@@ -53,6 +56,9 @@ export type PqType = {
    * Codec to use to compress the persisted data
    */
   compress?: CompressionOptionsPq | undefined;
+  /**
+   * Management controls for the persistent queue.
+   */
   pqControls?: PqTypePqControls | undefined;
 };
 

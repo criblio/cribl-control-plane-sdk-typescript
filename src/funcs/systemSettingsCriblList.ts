@@ -28,7 +28,7 @@ import { Result } from "../types/fp.js";
  * Get system settings
  *
  * @remarks
- * Get Cribl system settings.
+ * Get the current Cribl system settings.
  */
 export function systemSettingsCriblList(
   client: CriblControlPlaneCore,
@@ -150,8 +150,9 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, models.CountedSystemSettingsConf$inboundSchema),
+    M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

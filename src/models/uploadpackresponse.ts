@@ -9,6 +9,9 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type UploadPackResponse = {
+  /**
+   * Unique staging source identifier for the uploaded Pack file. Pass this value as the <code>source</code> parameter in a subsequent <code>POST /packs</code> request to install the Pack.
+   */
   source: string;
 };
 

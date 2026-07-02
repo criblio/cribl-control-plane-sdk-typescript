@@ -66,17 +66,9 @@ export type OutputWizHec = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
-  /**
-   * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
-   */
-  nextQueue?: string | undefined;
-  /**
-   * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
-   */
-  tcpRouting?: string | undefined;
   tls?: TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum number of ongoing requests before blocking
@@ -138,10 +130,6 @@ export type OutputWizHec = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: BackpressureBehaviorOptions | undefined;
-  /**
    * The unique identifier for the specific Cribl connector defined in your Wiz Settings. This is used to cross-validate the bearer token and ensure traffic is originating from the authorized integration.
    */
   wiz_connector_id: string;
@@ -154,7 +142,22 @@ export type OutputWizHec = {
    */
   data_center: string;
   wiz_sourcetype: string;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Wiz Defend Auth token
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -196,18 +199,10 @@ export type OutputWizHec = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputWizHecPqControls | undefined;
-  /**
-   * Wiz Defend Auth token
-   */
-  token?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -216,10 +211,6 @@ export type OutputWizHec = {
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
-  /**
-   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
-   */
-  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'wiz_environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_environment' at runtime.
    */
@@ -232,6 +223,10 @@ export type OutputWizHec = {
    * Binds 'wiz_sourcetype' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_sourcetype' at runtime.
    */
   __template_wiz_sourcetype?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -260,8 +255,6 @@ export type OutputWizHec$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  nextQueue?: string | undefined;
-  tcpRouting?: string | undefined;
   tls?: TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
@@ -281,12 +274,14 @@ export type OutputWizHec$Outbound = {
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
-  onBackpressure?: string | undefined;
   wiz_connector_id: string;
   wiz_environment: string;
   data_center: string;
   wiz_sourcetype: string;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
   pqStrictOrdering?: boolean | undefined;
   pqRatePerSec?: number | undefined;
   pqMode?: string | undefined;
@@ -299,14 +294,12 @@ export type OutputWizHec$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputWizHecPqControls$Outbound | undefined;
-  token?: string | undefined;
-  textSecret?: string | undefined;
   __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
-  __template_onBackpressure?: string | undefined;
   __template_wiz_environment?: string | undefined;
   __template_data_center?: string | undefined;
   __template_wiz_sourcetype?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -321,8 +314,6 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  nextQueue: z.string().optional(),
-  tcpRouting: z.string().optional(),
   tls: TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
     .optional(),
   concurrency: z.number().optional(),
@@ -344,12 +335,14 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   ).optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   wiz_connector_id: z.string(),
   wiz_environment: z.string(),
   data_center: z.string(),
   wiz_sourcetype: z.string(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),
   pqMode: ModeOptions$outboundSchema.optional(),
@@ -362,14 +355,12 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => OutputWizHecPqControls$outboundSchema).optional(),
-  token: z.string().optional(),
-  textSecret: z.string().optional(),
   __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
   __template_wiz_environment: z.string().optional(),
   __template_data_center: z.string().optional(),
   __template_wiz_sourcetype: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function outputWizHecToJSON(outputWizHec: OutputWizHec): string {

@@ -8,7 +8,10 @@ import { UpdateOutputByIdRequest } from "cribl-control-plane/models/operations";
 let value: UpdateOutputByIdRequest = {
   id: "<id>",
   output: {
-    type: "newrelic",
+    type: "storj_s3",
+    bucket: "<value>",
+    stagePath: "<value>",
+    endpoint: "<value>",
   },
 };
 ```

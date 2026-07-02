@@ -8,10 +8,21 @@ import { UpdateDatabaseConnectionConfigByIdRequest } from "cribl-control-plane/m
 let value: UpdateDatabaseConnectionConfigByIdRequest = {
   id: "<id>",
   databaseConnectionConfig: {
-    authType: "<value>",
-    databaseType: "oracle",
-    description: "beret geez hungry watery",
-    id: "<id>",
+    authType: "connectionString",
+    configObj:
+      "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"trustServerCertificate\":false,\"connectTimeout\":20000}}",
+    connectionString:
+      "mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true",
+    connectionTimeout: 10000,
+    credsSecrets: "oracle-production-credentials",
+    databaseType: "mysql",
+    description: "Production MySQL database for customer data",
+    id: "mysql-prod-db",
+    password: "yourPassword",
+    requestTimeout: 30000,
+    tags: "production,mysql,customer-data",
+    textSecret: "mysql-production-connection",
+    user: "yourUsername",
   },
 };
 ```

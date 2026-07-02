@@ -3,18 +3,44 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { smartUnion } from "../../types/smartUnion.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type GetSavedJobRequest = {
   /**
-   * Filter by collector type
+   * Filter by collector type.
    */
   collectorType?: models.CollectorType | undefined;
+  /**
+   * Pagination offset
+   */
+  offset?: number | undefined;
+  /**
+   * Maximum number of items to return
+   */
+  limit?: number | undefined;
+};
+
+/**
+ * The list of Collectors in a response envelope with <code>count</code> and <code>items</code>.
+ */
+export type GetSavedJobResponseBody =
+  | models.PaginatedSavedJobResponse
+  | models.CountedSavedJobResponse;
+
+export type GetSavedJobResponse = {
+  result: models.PaginatedSavedJobResponse | models.CountedSavedJobResponse;
 };
 
 /** @internal */
 export type GetSavedJobRequest$Outbound = {
   collectorType?: string | undefined;
+  offset?: number | undefined;
+  limit?: number | undefined;
 };
 
 /** @internal */
@@ -24,6 +50,8 @@ export const GetSavedJobRequest$outboundSchema: z.ZodType<
   GetSavedJobRequest
 > = z.object({
   collectorType: models.CollectorType$outboundSchema.optional(),
+  offset: z.number().int().optional(),
+  limit: z.number().int().optional(),
 });
 
 export function getSavedJobRequestToJSON(
@@ -31,5 +59,51 @@ export function getSavedJobRequestToJSON(
 ): string {
   return JSON.stringify(
     GetSavedJobRequest$outboundSchema.parse(getSavedJobRequest),
+  );
+}
+
+/** @internal */
+export const GetSavedJobResponseBody$inboundSchema: z.ZodType<
+  GetSavedJobResponseBody,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([
+  models.PaginatedSavedJobResponse$inboundSchema,
+  models.CountedSavedJobResponse$inboundSchema,
+]);
+
+export function getSavedJobResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<GetSavedJobResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetSavedJobResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSavedJobResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetSavedJobResponse$inboundSchema: z.ZodType<
+  GetSavedJobResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: smartUnion([
+    models.PaginatedSavedJobResponse$inboundSchema,
+    models.CountedSavedJobResponse$inboundSchema,
+  ]),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+
+export function getSavedJobResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetSavedJobResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetSavedJobResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSavedJobResponse' from JSON`,
   );
 }

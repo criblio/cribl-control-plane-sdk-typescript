@@ -1,19 +1,30 @@
 # Os
 
-## Example Usage
+Operating system metadata collected from the node.
+
+
+## Supported Types
+
+### `models.NodeOsInfo`
 
 ```typescript
-import { Os } from "cribl-control-plane/models";
-
-let value: Os = {
+const value: models.NodeOsInfo = {
   addresses: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
 };
 ```
 
-## Fields
+### `models.OsTypeHeartbeatMetadata`
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `addresses`        | *string*[]         | :heavy_check_mark: | N/A                |
+```typescript
+const value: models.OsTypeHeartbeatMetadata = {
+  addresses: [],
+  enabled: true,
+  id: "<id>",
+  version: "<value>",
+};
+```
+

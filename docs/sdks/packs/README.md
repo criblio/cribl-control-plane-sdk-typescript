@@ -15,7 +15,7 @@ Actions related to Packs
 
 ## install
 
-Install a Pack.<br><br> To install an uploaded Pack, provide the <code>source</code> value from the <code>PUT /packs</code> response as the <code>source</code> parameter in the request body.<br><br> To install a Pack by importing from a URL, provide the direct URL location of the <code>.crbl</code> file for the Pack as the <code>source</code> parameter in the request body.<br><br> To install a Pack by importing from a Git repository, provide <code>git+<repo-url></code> as the <code>source</code> parameter in the request body.<br><br> If you do not include the <code>source</code> parameter in the request body, an empty Pack is created.
+Install a Pack.<br/><br/>To install an uploaded Pack, provide the <code>source</code> value from the <code>PUT /packs</code> response as the <code>source</code> parameter in the request body.<br/><br/>To install a Pack by importing from a URL, provide the direct URL location of the <code>.crbl</code> file for the Pack as the <code>source</code> parameter in the request body.<br/><br/>To install a Pack by importing from a Git repository, provide <code>git+&lt;repo-url&gt;</code> as the <code>source</code> parameter in the request body.<br/><br/>If you do not include the <code>source</code> parameter in the request body, an empty Pack is created.
 
 ### Example Usage: PackInstallExamplesEmptyPack
 
@@ -49,13 +49,13 @@ async function run() {
         "delectable-transom.com",
         "radiant-sightseeing.info",
       ],
+      technology: [
+        "<value 1>",
+      ],
       streamtags: [
         "<value 1>",
         "<value 2>",
         "<value 3>",
-      ],
-      technology: [
-        "<value 1>",
       ],
     },
     allowCustomFunctions: false,
@@ -104,13 +104,13 @@ async function run() {
         "delectable-transom.com",
         "radiant-sightseeing.info",
       ],
+      technology: [
+        "<value 1>",
+      ],
       streamtags: [
         "<value 1>",
         "<value 2>",
         "<value 3>",
-      ],
-      technology: [
-        "<value 1>",
       ],
     },
     allowCustomFunctions: false,
@@ -358,6 +358,83 @@ async function run() {
 
 run();
 ```
+### Example Usage: PackInstallResponseExamplesInstalledFromURL
+
+<!-- UsageSnippet language="typescript" operationID="createPacks" method="post" path="/packs" example="PackInstallResponseExamplesInstalledFromURL" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.install({
+    version: "1.0.0",
+    source: "<value>",
+    tags: {
+      domain: [
+        "security",
+        "observability",
+      ],
+      technology: [
+        "aws",
+        "splunk",
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsInstall } from "cribl-control-plane/funcs/packsInstall.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsInstall(criblControlPlane, {
+    version: "1.0.0",
+    source: "<value>",
+    tags: {
+      domain: [
+        "security",
+        "observability",
+      ],
+      technology: [
+        "aws",
+        "splunk",
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsInstall failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -376,6 +453,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -385,7 +463,7 @@ Get a list of all Packs.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getPacks" method="get" path="/packs" -->
+<!-- UsageSnippet language="typescript" operationID="getPacks" method="get" path="/packs" example="PackListResponseExamplesPackList" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -397,11 +475,11 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.packs.list({
-    with: "<value>",
-  });
+  const result = await criblControlPlane.packs.list();
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -425,12 +503,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await packsList(criblControlPlane, {
-    with: "<value>",
-  });
+  const res = await packsList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("packsList failed:", res.error);
   }
@@ -450,12 +528,13 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedPackInfo](../../models/countedpackinfo.md)\>**
+**Promise\<[operations.GetPacksResponse](../../models/operations/getpacksresponse.md)\>**
 
 ### Errors
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -465,7 +544,7 @@ Upload a Pack file. Returns the <code>source</code> ID needed to install the Pac
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="updatePacks" method="put" path="/packs" -->
+<!-- UsageSnippet language="typescript" operationID="updatePacks" method="put" path="/packs" example="PackUploadResponseExamplesUploadedPack" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 import { openAsBlob } from "node:fs";
@@ -540,6 +619,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -547,9 +627,64 @@ run();
 
 Get the specified Pack.
 
-### Example Usage
+### Example Usage: PackGetResponseExamplesEmptyPack
 
-<!-- UsageSnippet language="typescript" operationID="getPacksById" method="get" path="/packs/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="getPacksById" method="get" path="/packs/{id}" example="PackGetResponseExamplesEmptyPack" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.get({
+    id: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsGet } from "cribl-control-plane/funcs/packsGet.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsGet(criblControlPlane, {
+    id: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsGet failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: PackGetResponseExamplesInstalledPack
+
+<!-- UsageSnippet language="typescript" operationID="getPacksById" method="get" path="/packs/{id}" example="PackGetResponseExamplesInstalledPack" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -620,6 +755,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -627,7 +763,7 @@ run();
 
 Upgrade the specified Pack.<br/><br/>If the Pack includes any user-modified versions of default Cribl Knowledge resources such as lookups, copy the modified files locally for safekeeping before upgrading the Pack. Copy the modified files back to the upgraded Pack after you install it with <code>POST /packs</code> to overwrite the default versions in the Pack.<br/><br/>After you upgrade the Pack, update any Routes, Pipelines, Sources, and Destinations that use the previous Pack version so that they reference the upgraded Pack.
 
-### Example Usage
+### Example Usage: PackUpgradeExamplesUpgradeFromURL
 
 <!-- UsageSnippet language="typescript" operationID="updatePacksById" method="patch" path="/packs/{id}" example="PackUpgradeExamplesUpgradeFromURL" -->
 ```typescript
@@ -688,6 +824,67 @@ async function run() {
 
 run();
 ```
+### Example Usage: PackUpgradeResponseExamplesUpgraded
+
+<!-- UsageSnippet language="typescript" operationID="updatePacksById" method="patch" path="/packs/{id}" example="PackUpgradeResponseExamplesUpgraded" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.update({
+    id: "<id>",
+    packUpgradeRequest: {
+      source: "<value>",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsUpdate } from "cribl-control-plane/funcs/packsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsUpdate(criblControlPlane, {
+    id: "<id>",
+    packUpgradeRequest: {
+      source: "<value>",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -706,6 +903,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -715,7 +913,7 @@ Uninstall the specified Pack.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="deletePacksById" method="delete" path="/packs/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="deletePacksById" method="delete" path="/packs/{id}" example="PackDeleteResponseExamplesUninstalled" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -786,5 +984,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

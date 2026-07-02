@@ -29,6 +29,11 @@ import {
   RecordTypeOptions$outboundSchema,
 } from "./recordtypeoptions.js";
 import {
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+} from "./refreshrequestparamconfhealthcheckauthenticationoauthsecret.js";
+import {
   SearchFilterConfInputPrometheus,
   SearchFilterConfInputPrometheus$Outbound,
   SearchFilterConfInputPrometheus$outboundSchema,
@@ -50,6 +55,10 @@ export const InputPrometheusDiscoveryType = {
    * AWS EC2
    */
   Ec2: "ec2",
+  /**
+   * HTTP SD
+   */
+  HttpSd: "http_sd",
 } as const;
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -78,6 +87,9 @@ export type InputPrometheusInput = {
    */
   id?: string | undefined;
   type: "prometheus";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -96,7 +108,7 @@ export type InputPrometheusInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -160,6 +172,9 @@ export type InputPrometheusInput = {
    * Enter credentials directly, or select a stored secret
    */
   authType?: AuthenticationMethodOptionsSasl | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
@@ -231,6 +246,24 @@ export type InputPrometheusInput = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
+  /**
+   * URL to fetch target groups from (must be http or https)
+   */
+  httpDiscoveryUrl?: string | undefined;
+  /**
+   * Extra headers to send with the discovery request
+   */
+  httpDiscoveryHeaders?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
+  /**
+   * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+   */
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  /**
+   * Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+   */
+  maxResponseBodySize?: string | undefined;
   /**
    * Username for Prometheus Basic authentication
    */
@@ -365,6 +398,14 @@ export type InputPrometheusInput$Outbound = {
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
+  httpDiscoveryUrl?: string | undefined;
+  httpDiscoveryHeaders?:
+    | Array<
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
+    | undefined;
+  httpDiscoveryRejectUnauthorized?: boolean | undefined;
+  maxResponseBodySize?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -436,6 +477,12 @@ export const InputPrometheusInput$outboundSchema: z.ZodType<
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
+  httpDiscoveryUrl: z.string().optional(),
+  httpDiscoveryHeaders: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+  ).optional(),
+  httpDiscoveryRejectUnauthorized: z.boolean().optional(),
+  maxResponseBodySize: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),

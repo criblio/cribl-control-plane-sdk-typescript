@@ -9,36 +9,42 @@ let value: GetProductsWorkersByProductResponse = {
   result: {
     items: [
       {
-        firstMsgTime: 9898.26,
+        firstMsgTime: 884551,
         group: "<value>",
         id: "<id>",
         info: {
-          architecture: "<value>",
-          cpus: 6980.43,
+          architecture: "x64",
+          cpus: 655075,
           cribl: {
             config: {},
             distMode: "worker",
             group: "<value>",
             guid: "<id>",
-            startTime: 576212,
+            startTime: 409281,
           },
-          env: {},
-          hostname: "smoggy-reach.net",
+          env: {
+            "key": "<value>",
+            "key1": "<value>",
+          },
+          hostname: "understated-waist.info",
           node: "<value>",
-          platform: "<value>",
+          platform: "linux",
           release: "<value>",
-          totalmem: 8517.58,
+          totalmem: 130666,
         },
-        lastMsgTime: 7747.4,
-        workerProcesses: 4050.07,
+        lastMsgTime: 772877,
+        workerProcesses: 545963,
       },
     ],
+    count: 576212,
+    offset: 136388,
+    limit: 759185,
   },
 };
 ```
 
 ## Fields
 
-| Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
-| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `result`                                                                    | [models.CountedMasterWorkerEntry](../../models/countedmasterworkerentry.md) | :heavy_check_mark:                                                          | N/A                                                                         |
+| Field                                                | Type                                                 | Required                                             | Description                                          |
+| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| `result`                                             | *operations.GetProductsWorkersByProductResponseBody* | :heavy_check_mark:                                   | N/A                                                  |

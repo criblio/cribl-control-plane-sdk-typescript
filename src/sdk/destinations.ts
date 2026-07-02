@@ -11,6 +11,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 import { DestinationsPq } from "./destinationspq.js";
 import { DestinationsStatuses } from "./destinationsstatuses.js";
 import { Samples } from "./samples.js";
@@ -40,8 +41,8 @@ export class Destinations extends ClientSDK {
   async list(
     request?: operations.ListOutputRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.CountedOutputResponse> {
-    return unwrapAsync(destinationsList(
+  ): Promise<PageIterator<operations.ListOutputResponse, { offset: number }>> {
+    return unwrapResultIterator(destinationsList(
       this,
       request,
       options,

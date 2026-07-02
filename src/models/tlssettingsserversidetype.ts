@@ -19,6 +19,9 @@ import {
 } from "./minimumtlsversionoptionstls.js";
 
 export type TlsSettingsServerSideType = {
+  /**
+   * If true, TLS is disabled on this connection.
+   */
   disabled?: boolean | undefined;
   /**
    * Require clients to present their certificates. Used to perform client authentication using SSL certs.

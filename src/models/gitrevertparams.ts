@@ -5,8 +5,17 @@
 import * as z from "zod/v3";
 
 export type GitRevertParams = {
+  /**
+   * SHA-1 hash of the commit to revert.
+   */
   commit: string;
+  /**
+   * If <code>true</code>, force the revert even when the working directory is not clean. Otherwise, <code>false</code>.
+   */
   force?: boolean | undefined;
+  /**
+   * Custom message to use for the revert commit. If omitted, a default message is generated.
+   */
   message?: string | undefined;
 };
 

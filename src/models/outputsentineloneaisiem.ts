@@ -96,17 +96,9 @@ export type OutputSentinelOneAiSiem = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
-  /**
-   * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
-   */
-  region: OutputSentinelOneAiSiemRegion;
-  /**
-   * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
-   */
-  endpoint: OutputSentinelOneAISIEMAISIEMEndpointPath;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -167,9 +159,20 @@ export type OutputSentinelOneAiSiem = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
+   * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+   */
+  region: OutputSentinelOneAiSiemRegion;
+  /**
+   * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+   */
+  endpoint: OutputSentinelOneAISIEMAISIEMEndpointPath;
+  /**
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
@@ -280,7 +283,7 @@ export type OutputSentinelOneAiSiem = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: OutputSentinelOneAiSiemPqControls | undefined;
@@ -338,8 +341,6 @@ export type OutputSentinelOneAiSiem$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  region: string;
-  endpoint: string;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   maxPayloadEvents?: number | undefined;
@@ -358,6 +359,8 @@ export type OutputSentinelOneAiSiem$Outbound = {
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
+  region: string;
+  endpoint: string;
   onBackpressure?: string | undefined;
   description?: string | undefined;
   token?: string | undefined;
@@ -406,8 +409,6 @@ export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  region: OutputSentinelOneAiSiemRegion$outboundSchema,
-  endpoint: OutputSentinelOneAISIEMAISIEMEndpointPath$outboundSchema,
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -427,6 +428,8 @@ export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
   ).optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
+  region: OutputSentinelOneAiSiemRegion$outboundSchema,
+  endpoint: OutputSentinelOneAISIEMAISIEMEndpointPath$outboundSchema,
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   token: z.string().optional(),

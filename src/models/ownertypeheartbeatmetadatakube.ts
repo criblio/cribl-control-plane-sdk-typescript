@@ -9,7 +9,13 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OwnerTypeHeartbeatMetadataKube = {
+  /**
+   * Kubernetes owner resource kind.
+   */
   kind: string;
+  /**
+   * Kubernetes owner resource name.
+   */
   name: string;
 };
 

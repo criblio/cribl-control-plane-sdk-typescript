@@ -4,10 +4,10 @@
 
 import * as z from "zod/v3";
 import {
-  EventBreakerRuleFields,
-  EventBreakerRuleFields$Outbound,
-  EventBreakerRuleFields$outboundSchema,
-} from "./eventbreakerrulefields.js";
+  MetadataConfAddHecTokenRequest,
+  MetadataConfAddHecTokenRequest$Outbound,
+  MetadataConfAddHecTokenRequest$outboundSchema,
+} from "./metadataconfaddhectokenrequest.js";
 
 export type AddHecTokenRequest = {
   /**
@@ -25,7 +25,7 @@ export type AddHecTokenRequest = {
   /**
    * Array of key-value pairs to associate with the HEC token for tagging, categorization, or providing additional context. Each item in the array is an object with a <code>name</code> and a <code>value</code>.
    */
-  metadata?: Array<EventBreakerRuleFields> | undefined;
+  metadata?: Array<MetadataConfAddHecTokenRequest> | undefined;
   /**
    * The HEC token value to add to the Splunk HEC Source.
    */
@@ -37,7 +37,7 @@ export type AddHecTokenRequest$Outbound = {
   allowedIndexesAtToken?: Array<string> | undefined;
   description?: string | undefined;
   enabled?: boolean | undefined;
-  metadata?: Array<EventBreakerRuleFields$Outbound> | undefined;
+  metadata?: Array<MetadataConfAddHecTokenRequest$Outbound> | undefined;
   token: string;
 };
 
@@ -50,7 +50,7 @@ export const AddHecTokenRequest$outboundSchema: z.ZodType<
   allowedIndexesAtToken: z.array(z.string()).optional(),
   description: z.string().optional(),
   enabled: z.boolean().optional(),
-  metadata: z.array(EventBreakerRuleFields$outboundSchema).optional(),
+  metadata: z.array(MetadataConfAddHecTokenRequest$outboundSchema).optional(),
   token: z.string(),
 });
 

@@ -3,6 +3,11 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { smartUnion } from "../../types/smartUnion.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type GetOutputSystemByPackRequest = {
@@ -11,14 +16,35 @@ export type GetOutputSystemByPackRequest = {
    */
   type?: models.DestinationType | undefined;
   /**
+   * Pagination offset
+   */
+  offset?: number | undefined;
+  /**
+   * Maximum number of items to return
+   */
+  limit?: number | undefined;
+  /**
    * The <code>id</code> of the Pack.
    */
   pack: string;
 };
 
+/**
+ * List of Destination objects.
+ */
+export type GetOutputSystemByPackResponseBody =
+  | models.PaginatedOutputResponse
+  | models.CountedOutputResponse;
+
+export type GetOutputSystemByPackResponse = {
+  result: models.PaginatedOutputResponse | models.CountedOutputResponse;
+};
+
 /** @internal */
 export type GetOutputSystemByPackRequest$Outbound = {
   type?: string | undefined;
+  offset?: number | undefined;
+  limit?: number | undefined;
   pack: string;
 };
 
@@ -29,6 +55,8 @@ export const GetOutputSystemByPackRequest$outboundSchema: z.ZodType<
   GetOutputSystemByPackRequest
 > = z.object({
   type: models.DestinationType$outboundSchema.optional(),
+  offset: z.number().int().optional(),
+  limit: z.number().int().optional(),
   pack: z.string(),
 });
 
@@ -39,5 +67,51 @@ export function getOutputSystemByPackRequestToJSON(
     GetOutputSystemByPackRequest$outboundSchema.parse(
       getOutputSystemByPackRequest,
     ),
+  );
+}
+
+/** @internal */
+export const GetOutputSystemByPackResponseBody$inboundSchema: z.ZodType<
+  GetOutputSystemByPackResponseBody,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([
+  models.PaginatedOutputResponse$inboundSchema,
+  models.CountedOutputResponse$inboundSchema,
+]);
+
+export function getOutputSystemByPackResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<GetOutputSystemByPackResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetOutputSystemByPackResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetOutputSystemByPackResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetOutputSystemByPackResponse$inboundSchema: z.ZodType<
+  GetOutputSystemByPackResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: smartUnion([
+    models.PaginatedOutputResponse$inboundSchema,
+    models.CountedOutputResponse$inboundSchema,
+  ]),
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+
+export function getOutputSystemByPackResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetOutputSystemByPackResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetOutputSystemByPackResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetOutputSystemByPackResponse' from JSON`,
   );
 }

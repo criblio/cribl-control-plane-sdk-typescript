@@ -15,7 +15,7 @@ Get a count of all Worker, Edge, or Outpost Nodes for the specified Cribl produc
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getProductsSummaryWorkersByProduct" method="get" path="/products/{product}/summary/workers" -->
+<!-- UsageSnippet language="typescript" operationID="getProductsSummaryWorkersByProduct" method="get" path="/products/{product}/summary/workers" example="ProductWorkersCountResponseExamplesCountedWorkerNodes" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -28,8 +28,8 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.nodes.count({
-    product: "edge",
-    filterExp: "<value>",
+    product: "outpost",
+    filterExp: "group==\"default\"",
   });
 
   console.log(result);
@@ -57,8 +57,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await nodesCount(criblControlPlane, {
-    product: "edge",
-    filterExp: "<value>",
+    product: "outpost",
+    filterExp: "group==\"default\"",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -88,6 +88,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -97,7 +98,7 @@ Get detailed metadata for Worker, Edge, or Outpost Nodes for the specified Cribl
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getProductsWorkersByProduct" method="get" path="/products/{product}/workers" -->
+<!-- UsageSnippet language="typescript" operationID="getProductsWorkersByProduct" method="get" path="/products/{product}/workers" example="WorkersListResponseExamplesWorkerNode" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -111,12 +112,8 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.nodes.list({
     product: "stream",
-    filterExp: "<value>",
-    sortExp: "<value>",
-    filter: "<value>",
-    sort: "<value>",
-    limit: 881129,
-    offset: 990978,
+    filterExp: "group==\"default\"",
+    filter: "%7B%22field%22%3A%22group%22%2C%22op%22%3A%22is%22%2C%22value%22%3A%22default%22%7D",
   });
 
   for await (const page of result) {
@@ -147,12 +144,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await nodesList(criblControlPlane, {
     product: "stream",
-    filterExp: "<value>",
-    sortExp: "<value>",
-    filter: "<value>",
-    sort: "<value>",
-    limit: 881129,
-    offset: 990978,
+    filterExp: "group==\"default\"",
+    filter: "%7B%22field%22%3A%22group%22%2C%22op%22%3A%22is%22%2C%22value%22%3A%22default%22%7D",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -184,6 +177,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -266,6 +260,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -360,5 +355,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

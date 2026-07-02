@@ -14,21 +14,69 @@ import {
   SslTypeSystemSettingsConfApi$outboundSchema,
 } from "./ssltypesystemsettingsconfapi.js";
 
+/**
+ * API server configuration for the Cribl instance.
+ */
 export type ApiTypeSystemSettingsConf = {
+  /**
+   * Base URL for the API server. Used when the server is behind a reverse proxy.
+   */
   baseUrl?: string | undefined;
+  /**
+   * If <code>true</code>, disable the API response cache. Otherwise, <code>false</code>.
+   */
   disableApiCache?: boolean | undefined;
+  /**
+   * If <code>true</code>, the API server is disabled. Otherwise, <code>false</code>.
+   */
   disabled: boolean;
+  /**
+   * Custom HTTP response headers to include in every API response.
+   */
   headers?: { [k: string]: string } | undefined;
+  /**
+   * Hostname or IP address the API server listens on.
+   */
   host: string;
+  /**
+   * Idle session timeout in seconds. Sessions are invalidated after the specified seconds of inactivity.
+   */
   idleSessionTTL?: number | undefined;
+  /**
+   * If <code>true</code>, bind to the configured port as the server listen port. Otherwise, <code>false</code>.
+   */
   listenOnPort?: boolean | undefined;
+  /**
+   * Rate limit for login attempts. Value is a string such as <code>100/min</code>.
+   */
   loginRateLimit?: string | undefined;
+  /**
+   * Port number the API server listens on.
+   */
   port: number;
+  /**
+   * API protocol: <code>http</code> or <code>https</code>.
+   */
   protocol?: string | undefined;
+  /**
+   * If <code>true</code>, enable JavaScript scripting support in the API. Otherwise, <code>false</code>.
+   */
   scripts?: boolean | undefined;
+  /**
+   * List of field names whose values are redacted in API responses and logs.
+   */
   sensitiveFields?: Array<string> | undefined;
+  /**
+   * TLS configuration for the API server.
+   */
   ssl?: SslTypeSystemSettingsConfApi | undefined;
+  /**
+   * Rate limit for SSO authentication attempts. Value is a string such as <code>100/min</code>.
+   */
   ssoRateLimit?: string | undefined;
+  /**
+   * If <code>true</code>, enable remote access (teleporting) to Worker Processes via the API. Otherwise, <code>false</code>.
+   */
   workerRemoteAccess?: boolean | undefined;
 };
 
@@ -84,10 +132,10 @@ export const ApiTypeSystemSettingsConf$outboundSchema: z.ZodType<
   disabled: z.boolean(),
   headers: z.record(z.string()).optional(),
   host: z.string(),
-  idleSessionTTL: z.number().optional(),
+  idleSessionTTL: z.number().int().optional(),
   listenOnPort: z.boolean().optional(),
   loginRateLimit: z.string().optional(),
-  port: z.number(),
+  port: z.number().int(),
   protocol: z.string().optional(),
   scripts: z.boolean().optional(),
   sensitiveFields: z.array(z.string()).optional(),

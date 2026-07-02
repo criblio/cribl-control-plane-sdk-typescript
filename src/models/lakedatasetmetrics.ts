@@ -14,7 +14,7 @@ export type LakeDatasetMetrics = {
    */
   currentSizeBytes: number;
   /**
-   * Timestamp (ISO 8601) when the metrics snapshot was generated.
+   * Timestamp (in Unix time) when the metrics snapshot was generated, as a YYYY-MM-DD calendar date.
    */
   metricsDate: string;
 };
