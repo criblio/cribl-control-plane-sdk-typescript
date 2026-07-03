@@ -12,13 +12,8 @@ let value: GetOutputStatusSystemOutputsByPackResponse = {
         id: "<id>",
         status: {
           health: "Unknown",
-          healthCounts: {
-            Green: 940749,
-            Red: 403493,
-            Unknown: 190686,
-            Yellow: 878004,
-          },
-          timestamp: 826410,
+          healthCounts: {},
+          timestamp: 940749,
         },
       },
     ],

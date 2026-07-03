@@ -7,12 +7,7 @@ import { AggregatedPQStatus } from "cribl-control-plane/models";
 
 let value: AggregatedPQStatus = {
   health: "Unknown",
-  healthCounts: {
-    Green: 940749,
-    Red: 403493,
-    Unknown: 190686,
-    Yellow: 878004,
-  },
+  healthCounts: {},
   timestamp: 584047,
 };
 ```

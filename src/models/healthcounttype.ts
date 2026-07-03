@@ -12,19 +12,19 @@ export type HealthCountType = {
   /**
    * Number of Worker Processes reporting a healthy (Green) status.
    */
-  Green: number;
+  Green?: number | undefined;
   /**
    * Number of Worker Processes reporting a critical (Red) status.
    */
-  Red: number;
+  Red?: number | undefined;
   /**
    * Number of Worker Processes reporting an unknown health status.
    */
-  Unknown: number;
+  Unknown?: number | undefined;
   /**
    * Number of Worker Processes reporting a degraded (Yellow) status.
    */
-  Yellow: number;
+  Yellow?: number | undefined;
 };
 
 /** @internal */
@@ -33,10 +33,10 @@ export const HealthCountType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Green: types.number(),
-  Red: types.number(),
-  Unknown: types.number(),
-  Yellow: types.number(),
+  Green: types.optional(types.number()),
+  Red: types.optional(types.number()),
+  Unknown: types.optional(types.number()),
+  Yellow: types.optional(types.number()),
 });
 
 export function healthCountTypeFromJSON(
