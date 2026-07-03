@@ -18,8 +18,17 @@ import {
 } from "./pipelinefunctionconfinput.js";
 
 export type PipelineGroups = {
+  /**
+   * Name of the group.
+   */
   name: string;
+  /**
+   * Brief description of the group.
+   */
   description?: string | undefined;
+  /**
+   * If <code>true</code>, disable all items in the group. Otherwise, <code>false</code>.
+   */
   disabled?: boolean | undefined;
 };
 
@@ -40,11 +49,11 @@ export type PipelineConf = {
    */
   description?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
-   * List of Functions to pass data through
+   * List of Functions to pass data through the Pipeline.
    */
   functions?: Array<PipelineFunctionConf> | undefined;
   /**
@@ -85,11 +94,11 @@ export type ConfInput = {
    */
   description?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
-   * List of Functions to pass data through
+   * List of Functions to pass data through the Pipeline.
    */
   functions?: Array<PipelineFunctionConfInput> | undefined;
   /**

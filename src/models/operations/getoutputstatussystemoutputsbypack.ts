@@ -33,7 +33,7 @@ export type GetOutputStatusSystemOutputsByPackRequest = {
 };
 
 export type GetOutputStatusSystemOutputsByPackResponse = {
-  result: models.CountedOutputStatus;
+  result: models.PaginatedOutputStatus;
 };
 
 /** @internal */
@@ -74,7 +74,7 @@ export function getOutputStatusSystemOutputsByPackRequestToJSON(
 export const GetOutputStatusSystemOutputsByPackResponse$inboundSchema:
   z.ZodType<GetOutputStatusSystemOutputsByPackResponse, z.ZodTypeDef, unknown> =
     z.object({
-      Result: models.CountedOutputStatus$inboundSchema,
+      Result: models.PaginatedOutputStatus$inboundSchema,
     }).transform((v) => {
       return remap$(v, {
         "Result": "result",

@@ -11,9 +11,6 @@ import {
   CreateInputAuth,
   CreateInputAuth$Outbound,
   CreateInputAuth$outboundSchema,
-  CreateInputCheckpointing,
-  CreateInputCheckpointing$Outbound,
-  CreateInputCheckpointing$outboundSchema,
   CreateInputInputAnthropicCompliance,
   CreateInputInputAnthropicCompliance$Outbound,
   CreateInputInputAnthropicCompliance$outboundSchema,
@@ -140,6 +137,9 @@ import {
   CreateInputInputTcpjson,
   CreateInputInputTcpjson$Outbound,
   CreateInputInputTcpjson$outboundSchema,
+  CreateInputInputUpwindHec,
+  CreateInputInputUpwindHec$Outbound,
+  CreateInputInputUpwindHec$outboundSchema,
   CreateInputInputWef,
   CreateInputInputWef$Outbound,
   CreateInputInputWef$outboundSchema,
@@ -158,7 +158,75 @@ import {
   CreateInputInputZscalerHec,
   CreateInputInputZscalerHec$Outbound,
   CreateInputInputZscalerHec$outboundSchema,
-} from "./createinputcheckpointing.js";
+} from "./createinputauth.js";
+
+export const CreateInputBlobStoreAuthenticationMethod = {
+  Secret: "secret",
+  ClientSecret: "clientSecret",
+  ClientCert: "clientCert",
+  ClientAssertion: "clientAssertion",
+  ClientAssertionRpc: "clientAssertion_rpc",
+} as const;
+export type CreateInputBlobStoreAuthenticationMethod = OpenEnum<
+  typeof CreateInputBlobStoreAuthenticationMethod
+>;
+
+export type CreateInputAzureBlobStorage = {
+  /**
+   * Azure Blob Storage container used to store checkpoints. Must be 3–63 lowercase alphanumeric characters or hyphens.
+   */
+  containerName: string;
+  authType?: CreateInputBlobStoreAuthenticationMethod | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  /**
+   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: models.CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  /**
+   * Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+   */
+  __template_storageAccountName?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+   */
+  __template_azureCloud?: string | undefined;
+};
+
+export type CreateInputCheckpointing = {
+  blobStore: CreateInputAzureBlobStorage;
+};
 
 export type CreateInputInputEventhubAmqp = {
   /**
@@ -187,7 +255,7 @@ export type CreateInputInputEventhubAmqp = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -294,7 +362,7 @@ export type CreateInputInputEventhub = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -498,7 +566,7 @@ export type CreateInputInputMicrosoftGraph = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -678,7 +746,7 @@ export type CreateInputInputOffice365MsgTrace = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -866,7 +934,7 @@ export type CreateInputInputOffice365Service = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1005,7 +1073,7 @@ export type CreateInputInputOffice365Mgmt = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1224,7 +1292,7 @@ export type CreateInputInputEdgePrometheus = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1367,7 +1435,7 @@ export type CreateInputInputEdgePrometheus = {
    * Extra headers to send with the discovery request
    */
   httpDiscoveryHeaders?:
-    | Array<models.HttpDiscoveryHeaderConfInputPrometheus>
+    | Array<models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
     | undefined;
   /**
    * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
@@ -1500,7 +1568,7 @@ export type CreateInputInputPrometheus = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1646,7 +1714,7 @@ export type CreateInputInputPrometheus = {
    * Extra headers to send with the discovery request
    */
   httpDiscoveryHeaders?:
-    | Array<models.HttpDiscoveryHeaderConfInputPrometheus>
+    | Array<models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
     | undefined;
   /**
    * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
@@ -1760,7 +1828,7 @@ export type CreateInputInputPrometheusRw = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1907,7 +1975,7 @@ export type CreateInputInputLoki = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2105,7 +2173,7 @@ export type CreateInputInputGrafanaGrafana2 = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2295,7 +2363,7 @@ export type CreateInputInputGrafanaGrafana1 = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2431,7 +2499,7 @@ export type CreateInputInputConfluentCloud = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2690,7 +2758,7 @@ export type CreateInputInputElastic = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2840,7 +2908,7 @@ export type CreateInputInputAzureBlob = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3029,7 +3097,7 @@ export type CreateInputInputSplunkHec = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3255,7 +3323,7 @@ export type CreateInputInputSplunkSearch = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3485,7 +3553,7 @@ export type CreateInputInputSplunk = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3622,7 +3690,7 @@ export type CreateInputInputHttp = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3773,7 +3841,7 @@ export type CreateInputInputMsk = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3995,7 +4063,7 @@ export type CreateInputInputKafka = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -4155,7 +4223,7 @@ export type CreateInputInputCollection = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -4267,9 +4335,92 @@ export type CreateInputRequest =
   | CreateInputInputZscalerHec
   | CreateInputInputCloudflareHec
   | CreateInputInputSysdigHec
+  | CreateInputInputUpwindHec
   | CreateInputInputOpenaiComplianceLogs
   | CreateInputInputAnthropicCompliance
   | CreateInputInputOkta;
+
+/** @internal */
+export const CreateInputBlobStoreAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputBlobStoreAuthenticationMethod
+> = openEnums.outboundSchema(CreateInputBlobStoreAuthenticationMethod);
+
+/** @internal */
+export type CreateInputAzureBlobStorage$Outbound = {
+  containerName: string;
+  authType?: string | undefined;
+  textSecret?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  azureCloud?: string | undefined;
+  endpointSuffix?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?:
+    | models.CertificateTypeAzureBlobAuthTypeClientCert$Outbound
+    | undefined;
+  __template_storageAccountName?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_azureCloud?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputAzureBlobStorage$outboundSchema: z.ZodType<
+  CreateInputAzureBlobStorage$Outbound,
+  z.ZodTypeDef,
+  CreateInputAzureBlobStorage
+> = z.object({
+  containerName: z.string(),
+  authType: CreateInputBlobStoreAuthenticationMethod$outboundSchema.optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: models.CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
+    .optional(),
+  __template_storageAccountName: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_azureCloud: z.string().optional(),
+});
+
+export function createInputAzureBlobStorageToJSON(
+  createInputAzureBlobStorage: CreateInputAzureBlobStorage,
+): string {
+  return JSON.stringify(
+    CreateInputAzureBlobStorage$outboundSchema.parse(
+      createInputAzureBlobStorage,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputCheckpointing$Outbound = {
+  blobStore: CreateInputAzureBlobStorage$Outbound;
+};
+
+/** @internal */
+export const CreateInputCheckpointing$outboundSchema: z.ZodType<
+  CreateInputCheckpointing$Outbound,
+  z.ZodTypeDef,
+  CreateInputCheckpointing
+> = z.object({
+  blobStore: z.lazy(() => CreateInputAzureBlobStorage$outboundSchema),
+});
+
+export function createInputCheckpointingToJSON(
+  createInputCheckpointing: CreateInputCheckpointing,
+): string {
+  return JSON.stringify(
+    CreateInputCheckpointing$outboundSchema.parse(createInputCheckpointing),
+  );
+}
 
 /** @internal */
 export type CreateInputInputEventhubAmqp$Outbound = {
@@ -4326,7 +4477,7 @@ export const CreateInputInputEventhubAmqp$outboundSchema: z.ZodType<
   eventHubName: z.string().optional(),
   consumerGroup: z.string(),
   auth: CreateInputAuth$outboundSchema.optional(),
-  checkpointing: CreateInputCheckpointing$outboundSchema,
+  checkpointing: z.lazy(() => CreateInputCheckpointing$outboundSchema),
   fromBeginning: z.boolean().optional(),
   maxBatchSize: z.number().int().optional(),
   maxWaitTimeInSeconds: z.number().int().optional(),
@@ -5094,7 +5245,9 @@ export type CreateInputInputEdgePrometheus$Outbound = {
   podFilter?: Array<CreateInputPodFilter$Outbound> | undefined;
   httpDiscoveryUrl?: string | undefined;
   httpDiscoveryHeaders?:
-    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | Array<
+      models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
     | undefined;
   httpDiscoveryRejectUnauthorized?: boolean | undefined;
   maxResponseBodySize?: string | undefined;
@@ -5170,7 +5323,8 @@ export const CreateInputInputEdgePrometheus$outboundSchema: z.ZodType<
     .optional(),
   httpDiscoveryUrl: z.string().optional(),
   httpDiscoveryHeaders: z.array(
-    models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+    models
+      .RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
   ).optional(),
   httpDiscoveryRejectUnauthorized: z.boolean().optional(),
   maxResponseBodySize: z.string().optional(),
@@ -5265,7 +5419,9 @@ export type CreateInputInputPrometheus$Outbound = {
   durationSeconds?: number | undefined;
   httpDiscoveryUrl?: string | undefined;
   httpDiscoveryHeaders?:
-    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | Array<
+      models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
     | undefined;
   httpDiscoveryRejectUnauthorized?: boolean | undefined;
   maxResponseBodySize?: string | undefined;
@@ -5344,7 +5500,8 @@ export const CreateInputInputPrometheus$outboundSchema: z.ZodType<
   durationSeconds: z.number().optional(),
   httpDiscoveryUrl: z.string().optional(),
   httpDiscoveryHeaders: z.array(
-    models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+    models
+      .RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
   ).optional(),
   httpDiscoveryRejectUnauthorized: z.boolean().optional(),
   maxResponseBodySize: z.string().optional(),
@@ -7288,6 +7445,7 @@ export type CreateInputRequest$Outbound =
   | CreateInputInputZscalerHec$Outbound
   | CreateInputInputCloudflareHec$Outbound
   | CreateInputInputSysdigHec$Outbound
+  | CreateInputInputUpwindHec$Outbound
   | CreateInputInputOpenaiComplianceLogs$Outbound
   | CreateInputInputAnthropicCompliance$Outbound
   | CreateInputInputOkta$Outbound;
@@ -7369,6 +7527,7 @@ export const CreateInputRequest$outboundSchema: z.ZodType<
   CreateInputInputZscalerHec$outboundSchema,
   CreateInputInputCloudflareHec$outboundSchema,
   CreateInputInputSysdigHec$outboundSchema,
+  CreateInputInputUpwindHec$outboundSchema,
   CreateInputInputOpenaiComplianceLogs$outboundSchema,
   CreateInputInputAnthropicCompliance$outboundSchema,
   CreateInputInputOkta$outboundSchema,

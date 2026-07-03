@@ -7,7 +7,14 @@ import { Pipeline } from "cribl-control-plane/models";
 
 let value: Pipeline = {
   id: "<id>",
-  conf: {},
+  conf: {
+    functions: [
+      {
+        id: "otlp_traces",
+        conf: {},
+      },
+    ],
+  },
 };
 ```
 

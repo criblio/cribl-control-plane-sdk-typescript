@@ -92,7 +92,7 @@ export type OutputAlibabaCloudS3 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -207,6 +207,22 @@ export type OutputAlibabaCloudS3 = {
    * Alibaba OSS S3-compatible endpoint URL. Examples: public `https://s3.oss-{region}.aliyuncs.com`, internal `https://s3.oss-{region}-internal.aliyuncs.com`
    */
   endpoint: string;
+  /**
+   * Use Assume Role credentials to access Alibaba OSS
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * ARN of the RAM role to assume. Format: acs:ram::<account-id>:role/<role-name>. Example: acs:ram::123456789:role/OSSAccessRole
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID for the assumed role (optional, for security when configured in the role trust policy)
+   */
+  assumeRoleExternalId?: string | undefined;
   /**
    * Optional description for this configuration.
    */
@@ -324,6 +340,14 @@ export type OutputAlibabaCloudS3 = {
    */
   __template_endpoint?: string | undefined;
   /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+  /**
    * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
   __template_compress?: string | undefined;
@@ -377,6 +401,10 @@ export type OutputAlibabaCloudS3$Outbound = {
   orphans?: OrphanFileRecoveryType$Outbound | undefined;
   objectACL?: string | undefined;
   endpoint: string;
+  enableAssumeRole?: boolean | undefined;
+  durationSeconds?: number | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
   description?: string | undefined;
   awsSecret?: string | undefined;
   compress?: string | undefined;
@@ -408,6 +436,8 @@ export type OutputAlibabaCloudS3$Outbound = {
   __template_onBackpressure?: string | undefined;
   __template_objectACL?: string | undefined;
   __template_endpoint?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
   __template_compress?: string | undefined;
   __template_parquetSchema?: string | undefined;
 };
@@ -455,6 +485,10 @@ export const OutputAlibabaCloudS3$outboundSchema: z.ZodType<
   orphans: OrphanFileRecoveryType$outboundSchema.optional(),
   objectACL: ObjectAclOptions$outboundSchema.optional(),
   endpoint: z.string(),
+  enableAssumeRole: z.boolean().optional(),
+  durationSeconds: z.number().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
   description: z.string().optional(),
   awsSecret: z.string().optional(),
   compress: CompressionOptionsHttp$outboundSchema.optional(),
@@ -485,6 +519,8 @@ export const OutputAlibabaCloudS3$outboundSchema: z.ZodType<
   __template_onBackpressure: z.string().optional(),
   __template_objectACL: z.string().optional(),
   __template_endpoint: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
   __template_compress: z.string().optional(),
   __template_parquetSchema: z.string().optional(),
 });

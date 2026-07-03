@@ -25,6 +25,10 @@ import {
   PreprocessType$outboundSchema,
 } from "./preprocesstype.js";
 import {
+  SqsAuthenticationMethodOptions,
+  SqsAuthenticationMethodOptions$outboundSchema,
+} from "./sqsauthenticationmethodoptions.js";
+import {
   TagAfterProcessingOptions,
   TagAfterProcessingOptions$outboundSchema,
 } from "./tagafterprocessingoptions.js";
@@ -56,7 +60,7 @@ export type InputS3InventoryInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -149,6 +153,14 @@ export type InputS3InventoryInput = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
+  /**
+   * Use the same credential settings for S3 and SQS
+   */
+  sharedCredentials?: boolean | undefined;
+  /**
+   * Use the same settings for S3 and SQS
+   */
+  sharedAssumeRoleArn?: boolean | undefined;
   preprocess?: PreprocessType | undefined;
   /**
    * Fields to add to events from this input
@@ -188,6 +200,27 @@ export type InputS3InventoryInput = {
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  SQSAssumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  SQSAssumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  SQSDurationSeconds?: number | undefined;
+  /**
+   * Choose Auto to use IAM roles
+   */
+  SQSAwsAuthenticationMethod?: SqsAuthenticationMethodOptions | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  SQSAwsSecret?: string | undefined;
+  SQSAwsSecretKey?: string | undefined;
   tagAfterProcessing?: TagAfterProcessingOptions | undefined;
   /**
    * The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
@@ -237,6 +270,18 @@ export type InputS3InventoryInput = {
    * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
    */
   __template_awsApiKey?: string | undefined;
+  /**
+   * Binds 'SQSAssumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'SQSAssumeRoleArn' at runtime.
+   */
+  __template_SQSAssumeRoleArn?: string | undefined;
+  /**
+   * Binds 'SQSAssumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'SQSAssumeRoleExternalId' at runtime.
+   */
+  __template_SQSAssumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'SQSAwsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'SQSAwsSecretKey' at runtime.
+   */
+  __template_SQSAwsSecretKey?: string | undefined;
 };
 
 /** @internal */
@@ -273,6 +318,8 @@ export type InputS3InventoryInput$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   enableSQSAssumeRole?: boolean | undefined;
+  sharedCredentials?: boolean | undefined;
+  sharedAssumeRoleArn?: boolean | undefined;
   preprocess?: PreprocessType$Outbound | undefined;
   metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   parquetChunkSizeMB?: number | undefined;
@@ -285,6 +332,12 @@ export type InputS3InventoryInput$Outbound = {
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
+  SQSAssumeRoleArn?: string | undefined;
+  SQSAssumeRoleExternalId?: string | undefined;
+  SQSDurationSeconds?: number | undefined;
+  SQSAwsAuthenticationMethod?: string | undefined;
+  SQSAwsSecret?: string | undefined;
+  SQSAwsSecretKey?: string | undefined;
   tagAfterProcessing?: string | undefined;
   processedTagKey?: string | undefined;
   processedTagValue?: string | undefined;
@@ -298,6 +351,9 @@ export type InputS3InventoryInput$Outbound = {
   __template_assumeRoleArn?: string | undefined;
   __template_assumeRoleExternalId?: string | undefined;
   __template_awsApiKey?: string | undefined;
+  __template_SQSAssumeRoleArn?: string | undefined;
+  __template_SQSAssumeRoleExternalId?: string | undefined;
+  __template_SQSAwsSecretKey?: string | undefined;
 };
 
 /** @internal */
@@ -338,6 +394,8 @@ export const InputS3InventoryInput$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   enableSQSAssumeRole: z.boolean().optional(),
+  sharedCredentials: z.boolean().optional(),
+  sharedAssumeRoleArn: z.boolean().optional(),
   preprocess: PreprocessType$outboundSchema.optional(),
   metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   parquetChunkSizeMB: z.number().optional(),
@@ -350,6 +408,13 @@ export const InputS3InventoryInput$outboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  SQSAssumeRoleArn: z.string().optional(),
+  SQSAssumeRoleExternalId: z.string().optional(),
+  SQSDurationSeconds: z.number().optional(),
+  SQSAwsAuthenticationMethod: SqsAuthenticationMethodOptions$outboundSchema
+    .optional(),
+  SQSAwsSecret: z.string().optional(),
+  SQSAwsSecretKey: z.string().optional(),
   tagAfterProcessing: TagAfterProcessingOptions$outboundSchema.optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
@@ -363,6 +428,9 @@ export const InputS3InventoryInput$outboundSchema: z.ZodType<
   __template_assumeRoleArn: z.string().optional(),
   __template_assumeRoleExternalId: z.string().optional(),
   __template_awsApiKey: z.string().optional(),
+  __template_SQSAssumeRoleArn: z.string().optional(),
+  __template_SQSAssumeRoleExternalId: z.string().optional(),
+  __template_SQSAwsSecretKey: z.string().optional(),
 });
 
 export function inputS3InventoryInputToJSON(

@@ -16,11 +16,11 @@ export type CountedPackUninstallInfo = {
   /**
    * number of items present in the items array
    */
-  count?: number | undefined;
+  count: number;
   /**
    * List of items in this response.
    */
-  items?: Array<PackUninstallInfo> | undefined;
+  items: Array<PackUninstallInfo>;
 };
 
 /** @internal */
@@ -29,8 +29,8 @@ export const CountedPackUninstallInfo$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: types.optional(types.number()),
-  items: types.optional(z.array(PackUninstallInfo$inboundSchema)),
+  count: types.number(),
+  items: z.array(PackUninstallInfo$inboundSchema),
 });
 
 export function countedPackUninstallInfoFromJSON(

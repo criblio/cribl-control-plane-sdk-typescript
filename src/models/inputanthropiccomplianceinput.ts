@@ -3,6 +3,8 @@
  */
 
 import * as z from "zod/v3";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import {
   ConnectionConfInputCollection,
   ConnectionConfInputCollection$Outbound,
@@ -20,10 +22,22 @@ import {
   RetryRulesType$outboundSchema,
 } from "./retryrulestype.js";
 
+export const InputAnthropicComplianceEndpointName = {
+  Activities: "activities",
+  Chats: "chats",
+  Projects: "projects",
+  ChatMessages: "chat_messages",
+  Groups: "groups",
+  Organizations: "organizations",
+} as const;
+export type InputAnthropicComplianceEndpointName = OpenEnum<
+  typeof InputAnthropicComplianceEndpointName
+>;
+
 export type InputAnthropicComplianceManageState = {};
 
 export type InputAnthropicComplianceContentConfig = {
-  contentType: string;
+  contentType: InputAnthropicComplianceEndpointName;
   contentDescription?: string | undefined;
   enabled?: boolean | undefined;
   /**
@@ -40,17 +54,17 @@ export type InputAnthropicComplianceContentConfig = {
   stateMergeExpression?: string | undefined;
   manageState?: InputAnthropicComplianceManageState | undefined;
   /**
-   * Schedule on which to run this collection job
-   */
-  cronSchedule: string;
-  /**
    * Earliest time for data collection, relative to now
    */
-  earliest: string;
+  earliest?: string | undefined;
   /**
    * Latest time for data collection, relative to now
    */
-  latest: string;
+  latest?: string | undefined;
+  /**
+   * Schedule on which to run this collection job
+   */
+  cronSchedule: string;
   /**
    * Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
    */
@@ -84,7 +98,7 @@ export type InputAnthropicComplianceInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -138,6 +152,13 @@ export type InputAnthropicComplianceInput = {
 };
 
 /** @internal */
+export const InputAnthropicComplianceEndpointName$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputAnthropicComplianceEndpointName
+> = openEnums.outboundSchema(InputAnthropicComplianceEndpointName);
+
+/** @internal */
 export type InputAnthropicComplianceManageState$Outbound = {};
 
 /** @internal */
@@ -166,9 +187,9 @@ export type InputAnthropicComplianceContentConfig$Outbound = {
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
   manageState?: InputAnthropicComplianceManageState$Outbound | undefined;
+  earliest?: string | undefined;
+  latest?: string | undefined;
   cronSchedule: string;
-  earliest: string;
-  latest: string;
   jobTimeout?: string | undefined;
 };
 
@@ -178,7 +199,7 @@ export const InputAnthropicComplianceContentConfig$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputAnthropicComplianceContentConfig
 > = z.object({
-  contentType: z.string(),
+  contentType: InputAnthropicComplianceEndpointName$outboundSchema,
   contentDescription: z.string().optional(),
   enabled: z.boolean().optional(),
   stateTracking: z.boolean().optional(),
@@ -186,9 +207,9 @@ export const InputAnthropicComplianceContentConfig$outboundSchema: z.ZodType<
   stateMergeExpression: z.string().optional(),
   manageState: z.lazy(() => InputAnthropicComplianceManageState$outboundSchema)
     .optional(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
   cronSchedule: z.string(),
-  earliest: z.string(),
-  latest: z.string(),
   jobTimeout: z.string().optional(),
 });
 

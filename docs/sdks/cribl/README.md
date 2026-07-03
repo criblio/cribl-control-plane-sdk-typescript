@@ -9,11 +9,11 @@
 
 ## list
 
-Get Cribl system settings.
+Get the current Cribl system settings.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getSystemSettingsConf" method="get" path="/system/settings/conf" -->
+<!-- UsageSnippet language="typescript" operationID="getSystemSettingsConf" method="get" path="/system/settings/conf" example="GetSystemSettingsConfExamplesDefault" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -85,9 +85,9 @@ run();
 
 ## update
 
-Update Cribl system settings.
+Update the specified Cribl system settings.<br/><br/>Provide a complete representation of the system settings that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the system settings.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated system settings might not function as expected.
 
-### Example Usage
+### Example Usage: UpdateSystemSettingsExamplesUpdateApiSettings
 
 <!-- UsageSnippet language="typescript" operationID="updateSystemSettingsConf" method="patch" path="/system/settings/conf" example="UpdateSystemSettingsExamplesUpdateApiSettings" -->
 ```typescript
@@ -234,6 +234,113 @@ async function run() {
       count: 0,
       memory: 0,
       minimum: 1,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("systemSettingsCriblUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateSystemSettingsResponseExamplesUpdateApiSettings
+
+<!-- UsageSnippet language="typescript" operationID="updateSystemSettingsConf" method="patch" path="/system/settings/conf" example="UpdateSystemSettingsResponseExamplesUpdateApiSettings" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.system.settings.cribl.update({
+    api: {
+      disabled: true,
+      host: "fine-carboxyl.info",
+      port: 680079,
+    },
+    backups: {},
+    pii: {},
+    proxy: {
+      useEnvVars: false,
+    },
+    rollback: {},
+    shutdown: {
+      drainTimeout: 840513,
+    },
+    sni: {},
+    system: {
+      intercom: true,
+      upgrade: "api",
+    },
+    tls: {},
+    upgradeGroupSettings: {},
+    upgradeSettings: {},
+    workers: {
+      count: 142072,
+      memory: 242438,
+      minimum: 498585,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { systemSettingsCriblUpdate } from "cribl-control-plane/funcs/systemSettingsCriblUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await systemSettingsCriblUpdate(criblControlPlane, {
+    api: {
+      disabled: true,
+      host: "fine-carboxyl.info",
+      port: 680079,
+    },
+    backups: {},
+    pii: {},
+    proxy: {
+      useEnvVars: false,
+    },
+    rollback: {},
+    shutdown: {
+      drainTimeout: 840513,
+    },
+    sni: {},
+    system: {
+      intercom: true,
+      upgrade: "api",
+    },
+    tls: {},
+    upgradeGroupSettings: {},
+    upgradeSettings: {},
+    workers: {
+      count: 142072,
+      memory: 242438,
+      minimum: 498585,
     },
   });
   if (res.ok) {

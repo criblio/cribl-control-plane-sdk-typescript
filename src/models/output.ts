@@ -14,6 +14,11 @@ import {
   OutputAlphasocS3$outboundSchema,
 } from "./outputalphasocs3.js";
 import {
+  OutputAmazonManagedPrometheus,
+  OutputAmazonManagedPrometheus$Outbound,
+  OutputAmazonManagedPrometheus$outboundSchema,
+} from "./outputamazonmanagedprometheus.js";
+import {
   OutputAzureBlob,
   OutputAzureBlob$Outbound,
   OutputAzureBlob$outboundSchema,
@@ -163,6 +168,11 @@ import {
   OutputFilesystem$Outbound,
   OutputFilesystem$outboundSchema,
 } from "./outputfilesystem.js";
+import {
+  OutputGoogleBigquery,
+  OutputGoogleBigquery$Outbound,
+  OutputGoogleBigquery$outboundSchema,
+} from "./outputgooglebigquery.js";
 import {
   OutputGoogleChronicle,
   OutputGoogleChronicle$Outbound,
@@ -430,6 +440,7 @@ export type Output =
   | OutputKinesis
   | OutputHoneycomb
   | OutputAzureEventhub
+  | OutputGoogleBigquery
   | OutputGoogleChronicle
   | OutputGoogleCloudStorage
   | OutputGoogleCloudLogging
@@ -457,6 +468,7 @@ export type Output =
   | OutputDatadog
   | (OutputGrafanaCloud & { type: "grafana_cloud" })
   | OutputLoki
+  | OutputAmazonManagedPrometheus
   | OutputPrometheus
   | OutputRing
   | OutputOpenTelemetry
@@ -514,6 +526,7 @@ export type Output$Outbound =
   | OutputKinesis$Outbound
   | OutputHoneycomb$Outbound
   | OutputAzureEventhub$Outbound
+  | OutputGoogleBigquery$Outbound
   | OutputGoogleChronicle$Outbound
   | OutputGoogleCloudStorage$Outbound
   | OutputGoogleCloudLogging$Outbound
@@ -541,6 +554,7 @@ export type Output$Outbound =
   | OutputDatadog$Outbound
   | (OutputGrafanaCloud$Outbound & { type: "grafana_cloud" })
   | OutputLoki$Outbound
+  | OutputAmazonManagedPrometheus$Outbound
   | OutputPrometheus$Outbound
   | OutputRing$Outbound
   | OutputOpenTelemetry$Outbound
@@ -602,6 +616,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputKinesis$outboundSchema,
   OutputHoneycomb$outboundSchema,
   OutputAzureEventhub$outboundSchema,
+  OutputGoogleBigquery$outboundSchema,
   OutputGoogleChronicle$outboundSchema,
   OutputGoogleCloudStorage$outboundSchema,
   OutputGoogleCloudLogging$outboundSchema,
@@ -631,6 +646,7 @@ export const Output$outboundSchema: z.ZodType<
     z.object({ type: z.literal("grafana_cloud") }),
   ),
   OutputLoki$outboundSchema,
+  OutputAmazonManagedPrometheus$outboundSchema,
   OutputPrometheus$outboundSchema,
   OutputRing$outboundSchema,
   OutputOpenTelemetry$outboundSchema,

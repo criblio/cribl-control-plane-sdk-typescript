@@ -4,10 +4,10 @@
 
 import * as z from "zod/v3";
 import {
-  EventBreakerRuleFields,
-  EventBreakerRuleFields$Outbound,
-  EventBreakerRuleFields$outboundSchema,
-} from "./eventbreakerrulefields.js";
+  MetadataConfAddHecTokenRequest,
+  MetadataConfAddHecTokenRequest$Outbound,
+  MetadataConfAddHecTokenRequest$outboundSchema,
+} from "./metadataconfaddhectokenrequest.js";
 
 export type UpdateHecTokenRequest = {
   /**
@@ -25,7 +25,7 @@ export type UpdateHecTokenRequest = {
   /**
    * Array of key-value pairs to associate with the HEC token for tagging, categorization, or providing additional context. Each item in the array is an object with a <code>name</code> and a <code>value</code>.
    */
-  metadata?: Array<EventBreakerRuleFields> | undefined;
+  metadata?: Array<MetadataConfAddHecTokenRequest> | undefined;
 };
 
 /** @internal */
@@ -33,7 +33,7 @@ export type UpdateHecTokenRequest$Outbound = {
   allowedIndexesAtToken?: Array<string> | undefined;
   description?: string | undefined;
   enabled?: boolean | undefined;
-  metadata?: Array<EventBreakerRuleFields$Outbound> | undefined;
+  metadata?: Array<MetadataConfAddHecTokenRequest$Outbound> | undefined;
 };
 
 /** @internal */
@@ -45,7 +45,7 @@ export const UpdateHecTokenRequest$outboundSchema: z.ZodType<
   allowedIndexesAtToken: z.array(z.string()).optional(),
   description: z.string().optional(),
   enabled: z.boolean().optional(),
-  metadata: z.array(EventBreakerRuleFields$outboundSchema).optional(),
+  metadata: z.array(MetadataConfAddHecTokenRequest$outboundSchema).optional(),
 });
 
 export function updateHecTokenRequestToJSON(

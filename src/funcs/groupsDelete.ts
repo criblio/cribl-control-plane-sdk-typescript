@@ -35,7 +35,7 @@ import { Result } from "../types/fp.js";
  */
 export function groupsDelete(
   client: CriblControlPlaneCore,
-  request: operations.DeleteConfigGroupByProductAndIdRequest,
+  request: operations.DeleteProductsGroupsByProductAndIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -60,7 +60,7 @@ export function groupsDelete(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.DeleteConfigGroupByProductAndIdRequest,
+  request: operations.DeleteProductsGroupsByProductAndIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -82,7 +82,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.DeleteConfigGroupByProductAndIdRequest$outboundSchema.parse(
+      operations.DeleteProductsGroupsByProductAndIdRequest$outboundSchema.parse(
         value,
       ),
     "Input validation failed",
@@ -115,7 +115,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "deleteConfigGroupByProductAndId",
+    operationID: "deleteProductsGroupsByProductAndId",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

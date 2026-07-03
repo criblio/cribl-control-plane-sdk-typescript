@@ -35,7 +35,7 @@ import { Result } from "../types/fp.js";
  */
 export function groupsConfigsVersionsGet(
   client: CriblControlPlaneCore,
-  request: operations.GetConfigGroupConfigVersionByProductAndIdRequest,
+  request: operations.GetProductsGroupsConfigVersionByProductAndIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -60,7 +60,7 @@ export function groupsConfigsVersionsGet(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.GetConfigGroupConfigVersionByProductAndIdRequest,
+  request: operations.GetProductsGroupsConfigVersionByProductAndIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -82,7 +82,8 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetConfigGroupConfigVersionByProductAndIdRequest$outboundSchema
+      operations
+        .GetProductsGroupsConfigVersionByProductAndIdRequest$outboundSchema
         .parse(value),
     "Input validation failed",
   );
@@ -116,7 +117,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getConfigGroupConfigVersionByProductAndId",
+    operationID: "getProductsGroupsConfigVersionByProductAndId",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

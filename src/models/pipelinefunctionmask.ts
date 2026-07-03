@@ -29,7 +29,13 @@ export type PipelineFunctionMaskRule = {
   disabled?: boolean | undefined;
 };
 
+/**
+ * Configuration specific to the Pipeline Function.
+ */
 export type PipelineFunctionMaskConf = {
+  /**
+   * List of masking rules, each specifying a regex to match and an expression to replace matched content.
+   */
   rules: Array<PipelineFunctionMaskRule>;
   /**
    * Fields on which to apply the masking rules. Supports * wildcards, except when used on internal fields.
@@ -47,7 +53,7 @@ export type PipelineFunctionMaskConf = {
 
 export type PipelineFunctionMask = {
   /**
-   * Filter that selects data to be fed through this Function
+   * JavaScript expression that selects data to pass through the Function.
    */
   filter?: string | undefined;
   /**
@@ -55,20 +61,23 @@ export type PipelineFunctionMask = {
    */
   id: "mask";
   /**
-   * Simple description of this step
+   * Brief description of the Pipeline function.
    */
   description?: string | undefined;
   /**
-   * If true, data will not be pushed through this function
+   * If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
    */
   disabled?: boolean | undefined;
   /**
-   * If enabled, stops the results of this Function from being passed to the downstream Functions
+   * If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
    */
   final?: boolean | undefined;
+  /**
+   * Configuration specific to the Pipeline Function.
+   */
   conf: PipelineFunctionMaskConf;
   /**
-   * Group ID
+   * Unique identifier of the group that contains the Pipeline Function.
    */
   groupId?: string | undefined;
 };

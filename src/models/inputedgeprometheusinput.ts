@@ -16,11 +16,6 @@ import {
   DiskSpoolingType$outboundSchema,
 } from "./diskspoolingtype.js";
 import {
-  HttpDiscoveryHeaderConfInputPrometheus,
-  HttpDiscoveryHeaderConfInputPrometheus$Outbound,
-  HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
-} from "./httpdiscoveryheaderconfinputprometheus.js";
-import {
   MetadataConfInputCollection,
   MetadataConfInputCollection$Outbound,
   MetadataConfInputCollection$outboundSchema,
@@ -34,6 +29,11 @@ import {
   RecordTypeOptions,
   RecordTypeOptions$outboundSchema,
 } from "./recordtypeoptions.js";
+import {
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+} from "./refreshrequestparamconfhealthcheckauthenticationoauthsecret.js";
 import {
   SearchFilterConfInputPrometheus,
   SearchFilterConfInputPrometheus$Outbound,
@@ -152,7 +152,7 @@ export type InputEdgePrometheusInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -295,7 +295,7 @@ export type InputEdgePrometheusInput = {
    * Extra headers to send with the discovery request
    */
   httpDiscoveryHeaders?:
-    | Array<HttpDiscoveryHeaderConfInputPrometheus>
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
     | undefined;
   /**
    * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
@@ -475,7 +475,9 @@ export type InputEdgePrometheusInput$Outbound = {
   podFilter?: Array<InputEdgePrometheusPodFilter$Outbound> | undefined;
   httpDiscoveryUrl?: string | undefined;
   httpDiscoveryHeaders?:
-    | Array<HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | Array<
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
     | undefined;
   httpDiscoveryRejectUnauthorized?: boolean | undefined;
   maxResponseBodySize?: string | undefined;
@@ -549,7 +551,7 @@ export const InputEdgePrometheusInput$outboundSchema: z.ZodType<
     .optional(),
   httpDiscoveryUrl: z.string().optional(),
   httpDiscoveryHeaders: z.array(
-    HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
   ).optional(),
   httpDiscoveryRejectUnauthorized: z.boolean().optional(),
   maxResponseBodySize: z.string().optional(),

@@ -66,7 +66,7 @@ export type SavedJobResponseScheduledSearch = {
    */
   schedule?: ScheduleTypeSavedJobResponseCollection | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -121,7 +121,7 @@ export type SavedJobResponseExecutor = {
    */
   schedule?: ScheduleTypeSavedJobResponseCollection | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   executor: ExecutorTypeRunnableJobExecutor;
@@ -173,7 +173,7 @@ export type SavedJobResponseCollection = {
    */
   schedule?: ScheduleTypeSavedJobResponseCollection | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**

@@ -28,7 +28,7 @@ import { Result } from "../types/fp.js";
  * Get system settings
  *
  * @remarks
- * Get Cribl system settings.
+ * Get the current Cribl system settings.
  */
 export function systemSettingsCriblList(
   client: CriblControlPlaneCore,

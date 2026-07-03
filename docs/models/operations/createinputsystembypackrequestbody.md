@@ -780,6 +780,18 @@ const value: operations.CreateInputSystemByPackInputSysdigHec = {
 };
 ```
 
+### `operations.CreateInputSystemByPackInputUpwindHec`
+
+```typescript
+const value: operations.CreateInputSystemByPackInputUpwindHec = {
+  id: "<id>",
+  type: "upwind_hec",
+  host: "sudden-carboxyl.info",
+  port: 4596,
+  hecAPI: "<value>",
+};
+```
+
 ### `operations.CreateInputSystemByPackInputOpenaiComplianceLogs`
 
 ```typescript

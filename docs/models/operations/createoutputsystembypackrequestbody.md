@@ -220,6 +220,19 @@ const value: operations.CreateOutputSystemByPackOutputAzureEventhub = {
 };
 ```
 
+### `operations.CreateOutputSystemByPackOutputGoogleBigquery`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputGoogleBigquery = {
+  id: "<id>",
+  type: "google_bigquery",
+  projectId: "<id>",
+  datasetId: "<id>",
+  tableId: "<id>",
+  googleAuthMethod: "auto",
+};
+```
+
 ### `operations.CreateOutputSystemByPackOutputGoogleChronicle`
 
 ```typescript
@@ -527,6 +540,19 @@ const value: operations.CreateOutputSystemByPackOutputLoki = {
   type: "loki",
   url: "https://awful-coil.org/",
 };
+```
+
+### `operations.CreateOutputSystemByPackOutputAmazonManagedPrometheus`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputAmazonManagedPrometheus =
+  {
+    id: "<id>",
+    type: "amazon_managed_prometheus",
+    url: "https://neat-brochure.info",
+    awsAuthenticationMethod: "secret",
+    region: "<value>",
+  };
 ```
 
 ### `operations.CreateOutputSystemByPackOutputPrometheus`

@@ -473,6 +473,7 @@ const value: models.PipelineFunctionPack = {
   conf: {
     unpackedFields: [
       "<value 1>",
+      "<value 2>",
     ],
   },
 };

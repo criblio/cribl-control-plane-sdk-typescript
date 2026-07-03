@@ -9,6 +9,9 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FunctionConfSchemaOtlpLogs = {
+  /**
+   * Drop events that are not OTLP log records.
+   */
   dropNonLogEvents?: boolean | undefined;
   /**
    * Batch OTLP log records by shared top-level `resource` attributes
@@ -29,7 +32,7 @@ export type FunctionConfSchemaOtlpLogs = {
   /**
    * When set, this processor will create one batcher instance per distinct combination of values in the metadata
    */
-  metadataKeys?: Array<any> | undefined;
+  metadataKeys?: Array<string> | undefined;
   /**
    * Limit the number of unique combinations of metadata key values that will be processed over the lifetime of the process. After the limit is reached, events with new metadata key value combinations will be dropped.
    */
@@ -47,7 +50,7 @@ export const FunctionConfSchemaOtlpLogs$inboundSchema: z.ZodType<
   sendBatchSize: types.optional(types.number()),
   timeout: types.optional(types.number()),
   sendBatchMaxSize: types.optional(types.number()),
-  metadataKeys: types.optional(z.array(z.any())),
+  metadataKeys: types.optional(z.array(types.string())),
   metadataCardinalityLimit: types.optional(types.number()),
 });
 /** @internal */
@@ -57,7 +60,7 @@ export type FunctionConfSchemaOtlpLogs$Outbound = {
   sendBatchSize?: number | undefined;
   timeout?: number | undefined;
   sendBatchMaxSize?: number | undefined;
-  metadataKeys?: Array<any> | undefined;
+  metadataKeys?: Array<string> | undefined;
   metadataCardinalityLimit?: number | undefined;
 };
 
@@ -72,7 +75,7 @@ export const FunctionConfSchemaOtlpLogs$outboundSchema: z.ZodType<
   sendBatchSize: z.number().optional(),
   timeout: z.number().optional(),
   sendBatchMaxSize: z.number().optional(),
-  metadataKeys: z.array(z.any()).optional(),
+  metadataKeys: z.array(z.string()).optional(),
   metadataCardinalityLimit: z.number().optional(),
 });
 

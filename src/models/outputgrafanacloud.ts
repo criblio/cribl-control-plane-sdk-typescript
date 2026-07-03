@@ -23,11 +23,6 @@ import {
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
-  HttpDiscoveryHeaderConfInputPrometheus,
-  HttpDiscoveryHeaderConfInputPrometheus$Outbound,
-  HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
-} from "./httpdiscoveryheaderconfinputprometheus.js";
-import {
   MessageFormatOptions,
   MessageFormatOptions$outboundSchema,
 } from "./messageformatoptions.js";
@@ -41,6 +36,11 @@ import {
   QueueFullBehaviorOptions,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
+import {
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+} from "./refreshrequestparamconfhealthcheckauthenticationoauthsecret.js";
 import {
   ResponseRetrySettingConfOutputWebhook,
   ResponseRetrySettingConfOutputWebhook$Outbound,
@@ -80,7 +80,7 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -102,7 +102,9 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<HttpDiscoveryHeaderConfInputPrometheus> | undefined;
+  labels?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -271,7 +273,7 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -293,7 +295,9 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<HttpDiscoveryHeaderConfInputPrometheus> | undefined;
+  labels?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -475,7 +479,11 @@ export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   prometheusUrl: string;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<HttpDiscoveryHeaderConfInputPrometheus$Outbound> | undefined;
+  labels?:
+    | Array<
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
+    | undefined;
   metricRenameExpr?: string | undefined;
   prometheusAuth?: PrometheusAuthType$Outbound | undefined;
   lokiAuth?: PrometheusAuthType$Outbound | undefined;
@@ -534,8 +542,9 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
   prometheusUrl: z.string(),
   message: z.string().optional(),
   messageFormat: MessageFormatOptions$outboundSchema.optional(),
-  labels: z.array(HttpDiscoveryHeaderConfInputPrometheus$outboundSchema)
-    .optional(),
+  labels: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+  ).optional(),
   metricRenameExpr: z.string().optional(),
   prometheusAuth: PrometheusAuthType$outboundSchema.optional(),
   lokiAuth: PrometheusAuthType$outboundSchema.optional(),
@@ -626,7 +635,11 @@ export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   prometheusUrl?: string | undefined;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<HttpDiscoveryHeaderConfInputPrometheus$Outbound> | undefined;
+  labels?:
+    | Array<
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
+    | undefined;
   metricRenameExpr?: string | undefined;
   prometheusAuth?: PrometheusAuthType$Outbound | undefined;
   lokiAuth?: PrometheusAuthType$Outbound | undefined;
@@ -685,8 +698,9 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
   prometheusUrl: z.string().optional(),
   message: z.string().optional(),
   messageFormat: MessageFormatOptions$outboundSchema.optional(),
-  labels: z.array(HttpDiscoveryHeaderConfInputPrometheus$outboundSchema)
-    .optional(),
+  labels: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+  ).optional(),
   metricRenameExpr: z.string().optional(),
   prometheusAuth: PrometheusAuthType$outboundSchema.optional(),
   lokiAuth: PrometheusAuthType$outboundSchema.optional(),

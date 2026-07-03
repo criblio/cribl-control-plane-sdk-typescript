@@ -16,11 +16,11 @@ export type CountedTeamAccessControlList = {
   /**
    * number of items present in the items array
    */
-  count?: number | undefined;
+  count: number;
   /**
    * List of items in this response.
    */
-  items?: Array<TeamAccessControlList> | undefined;
+  items: Array<TeamAccessControlList>;
 };
 
 /** @internal */
@@ -29,8 +29,8 @@ export const CountedTeamAccessControlList$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: types.optional(types.number()),
-  items: types.optional(z.array(TeamAccessControlList$inboundSchema)),
+  count: types.number(),
+  items: z.array(TeamAccessControlList$inboundSchema),
 });
 
 export function countedTeamAccessControlListFromJSON(

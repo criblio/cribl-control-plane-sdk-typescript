@@ -13,11 +13,26 @@ import {
 } from "./ownertypeheartbeatmetadatakube.js";
 
 export type KubeTypeHeartbeatMetadata = {
+  /**
+   * If <code>true</code>, the Kubernetes metadata collector is enabled on the node. Otherwise, <code>false</code>.
+   */
   enabled: boolean;
+  /**
+   * Kubernetes Namespace name.
+   */
   namespace: string;
+  /**
+   * Kubernetes Node name.
+   */
   node: string;
   owner?: OwnerTypeHeartbeatMetadataKube | undefined;
+  /**
+   * Kubernetes Pod name.
+   */
   pod: string;
+  /**
+   * Kubernetes config source.
+   */
   source: string;
 };
 

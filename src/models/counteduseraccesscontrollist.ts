@@ -16,11 +16,11 @@ export type CountedUserAccessControlList = {
   /**
    * number of items present in the items array
    */
-  count?: number | undefined;
+  count: number;
   /**
    * List of items in this response.
    */
-  items?: Array<UserAccessControlList> | undefined;
+  items: Array<UserAccessControlList>;
 };
 
 /** @internal */
@@ -29,8 +29,8 @@ export const CountedUserAccessControlList$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: types.optional(types.number()),
-  items: types.optional(z.array(UserAccessControlList$inboundSchema)),
+  count: types.number(),
+  items: z.array(UserAccessControlList$inboundSchema),
 });
 
 export function countedUserAccessControlListFromJSON(

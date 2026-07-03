@@ -16,11 +16,11 @@ export type CountedMasterWorkerEntry = {
   /**
    * number of items present in the items array
    */
-  count?: number | undefined;
+  count: number;
   /**
    * List of items in this response.
    */
-  items?: Array<MasterWorkerEntry> | undefined;
+  items: Array<MasterWorkerEntry>;
 };
 
 /** @internal */
@@ -29,8 +29,8 @@ export const CountedMasterWorkerEntry$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: types.optional(types.number()),
-  items: types.optional(z.array(MasterWorkerEntry$inboundSchema)),
+  count: types.number(),
+  items: z.array(MasterWorkerEntry$inboundSchema),
 });
 
 export function countedMasterWorkerEntryFromJSON(

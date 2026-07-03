@@ -691,6 +691,17 @@ const value: models.InputSysdigHecInput = {
 };
 ```
 
+### `models.InputUpwindHecInput`
+
+```typescript
+const value: models.InputUpwindHecInput = {
+  type: "upwind_hec",
+  host: "shiny-ceramic.info",
+  port: 718.92,
+  hecAPI: "<value>",
+};
+```
+
 ### `models.InputOpenaiComplianceLogsInput`
 
 ```typescript
@@ -710,10 +721,8 @@ const value: models.InputAnthropicComplianceInput = {
   textSecret: "<value>",
   contentConfig: [
     {
-      contentType: "<value>",
+      contentType: "chat_messages",
       cronSchedule: "<value>",
-      earliest: "<value>",
-      latest: "<value>",
     },
   ],
 };

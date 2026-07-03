@@ -11,6 +11,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 import { PacksDestinationsPq } from "./packsdestinationspq.js";
 import { PacksDestinationsStatuses } from "./packsdestinationsstatuses.js";
 import { PacksSamples } from "./packssamples.js";
@@ -40,8 +41,10 @@ export class PacksDestinations extends ClientSDK {
   async list(
     request: operations.GetOutputSystemByPackRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedOutputResponse> {
-    return unwrapAsync(packsDestinationsList(
+  ): Promise<
+    PageIterator<operations.GetOutputSystemByPackResponse, { offset: number }>
+  > {
+    return unwrapResultIterator(packsDestinationsList(
       this,
       request,
       options,

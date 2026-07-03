@@ -4,15 +4,15 @@
 
 ### Available Operations
 
-* [get](#get) - Get a summary of the deployment for a specific product.
+* [get](#get) - Get a summary of the deployment for a Cribl product
 
 ## get
 
-Get a summary of the deployment for the specified Cribl product (Stream or Edge).<br/><br/>The summary includes a count of Worker Groups or Edge Fleets and resources  such as Pipelines, Routes, Sources, and Destinations. For Distributed deployments,  it also includes a count and statistics for Worker or Edge Nodes.
+Get a summary of the deployment for the specified Cribl product (Stream or Edge).<br/><br/>The summary includes a count of Worker Groups or Edge Fleets and resources such as Pipelines, Routes, Sources, and Destinations. For Distributed deployments, the summary also includes a count and statistics for Worker or Edge Nodes.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getProductsSummaryByProduct" method="get" path="/products/{product}/summary" -->
+<!-- UsageSnippet language="typescript" operationID="getProductsSummaryByProduct" method="get" path="/products/{product}/summary" example="ProductSummaryResponseExamplesStreamDeploymentSummary" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -28,7 +28,9 @@ async function run() {
     product: "stream",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -57,7 +59,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("nodesSummariesGet failed:", res.error);
   }
@@ -77,7 +81,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedDistributedSummary](../../models/counteddistributedsummary.md)\>**
+**Promise\<[operations.GetProductsSummaryByProductResponse](../../models/operations/getproductssummarybyproductresponse.md)\>**
 
 ### Errors
 

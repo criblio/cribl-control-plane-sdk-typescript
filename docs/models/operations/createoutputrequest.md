@@ -224,6 +224,19 @@ const value: operations.CreateOutputOutputAzureEventhub = {
 };
 ```
 
+### `operations.CreateOutputOutputGoogleBigquery`
+
+```typescript
+const value: operations.CreateOutputOutputGoogleBigquery = {
+  id: "<id>",
+  type: "google_bigquery",
+  projectId: "<id>",
+  datasetId: "<id>",
+  tableId: "<id>",
+  googleAuthMethod: "auto",
+};
+```
+
 ### `operations.CreateOutputOutputGoogleChronicle`
 
 ```typescript
@@ -524,6 +537,18 @@ const value: operations.CreateOutputOutputLoki = {
   id: "<id>",
   type: "loki",
   url: "https://outstanding-feather.net/",
+};
+```
+
+### `operations.CreateOutputOutputAmazonManagedPrometheus`
+
+```typescript
+const value: operations.CreateOutputOutputAmazonManagedPrometheus = {
+  id: "<id>",
+  type: "amazon_managed_prometheus",
+  url: "https://timely-character.net/",
+  awsAuthenticationMethod: "auto",
+  region: "<value>",
 };
 ```
 

@@ -23,13 +23,17 @@ import {
   KubeTypeHeartbeatMetadata,
   KubeTypeHeartbeatMetadata$inboundSchema,
 } from "./kubetypeheartbeatmetadata.js";
+import {
+  OsTypeHeartbeatMetadata,
+  OsTypeHeartbeatMetadata$inboundSchema,
+} from "./ostypeheartbeatmetadata.js";
 
 export type HeartbeatMetadata = {
   aws?: AwsTypeHeartbeatMetadata | undefined;
   azure?: AzureTypeHeartbeatMetadata | undefined;
   hostOs?: HostOsTypeHeartbeatMetadata | undefined;
   kube?: KubeTypeHeartbeatMetadata | undefined;
-  os?: HostOsTypeHeartbeatMetadata | undefined;
+  os?: OsTypeHeartbeatMetadata | undefined;
 };
 
 /** @internal */
@@ -42,7 +46,7 @@ export const HeartbeatMetadata$inboundSchema: z.ZodType<
   azure: types.optional(AzureTypeHeartbeatMetadata$inboundSchema),
   hostOs: types.optional(HostOsTypeHeartbeatMetadata$inboundSchema),
   kube: types.optional(KubeTypeHeartbeatMetadata$inboundSchema),
-  os: types.optional(HostOsTypeHeartbeatMetadata$inboundSchema),
+  os: types.optional(OsTypeHeartbeatMetadata$inboundSchema),
 });
 
 export function heartbeatMetadataFromJSON(

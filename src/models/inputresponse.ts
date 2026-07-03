@@ -69,18 +69,12 @@ import {
   ExtraHttpHeaderConfInputElastic$inboundSchema,
 } from "./extrahttpheaderconfinputelastic.js";
 import {
-  HttpDiscoveryHeaderConfInputPrometheus,
-  HttpDiscoveryHeaderConfInputPrometheus$inboundSchema,
-} from "./httpdiscoveryheaderconfinputprometheus.js";
-import {
   InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
   InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
 } from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
 import {
   InputResponseAuth,
   InputResponseAuth$inboundSchema,
-  InputResponseCheckpointing,
-  InputResponseCheckpointing$inboundSchema,
   InputResponseInputAnthropicCompliance,
   InputResponseInputAnthropicCompliance$inboundSchema,
   InputResponseInputAppleUnifiedLogs,
@@ -165,6 +159,8 @@ import {
   InputResponseInputTcp$inboundSchema,
   InputResponseInputTcpjson,
   InputResponseInputTcpjson$inboundSchema,
+  InputResponseInputUpwindHec,
+  InputResponseInputUpwindHec$inboundSchema,
   InputResponseInputWef,
   InputResponseInputWef$inboundSchema,
   InputResponseInputWindowsMetrics,
@@ -177,7 +173,7 @@ import {
   InputResponseInputWizWebhook$inboundSchema,
   InputResponseInputZscalerHec,
   InputResponseInputZscalerHec$inboundSchema,
-} from "./inputresponsecheckpointing.js";
+} from "./inputresponseauth.js";
 import {
   KafkaSchemaRegistryAuthenticationType,
   KafkaSchemaRegistryAuthenticationType$inboundSchema,
@@ -220,6 +216,10 @@ import {
   RecordTypeOptions$inboundSchema,
 } from "./recordtypeoptions.js";
 import {
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$inboundSchema,
+} from "./refreshrequestparamconfhealthcheckauthenticationoauthsecret.js";
+import {
   RetryRulesType,
   RetryRulesType$inboundSchema,
 } from "./retryrulestype.js";
@@ -249,6 +249,74 @@ import {
   TlsSettingsServerSideType$inboundSchema,
 } from "./tlssettingsserversidetype.js";
 
+export const AuthenticationMethodEventhubAmqp = {
+  Secret: "secret",
+  ClientSecret: "clientSecret",
+  ClientCert: "clientCert",
+  ClientAssertion: "clientAssertion",
+  ClientAssertionRpc: "clientAssertion_rpc",
+} as const;
+export type AuthenticationMethodEventhubAmqp = OpenEnum<
+  typeof AuthenticationMethodEventhubAmqp
+>;
+
+export type InputResponseAzureBlobStorage = {
+  /**
+   * Azure Blob Storage container used to store checkpoints. Must be 3–63 lowercase alphanumeric characters or hyphens.
+   */
+  containerName: string;
+  authType?: AuthenticationMethodEventhubAmqp | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  /**
+   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  /**
+   * Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+   */
+  __template_storageAccountName?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+   */
+  __template_azureCloud?: string | undefined;
+};
+
+export type InputResponseCheckpointing = {
+  blobStore: InputResponseAzureBlobStorage;
+};
+
 export type InputResponseInputEventhubAmqp = {
   /**
    * Unique ID for this input
@@ -276,7 +344,7 @@ export type InputResponseInputEventhubAmqp = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -397,7 +465,7 @@ export type InputResponseInputEventhub = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -615,7 +683,7 @@ export type InputResponseInputMicrosoftGraph = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -809,7 +877,7 @@ export type InputResponseInputOffice365MsgTrace = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1011,7 +1079,7 @@ export type InputResponseInputOffice365Service = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1164,7 +1232,7 @@ export type InputResponseInputOffice365Mgmt = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1397,7 +1465,7 @@ export type InputResponseInputEdgePrometheus = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1546,7 +1614,7 @@ export type InputResponseInputEdgePrometheus = {
    * Extra headers to send with the discovery request
    */
   httpDiscoveryHeaders?:
-    | Array<HttpDiscoveryHeaderConfInputPrometheus>
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
     | undefined;
   /**
    * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
@@ -1685,7 +1753,7 @@ export type InputResponseInputPrometheus = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1837,7 +1905,7 @@ export type InputResponseInputPrometheus = {
    * Extra headers to send with the discovery request
    */
   httpDiscoveryHeaders?:
-    | Array<HttpDiscoveryHeaderConfInputPrometheus>
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
     | undefined;
   /**
    * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
@@ -1959,7 +2027,7 @@ export type InputResponseInputPrometheusRw = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2120,7 +2188,7 @@ export type InputResponseInputLoki = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2332,7 +2400,7 @@ export type InputResponseInputGrafanaGrafana2 = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2536,7 +2604,7 @@ export type InputResponseInputGrafanaGrafana1 = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2686,7 +2754,7 @@ export type InputResponseInputConfluentCloud = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2957,7 +3025,7 @@ export type InputResponseInputElastic = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3121,7 +3189,7 @@ export type InputResponseInputAzureBlob = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3324,7 +3392,7 @@ export type InputResponseInputSplunkHec = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3562,7 +3630,7 @@ export type InputResponseInputSplunkSearch = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3808,7 +3876,7 @@ export type InputResponseInputSplunk = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3959,7 +4027,7 @@ export type InputResponseInputHttp = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -4124,7 +4192,7 @@ export type InputResponseInputMsk = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -4358,7 +4426,7 @@ export type InputResponseInputKafka = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -4530,7 +4598,7 @@ export type InputResponseInputCollection = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -4656,10 +4724,71 @@ export type InputResponse =
   | InputResponseInputZscalerHec
   | InputResponseInputCloudflareHec
   | InputResponseInputSysdigHec
+  | InputResponseInputUpwindHec
   | InputResponseInputOpenaiComplianceLogs
   | InputResponseInputAnthropicCompliance
   | InputResponseInputOkta
   | discriminatedUnionTypes.Unknown<"type">;
+
+/** @internal */
+export const AuthenticationMethodEventhubAmqp$inboundSchema: z.ZodType<
+  AuthenticationMethodEventhubAmqp,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(AuthenticationMethodEventhubAmqp);
+
+/** @internal */
+export const InputResponseAzureBlobStorage$inboundSchema: z.ZodType<
+  InputResponseAzureBlobStorage,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  containerName: types.string(),
+  authType: types.optional(AuthenticationMethodEventhubAmqp$inboundSchema),
+  textSecret: types.optional(types.string()),
+  storageAccountName: types.optional(types.string()),
+  tenantId: types.optional(types.string()),
+  clientId: types.optional(types.string()),
+  azureCloud: types.optional(types.string()),
+  endpointSuffix: types.optional(types.string()),
+  clientTextSecret: types.optional(types.string()),
+  certificate: types.optional(
+    CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
+  ),
+  __template_storageAccountName: types.optional(types.string()),
+  __template_tenantId: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
+  __template_azureCloud: types.optional(types.string()),
+});
+
+export function inputResponseAzureBlobStorageFromJSON(
+  jsonString: string,
+): SafeParseResult<InputResponseAzureBlobStorage, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputResponseAzureBlobStorage$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputResponseAzureBlobStorage' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputResponseCheckpointing$inboundSchema: z.ZodType<
+  InputResponseCheckpointing,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  blobStore: z.lazy(() => InputResponseAzureBlobStorage$inboundSchema),
+});
+
+export function inputResponseCheckpointingFromJSON(
+  jsonString: string,
+): SafeParseResult<InputResponseCheckpointing, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputResponseCheckpointing$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputResponseCheckpointing' from JSON`,
+  );
+}
 
 /** @internal */
 export const InputResponseInputEventhubAmqp$inboundSchema: z.ZodType<
@@ -4685,7 +4814,7 @@ export const InputResponseInputEventhubAmqp$inboundSchema: z.ZodType<
   eventHubName: types.optional(types.string()),
   consumerGroup: types.string(),
   auth: types.optional(InputResponseAuth$inboundSchema),
-  checkpointing: InputResponseCheckpointing$inboundSchema,
+  checkpointing: z.lazy(() => InputResponseCheckpointing$inboundSchema),
   fromBeginning: types.optional(types.boolean()),
   maxBatchSize: types.optional(types.number()),
   maxWaitTimeInSeconds: types.optional(types.number()),
@@ -5231,7 +5360,9 @@ export const InputResponseInputEdgePrometheus$inboundSchema: z.ZodType<
   ),
   httpDiscoveryUrl: types.optional(types.string()),
   httpDiscoveryHeaders: types.optional(
-    z.array(HttpDiscoveryHeaderConfInputPrometheus$inboundSchema),
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$inboundSchema,
+    ),
   ),
   httpDiscoveryRejectUnauthorized: types.optional(types.boolean()),
   maxResponseBodySize: types.optional(types.string()),
@@ -5335,7 +5466,9 @@ export const InputResponseInputPrometheus$inboundSchema: z.ZodType<
   durationSeconds: types.optional(types.number()),
   httpDiscoveryUrl: types.optional(types.string()),
   httpDiscoveryHeaders: types.optional(
-    z.array(HttpDiscoveryHeaderConfInputPrometheus$inboundSchema),
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$inboundSchema,
+    ),
   ),
   httpDiscoveryRejectUnauthorized: types.optional(types.boolean()),
   maxResponseBodySize: types.optional(types.string()),
@@ -6674,6 +6807,7 @@ export const InputResponse$inboundSchema: z.ZodType<
   zscaler_hec: InputResponseInputZscalerHec$inboundSchema,
   cloudflare_hec: InputResponseInputCloudflareHec$inboundSchema,
   sysdig_hec: InputResponseInputSysdigHec$inboundSchema,
+  upwind_hec: InputResponseInputUpwindHec$inboundSchema,
   openai_compliance_logs: InputResponseInputOpenaiComplianceLogs$inboundSchema,
   anthropic_compliance: InputResponseInputAnthropicCompliance$inboundSchema,
   okta: InputResponseInputOkta$inboundSchema,

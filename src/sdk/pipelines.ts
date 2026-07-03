@@ -11,6 +11,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Pipelines extends ClientSDK {
   /**
@@ -20,10 +21,14 @@ export class Pipelines extends ClientSDK {
    * Get a list of all Pipelines.
    */
   async list(
+    request?: operations.GetPipelinesRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.CountedPipeline> {
-    return unwrapAsync(pipelinesList(
+  ): Promise<
+    PageIterator<operations.GetPipelinesResponse, { offset: number }>
+  > {
+    return unwrapResultIterator(pipelinesList(
       this,
+      request,
       options,
     ));
   }
@@ -83,7 +88,7 @@ export class Pipelines extends ClientSDK {
    * Update a Pipeline
    *
    * @remarks
-   * Update the specified Pipeline.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
+   * Update the specified Pipeline.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body.<br/><br/>This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request.<br/><br/>If the configuration is incorrect, the updated Pipeline might not function as expected.
    */
   async update(
     request: operations.UpdatePipelinesByIdRequest,

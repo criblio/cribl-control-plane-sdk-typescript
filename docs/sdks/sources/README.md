@@ -32,7 +32,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.sources.list();
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -59,7 +61,9 @@ async function run() {
   const res = await sourcesList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("sourcesList failed:", res.error);
   }
@@ -83,7 +87,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.sources.list();
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -110,7 +116,9 @@ async function run() {
   const res = await sourcesList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("sourcesList failed:", res.error);
   }
@@ -134,7 +142,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.sources.list();
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -161,7 +171,9 @@ async function run() {
   const res = await sourcesList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("sourcesList failed:", res.error);
   }
@@ -181,7 +193,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInputResponse](../../models/countedinputresponse.md)\>**
+**Promise\<[operations.ListInputResponse](../../models/operations/listinputresponse.md)\>**
 
 ### Errors
 
@@ -223,9 +235,9 @@ async function run() {
         stateTracking: true,
         stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
         stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-        cronSchedule: "*/5 * * * *",
         earliest: "-7d@d",
         latest: "now",
+        cronSchedule: "*/5 * * * *",
         jobTimeout: "300",
       },
     ],
@@ -269,9 +281,9 @@ async function run() {
         stateTracking: true,
         stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
         stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-        cronSchedule: "*/5 * * * *",
         earliest: "-7d@d",
         latest: "now",
+        cronSchedule: "*/5 * * * *",
         jobTimeout: "300",
       },
     ],
@@ -4342,6 +4354,73 @@ async function run() {
 
 run();
 ```
+### Example Usage: InputCreateExamplesUpwindHec
+
+<!-- UsageSnippet language="typescript" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesUpwindHec" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.create({
+    id: "upwind-hec-source",
+    type: "upwind_hec",
+    sendToRoutes: true,
+    pqEnabled: false,
+    host: "0.0.0.0",
+    port: 8088,
+    hecAPI: "/services/collector",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesCreate } from "cribl-control-plane/funcs/sourcesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesCreate(criblControlPlane, {
+    id: "upwind-hec-source",
+    type: "upwind_hec",
+    sendToRoutes: true,
+    pqEnabled: false,
+    host: "0.0.0.0",
+    port: 8088,
+    hecAPI: "/services/collector",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: InputCreateExamplesWef
 
 <!-- UsageSnippet language="typescript" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesWef" -->
@@ -5188,9 +5267,9 @@ async function run() {
           stateTracking: true,
           stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
           stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-          cronSchedule: "*/5 * * * *",
           earliest: "-7d@d",
           latest: "now",
+          cronSchedule: "*/5 * * * *",
           jobTimeout: "300",
         },
       ],
@@ -5237,9 +5316,9 @@ async function run() {
           stateTracking: true,
           stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
           stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-          cronSchedule: "*/5 * * * *",
           earliest: "-7d@d",
           latest: "now",
+          cronSchedule: "*/5 * * * *",
           jobTimeout: "300",
         },
       ],
@@ -10407,9 +10486,9 @@ async function run() {
           stateTracking: true,
           stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
           stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-          cronSchedule: "*/5 * * * *",
           earliest: "-7d@d",
           latest: "now",
+          cronSchedule: "*/5 * * * *",
           jobTimeout: "300",
         },
       ],
@@ -10456,9 +10535,9 @@ async function run() {
           stateTracking: true,
           stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
           stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-          cronSchedule: "*/5 * * * *",
           earliest: "-7d@d",
           latest: "now",
+          cronSchedule: "*/5 * * * *",
           jobTimeout: "300",
         },
       ],
@@ -15012,6 +15091,79 @@ async function run() {
       pqEnabled: false,
       host: "0.0.0.0",
       port: 10090,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateInputExamplesUpwindHec
+
+<!-- UsageSnippet language="typescript" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="UpdateInputExamplesUpwindHec" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.update({
+    id: "<id>",
+    input: {
+      id: "upwind-hec-source",
+      type: "upwind_hec",
+      sendToRoutes: true,
+      pqEnabled: false,
+      host: "0.0.0.0",
+      port: 8088,
+      hecAPI: "/services/collector",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesUpdate } from "cribl-control-plane/funcs/sourcesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesUpdate(criblControlPlane, {
+    id: "<id>",
+    input: {
+      id: "upwind-hec-source",
+      type: "upwind_hec",
+      sendToRoutes: true,
+      pqEnabled: false,
+      host: "0.0.0.0",
+      port: 8088,
+      hecAPI: "/services/collector",
     },
   });
   if (res.ok) {

@@ -35,7 +35,7 @@ import { Result } from "../types/fp.js";
  */
 export function groupsAclGet(
   client: CriblControlPlaneCore,
-  request: operations.GetConfigGroupAclByProductAndIdRequest,
+  request: operations.GetProductsGroupsAclByProductAndIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -60,7 +60,7 @@ export function groupsAclGet(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.GetConfigGroupAclByProductAndIdRequest,
+  request: operations.GetProductsGroupsAclByProductAndIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -82,7 +82,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetConfigGroupAclByProductAndIdRequest$outboundSchema.parse(
+      operations.GetProductsGroupsAclByProductAndIdRequest$outboundSchema.parse(
         value,
       ),
     "Input validation failed",
@@ -119,7 +119,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getConfigGroupAclByProductAndId",
+    operationID: "getProductsGroupsAclByProductAndId",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

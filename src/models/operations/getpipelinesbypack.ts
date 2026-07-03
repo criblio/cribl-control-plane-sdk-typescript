@@ -3,16 +3,35 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type GetPipelinesByPackRequest = {
+  /**
+   * Pagination offset
+   */
+  offset?: number | undefined;
+  /**
+   * Maximum number of items to return
+   */
+  limit?: number | undefined;
   /**
    * The <code>id</code> of the Pack.
    */
   pack: string;
 };
 
+export type GetPipelinesByPackResponse = {
+  result: models.PaginatedPipeline;
+};
+
 /** @internal */
 export type GetPipelinesByPackRequest$Outbound = {
+  offset?: number | undefined;
+  limit?: number | undefined;
   pack: string;
 };
 
@@ -22,6 +41,8 @@ export const GetPipelinesByPackRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetPipelinesByPackRequest
 > = z.object({
+  offset: z.number().int().optional(),
+  limit: z.number().int().optional(),
   pack: z.string(),
 });
 
@@ -30,5 +51,28 @@ export function getPipelinesByPackRequestToJSON(
 ): string {
   return JSON.stringify(
     GetPipelinesByPackRequest$outboundSchema.parse(getPipelinesByPackRequest),
+  );
+}
+
+/** @internal */
+export const GetPipelinesByPackResponse$inboundSchema: z.ZodType<
+  GetPipelinesByPackResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: models.PaginatedPipeline$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+
+export function getPipelinesByPackResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetPipelinesByPackResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetPipelinesByPackResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetPipelinesByPackResponse' from JSON`,
   );
 }

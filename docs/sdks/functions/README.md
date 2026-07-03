@@ -29,7 +29,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.functions.list();
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -56,7 +58,9 @@ async function run() {
   const res = await functionsList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("functionsList failed:", res.error);
   }
@@ -76,7 +80,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedFunctionResponse](../../models/countedfunctionresponse.md)\>**
+**Promise\<[operations.GetFunctionsResponse](../../models/operations/getfunctionsresponse.md)\>**
 
 ### Errors
 

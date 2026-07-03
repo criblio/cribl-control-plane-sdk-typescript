@@ -765,6 +765,18 @@ const value: operations.CreateInputInputSysdigHec = {
 };
 ```
 
+### `operations.CreateInputInputUpwindHec`
+
+```typescript
+const value: operations.CreateInputInputUpwindHec = {
+  id: "<id>",
+  type: "upwind_hec",
+  host: "sturdy-innovation.org",
+  port: 2501.04,
+  hecAPI: "<value>",
+};
+```
+
 ### `operations.CreateInputInputOpenaiComplianceLogs`
 
 ```typescript

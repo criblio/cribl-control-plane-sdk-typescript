@@ -11,6 +11,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Collectors extends ClientSDK {
   /**
@@ -22,8 +23,8 @@ export class Collectors extends ClientSDK {
   async list(
     request?: operations.GetSavedJobRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.CountedSavedJobResponse> {
-    return unwrapAsync(collectorsList(
+  ): Promise<PageIterator<operations.GetSavedJobResponse, { offset: number }>> {
+    return unwrapResultIterator(collectorsList(
       this,
       request,
       options,

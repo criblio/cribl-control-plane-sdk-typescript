@@ -24,6 +24,9 @@ export type AdditionalField = {
  */
 export type OutputFieldMappings = {};
 
+/**
+ * Configuration specific to the Pipeline Function.
+ */
 export type PipelineFunctionGeoipConf = {
   /**
    * Select an uploaded Maxmind database, or specify path to a Maxmind database with .mmdb extension
@@ -37,6 +40,9 @@ export type PipelineFunctionGeoipConf = {
    * Field name in which to store the GeoIP lookup results
    */
   outField?: string | undefined;
+  /**
+   * Additional IP fields on which to perform GeoIP lookups.
+   */
   additionalFields?: Array<AdditionalField> | undefined;
   /**
    * Search-specific mappings for granular control over event enrichment
@@ -46,7 +52,7 @@ export type PipelineFunctionGeoipConf = {
 
 export type PipelineFunctionGeoip = {
   /**
-   * Filter that selects data to be fed through this Function
+   * JavaScript expression that selects data to pass through the Function.
    */
   filter?: string | undefined;
   /**
@@ -54,20 +60,23 @@ export type PipelineFunctionGeoip = {
    */
   id: "geoip";
   /**
-   * Simple description of this step
+   * Brief description of the Pipeline function.
    */
   description?: string | undefined;
   /**
-   * If true, data will not be pushed through this function
+   * If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
    */
   disabled?: boolean | undefined;
   /**
-   * If enabled, stops the results of this Function from being passed to the downstream Functions
+   * If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
    */
   final?: boolean | undefined;
+  /**
+   * Configuration specific to the Pipeline Function.
+   */
   conf: PipelineFunctionGeoipConf;
   /**
-   * Group ID
+   * Unique identifier of the group that contains the Pipeline Function.
    */
   groupId?: string | undefined;
 };
