@@ -9,9 +9,21 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type HostOsTypeHeartbeatMetadata = {
+  /**
+   * Network addresses reported by the host operating system.
+   */
   addresses: Array<string>;
+  /**
+   * If <code>true</code>, the host operating system metadata collector is enabled on the node. Otherwise, <code>false</code>.
+   */
   enabled: boolean;
+  /**
+   * Host operating system distribution name.
+   */
   id: string;
+  /**
+   * Host operating system version.
+   */
   version: string;
 };
 

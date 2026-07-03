@@ -319,6 +319,11 @@ import {
   InputTcpjsonInput$outboundSchema,
 } from "./inputtcpjsoninput.js";
 import {
+  InputUpwindHecInput,
+  InputUpwindHecInput$Outbound,
+  InputUpwindHecInput$outboundSchema,
+} from "./inputupwindhecinput.js";
+import {
   InputWefInput,
   InputWefInput$Outbound,
   InputWefInput$outboundSchema,
@@ -416,6 +421,7 @@ export type Input =
   | InputZscalerHecInput
   | InputCloudflareHecInput
   | InputSysdigHecInput
+  | InputUpwindHecInput
   | InputOpenaiComplianceLogsInput
   | InputAnthropicComplianceInput
   | InputOktaInput;
@@ -488,6 +494,7 @@ export type Input$Outbound =
   | InputZscalerHecInput$Outbound
   | InputCloudflareHecInput$Outbound
   | InputSysdigHecInput$Outbound
+  | InputUpwindHecInput$Outbound
   | InputOpenaiComplianceLogsInput$Outbound
   | InputAnthropicComplianceInput$Outbound
   | InputOktaInput$Outbound;
@@ -568,6 +575,7 @@ export const Input$outboundSchema: z.ZodType<
   InputZscalerHecInput$outboundSchema,
   InputCloudflareHecInput$outboundSchema,
   InputSysdigHecInput$outboundSchema,
+  InputUpwindHecInput$outboundSchema,
   InputOpenaiComplianceLogsInput$outboundSchema,
   InputAnthropicComplianceInput$outboundSchema,
   InputOktaInput$outboundSchema,

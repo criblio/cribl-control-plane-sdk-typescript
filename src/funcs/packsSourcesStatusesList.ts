@@ -237,7 +237,7 @@ async function $do(
     if (!responseData) {
       return { next: () => null };
     }
-    const results = (responseData as { items?: unknown }).items;
+    const results = (responseData as { items: unknown }).items;
     if (!Array.isArray(results) || !results.length) {
       return { next: () => null };
     }

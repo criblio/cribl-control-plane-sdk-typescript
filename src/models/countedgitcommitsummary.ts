@@ -16,11 +16,11 @@ export type CountedGitCommitSummary = {
   /**
    * number of items present in the items array
    */
-  count?: number | undefined;
+  count: number;
   /**
    * List of items in this response.
    */
-  items?: Array<GitCommitSummary> | undefined;
+  items: Array<GitCommitSummary>;
 };
 
 /** @internal */
@@ -29,8 +29,8 @@ export const CountedGitCommitSummary$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: types.optional(types.number()),
-  items: types.optional(z.array(GitCommitSummary$inboundSchema)),
+  count: types.number(),
+  items: z.array(GitCommitSummary$inboundSchema),
 });
 
 export function countedGitCommitSummaryFromJSON(

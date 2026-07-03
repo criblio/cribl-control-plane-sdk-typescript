@@ -25,11 +25,6 @@ import {
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
-  HttpDiscoveryHeaderConfInputPrometheus,
-  HttpDiscoveryHeaderConfInputPrometheus$Outbound,
-  HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
-} from "./httpdiscoveryheaderconfinputprometheus.js";
-import {
   MessageFormatOptions,
   MessageFormatOptions$outboundSchema,
 } from "./messageformatoptions.js";
@@ -38,6 +33,11 @@ import {
   QueueFullBehaviorOptions,
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
+import {
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+} from "./refreshrequestparamconfhealthcheckauthenticationoauthsecret.js";
 import {
   ResponseRetrySettingConfOutputWebhook,
   ResponseRetrySettingConfOutputWebhook$Outbound,
@@ -70,7 +70,7 @@ export type OutputLoki = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -88,7 +88,9 @@ export type OutputLoki = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<HttpDiscoveryHeaderConfInputPrometheus> | undefined;
+  labels?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
   authType?:
     | AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret
     | undefined;
@@ -275,7 +277,11 @@ export type OutputLoki$Outbound = {
   url: string;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<HttpDiscoveryHeaderConfInputPrometheus$Outbound> | undefined;
+  labels?:
+    | Array<
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
+    | undefined;
   authType?: string | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
@@ -336,8 +342,9 @@ export const OutputLoki$outboundSchema: z.ZodType<
   url: z.string(),
   message: z.string().optional(),
   messageFormat: MessageFormatOptions$outboundSchema.optional(),
-  labels: z.array(HttpDiscoveryHeaderConfInputPrometheus$outboundSchema)
-    .optional(),
+  labels: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+  ).optional(),
   authType:
     AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret$outboundSchema
       .optional(),

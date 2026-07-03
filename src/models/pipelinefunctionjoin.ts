@@ -19,6 +19,9 @@ export type FieldCondition = {
   rightFieldName: string;
 };
 
+/**
+ * Configuration specific to the Pipeline Function.
+ */
 export type JoinConfiguration = {
   /**
    * Join kind, e.g. inner
@@ -44,7 +47,7 @@ export type JoinConfiguration = {
 
 export type PipelineFunctionJoin = {
   /**
-   * Filter that selects data to be fed through this Function
+   * JavaScript expression that selects data to pass through the Function.
    */
   filter?: string | undefined;
   /**
@@ -52,20 +55,23 @@ export type PipelineFunctionJoin = {
    */
   id: "join";
   /**
-   * Simple description of this step
+   * Brief description of the Pipeline function.
    */
   description?: string | undefined;
   /**
-   * If true, data will not be pushed through this function
+   * If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
    */
   disabled?: boolean | undefined;
   /**
-   * If enabled, stops the results of this Function from being passed to the downstream Functions
+   * If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
    */
   final?: boolean | undefined;
+  /**
+   * Configuration specific to the Pipeline Function.
+   */
   conf: JoinConfiguration;
   /**
-   * Group ID
+   * Unique identifier of the group that contains the Pipeline Function.
    */
   groupId?: string | undefined;
 };

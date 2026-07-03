@@ -96,17 +96,9 @@ export type OutputSentinelOneAiSiem = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
-  /**
-   * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
-   */
-  region: OutputSentinelOneAiSiemRegion;
-  /**
-   * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
-   */
-  endpoint: OutputSentinelOneAISIEMAISIEMEndpointPath;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -166,6 +158,14 @@ export type OutputSentinelOneAiSiem = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+   */
+  region: OutputSentinelOneAiSiemRegion;
+  /**
+   * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+   */
+  endpoint: OutputSentinelOneAISIEMAISIEMEndpointPath;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -341,8 +341,6 @@ export type OutputSentinelOneAiSiem$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  region: string;
-  endpoint: string;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   maxPayloadEvents?: number | undefined;
@@ -361,6 +359,8 @@ export type OutputSentinelOneAiSiem$Outbound = {
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
+  region: string;
+  endpoint: string;
   onBackpressure?: string | undefined;
   description?: string | undefined;
   token?: string | undefined;
@@ -409,8 +409,6 @@ export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  region: OutputSentinelOneAiSiemRegion$outboundSchema,
-  endpoint: OutputSentinelOneAISIEMAISIEMEndpointPath$outboundSchema,
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -430,6 +428,8 @@ export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
   ).optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
+  region: OutputSentinelOneAiSiemRegion$outboundSchema,
+  endpoint: OutputSentinelOneAISIEMAISIEMEndpointPath$outboundSchema,
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   token: z.string().optional(),

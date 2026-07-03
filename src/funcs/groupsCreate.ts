@@ -28,14 +28,14 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
+ * Create a Worker Group, Outpost Group, or Edge Fleet
  *
  * @remarks
  * Create a new Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product.
  */
 export function groupsCreate(
   client: CriblControlPlaneCore,
-  request: operations.CreateConfigGroupByProductRequest,
+  request: operations.CreateProductsGroupsByProductRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -60,7 +60,7 @@ export function groupsCreate(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.CreateConfigGroupByProductRequest,
+  request: operations.CreateProductsGroupsByProductRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -82,7 +82,9 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.CreateConfigGroupByProductRequest$outboundSchema.parse(value),
+      operations.CreateProductsGroupsByProductRequest$outboundSchema.parse(
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -112,7 +114,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "createConfigGroupByProduct",
+    operationID: "createProductsGroupsByProduct",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

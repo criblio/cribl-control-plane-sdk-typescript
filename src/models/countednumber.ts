@@ -12,11 +12,11 @@ export type CountedNumber = {
   /**
    * number of items present in the items array
    */
-  count?: number | undefined;
+  count: number;
   /**
    * List of items in this response.
    */
-  items?: Array<number> | undefined;
+  items: Array<number>;
 };
 
 /** @internal */
@@ -25,8 +25,8 @@ export const CountedNumber$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: types.optional(types.number()),
-  items: types.optional(z.array(types.number())),
+  count: types.number(),
+  items: z.array(types.number()),
 });
 
 export function countedNumberFromJSON(

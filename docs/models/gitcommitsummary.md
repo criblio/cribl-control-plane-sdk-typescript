@@ -9,9 +9,9 @@ let value: GitCommitSummary = {
   branch: "<value>",
   commit: "<value>",
   summary: {
-    changes: 875406,
-    deletions: 184138,
-    insertions: 720089,
+    changes: 73462,
+    deletions: 373781,
+    insertions: 182031,
   },
 };
 ```

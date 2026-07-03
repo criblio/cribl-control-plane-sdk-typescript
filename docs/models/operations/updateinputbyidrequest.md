@@ -8,8 +8,12 @@ import { UpdateInputByIdRequest } from "cribl-control-plane/models/operations";
 let value: UpdateInputByIdRequest = {
   id: "<id>",
   input: {
-    type: "security_lake",
-    queueName: "<value>",
+    type: "servicenow_table",
+    instance: "<value>",
+    tableName: "<value>",
+    cronSchedule: "<value>",
+    earliest: "<value>",
+    latest: "<value>",
   },
 };
 ```

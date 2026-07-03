@@ -107,6 +107,9 @@ export type HBCriblInfo = {
    * Connection parameters for the Leader Node, as reported in a Worker heartbeat.
    */
   master?: HBLeaderInfo | undefined;
+  /**
+   * Currently active overlay identifier on the node. Omitted if no overlay is active.
+   */
   overlayId?: string | undefined;
   /**
    * The process ID.

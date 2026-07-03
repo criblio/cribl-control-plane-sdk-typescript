@@ -8,7 +8,13 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Unix domain socket configuration.
+ */
 export type SocketsTypeSystemSettingsConf = {
+  /**
+   * Filesystem directory path where Unix domain socket files are created.
+   */
   directory?: string | undefined;
 };
 

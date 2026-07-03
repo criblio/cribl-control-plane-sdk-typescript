@@ -455,7 +455,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.packs.list();
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -482,7 +484,9 @@ async function run() {
   const res = await packsList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("packsList failed:", res.error);
   }
@@ -502,7 +506,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedPackInfo](../../models/countedpackinfo.md)\>**
+**Promise\<[operations.GetPacksResponse](../../models/operations/getpacksresponse.md)\>**
 
 ### Errors
 

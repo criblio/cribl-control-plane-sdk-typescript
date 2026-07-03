@@ -13,7 +13,7 @@ let value: OwnerTypeHeartbeatMetadataKube = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `kind`             | *string*           | :heavy_check_mark: | N/A                |
-| `name`             | *string*           | :heavy_check_mark: | N/A                |
+| Field                           | Type                            | Required                        | Description                     |
+| ------------------------------- | ------------------------------- | ------------------------------- | ------------------------------- |
+| `kind`                          | *string*                        | :heavy_check_mark:              | Kubernetes owner resource kind. |
+| `name`                          | *string*                        | :heavy_check_mark:              | Kubernetes owner resource name. |

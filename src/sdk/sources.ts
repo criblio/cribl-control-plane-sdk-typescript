@@ -11,6 +11,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 import { HecTokens } from "./hectokens.js";
 import { SourcesPq } from "./sourcespq.js";
 import { SourcesStatuses } from "./sourcesstatuses.js";
@@ -40,8 +41,8 @@ export class Sources extends ClientSDK {
   async list(
     request?: operations.ListInputRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.CountedInputResponse> {
-    return unwrapAsync(sourcesList(
+  ): Promise<PageIterator<operations.ListInputResponse, { offset: number }>> {
+    return unwrapResultIterator(sourcesList(
       this,
       request,
       options,

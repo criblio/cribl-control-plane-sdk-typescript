@@ -31,11 +31,11 @@ import { Result } from "../types/fp.js";
  * Update a Worker Group, Outpost Group, or Edge Fleet
  *
  * @remarks
- * Update the specified Worker Group, Outpost Group, or Edge Fleet.<br/><br/>Provide a complete representation of the Group or Fleet that you want to update in the request body.  This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Group or Fleet.<br/><br/>Confirm that the configuration in your request body is correct before sending the request.  If the configuration is incorrect, the updated Group or Fleet might not function as expected.<br/><br/>**Warning**: Do not change the values for the following parameters in the body of PATCH requests. The request body must include the values as they appear in the <code>GET /products/{product}/groups/{id}</code> response.<br/> - <code>configVersion</code><br/> - <code>deployingWorkerCount</code><br/> - <code>incompatibleWorkerCount</code><br/> - <code>workerCount</code><br/> - <code>lookupDeployments</code>.
+ * Update the specified Worker Group, Outpost Group, or Edge Fleet.<br/><br/>Provide a complete representation of the Group or Fleet that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Group or Fleet.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Group or Fleet might not function as expected.<br/><br/>**Warning**: Do not change the values for the following parameters in the body of PATCH requests. The request body must include the values as they appear in the <code>GET /products/{product}/groups/{id}</code> response.<br/> - <code>configVersion</code><br/> - <code>deployingWorkerCount</code><br/> - <code>incompatibleWorkerCount</code><br/> - <code>workerCount</code><br/> - <code>lookupDeployments</code>.
  */
 export function groupsUpdate(
   client: CriblControlPlaneCore,
-  request: operations.UpdateConfigGroupByProductAndIdRequest,
+  request: operations.UpdateProductsGroupsByProductAndIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -60,7 +60,7 @@ export function groupsUpdate(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.UpdateConfigGroupByProductAndIdRequest,
+  request: operations.UpdateProductsGroupsByProductAndIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -82,7 +82,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.UpdateConfigGroupByProductAndIdRequest$outboundSchema.parse(
+      operations.UpdateProductsGroupsByProductAndIdRequest$outboundSchema.parse(
         value,
       ),
     "Input validation failed",
@@ -116,7 +116,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "updateConfigGroupByProductAndId",
+    operationID: "updateProductsGroupsByProductAndId",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

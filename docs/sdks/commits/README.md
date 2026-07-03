@@ -32,7 +32,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.versions.commits.list();
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -59,7 +61,9 @@ async function run() {
   const res = await versionsCommitsList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("versionsCommitsList failed:", res.error);
   }
@@ -79,7 +83,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedGitLogResult](../../models/countedgitlogresult.md)\>**
+**Promise\<[operations.GetVersionResponse](../../models/operations/getversionresponse.md)\>**
 
 ### Errors
 

@@ -203,6 +203,18 @@ const value: models.OutputResponseOutputAzureEventhub = {
 };
 ```
 
+### `models.OutputResponseOutputGoogleBigquery`
+
+```typescript
+const value: models.OutputResponseOutputGoogleBigquery = {
+  type: "google_bigquery",
+  projectId: "<id>",
+  datasetId: "<id>",
+  tableId: "<id>",
+  googleAuthMethod: "secret",
+};
+```
+
 ### `models.OutputResponseOutputGoogleChronicle`
 
 ```typescript
@@ -487,6 +499,17 @@ const value: models.OutputResponseOutputGrafanaCloudUnion = {
 const value: models.OutputResponseOutputLoki = {
   type: "loki",
   url: "https://trim-postbox.net",
+};
+```
+
+### `models.OutputResponseOutputAmazonManagedPrometheus`
+
+```typescript
+const value: models.OutputResponseOutputAmazonManagedPrometheus = {
+  type: "amazon_managed_prometheus",
+  url: "https://pure-cappelletti.info/",
+  awsAuthenticationMethod: "secret",
+  region: "<value>",
 };
 ```
 

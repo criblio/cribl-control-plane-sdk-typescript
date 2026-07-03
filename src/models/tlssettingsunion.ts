@@ -16,10 +16,25 @@ import {
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type TlsSettings = {
+  /**
+   * Cipher suite list to use for TLS connections. <code>DEFAULT</code> means the system default.
+   */
   defaultCipherList: string;
+  /**
+   * ECDH curve name for TLS key exchange. Use <code>auto</code> to let Node.js choose.
+   */
   defaultEcdhCurve: string;
+  /**
+   * Maximum TLS protocol version to accept.
+   */
   maxVersion: string;
+  /**
+   * Minimum TLS protocol version to accept.
+   */
   minVersion: string;
+  /**
+   * If <code>true</code>, reject TLS certificates that cannot be verified against a valid Certificate Authority. Otherwise, <code>false</code>.
+   */
   rejectUnauthorized: boolean;
 };
 

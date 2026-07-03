@@ -37,7 +37,9 @@ async function run() {
     excludeBYOS: false,
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -71,7 +73,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("lakesDatasetsList failed:", res.error);
   }
@@ -91,7 +95,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedCriblLakeDataset](../../models/countedcribllakedataset.md)\>**
+**Promise\<[operations.GetCriblLakeDatasetByLakeIdResponse](../../models/operations/getcribllakedatasetbylakeidresponse.md)\>**
 
 ### Errors
 

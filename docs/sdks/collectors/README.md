@@ -32,7 +32,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.collectors.list();
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -59,7 +61,9 @@ async function run() {
   const res = await collectorsList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("collectorsList failed:", res.error);
   }
@@ -79,7 +83,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedSavedJobResponse](../../models/countedsavedjobresponse.md)\>**
+**Promise\<[operations.GetSavedJobResponse](../../models/operations/getsavedjobresponse.md)\>**
 
 ### Errors
 

@@ -210,6 +210,18 @@ const value: models.OutputAzureEventhub = {
 };
 ```
 
+### `models.OutputGoogleBigquery`
+
+```typescript
+const value: models.OutputGoogleBigquery = {
+  type: "google_bigquery",
+  projectId: "<id>",
+  datasetId: "<id>",
+  tableId: "<id>",
+  googleAuthMethod: "secret",
+};
+```
+
 ### `models.OutputGoogleChronicle`
 
 ```typescript
@@ -483,6 +495,17 @@ const value: models.OutputGrafanaCloud = {
 const value: models.OutputLoki = {
   type: "loki",
   url: "https://pushy-spring.biz/",
+};
+```
+
+### `models.OutputAmazonManagedPrometheus`
+
+```typescript
+const value: models.OutputAmazonManagedPrometheus = {
+  type: "amazon_managed_prometheus",
+  url: "https://rusty-hovel.org/",
+  awsAuthenticationMethod: "secret",
+  region: "<value>",
 };
 ```
 

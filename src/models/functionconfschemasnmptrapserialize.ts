@@ -47,6 +47,9 @@ export type SnmpTrapSerializeV3UserAuthProtocolNone = {
   privProtocol?: string | undefined;
 };
 
+/**
+ * SNMPv3 user configuration, including authentication and privacy protocol settings.
+ */
 export type V3User =
   | SnmpTrapSerializeV3UserAuthProtocolNone
   | (
@@ -81,6 +84,9 @@ export type FunctionConfSchemaSnmpTrapSerialize = {
    * When disabled, `snmpSerializeErrors` will be set on the event, and the `__snmpRaw` field will be removed to prevent @{product} from sending the event from the SNMP Trap Destination
    */
   dropFailedEvents?: boolean | undefined;
+  /**
+   * SNMPv3 user configuration, including authentication and privacy protocol settings.
+   */
   v3User?:
     | SnmpTrapSerializeV3UserAuthProtocolNone
     | (

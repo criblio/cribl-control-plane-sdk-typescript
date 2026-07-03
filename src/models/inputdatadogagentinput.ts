@@ -20,13 +20,28 @@ import {
   TlsSettingsServerSideType$outboundSchema,
 } from "./tlssettingsserversidetype.js";
 
+export type InputDatadogAgentSamplingRule = {
+  /**
+   * Datadog service name
+   */
+  service: string;
+  /**
+   * Datadog environment name (example: prod, staging)
+   */
+  environment: string;
+  /**
+   * Sampling rate for this service/environment combination (0.0–1.0)
+   */
+  rate: number;
+};
+
 export type InputDatadogAgentProxyMode = {
   /**
-   * Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
+   * Forward key validation requests from the Datadog Agent to the Datadog API. If disabled, Stream handles key validation requests locally by always responding that the key is valid.
    */
   enabled: boolean;
   /**
-   * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
+   * Whether to reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
    */
   rejectUnauthorized?: boolean | undefined;
 };
@@ -61,7 +76,7 @@ export type InputDatadogAgentInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -123,9 +138,17 @@ export type InputDatadogAgentInput = {
    */
   ipDenylistRegex?: string | undefined;
   /**
-   * Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
+   * Extract each incoming metric to multiple events, one per data point. Recommended when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave disabled.
    */
   extractMetrics?: boolean | undefined;
+  /**
+   * The rate_by_service hint sent to connected tracers as the catch-all sampling rate. Applies to any service/environment not explicitly listed in Per-Service Sampling Rules. 1.0 = keep all traces (default); 0.0 = suggest dropping all.
+   */
+  samplingRate?: number | undefined;
+  /**
+   * Per-service sampling rate hints. Each row maps to a "service:<s>,env:<e>" key in the rate_by_service response sent to tracers.
+   */
+  samplingRules?: Array<InputDatadogAgentSamplingRule> | undefined;
   /**
    * Fields to add to events from this input
    */
@@ -152,6 +175,34 @@ export type InputDatadogAgentInput = {
    */
   __template_port?: string | undefined;
 };
+
+/** @internal */
+export type InputDatadogAgentSamplingRule$Outbound = {
+  service: string;
+  environment: string;
+  rate: number;
+};
+
+/** @internal */
+export const InputDatadogAgentSamplingRule$outboundSchema: z.ZodType<
+  InputDatadogAgentSamplingRule$Outbound,
+  z.ZodTypeDef,
+  InputDatadogAgentSamplingRule
+> = z.object({
+  service: z.string(),
+  environment: z.string(),
+  rate: z.number(),
+});
+
+export function inputDatadogAgentSamplingRuleToJSON(
+  inputDatadogAgentSamplingRule: InputDatadogAgentSamplingRule,
+): string {
+  return JSON.stringify(
+    InputDatadogAgentSamplingRule$outboundSchema.parse(
+      inputDatadogAgentSamplingRule,
+    ),
+  );
+}
 
 /** @internal */
 export type InputDatadogAgentProxyMode$Outbound = {
@@ -204,6 +255,8 @@ export type InputDatadogAgentInput$Outbound = {
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   extractMetrics?: boolean | undefined;
+  samplingRate?: number | undefined;
+  samplingRules?: Array<InputDatadogAgentSamplingRule$Outbound> | undefined;
   metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   proxyMode?: InputDatadogAgentProxyMode$Outbound | undefined;
   description?: string | undefined;
@@ -244,6 +297,10 @@ export const InputDatadogAgentInput$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   extractMetrics: z.boolean().optional(),
+  samplingRate: z.number().optional(),
+  samplingRules: z.array(
+    z.lazy(() => InputDatadogAgentSamplingRule$outboundSchema),
+  ).optional(),
   metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   proxyMode: z.lazy(() => InputDatadogAgentProxyMode$outboundSchema).optional(),
   description: z.string().optional(),

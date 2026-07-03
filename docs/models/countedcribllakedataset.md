@@ -6,19 +6,18 @@
 import { CountedCriblLakeDataset } from "cribl-control-plane/models";
 
 let value: CountedCriblLakeDataset = {
+  count: 905702,
   items: [
     {
       id: "<id>",
       searchConfig: {
         metadata: {
           earliest: "-30d",
-          enableAcceleration: true,
+          enableAcceleration: false,
           fieldList: [
             "<value 1>",
-            "<value 2>",
-            "<value 3>",
           ],
-          scanMode: "detailed",
+          scanMode: "quick",
         },
       },
     },
@@ -30,5 +29,5 @@ let value: CountedCriblLakeDataset = {
 
 | Field                                                      | Type                                                       | Required                                                   | Description                                                |
 | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
-| `count`                                                    | *number*                                                   | :heavy_minus_sign:                                         | number of items present in the items array                 |
-| `items`                                                    | [models.CriblLakeDataset](../models/cribllakedataset.md)[] | :heavy_minus_sign:                                         | List of items in this response.                            |
+| `count`                                                    | *number*                                                   | :heavy_check_mark:                                         | number of items present in the items array                 |
+| `items`                                                    | [models.CriblLakeDataset](../models/cribllakedataset.md)[] | :heavy_check_mark:                                         | List of items in this response.                            |

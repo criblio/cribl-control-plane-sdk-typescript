@@ -29,7 +29,7 @@ export type GetOutputStatusRequest = {
 };
 
 export type GetOutputStatusResponse = {
-  result: models.CountedOutputStatus;
+  result: models.PaginatedOutputStatus;
 };
 
 /** @internal */
@@ -66,7 +66,7 @@ export const GetOutputStatusResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Result: models.CountedOutputStatus$inboundSchema,
+  Result: models.PaginatedOutputStatus$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
     "Result": "result",

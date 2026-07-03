@@ -1,5 +1,7 @@
 # PipelineFunctionTeeConf
 
+Configuration specific to the Pipeline Function.
+
 ## Example Usage
 
 ```typescript
@@ -15,6 +17,6 @@ let value: PipelineFunctionTeeConf = {
 | Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
 | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
 | `command`                                                                            | *string*                                                                             | :heavy_check_mark:                                                                   | Command to execute and feed events to, via stdin. One JSON-formatted event per line. |
-| `args`                                                                               | *string*[]                                                                           | :heavy_minus_sign:                                                                   | N/A                                                                                  |
+| `args`                                                                               | *string*[]                                                                           | :heavy_minus_sign:                                                                   | Command-line arguments to pass to the command.                                       |
 | `restartOnExit`                                                                      | *boolean*                                                                            | :heavy_minus_sign:                                                                   | Restart the process if it exits and/or we fail to write to it                        |
 | `env`                                                                                | Record<string, *string*>                                                             | :heavy_minus_sign:                                                                   | Environment variables to overwrite or set                                            |

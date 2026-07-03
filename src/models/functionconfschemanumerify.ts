@@ -11,6 +11,9 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type NumerifyFormatNone = {
+  /**
+   * Numeric format to apply after type conversion.
+   */
   format: "none";
   /**
    * Depth to which the Numerify Function will search within a nested event. Depth greater than 5 (the default) could decrease performance.
@@ -31,6 +34,9 @@ export type NumerifyFormatNone = {
 };
 
 export type NumerifyFormatFix = {
+  /**
+   * Numeric format to apply after type conversion.
+   */
   format: "fix";
   /**
    * Number of digits after the decimal point, between 0 and 20. If left blank, defaults to 2.

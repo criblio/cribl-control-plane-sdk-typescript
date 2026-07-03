@@ -721,6 +721,17 @@ const value: models.InputResponseInputSysdigHec = {
 };
 ```
 
+### `models.InputResponseInputUpwindHec`
+
+```typescript
+const value: models.InputResponseInputUpwindHec = {
+  type: "upwind_hec",
+  host: "wise-place.info",
+  port: 555.86,
+  hecAPI: "<value>",
+};
+```
+
 ### `models.InputResponseInputOpenaiComplianceLogs`
 
 ```typescript
@@ -740,10 +751,8 @@ const value: models.InputResponseInputAnthropicCompliance = {
   textSecret: "<value>",
   contentConfig: [
     {
-      contentType: "<value>",
+      contentType: "activities",
       cronSchedule: "<value>",
-      earliest: "<value>",
-      latest: "<value>",
     },
   ],
 };

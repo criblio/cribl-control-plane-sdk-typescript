@@ -32,7 +32,9 @@ async function run() {
     pack: "<value>",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -61,7 +63,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("packsPipelinesList failed:", res.error);
   }
@@ -87,7 +91,9 @@ async function run() {
     pack: "<value>",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -116,7 +122,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("packsPipelinesList failed:", res.error);
   }
@@ -136,7 +144,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedPipeline](../../models/countedpipeline.md)\>**
+**Promise\<[operations.GetPipelinesByPackResponse](../../models/operations/getpipelinesbypackresponse.md)\>**
 
 ### Errors
 
@@ -3153,6 +3161,7 @@ async function run() {
             id: "serde",
             conf: {
               type: "kvp",
+              srcField: "_raw",
               keep: [
                 "a",
                 "b",
@@ -3163,7 +3172,6 @@ async function run() {
               ],
               cleanFields: false,
               mode: "extract",
-              srcField: "_raw",
             },
           },
         ],
@@ -3213,6 +3221,7 @@ async function run() {
             id: "serde",
             conf: {
               type: "kvp",
+              srcField: "_raw",
               keep: [
                 "a",
                 "b",
@@ -3223,7 +3232,6 @@ async function run() {
               ],
               cleanFields: false,
               mode: "extract",
-              srcField: "_raw",
             },
           },
         ],
@@ -4660,7 +4668,18 @@ async function run() {
     pack: "<value>",
     pipeline: {
       id: "<id>",
-      conf: {},
+      conf: {
+        functions: [
+          {
+            id: "mv_pull",
+            conf: {
+              arrayPath: "<value>",
+              relativeKeyPath: "<value>",
+              relativeValuePath: "<value>",
+            },
+          },
+        ],
+      },
     },
   });
 
@@ -4692,7 +4711,18 @@ async function run() {
     pack: "<value>",
     pipeline: {
       id: "<id>",
-      conf: {},
+      conf: {
+        functions: [
+          {
+            id: "mv_pull",
+            conf: {
+              arrayPath: "<value>",
+              relativeKeyPath: "<value>",
+              relativeValuePath: "<value>",
+            },
+          },
+        ],
+      },
     },
   });
   if (res.ok) {
@@ -4723,7 +4753,18 @@ async function run() {
     pack: "<value>",
     pipeline: {
       id: "<id>",
-      conf: {},
+      conf: {
+        functions: [
+          {
+            id: "mv_pull",
+            conf: {
+              arrayPath: "<value>",
+              relativeKeyPath: "<value>",
+              relativeValuePath: "<value>",
+            },
+          },
+        ],
+      },
     },
   });
 
@@ -4755,7 +4796,18 @@ async function run() {
     pack: "<value>",
     pipeline: {
       id: "<id>",
-      conf: {},
+      conf: {
+        functions: [
+          {
+            id: "mv_pull",
+            conf: {
+              arrayPath: "<value>",
+              relativeKeyPath: "<value>",
+              relativeValuePath: "<value>",
+            },
+          },
+        ],
+      },
     },
   });
   if (res.ok) {
@@ -4932,7 +4984,7 @@ run();
 
 ## update
 
-Update the specified Pipeline within the specified Pack.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
+Update the specified Pipeline within the specified Pack.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body.<br/><br/>This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request.<br/><br/>If the configuration is incorrect, the updated Pipeline might not function as expected.
 
 ### Example Usage: PipelineExamplesAggregateMetrics
 
@@ -7990,6 +8042,7 @@ async function run() {
             id: "serde",
             conf: {
               type: "kvp",
+              srcField: "_raw",
               keep: [
                 "a",
                 "b",
@@ -8000,7 +8053,6 @@ async function run() {
               ],
               cleanFields: false,
               mode: "extract",
-              srcField: "_raw",
             },
           },
         ],
@@ -8051,6 +8103,7 @@ async function run() {
             id: "serde",
             conf: {
               type: "kvp",
+              srcField: "_raw",
               keep: [
                 "a",
                 "b",
@@ -8061,7 +8114,6 @@ async function run() {
               ],
               cleanFields: false,
               mode: "extract",
-              srcField: "_raw",
             },
           },
         ],
@@ -9525,7 +9577,14 @@ async function run() {
     pack: "<value>",
     pipeline: {
       id: "<id>",
-      conf: {},
+      conf: {
+        functions: [
+          {
+            id: "foldkeys",
+            conf: {},
+          },
+        ],
+      },
     },
   });
 
@@ -9558,7 +9617,14 @@ async function run() {
     pack: "<value>",
     pipeline: {
       id: "<id>",
-      conf: {},
+      conf: {
+        functions: [
+          {
+            id: "foldkeys",
+            conf: {},
+          },
+        ],
+      },
     },
   });
   if (res.ok) {
@@ -9590,7 +9656,14 @@ async function run() {
     pack: "<value>",
     pipeline: {
       id: "<id>",
-      conf: {},
+      conf: {
+        functions: [
+          {
+            id: "foldkeys",
+            conf: {},
+          },
+        ],
+      },
     },
   });
 
@@ -9623,7 +9696,14 @@ async function run() {
     pack: "<value>",
     pipeline: {
       id: "<id>",
-      conf: {},
+      conf: {
+        functions: [
+          {
+            id: "foldkeys",
+            conf: {},
+          },
+        ],
+      },
     },
   });
   if (res.ok) {
@@ -12692,6 +12772,7 @@ async function run() {
             id: "serde",
             conf: {
               type: "kvp",
+              srcField: "_raw",
               keep: [
                 "a",
                 "b",
@@ -12702,7 +12783,6 @@ async function run() {
               ],
               cleanFields: false,
               mode: "extract",
-              srcField: "_raw",
             },
           },
         ],
@@ -12753,6 +12833,7 @@ async function run() {
             id: "serde",
             conf: {
               type: "kvp",
+              srcField: "_raw",
               keep: [
                 "a",
                 "b",
@@ -12763,7 +12844,6 @@ async function run() {
               ],
               cleanFields: false,
               mode: "extract",
-              srcField: "_raw",
             },
           },
         ],

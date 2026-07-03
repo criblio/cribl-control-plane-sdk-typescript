@@ -11,16 +11,16 @@ import {
   ConnectionConfInputCollection$outboundSchema,
 } from "./connectionconfinputcollection.js";
 import {
-  HttpDiscoveryHeaderConfInputPrometheus,
-  HttpDiscoveryHeaderConfInputPrometheus$Outbound,
-  HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
-} from "./httpdiscoveryheaderconfinputprometheus.js";
-import {
   MetadataConfInputCollection,
   MetadataConfInputCollection$Outbound,
   MetadataConfInputCollection$outboundSchema,
 } from "./metadataconfinputcollection.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
+import {
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+} from "./refreshrequestparamconfhealthcheckauthenticationoauthsecret.js";
 import {
   RetryRulesType,
   RetryRulesType$Outbound,
@@ -84,7 +84,9 @@ export type InputOpenaiContentConfig = {
   /**
    * Query-string parameters to send with this endpoint
    */
-  requestParams: Array<HttpDiscoveryHeaderConfInputPrometheus>;
+  requestParams: Array<
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret
+  >;
   paginationType: InputOpenaiPaginationType;
   paginationAttribute?: Array<string> | undefined;
   paginationLastPageExpr?: string | undefined;
@@ -153,7 +155,7 @@ export type InputOpenaiInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -261,7 +263,9 @@ export type InputOpenaiContentConfig$Outbound = {
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
   manageState?: InputOpenaiManageState$Outbound | undefined;
-  requestParams: Array<HttpDiscoveryHeaderConfInputPrometheus$Outbound>;
+  requestParams: Array<
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+  >;
   paginationType: string;
   paginationAttribute?: Array<string> | undefined;
   paginationLastPageExpr?: string | undefined;
@@ -287,7 +291,9 @@ export const InputOpenaiContentConfig$outboundSchema: z.ZodType<
   stateUpdateExpression: z.string().optional(),
   stateMergeExpression: z.string().optional(),
   manageState: z.lazy(() => InputOpenaiManageState$outboundSchema).optional(),
-  requestParams: z.array(HttpDiscoveryHeaderConfInputPrometheus$outboundSchema),
+  requestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+  ),
   paginationType: InputOpenaiPaginationType$outboundSchema,
   paginationAttribute: z.array(z.string()).optional(),
   paginationLastPageExpr: z.string().optional(),

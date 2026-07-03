@@ -3,17 +3,36 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type GetFunctionsRequest = {
   /**
    * If <code>true</code>, include hidden Functions in the response. Otherwise, hidden Functions are excluded.
    */
   showHidden?: boolean | undefined;
+  /**
+   * Pagination offset
+   */
+  offset?: number | undefined;
+  /**
+   * Maximum number of items to return
+   */
+  limit?: number | undefined;
+};
+
+export type GetFunctionsResponse = {
+  result: models.PaginatedFunctionResponse;
 };
 
 /** @internal */
 export type GetFunctionsRequest$Outbound = {
   showHidden?: boolean | undefined;
+  offset?: number | undefined;
+  limit?: number | undefined;
 };
 
 /** @internal */
@@ -23,6 +42,8 @@ export const GetFunctionsRequest$outboundSchema: z.ZodType<
   GetFunctionsRequest
 > = z.object({
   showHidden: z.boolean().optional(),
+  offset: z.number().int().optional(),
+  limit: z.number().int().optional(),
 });
 
 export function getFunctionsRequestToJSON(
@@ -30,5 +51,28 @@ export function getFunctionsRequestToJSON(
 ): string {
   return JSON.stringify(
     GetFunctionsRequest$outboundSchema.parse(getFunctionsRequest),
+  );
+}
+
+/** @internal */
+export const GetFunctionsResponse$inboundSchema: z.ZodType<
+  GetFunctionsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: models.PaginatedFunctionResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+
+export function getFunctionsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetFunctionsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetFunctionsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetFunctionsResponse' from JSON`,
   );
 }

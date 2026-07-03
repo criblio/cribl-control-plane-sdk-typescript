@@ -13,11 +13,11 @@ export type CountedRoutes = {
   /**
    * number of items present in the items array
    */
-  count?: number | undefined;
+  count: number;
   /**
    * List of items in this response.
    */
-  items?: Array<Routes> | undefined;
+  items: Array<Routes>;
 };
 
 /** @internal */
@@ -26,8 +26,8 @@ export const CountedRoutes$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: types.optional(types.number()),
-  items: types.optional(z.array(Routes$inboundSchema)),
+  count: types.number(),
+  items: z.array(Routes$inboundSchema),
 });
 
 export function countedRoutesFromJSON(

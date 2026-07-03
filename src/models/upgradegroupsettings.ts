@@ -9,9 +9,21 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type UpgradeGroupSettings = {
+  /**
+   * If <code>true</code>, perform a rolling upgrade that updates nodes incrementally. If <code>false</code>, upgrade all nodes simultaneously.
+   */
   isRolling?: boolean | undefined;
+  /**
+   * Percentage of nodes to upgrade at a time during a rolling upgrade.
+   */
   quantity?: number | undefined;
+  /**
+   * Number of times to retry upgrading a node before marking it as failed.
+   */
   retryCount?: number | undefined;
+  /**
+   * Delay in milliseconds between upgrade retries when a node fails to upgrade.
+   */
   retryDelay?: number | undefined;
 };
 
@@ -41,9 +53,9 @@ export const UpgradeGroupSettings$outboundSchema: z.ZodType<
   UpgradeGroupSettings
 > = z.object({
   isRolling: z.boolean().optional(),
-  quantity: z.number().optional(),
-  retryCount: z.number().optional(),
-  retryDelay: z.number().optional(),
+  quantity: z.number().int().optional(),
+  retryCount: z.number().int().optional(),
+  retryDelay: z.number().int().optional(),
 });
 
 export function upgradeGroupSettingsToJSON(

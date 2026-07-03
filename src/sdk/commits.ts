@@ -13,6 +13,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 import { Files } from "./files.js";
 
 export class Commits extends ClientSDK {
@@ -30,8 +31,8 @@ export class Commits extends ClientSDK {
   async list(
     request?: operations.GetVersionRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.CountedGitLogResult> {
-    return unwrapAsync(versionsCommitsList(
+  ): Promise<PageIterator<operations.GetVersionResponse, { offset: number }>> {
+    return unwrapResultIterator(versionsCommitsList(
       this,
       request,
       options,

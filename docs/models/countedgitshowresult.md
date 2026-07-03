@@ -6,12 +6,8 @@
 import { CountedGitShowResult } from "cribl-control-plane/models";
 
 let value: CountedGitShowResult = {
-  items: [
-    {
-      commitMessage: "<value>",
-      diffJson: [],
-    },
-  ],
+  count: 107088,
+  items: [],
 };
 ```
 
@@ -19,5 +15,5 @@ let value: CountedGitShowResult = {
 
 | Field                                                | Type                                                 | Required                                             | Description                                          |
 | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
-| `count`                                              | *number*                                             | :heavy_minus_sign:                                   | number of items present in the items array           |
-| `items`                                              | [models.GitShowResult](../models/gitshowresult.md)[] | :heavy_minus_sign:                                   | List of items in this response.                      |
+| `count`                                              | *number*                                             | :heavy_check_mark:                                   | number of items present in the items array           |
+| `items`                                              | [models.GitShowResult](../models/gitshowresult.md)[] | :heavy_check_mark:                                   | List of items in this response.                      |

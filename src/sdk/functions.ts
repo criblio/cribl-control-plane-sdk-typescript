@@ -8,6 +8,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Functions extends ClientSDK {
   /**
@@ -19,8 +20,10 @@ export class Functions extends ClientSDK {
   async list(
     request?: operations.GetFunctionsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.CountedFunctionResponse> {
-    return unwrapAsync(functionsList(
+  ): Promise<
+    PageIterator<operations.GetFunctionsResponse, { offset: number }>
+  > {
+    return unwrapResultIterator(functionsList(
       this,
       request,
       options,

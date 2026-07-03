@@ -10,13 +10,11 @@ let value: CriblLakeDataset = {
   searchConfig: {
     metadata: {
       earliest: "-30d",
-      enableAcceleration: true,
+      enableAcceleration: false,
       fieldList: [
         "<value 1>",
-        "<value 2>",
-        "<value 3>",
       ],
-      scanMode: "detailed",
+      scanMode: "quick",
     },
   },
 };

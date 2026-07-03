@@ -32,7 +32,9 @@ async function run() {
     pack: "<value>",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -61,7 +63,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("packsSourcesList failed:", res.error);
   }
@@ -87,7 +91,9 @@ async function run() {
     pack: "<value>",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -116,7 +122,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("packsSourcesList failed:", res.error);
   }
@@ -142,7 +150,9 @@ async function run() {
     pack: "<value>",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -171,7 +181,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("packsSourcesList failed:", res.error);
   }
@@ -191,7 +203,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedInputResponse](../../models/countedinputresponse.md)\>**
+**Promise\<[operations.GetInputSystemByPackResponse](../../models/operations/getinputsystembypackresponse.md)\>**
 
 ### Errors
 
@@ -235,9 +247,9 @@ async function run() {
           stateTracking: true,
           stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
           stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-          cronSchedule: "*/5 * * * *",
           earliest: "-7d@d",
           latest: "now",
+          cronSchedule: "*/5 * * * *",
           jobTimeout: "300",
         },
       ],
@@ -284,9 +296,9 @@ async function run() {
           stateTracking: true,
           stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
           stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-          cronSchedule: "*/5 * * * *",
           earliest: "-7d@d",
           latest: "now",
+          cronSchedule: "*/5 * * * *",
           jobTimeout: "300",
         },
       ],
@@ -4718,6 +4730,79 @@ async function run() {
 
 run();
 ```
+### Example Usage: InputCreateExamplesUpwindHec
+
+<!-- UsageSnippet language="typescript" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesUpwindHec" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.create({
+    pack: "<value>",
+    requestBody: {
+      id: "upwind-hec-source",
+      type: "upwind_hec",
+      sendToRoutes: true,
+      pqEnabled: false,
+      host: "0.0.0.0",
+      port: 8088,
+      hecAPI: "/services/collector",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesCreate } from "cribl-control-plane/funcs/packsSourcesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesCreate(criblControlPlane, {
+    pack: "<value>",
+    requestBody: {
+      id: "upwind-hec-source",
+      type: "upwind_hec",
+      sendToRoutes: true,
+      pqEnabled: false,
+      host: "0.0.0.0",
+      port: 8088,
+      hecAPI: "/services/collector",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: InputCreateExamplesWef
 
 <!-- UsageSnippet language="typescript" operationID="createInputSystemByPack" method="post" path="/p/{pack}/system/inputs" example="InputCreateExamplesWef" -->
@@ -5621,9 +5706,9 @@ async function run() {
           stateTracking: true,
           stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
           stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-          cronSchedule: "*/5 * * * *",
           earliest: "-7d@d",
           latest: "now",
+          cronSchedule: "*/5 * * * *",
           jobTimeout: "300",
         },
       ],
@@ -5671,9 +5756,9 @@ async function run() {
           stateTracking: true,
           stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
           stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-          cronSchedule: "*/5 * * * *",
           earliest: "-7d@d",
           latest: "now",
+          cronSchedule: "*/5 * * * *",
           jobTimeout: "300",
         },
       ],
@@ -10982,9 +11067,9 @@ async function run() {
           stateTracking: true,
           stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
           stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-          cronSchedule: "*/5 * * * *",
           earliest: "-7d@d",
           latest: "now",
+          cronSchedule: "*/5 * * * *",
           jobTimeout: "300",
         },
       ],
@@ -11032,9 +11117,9 @@ async function run() {
           stateTracking: true,
           stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
           stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-          cronSchedule: "*/5 * * * *",
           earliest: "-7d@d",
           latest: "now",
+          cronSchedule: "*/5 * * * *",
           jobTimeout: "300",
         },
       ],
@@ -15712,6 +15797,81 @@ async function run() {
       pqEnabled: false,
       host: "0.0.0.0",
       port: 10090,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsSourcesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: UpdateInputExamplesUpwindHec
+
+<!-- UsageSnippet language="typescript" operationID="updateInputSystemByPackAndId" method="patch" path="/p/{pack}/system/inputs/{id}" example="UpdateInputExamplesUpwindHec" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.sources.update({
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "upwind-hec-source",
+      type: "upwind_hec",
+      sendToRoutes: true,
+      pqEnabled: false,
+      host: "0.0.0.0",
+      port: 8088,
+      hecAPI: "/services/collector",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsSourcesUpdate } from "cribl-control-plane/funcs/packsSourcesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsSourcesUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    input: {
+      id: "upwind-hec-source",
+      type: "upwind_hec",
+      sendToRoutes: true,
+      pqEnabled: false,
+      host: "0.0.0.0",
+      port: 8088,
+      hecAPI: "/services/collector",
     },
   });
   if (res.ok) {

@@ -9,6 +9,9 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FunctionConfSchemaGenStats = {
+  /**
+   * List of field names from which to generate statistics.
+   */
   fields?: Array<string> | undefined;
 };
 

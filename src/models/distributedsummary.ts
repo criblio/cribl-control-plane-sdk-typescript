@@ -8,6 +8,9 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Resource counts for Worker Groups or Edge Fleets in the deployment summary.
+ */
 export type DistributedSummaryGroups = {
   /**
    * Total number of Worker Groups or Edge Fleets.
@@ -39,7 +42,10 @@ export type DistributedSummaryGroups = {
   sources: number;
 };
 
-export type DistributedSummaryWorkers = {
+/**
+ * Worker or Edge Node counts and health statistics in the deployment summary.
+ */
+export type Workers = {
   /**
    * Total number of Worker or Edge Nodes that are connected with <code>healthy</code> status.
    */
@@ -74,8 +80,14 @@ export type DistributedSummaryWorkers = {
  * Summary of the deployment for the specified Cribl product (Stream or Edge).
  */
 export type DistributedSummary = {
+  /**
+   * Resource counts for Worker Groups or Edge Fleets in the deployment summary.
+   */
   groups: DistributedSummaryGroups;
-  workers?: DistributedSummaryWorkers | undefined;
+  /**
+   * Worker or Edge Node counts and health statistics in the deployment summary.
+   */
+  workers?: Workers | undefined;
 };
 
 /** @internal */
@@ -104,27 +116,24 @@ export function distributedSummaryGroupsFromJSON(
 }
 
 /** @internal */
-export const DistributedSummaryWorkers$inboundSchema: z.ZodType<
-  DistributedSummaryWorkers,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  alive: types.number(),
-  confVersions: types.number(),
-  count: types.number(),
-  disconnectedCount: types.number(),
-  groups: types.number(),
-  softwareVersions: types.number(),
-  unhealthy: types.number(),
-});
+export const Workers$inboundSchema: z.ZodType<Workers, z.ZodTypeDef, unknown> =
+  z.object({
+    alive: types.number(),
+    confVersions: types.number(),
+    count: types.number(),
+    disconnectedCount: types.number(),
+    groups: types.number(),
+    softwareVersions: types.number(),
+    unhealthy: types.number(),
+  });
 
-export function distributedSummaryWorkersFromJSON(
+export function workersFromJSON(
   jsonString: string,
-): SafeParseResult<DistributedSummaryWorkers, SDKValidationError> {
+): SafeParseResult<Workers, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => DistributedSummaryWorkers$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DistributedSummaryWorkers' from JSON`,
+    (x) => Workers$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Workers' from JSON`,
   );
 }
 
@@ -135,9 +144,7 @@ export const DistributedSummary$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   groups: z.lazy(() => DistributedSummaryGroups$inboundSchema),
-  workers: types.optional(
-    z.lazy(() => DistributedSummaryWorkers$inboundSchema),
-  ),
+  workers: types.optional(z.lazy(() => Workers$inboundSchema)),
 });
 
 export function distributedSummaryFromJSON(

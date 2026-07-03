@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type GetSavedJobRequest = {
@@ -10,11 +14,25 @@ export type GetSavedJobRequest = {
    * Filter by collector type.
    */
   collectorType?: models.CollectorType | undefined;
+  /**
+   * Pagination offset
+   */
+  offset?: number | undefined;
+  /**
+   * Maximum number of items to return
+   */
+  limit?: number | undefined;
+};
+
+export type GetSavedJobResponse = {
+  result: models.PaginatedSavedJobResponse;
 };
 
 /** @internal */
 export type GetSavedJobRequest$Outbound = {
   collectorType?: string | undefined;
+  offset?: number | undefined;
+  limit?: number | undefined;
 };
 
 /** @internal */
@@ -24,6 +42,8 @@ export const GetSavedJobRequest$outboundSchema: z.ZodType<
   GetSavedJobRequest
 > = z.object({
   collectorType: models.CollectorType$outboundSchema.optional(),
+  offset: z.number().int().optional(),
+  limit: z.number().int().optional(),
 });
 
 export function getSavedJobRequestToJSON(
@@ -31,5 +51,28 @@ export function getSavedJobRequestToJSON(
 ): string {
   return JSON.stringify(
     GetSavedJobRequest$outboundSchema.parse(getSavedJobRequest),
+  );
+}
+
+/** @internal */
+export const GetSavedJobResponse$inboundSchema: z.ZodType<
+  GetSavedJobResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: models.PaginatedSavedJobResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+
+export function getSavedJobResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetSavedJobResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetSavedJobResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSavedJobResponse' from JSON`,
   );
 }

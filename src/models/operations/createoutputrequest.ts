@@ -8,14 +8,17 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 import {
-  CreateOutputAuthenticationMethodGoogleCloudStorage,
-  CreateOutputAuthenticationMethodGoogleCloudStorage$outboundSchema,
+  CreateOutputLogLocationType,
+  CreateOutputLogLocationType$outboundSchema,
   CreateOutputOutputAlibabaCloudS3,
   CreateOutputOutputAlibabaCloudS3$Outbound,
   CreateOutputOutputAlibabaCloudS3$outboundSchema,
   CreateOutputOutputAlphasocS3,
   CreateOutputOutputAlphasocS3$Outbound,
   CreateOutputOutputAlphasocS3$outboundSchema,
+  CreateOutputOutputAmazonManagedPrometheus,
+  CreateOutputOutputAmazonManagedPrometheus$Outbound,
+  CreateOutputOutputAmazonManagedPrometheus$outboundSchema,
   CreateOutputOutputChronicle,
   CreateOutputOutputChronicle$Outbound,
   CreateOutputOutputChronicle$outboundSchema,
@@ -85,9 +88,6 @@ import {
   CreateOutputOutputExabeam,
   CreateOutputOutputExabeam$Outbound,
   CreateOutputOutputExabeam$outboundSchema,
-  CreateOutputOutputGoogleCloudLogging,
-  CreateOutputOutputGoogleCloudLogging$Outbound,
-  CreateOutputOutputGoogleCloudLogging$outboundSchema,
   CreateOutputOutputGoogleCloudObservability,
   CreateOutputOutputGoogleCloudObservability$Outbound,
   CreateOutputOutputGoogleCloudObservability$outboundSchema,
@@ -187,7 +187,355 @@ import {
   CreateOutputOutputXsiam,
   CreateOutputOutputXsiam$Outbound,
   CreateOutputOutputXsiam$outboundSchema,
-} from "./createoutputauthenticationmethodgooglecloudstorage.js";
+  CreateOutputPayloadFormat,
+  CreateOutputPayloadFormat$outboundSchema,
+  CreateOutputPqControlsGoogleCloudLogging,
+  CreateOutputPqControlsGoogleCloudLogging$Outbound,
+  CreateOutputPqControlsGoogleCloudLogging$outboundSchema,
+} from "./createoutputpqcontrolsgooglecloudlogging.js";
+
+export type CreateOutputOutputGoogleCloudLogging = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "google_cloud_logging";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  logLocationType: CreateOutputLogLocationType;
+  /**
+   * JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+   */
+  logNameExpression: string;
+  sanitizeLogNames?: boolean | undefined;
+  /**
+   * Format to use when sending payload. Defaults to Text.
+   */
+  payloadFormat?: CreateOutputPayloadFormat | undefined;
+  /**
+   * Labels to apply to the log entry
+   */
+  logLabels?: Array<models.LogLabelConfOutputGoogleCloudLogging> | undefined;
+  /**
+   * JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
+   */
+  resourceTypeExpression?: string | undefined;
+  /**
+   * Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
+   */
+  resourceTypeLabels?:
+    | Array<models.LogLabelConfOutputGoogleCloudLogging>
+    | undefined;
+  /**
+   * JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
+   */
+  severityExpression?: string | undefined;
+  /**
+   * JavaScript expression to compute the value of the insert ID field.
+   */
+  insertIdExpression?: string | undefined;
+  /**
+   * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+   */
+  googleAuthMethod?: models.GoogleAuthenticationMethodOptions | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  secret?: string | undefined;
+  /**
+   * Maximum size, in KB, of the request body.
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Max number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it.
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum number of requests to limit to per second.
+   */
+  throttleRateReqPerSec?: number | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  requestMethodExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  requestUrlExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  requestSizeExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  statusExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  responseSizeExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  userAgentExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  remoteIpExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  serverIpExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  refererExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  latencyExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  cacheLookupExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  cacheHitExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  cacheValidatedExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  cacheFillBytesExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  protocolExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+   */
+  idExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+   */
+  producerExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+   */
+  firstExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+   */
+  lastExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+   */
+  fileExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+   */
+  lineExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+   */
+  functionExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+   */
+  uidExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+   */
+  indexExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+   */
+  totalSplitsExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+   */
+  traceExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+   */
+  spanIdExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+   */
+  traceSampledExpression?: string | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+   */
+  logLocationExpression: string;
+  /**
+   * JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
+   */
+  payloadExpression?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: CreateOutputPqControlsGoogleCloudLogging | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'logLocationType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationType' at runtime.
+   */
+  __template_logLocationType?: string | undefined;
+  /**
+   * Binds 'logNameExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logNameExpression' at runtime.
+   */
+  __template_logNameExpression?: string | undefined;
+  /**
+   * Binds 'payloadFormat' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadFormat' at runtime.
+   */
+  __template_payloadFormat?: string | undefined;
+  /**
+   * Binds 'resourceTypeExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resourceTypeExpression' at runtime.
+   */
+  __template_resourceTypeExpression?: string | undefined;
+  /**
+   * Binds 'severityExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'severityExpression' at runtime.
+   */
+  __template_severityExpression?: string | undefined;
+  /**
+   * Binds 'insertIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'insertIdExpression' at runtime.
+   */
+  __template_insertIdExpression?: string | undefined;
+  /**
+   * Binds 'traceExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceExpression' at runtime.
+   */
+  __template_traceExpression?: string | undefined;
+  /**
+   * Binds 'spanIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'spanIdExpression' at runtime.
+   */
+  __template_spanIdExpression?: string | undefined;
+  /**
+   * Binds 'traceSampledExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceSampledExpression' at runtime.
+   */
+  __template_traceSampledExpression?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'logLocationExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationExpression' at runtime.
+   */
+  __template_logLocationExpression?: string | undefined;
+  /**
+   * Binds 'payloadExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadExpression' at runtime.
+   */
+  __template_payloadExpression?: string | undefined;
+};
+
+export const CreateOutputAuthenticationMethodGoogleCloudStorage = {
+  /**
+   * auto
+   */
+  Auto: "auto",
+  /**
+   * manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+export type CreateOutputAuthenticationMethodGoogleCloudStorage = OpenEnum<
+  typeof CreateOutputAuthenticationMethodGoogleCloudStorage
+>;
 
 export type CreateOutputOutputGoogleCloudStorage = {
   /**
@@ -208,7 +556,7 @@ export type CreateOutputOutputGoogleCloudStorage = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -560,7 +908,7 @@ export type CreateOutputOutputGoogleChronicle = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   apiVersion?: CreateOutputAPIVersion | undefined;
@@ -758,6 +1106,165 @@ export type CreateOutputOutputGoogleChronicle = {
   __template_customerId?: string | undefined;
 };
 
+/**
+ * Choose Auto to use Google Application Default Credentials (ADC), or Secret to select or create a stored secret that references Google service account credentials
+ */
+export const CreateOutputGoogleAuthenticationMethodGoogleBigquery = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Secret
+   */
+  Secret: "secret",
+} as const;
+/**
+ * Choose Auto to use Google Application Default Credentials (ADC), or Secret to select or create a stored secret that references Google service account credentials
+ */
+export type CreateOutputGoogleAuthenticationMethodGoogleBigquery = OpenEnum<
+  typeof CreateOutputGoogleAuthenticationMethodGoogleBigquery
+>;
+
+export type CreateOutputPqControlsGoogleBigquery = {};
+
+export type CreateOutputOutputGoogleBigquery = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "google_bigquery";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Google Cloud project ID that contains the BigQuery dataset
+   */
+  projectId: string;
+  /**
+   * BigQuery dataset ID
+   */
+  datasetId: string;
+  /**
+   * BigQuery table ID
+   */
+  tableId: string;
+  /**
+   * Column name to write event time (`_time`) as a BigQuery TIMESTAMP. Used for time partitioning
+   */
+  timestampColumn?: string | undefined;
+  /**
+   * Choose Auto to use Google Application Default Credentials (ADC), or Secret to select or create a stored secret that references Google service account credentials
+   */
+  googleAuthMethod: CreateOutputGoogleAuthenticationMethodGoogleBigquery;
+  /**
+   * Select or create a stored text secret
+   */
+  secret?: string | undefined;
+  /**
+   * Maximum time to wait before sending a batch (when batch size limit is not reached)
+   */
+  flushPeriod?: number | undefined;
+  /**
+   * Maximum number of queued batches before blocking
+   */
+  maxQueueSize?: number | undefined;
+  /**
+   * Maximum size (KB) of a single append request. BigQuery limit is 10 MB
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * The maximum number of in-progress API requests before backpressure is applied
+   */
+  maxInProgress?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  /**
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
+   */
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: CreateOutputPqControlsGoogleBigquery | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'projectId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'projectId' at runtime.
+   */
+  __template_projectId?: string | undefined;
+  /**
+   * Binds 'datasetId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'datasetId' at runtime.
+   */
+  __template_datasetId?: string | undefined;
+  /**
+   * Binds 'tableId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableId' at runtime.
+   */
+  __template_tableId?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
+};
+
 export type CreateOutputPqControlsAzureEventhub = {};
 
 export type CreateOutputOutputAzureEventhub = {
@@ -779,7 +1286,7 @@ export type CreateOutputOutputAzureEventhub = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -943,7 +1450,7 @@ export type CreateOutputOutputHoneycomb = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1127,7 +1634,7 @@ export type CreateOutputOutputKinesis = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1330,7 +1837,7 @@ export type CreateOutputOutputAzureLogs = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1632,7 +2139,7 @@ export type CreateOutputOutputAzureDataExplorer = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2056,7 +2563,7 @@ export type CreateOutputOutputAzureBlob = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2335,7 +2842,7 @@ export type CreateOutputOutputS3 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2669,7 +3176,7 @@ export type CreateOutputOutputFilesystem = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2875,7 +3382,7 @@ export type CreateOutputOutputSignalfx = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3041,7 +3548,7 @@ export type CreateOutputOutputWavefront = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3207,7 +3714,7 @@ export type CreateOutputOutputTcpjson = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3375,17 +3882,9 @@ export type CreateOutputOutputWizHec = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
-  /**
-   * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
-   */
-  nextQueue?: string | undefined;
-  /**
-   * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
-   */
-  tcpRouting?: string | undefined;
   tls?: models.TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum number of ongoing requests before blocking
@@ -3447,10 +3946,6 @@ export type CreateOutputOutputWizHec = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
-  /**
    * The unique identifier for the specific Cribl connector defined in your Wiz Settings. This is used to cross-validate the bearer token and ensure traffic is originating from the authorized integration.
    */
   wiz_connector_id: string;
@@ -3464,9 +3959,21 @@ export type CreateOutputOutputWizHec = {
   data_center: string;
   wiz_sourcetype: string;
   /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
    * Optional description for this configuration.
    */
   description?: string | undefined;
+  /**
+   * Wiz Defend Auth token
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -3513,14 +4020,6 @@ export type CreateOutputOutputWizHec = {
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsWizHec | undefined;
   /**
-   * Wiz Defend Auth token
-   */
-  token?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-  /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
   __template_streamtags?: string | undefined;
@@ -3528,10 +4027,6 @@ export type CreateOutputOutputWizHec = {
    * Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
    */
   __template_failedRequestLoggingMode?: string | undefined;
-  /**
-   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
-   */
-  __template_onBackpressure?: string | undefined;
   /**
    * Binds 'wiz_environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_environment' at runtime.
    */
@@ -3544,6 +4039,10 @@ export type CreateOutputOutputWizHec = {
    * Binds 'wiz_sourcetype' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_sourcetype' at runtime.
    */
   __template_wiz_sourcetype?: string | undefined;
+  /**
+   * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+   */
+  __template_onBackpressure?: string | undefined;
 };
 
 export type CreateOutputUrlSplunkHec = {
@@ -3582,21 +4081,13 @@ export type CreateOutputOutputSplunkHec = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
    * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
    */
   loadBalanced?: boolean | undefined;
-  /**
-   * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
-   */
-  nextQueue?: string | undefined;
-  /**
-   * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
-   */
-  tcpRouting?: string | undefined;
   tls?: models.TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum number of ongoing requests before blocking
@@ -3661,6 +4152,14 @@ export type CreateOutputOutputSplunkHec = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
+   */
+  nextQueue?: string | undefined;
+  /**
+   * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
+   */
+  tcpRouting?: string | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -3835,7 +4334,7 @@ export type CreateOutputOutputSplunkLb = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -4019,7 +4518,7 @@ export type CreateOutputOutputSplunk = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -4389,7 +4888,7 @@ export type CreateOutputOutputSyslog = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -4571,7 +5070,7 @@ export type CreateOutputOutputDevnull = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -4636,7 +5135,7 @@ export type CreateOutputOutputSentinel = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -4715,6 +5214,24 @@ export type CreateOutputOutputSentinel = {
    * Secret parameter value to pass in request body
    */
   secret: string;
+  /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, @{product} will use the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * @{product} will update the stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, @{product} sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
   /**
    * JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
    */
@@ -4850,6 +5367,10 @@ export type CreateOutputOutputSentinel = {
    */
   __template_secret?: string | undefined;
   /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
+  /**
    * Binds 'client_id' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'client_id' at runtime.
    */
   __template_client_id?: string | undefined;
@@ -4982,7 +5503,7 @@ export type CreateOutputOutputWebhookWebhook2 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -5201,6 +5722,24 @@ export type CreateOutputOutputWebhookWebhook2 = {
    */
   oauthHeaders?: Array<models.OauthHeaderConfInputServicenowTable> | undefined;
   /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, @{product} will use the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * @{product} will update the stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, @{product} sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
+  /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
   url?: string | undefined;
@@ -5237,6 +5776,10 @@ export type CreateOutputOutputWebhookWebhook2 = {
    * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
    */
   __template_secret?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
@@ -5350,7 +5893,7 @@ export type CreateOutputOutputWebhookWebhook1 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -5569,6 +6112,24 @@ export type CreateOutputOutputWebhookWebhook1 = {
    */
   oauthHeaders?: Array<models.OauthHeaderConfInputServicenowTable> | undefined;
   /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, @{product} will use the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * @{product} will update the stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, @{product} sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
+  /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
   url: string;
@@ -5606,6 +6167,10 @@ export type CreateOutputOutputWebhookWebhook1 = {
    */
   __template_secret?: string | undefined;
   /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -5634,7 +6199,7 @@ export type CreateOutputOutputDefault = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -5674,6 +6239,7 @@ export type CreateOutputRequest =
   | CreateOutputOutputKinesis
   | CreateOutputOutputHoneycomb
   | CreateOutputOutputAzureEventhub
+  | CreateOutputOutputGoogleBigquery
   | CreateOutputOutputGoogleChronicle
   | CreateOutputOutputGoogleCloudStorage
   | CreateOutputOutputGoogleCloudLogging
@@ -5701,6 +6267,7 @@ export type CreateOutputRequest =
   | CreateOutputOutputDatadog
   | (CreateOutputOutputGrafanaCloudUnion & { type: "grafana_cloud" })
   | CreateOutputOutputLoki
+  | CreateOutputOutputAmazonManagedPrometheus
   | CreateOutputOutputPrometheus
   | CreateOutputOutputRing
   | CreateOutputOutputOpenTelemetry
@@ -5735,6 +6302,213 @@ export type CreateOutputRequest =
   | CreateOutputOutputScalityS3
   | CreateOutputOutputAlibabaCloudS3
   | CreateOutputOutputIbmCloudS3;
+
+/** @internal */
+export type CreateOutputOutputGoogleCloudLogging$Outbound = {
+  id: string;
+  type: "google_cloud_logging";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  logLocationType: string;
+  logNameExpression: string;
+  sanitizeLogNames?: boolean | undefined;
+  payloadFormat?: string | undefined;
+  logLabels?:
+    | Array<models.LogLabelConfOutputGoogleCloudLogging$Outbound>
+    | undefined;
+  resourceTypeExpression?: string | undefined;
+  resourceTypeLabels?:
+    | Array<models.LogLabelConfOutputGoogleCloudLogging$Outbound>
+    | undefined;
+  severityExpression?: string | undefined;
+  insertIdExpression?: string | undefined;
+  googleAuthMethod?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  secret?: string | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  concurrency?: number | undefined;
+  connectionTimeout?: number | undefined;
+  timeoutSec?: number | undefined;
+  throttleRateReqPerSec?: number | undefined;
+  requestMethodExpression?: string | undefined;
+  requestUrlExpression?: string | undefined;
+  requestSizeExpression?: string | undefined;
+  statusExpression?: string | undefined;
+  responseSizeExpression?: string | undefined;
+  userAgentExpression?: string | undefined;
+  remoteIpExpression?: string | undefined;
+  serverIpExpression?: string | undefined;
+  refererExpression?: string | undefined;
+  latencyExpression?: string | undefined;
+  cacheLookupExpression?: string | undefined;
+  cacheHitExpression?: string | undefined;
+  cacheValidatedExpression?: string | undefined;
+  cacheFillBytesExpression?: string | undefined;
+  protocolExpression?: string | undefined;
+  idExpression?: string | undefined;
+  producerExpression?: string | undefined;
+  firstExpression?: string | undefined;
+  lastExpression?: string | undefined;
+  fileExpression?: string | undefined;
+  lineExpression?: string | undefined;
+  functionExpression?: string | undefined;
+  uidExpression?: string | undefined;
+  indexExpression?: string | undefined;
+  totalSplitsExpression?: string | undefined;
+  traceExpression?: string | undefined;
+  spanIdExpression?: string | undefined;
+  traceSampledExpression?: string | undefined;
+  onBackpressure?: string | undefined;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  logLocationExpression: string;
+  payloadExpression?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: CreateOutputPqControlsGoogleCloudLogging$Outbound | undefined;
+  __template_streamtags?: string | undefined;
+  __template_logLocationType?: string | undefined;
+  __template_logNameExpression?: string | undefined;
+  __template_payloadFormat?: string | undefined;
+  __template_resourceTypeExpression?: string | undefined;
+  __template_severityExpression?: string | undefined;
+  __template_insertIdExpression?: string | undefined;
+  __template_traceExpression?: string | undefined;
+  __template_spanIdExpression?: string | undefined;
+  __template_traceSampledExpression?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+  __template_logLocationExpression?: string | undefined;
+  __template_payloadExpression?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputOutputGoogleCloudLogging$outboundSchema: z.ZodType<
+  CreateOutputOutputGoogleCloudLogging$Outbound,
+  z.ZodTypeDef,
+  CreateOutputOutputGoogleCloudLogging
+> = z.object({
+  id: z.string(),
+  type: z.literal("google_cloud_logging"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logLocationType: CreateOutputLogLocationType$outboundSchema,
+  logNameExpression: z.string(),
+  sanitizeLogNames: z.boolean().optional(),
+  payloadFormat: CreateOutputPayloadFormat$outboundSchema.optional(),
+  logLabels: z.array(models.LogLabelConfOutputGoogleCloudLogging$outboundSchema)
+    .optional(),
+  resourceTypeExpression: z.string().optional(),
+  resourceTypeLabels: z.array(
+    models.LogLabelConfOutputGoogleCloudLogging$outboundSchema,
+  ).optional(),
+  severityExpression: z.string().optional(),
+  insertIdExpression: z.string().optional(),
+  googleAuthMethod: models.GoogleAuthenticationMethodOptions$outboundSchema
+    .optional(),
+  serviceAccountCredentials: z.string().optional(),
+  secret: z.string().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  concurrency: z.number().optional(),
+  connectionTimeout: z.number().optional(),
+  timeoutSec: z.number().optional(),
+  throttleRateReqPerSec: z.number().int().optional(),
+  requestMethodExpression: z.string().optional(),
+  requestUrlExpression: z.string().optional(),
+  requestSizeExpression: z.string().optional(),
+  statusExpression: z.string().optional(),
+  responseSizeExpression: z.string().optional(),
+  userAgentExpression: z.string().optional(),
+  remoteIpExpression: z.string().optional(),
+  serverIpExpression: z.string().optional(),
+  refererExpression: z.string().optional(),
+  latencyExpression: z.string().optional(),
+  cacheLookupExpression: z.string().optional(),
+  cacheHitExpression: z.string().optional(),
+  cacheValidatedExpression: z.string().optional(),
+  cacheFillBytesExpression: z.string().optional(),
+  protocolExpression: z.string().optional(),
+  idExpression: z.string().optional(),
+  producerExpression: z.string().optional(),
+  firstExpression: z.string().optional(),
+  lastExpression: z.string().optional(),
+  fileExpression: z.string().optional(),
+  lineExpression: z.string().optional(),
+  functionExpression: z.string().optional(),
+  uidExpression: z.string().optional(),
+  indexExpression: z.string().optional(),
+  totalSplitsExpression: z.string().optional(),
+  traceExpression: z.string().optional(),
+  spanIdExpression: z.string().optional(),
+  traceSampledExpression: z.string().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  logLocationExpression: z.string(),
+  payloadExpression: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
+  pqControls: CreateOutputPqControlsGoogleCloudLogging$outboundSchema
+    .optional(),
+  __template_streamtags: z.string().optional(),
+  __template_logLocationType: z.string().optional(),
+  __template_logNameExpression: z.string().optional(),
+  __template_payloadFormat: z.string().optional(),
+  __template_resourceTypeExpression: z.string().optional(),
+  __template_severityExpression: z.string().optional(),
+  __template_insertIdExpression: z.string().optional(),
+  __template_traceExpression: z.string().optional(),
+  __template_spanIdExpression: z.string().optional(),
+  __template_traceSampledExpression: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+  __template_logLocationExpression: z.string().optional(),
+  __template_payloadExpression: z.string().optional(),
+});
+
+export function createOutputOutputGoogleCloudLoggingToJSON(
+  createOutputOutputGoogleCloudLogging: CreateOutputOutputGoogleCloudLogging,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputGoogleCloudLogging$outboundSchema.parse(
+      createOutputOutputGoogleCloudLogging,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateOutputAuthenticationMethodGoogleCloudStorage$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputAuthenticationMethodGoogleCloudStorage
+  > = openEnums.outboundSchema(
+    CreateOutputAuthenticationMethodGoogleCloudStorage,
+  );
 
 /** @internal */
 export type CreateOutputOutputGoogleCloudStorage$Outbound = {
@@ -6134,6 +6908,130 @@ export function createOutputOutputGoogleChronicleToJSON(
   return JSON.stringify(
     CreateOutputOutputGoogleChronicle$outboundSchema.parse(
       createOutputOutputGoogleChronicle,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateOutputGoogleAuthenticationMethodGoogleBigquery$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputGoogleAuthenticationMethodGoogleBigquery
+  > = openEnums.outboundSchema(
+    CreateOutputGoogleAuthenticationMethodGoogleBigquery,
+  );
+
+/** @internal */
+export type CreateOutputPqControlsGoogleBigquery$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsGoogleBigquery$outboundSchema: z.ZodType<
+  CreateOutputPqControlsGoogleBigquery$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsGoogleBigquery
+> = z.object({});
+
+export function createOutputPqControlsGoogleBigqueryToJSON(
+  createOutputPqControlsGoogleBigquery: CreateOutputPqControlsGoogleBigquery,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsGoogleBigquery$outboundSchema.parse(
+      createOutputPqControlsGoogleBigquery,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputGoogleBigquery$Outbound = {
+  id: string;
+  type: "google_bigquery";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  projectId: string;
+  datasetId: string;
+  tableId: string;
+  timestampColumn?: string | undefined;
+  googleAuthMethod: string;
+  secret?: string | undefined;
+  flushPeriod?: number | undefined;
+  maxQueueSize?: number | undefined;
+  maxRecordSizeKB?: number | undefined;
+  maxInProgress?: number | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqMaxBufferSizeBytes?: string | undefined;
+  pqControls?: CreateOutputPqControlsGoogleBigquery$Outbound | undefined;
+  __template_streamtags?: string | undefined;
+  __template_projectId?: string | undefined;
+  __template_datasetId?: string | undefined;
+  __template_tableId?: string | undefined;
+  __template_onBackpressure?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputOutputGoogleBigquery$outboundSchema: z.ZodType<
+  CreateOutputOutputGoogleBigquery$Outbound,
+  z.ZodTypeDef,
+  CreateOutputOutputGoogleBigquery
+> = z.object({
+  id: z.string(),
+  type: z.literal("google_bigquery"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  projectId: z.string(),
+  datasetId: z.string(),
+  tableId: z.string(),
+  timestampColumn: z.string().optional(),
+  googleAuthMethod:
+    CreateOutputGoogleAuthenticationMethodGoogleBigquery$outboundSchema,
+  secret: z.string().optional(),
+  flushPeriod: z.number().optional(),
+  maxQueueSize: z.number().optional(),
+  maxRecordSizeKB: z.number().optional(),
+  maxInProgress: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqMaxBufferSizeBytes: z.string().optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsGoogleBigquery$outboundSchema)
+    .optional(),
+  __template_streamtags: z.string().optional(),
+  __template_projectId: z.string().optional(),
+  __template_datasetId: z.string().optional(),
+  __template_tableId: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
+});
+
+export function createOutputOutputGoogleBigqueryToJSON(
+  createOutputOutputGoogleBigquery: CreateOutputOutputGoogleBigquery,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputGoogleBigquery$outboundSchema.parse(
+      createOutputOutputGoogleBigquery,
     ),
   );
 }
@@ -8033,8 +8931,6 @@ export type CreateOutputOutputWizHec$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  nextQueue?: string | undefined;
-  tcpRouting?: string | undefined;
   tls?:
     | models.TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound
     | undefined;
@@ -8056,12 +8952,14 @@ export type CreateOutputOutputWizHec$Outbound = {
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
-  onBackpressure?: string | undefined;
   wiz_connector_id: string;
   wiz_environment: string;
   data_center: string;
   wiz_sourcetype: string;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
   pqStrictOrdering?: boolean | undefined;
   pqRatePerSec?: number | undefined;
   pqMode?: string | undefined;
@@ -8074,14 +8972,12 @@ export type CreateOutputOutputWizHec$Outbound = {
   pqOnBackpressure?: string | undefined;
   pqMaxBufferSizeBytes?: string | undefined;
   pqControls?: CreateOutputPqControlsWizHec$Outbound | undefined;
-  token?: string | undefined;
-  textSecret?: string | undefined;
   __template_streamtags?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
-  __template_onBackpressure?: string | undefined;
   __template_wiz_environment?: string | undefined;
   __template_data_center?: string | undefined;
   __template_wiz_sourcetype?: string | undefined;
+  __template_onBackpressure?: string | undefined;
 };
 
 /** @internal */
@@ -8096,8 +8992,6 @@ export const CreateOutputOutputWizHec$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  nextQueue: z.string().optional(),
-  tcpRouting: z.string().optional(),
   tls: models.TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
     .optional(),
   concurrency: z.number().optional(),
@@ -8121,12 +9015,14 @@ export const CreateOutputOutputWizHec$outboundSchema: z.ZodType<
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   wiz_connector_id: z.string(),
   wiz_environment: z.string(),
   data_center: z.string(),
   wiz_sourcetype: z.string(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),
   pqMode: models.ModeOptions$outboundSchema.optional(),
@@ -8140,14 +9036,12 @@ export const CreateOutputOutputWizHec$outboundSchema: z.ZodType<
   pqMaxBufferSizeBytes: z.string().optional(),
   pqControls: z.lazy(() => CreateOutputPqControlsWizHec$outboundSchema)
     .optional(),
-  token: z.string().optional(),
-  textSecret: z.string().optional(),
   __template_streamtags: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
-  __template_onBackpressure: z.string().optional(),
   __template_wiz_environment: z.string().optional(),
   __template_data_center: z.string().optional(),
   __template_wiz_sourcetype: z.string().optional(),
+  __template_onBackpressure: z.string().optional(),
 });
 
 export function createOutputOutputWizHecToJSON(
@@ -8213,8 +9107,6 @@ export type CreateOutputOutputSplunkHec$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   loadBalanced?: boolean | undefined;
-  nextQueue?: string | undefined;
-  tcpRouting?: string | undefined;
   tls?:
     | models.TlsSettingsClientSideTypeCaPathCertPathExtended$Outbound
     | undefined;
@@ -8237,6 +9129,8 @@ export type CreateOutputOutputSplunkHec$Outbound = {
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
+  nextQueue?: string | undefined;
+  tcpRouting?: string | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
   url?: string | undefined;
@@ -8278,8 +9172,6 @@ export const CreateOutputOutputSplunkHec$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   loadBalanced: z.boolean().optional(),
-  nextQueue: z.string().optional(),
-  tcpRouting: z.string().optional(),
   tls: models.TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
     .optional(),
   concurrency: z.number().optional(),
@@ -8304,6 +9196,8 @@ export const CreateOutputOutputSplunkHec$outboundSchema: z.ZodType<
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
+  nextQueue: z.string().optional(),
+  tcpRouting: z.string().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   url: z.string().optional(),
@@ -8957,6 +9851,14 @@ export type CreateOutputOutputSentinel$Outbound = {
   authType?: string | undefined;
   loginUrl: string;
   secret: string;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<
+      models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
+    | undefined;
   client_id: string;
   scope?: string | undefined;
   endpointURLConfiguration: string;
@@ -8992,6 +9894,7 @@ export type CreateOutputOutputSentinel$Outbound = {
   __template_onBackpressure?: string | undefined;
   __template_loginUrl?: string | undefined;
   __template_secret?: string | undefined;
+  __template_refreshUrl?: string | undefined;
   __template_client_id?: string | undefined;
   __template_scope?: string | undefined;
   __template_url?: string | undefined;
@@ -9037,6 +9940,13 @@ export const CreateOutputOutputSentinel$outboundSchema: z.ZodType<
   authType: CreateOutputAuthType$outboundSchema.optional(),
   loginUrl: z.string(),
   secret: z.string(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    models
+      .RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+  ).optional(),
   client_id: z.string(),
   scope: z.string().optional(),
   endpointURLConfiguration: CreateOutputEndpointConfiguration$outboundSchema,
@@ -9073,6 +9983,7 @@ export const CreateOutputOutputSentinel$outboundSchema: z.ZodType<
   __template_onBackpressure: z.string().optional(),
   __template_loginUrl: z.string().optional(),
   __template_secret: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
   __template_client_id: z.string().optional(),
   __template_scope: z.string().optional(),
   __template_url: z.string().optional(),
@@ -9231,6 +10142,14 @@ export type CreateOutputOutputWebhookWebhook2$Outbound = {
   oauthHeaders?:
     | Array<models.OauthHeaderConfInputServicenowTable$Outbound>
     | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<
+      models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
+    | undefined;
   url?: string | undefined;
   excludeSelf?: boolean | undefined;
   urls: Array<CreateOutputOutputWebhookUrl2$Outbound>;
@@ -9241,6 +10160,7 @@ export type CreateOutputOutputWebhookWebhook2$Outbound = {
   __template_onBackpressure?: string | undefined;
   __template_loginUrl?: string | undefined;
   __template_secret?: string | undefined;
+  __template_refreshUrl?: string | undefined;
   __template_url?: string | undefined;
 };
 
@@ -9324,6 +10244,13 @@ export const CreateOutputOutputWebhookWebhook2$outboundSchema: z.ZodType<
   oauthHeaders: z.array(
     models.OauthHeaderConfInputServicenowTable$outboundSchema,
   ).optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    models
+      .RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+  ).optional(),
   url: z.string().optional(),
   excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => CreateOutputOutputWebhookUrl2$outboundSchema)),
@@ -9334,6 +10261,7 @@ export const CreateOutputOutputWebhookWebhook2$outboundSchema: z.ZodType<
   __template_onBackpressure: z.string().optional(),
   __template_loginUrl: z.string().optional(),
   __template_secret: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
   __template_url: z.string().optional(),
 });
 
@@ -9489,6 +10417,14 @@ export type CreateOutputOutputWebhookWebhook1$Outbound = {
   oauthHeaders?:
     | Array<models.OauthHeaderConfInputServicenowTable$Outbound>
     | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<
+      models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
+    | undefined;
   url: string;
   excludeSelf?: boolean | undefined;
   urls?: Array<CreateOutputOutputWebhookUrl1$Outbound> | undefined;
@@ -9499,6 +10435,7 @@ export type CreateOutputOutputWebhookWebhook1$Outbound = {
   __template_onBackpressure?: string | undefined;
   __template_loginUrl?: string | undefined;
   __template_secret?: string | undefined;
+  __template_refreshUrl?: string | undefined;
   __template_url?: string | undefined;
 };
 
@@ -9582,6 +10519,13 @@ export const CreateOutputOutputWebhookWebhook1$outboundSchema: z.ZodType<
   oauthHeaders: z.array(
     models.OauthHeaderConfInputServicenowTable$outboundSchema,
   ).optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    models
+      .RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+  ).optional(),
   url: z.string(),
   excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => CreateOutputOutputWebhookUrl1$outboundSchema))
@@ -9593,6 +10537,7 @@ export const CreateOutputOutputWebhookWebhook1$outboundSchema: z.ZodType<
   __template_onBackpressure: z.string().optional(),
   __template_loginUrl: z.string().optional(),
   __template_secret: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
   __template_url: z.string().optional(),
 });
 
@@ -9692,6 +10637,7 @@ export type CreateOutputRequest$Outbound =
   | CreateOutputOutputKinesis$Outbound
   | CreateOutputOutputHoneycomb$Outbound
   | CreateOutputOutputAzureEventhub$Outbound
+  | CreateOutputOutputGoogleBigquery$Outbound
   | CreateOutputOutputGoogleChronicle$Outbound
   | CreateOutputOutputGoogleCloudStorage$Outbound
   | CreateOutputOutputGoogleCloudLogging$Outbound
@@ -9719,6 +10665,7 @@ export type CreateOutputRequest$Outbound =
   | CreateOutputOutputDatadog$Outbound
   | (CreateOutputOutputGrafanaCloudUnion$Outbound & { type: "grafana_cloud" })
   | CreateOutputOutputLoki$Outbound
+  | CreateOutputOutputAmazonManagedPrometheus$Outbound
   | CreateOutputOutputPrometheus$Outbound
   | CreateOutputOutputRing$Outbound
   | CreateOutputOutputOpenTelemetry$Outbound
@@ -9783,9 +10730,10 @@ export const CreateOutputRequest$outboundSchema: z.ZodType<
   z.lazy(() => CreateOutputOutputKinesis$outboundSchema),
   z.lazy(() => CreateOutputOutputHoneycomb$outboundSchema),
   z.lazy(() => CreateOutputOutputAzureEventhub$outboundSchema),
+  z.lazy(() => CreateOutputOutputGoogleBigquery$outboundSchema),
   z.lazy(() => CreateOutputOutputGoogleChronicle$outboundSchema),
   z.lazy(() => CreateOutputOutputGoogleCloudStorage$outboundSchema),
-  CreateOutputOutputGoogleCloudLogging$outboundSchema,
+  z.lazy(() => CreateOutputOutputGoogleCloudLogging$outboundSchema),
   CreateOutputOutputGoogleCloudObservability$outboundSchema,
   CreateOutputOutputGooglePubsub$outboundSchema,
   CreateOutputOutputExabeam$outboundSchema,
@@ -9812,6 +10760,7 @@ export const CreateOutputRequest$outboundSchema: z.ZodType<
     z.object({ type: z.literal("grafana_cloud") }),
   ),
   CreateOutputOutputLoki$outboundSchema,
+  CreateOutputOutputAmazonManagedPrometheus$outboundSchema,
   CreateOutputOutputPrometheus$outboundSchema,
   CreateOutputOutputRing$outboundSchema,
   CreateOutputOutputOpenTelemetry$outboundSchema,

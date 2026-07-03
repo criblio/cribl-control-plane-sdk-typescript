@@ -32,7 +32,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.pipelines.list();
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -59,7 +61,9 @@ async function run() {
   const res = await pipelinesList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("pipelinesList failed:", res.error);
   }
@@ -83,7 +87,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.pipelines.list();
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -110,7 +116,9 @@ async function run() {
   const res = await pipelinesList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("pipelinesList failed:", res.error);
   }
@@ -123,13 +131,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetPipelinesRequest](../../models/operations/getpipelinesrequest.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[models.CountedPipeline](../../models/countedpipeline.md)\>**
+**Promise\<[operations.GetPipelinesResponse](../../models/operations/getpipelinesresponse.md)\>**
 
 ### Errors
 
@@ -2988,6 +2997,7 @@ async function run() {
           id: "serde",
           conf: {
             type: "kvp",
+            srcField: "_raw",
             keep: [
               "a",
               "b",
@@ -2998,7 +3008,6 @@ async function run() {
             ],
             cleanFields: false,
             mode: "extract",
-            srcField: "_raw",
           },
         },
       ],
@@ -3045,6 +3054,7 @@ async function run() {
           id: "serde",
           conf: {
             type: "kvp",
+            srcField: "_raw",
             keep: [
               "a",
               "b",
@@ -3055,7 +3065,6 @@ async function run() {
             ],
             cleanFields: false,
             mode: "extract",
-            srcField: "_raw",
           },
         },
       ],
@@ -4411,7 +4420,14 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.pipelines.create({
     id: "<id>",
-    conf: {},
+    conf: {
+      functions: [
+        {
+          id: "cef",
+          conf: {},
+        },
+      ],
+    },
   });
 
   console.log(result);
@@ -4440,7 +4456,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await pipelinesCreate(criblControlPlane, {
     id: "<id>",
-    conf: {},
+    conf: {
+      functions: [
+        {
+          id: "cef",
+          conf: {},
+        },
+      ],
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -4468,7 +4491,14 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.pipelines.create({
     id: "<id>",
-    conf: {},
+    conf: {
+      functions: [
+        {
+          id: "cef",
+          conf: {},
+        },
+      ],
+    },
   });
 
   console.log(result);
@@ -4497,7 +4527,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await pipelinesCreate(criblControlPlane, {
     id: "<id>",
-    conf: {},
+    conf: {
+      functions: [
+        {
+          id: "cef",
+          conf: {},
+        },
+      ],
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -4805,7 +4842,7 @@ run();
 
 ## update
 
-Update the specified Pipeline.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
+Update the specified Pipeline.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body.<br/><br/>This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request.<br/><br/>If the configuration is incorrect, the updated Pipeline might not function as expected.
 
 ### Example Usage: PipelineExamplesAggregateMetrics
 
@@ -7810,6 +7847,7 @@ async function run() {
             id: "serde",
             conf: {
               type: "kvp",
+              srcField: "_raw",
               keep: [
                 "a",
                 "b",
@@ -7820,7 +7858,6 @@ async function run() {
               ],
               cleanFields: false,
               mode: "extract",
-              srcField: "_raw",
             },
           },
         ],
@@ -7870,6 +7907,7 @@ async function run() {
             id: "serde",
             conf: {
               type: "kvp",
+              srcField: "_raw",
               keep: [
                 "a",
                 "b",
@@ -7880,7 +7918,6 @@ async function run() {
               ],
               cleanFields: false,
               mode: "extract",
-              srcField: "_raw",
             },
           },
         ],
@@ -9317,7 +9354,14 @@ async function run() {
     id: "<id>",
     pipeline: {
       id: "<id>",
-      conf: {},
+      conf: {
+        functions: [
+          {
+            id: "snmp_trap_serialize",
+            conf: {},
+          },
+        ],
+      },
     },
   });
 
@@ -9349,7 +9393,14 @@ async function run() {
     id: "<id>",
     pipeline: {
       id: "<id>",
-      conf: {},
+      conf: {
+        functions: [
+          {
+            id: "snmp_trap_serialize",
+            conf: {},
+          },
+        ],
+      },
     },
   });
   if (res.ok) {
@@ -9380,7 +9431,14 @@ async function run() {
     id: "<id>",
     pipeline: {
       id: "<id>",
-      conf: {},
+      conf: {
+        functions: [
+          {
+            id: "snmp_trap_serialize",
+            conf: {},
+          },
+        ],
+      },
     },
   });
 
@@ -9412,7 +9470,14 @@ async function run() {
     id: "<id>",
     pipeline: {
       id: "<id>",
-      conf: {},
+      conf: {
+        functions: [
+          {
+            id: "snmp_trap_serialize",
+            conf: {},
+          },
+        ],
+      },
     },
   });
   if (res.ok) {
@@ -12428,6 +12493,7 @@ async function run() {
             id: "serde",
             conf: {
               type: "kvp",
+              srcField: "_raw",
               keep: [
                 "a",
                 "b",
@@ -12438,7 +12504,6 @@ async function run() {
               ],
               cleanFields: false,
               mode: "extract",
-              srcField: "_raw",
             },
           },
         ],
@@ -12488,6 +12553,7 @@ async function run() {
             id: "serde",
             conf: {
               type: "kvp",
+              srcField: "_raw",
               keep: [
                 "a",
                 "b",
@@ -12498,7 +12564,6 @@ async function run() {
               ],
               cleanFields: false,
               mode: "extract",
-              srcField: "_raw",
             },
           },
         ],
