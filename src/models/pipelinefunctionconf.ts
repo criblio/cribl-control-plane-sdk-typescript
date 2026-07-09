@@ -145,6 +145,10 @@ import {
   PipelineFunctionMask$inboundSchema,
 } from "./pipelinefunctionmask.js";
 import {
+  PipelineFunctionMetricsExport,
+  PipelineFunctionMetricsExport$inboundSchema,
+} from "./pipelinefunctionmetricsexport.js";
+import {
   PipelineFunctionMvExpand,
   PipelineFunctionMvExpand$inboundSchema,
 } from "./pipelinefunctionmvexpand.js";
@@ -320,6 +324,7 @@ export type PipelineFunctionConf =
   | PipelineFunctionLocalSearchTransformer
   | PipelineFunctionLookup
   | PipelineFunctionMask
+  | PipelineFunctionMetricsExport
   | PipelineFunctionMvExpand
   | PipelineFunctionMvPull
   | PipelineFunctionNotificationPolicies
@@ -402,6 +407,7 @@ export const PipelineFunctionConf$inboundSchema: z.ZodType<
     PipelineFunctionLocalSearchTransformer$inboundSchema,
   lookup: PipelineFunctionLookup$inboundSchema,
   mask: PipelineFunctionMask$inboundSchema,
+  metrics_export: PipelineFunctionMetricsExport$inboundSchema,
   mv_expand: PipelineFunctionMvExpand$inboundSchema,
   mv_pull: PipelineFunctionMvPull$inboundSchema,
   notification_policies: PipelineFunctionNotificationPolicies$inboundSchema,

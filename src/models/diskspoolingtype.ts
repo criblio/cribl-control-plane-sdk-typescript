@@ -13,6 +13,9 @@ import {
 } from "./compressionoptionspersistence.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Disk Spooling
+ */
 export type DiskSpoolingType = {
   /**
    * Spool events on disk for Cribl Edge and Search. Default is disabled.

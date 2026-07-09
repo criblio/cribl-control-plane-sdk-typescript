@@ -34,7 +34,7 @@ export type DatasetMetadata = {
    */
   earliest: string;
   /**
-   * If <code>true</code>, the system automatically backfills and refreshes Dataset metadata.
+   * If <code>true</code>, the system automatically backfills and refreshes Dataset metadata. Otherwise, <code>false</code>.
    */
   enableAcceleration: boolean;
   /**

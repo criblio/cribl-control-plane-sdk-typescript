@@ -16,6 +16,9 @@ import {
 } from "./outputmodeoptionssplunkcollectorconf.js";
 
 export type SplunkAuthenticationTokenSecretCollectRequestParam = {
+  /**
+   * Parameter Name
+   */
   name: string;
   /**
    * JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
@@ -24,6 +27,9 @@ export type SplunkAuthenticationTokenSecretCollectRequestParam = {
 };
 
 export type SplunkAuthenticationTokenSecretCollectRequestHeader = {
+  /**
+   * Header Name
+   */
   name: string;
   /**
    * JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
@@ -193,6 +199,9 @@ export type SplunkAuthenticationTokenSecret = {
    * Select or create a stored secret that references your credentials
    */
   credentialsSecret?: string | undefined;
+  /**
+   * Bearer token
+   */
   token?: string | undefined;
   /**
    * URL to use for login API call. This call is expected to be a POST.
@@ -237,6 +246,9 @@ export type SplunkAuthenticationTokenSecret = {
 };
 
 export type SplunkAuthenticationTokenCollectRequestParam = {
+  /**
+   * Parameter Name
+   */
   name: string;
   /**
    * JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
@@ -245,6 +257,9 @@ export type SplunkAuthenticationTokenCollectRequestParam = {
 };
 
 export type SplunkAuthenticationTokenCollectRequestHeader = {
+  /**
+   * Header Name
+   */
   name: string;
   /**
    * JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
@@ -336,6 +351,9 @@ export type SplunkAuthenticationToken = {
    * Authentication method for Discover and Collect REST calls
    */
   authentication: "token";
+  /**
+   * Bearer token
+   */
   token: string;
   /**
    * Search head base URL. Can be an expression. Default is https://localhost:8089.
@@ -458,6 +476,9 @@ export type SplunkAuthenticationToken = {
 };
 
 export type SplunkAuthenticationBasicSecretCollectRequestParam = {
+  /**
+   * Parameter Name
+   */
   name: string;
   /**
    * JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
@@ -466,6 +487,9 @@ export type SplunkAuthenticationBasicSecretCollectRequestParam = {
 };
 
 export type SplunkAuthenticationBasicSecretCollectRequestHeader = {
+  /**
+   * Header Name
+   */
   name: string;
   /**
    * JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
@@ -631,6 +655,9 @@ export type SplunkAuthenticationBasicSecret = {
    * Basic authentication password
    */
   password?: string | undefined;
+  /**
+   * Bearer token
+   */
   token?: string | undefined;
   /**
    * Select or create a stored secret that references your Bearer token
@@ -679,6 +706,9 @@ export type SplunkAuthenticationBasicSecret = {
 };
 
 export type SplunkAuthenticationBasicCollectRequestParam = {
+  /**
+   * Parameter Name
+   */
   name: string;
   /**
    * JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
@@ -687,6 +717,9 @@ export type SplunkAuthenticationBasicCollectRequestParam = {
 };
 
 export type SplunkAuthenticationBasicCollectRequestHeader = {
+  /**
+   * Header Name
+   */
   name: string;
   /**
    * JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
@@ -852,6 +885,9 @@ export type SplunkAuthenticationBasic = {
    * Select or create a stored secret that references your credentials
    */
   credentialsSecret?: string | undefined;
+  /**
+   * Bearer token
+   */
   token?: string | undefined;
   /**
    * Select or create a stored secret that references your Bearer token
@@ -900,6 +936,9 @@ export type SplunkAuthenticationBasic = {
 };
 
 export type SplunkAuthenticationNoneCollectRequestParam = {
+  /**
+   * Parameter Name
+   */
   name: string;
   /**
    * JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
@@ -908,6 +947,9 @@ export type SplunkAuthenticationNoneCollectRequestParam = {
 };
 
 export type SplunkAuthenticationNoneCollectRequestHeader = {
+  /**
+   * Header Name
+   */
   name: string;
   /**
    * JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
@@ -1073,6 +1115,9 @@ export type SplunkAuthenticationNone = {
    * Select or create a stored secret that references your credentials
    */
   credentialsSecret?: string | undefined;
+  /**
+   * Bearer token
+   */
   token?: string | undefined;
   /**
    * Select or create a stored secret that references your Bearer token

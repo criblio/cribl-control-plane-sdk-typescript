@@ -16,8 +16,17 @@ import {
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type RollbackSettings = {
+  /**
+   * If <code>true</code>, enable automatic rollback if an upgrade fails. Otherwise, <code>false</code>.
+   */
   rollbackEnabled: boolean;
+  /**
+   * Number of times to retry a rollback before marking it as failed.
+   */
   rollbackRetries?: number | undefined;
+  /**
+   * Maximum duration in milliseconds to wait for a rollback to complete before marking it as failed.
+   */
   rollbackTimeout?: number | undefined;
 };
 
@@ -47,8 +56,8 @@ export const RollbackSettings$outboundSchema: z.ZodType<
   RollbackSettings
 > = z.object({
   rollbackEnabled: z.boolean(),
-  rollbackRetries: z.number().optional(),
-  rollbackTimeout: z.number().optional(),
+  rollbackRetries: z.number().int().optional(),
+  rollbackTimeout: z.number().int().optional(),
 });
 
 export function rollbackSettingsToJSON(

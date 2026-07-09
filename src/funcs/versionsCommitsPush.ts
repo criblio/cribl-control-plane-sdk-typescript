@@ -28,7 +28,7 @@ import { Result } from "../types/fp.js";
  * Push local commits to the remote repository
  *
  * @remarks
- * Push all local commits from the local repository to the remote repository.
+ * Push all local commits from the local repository to the remote repository.<br/><br/>Requires at least one local commit that has not been pushed. Returns an error if the remote repository cannot be reached or the push is rejected.
  */
 export function versionsCommitsPush(
   client: CriblControlPlaneCore,
@@ -150,8 +150,9 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, models.CountedString$inboundSchema),
+    M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

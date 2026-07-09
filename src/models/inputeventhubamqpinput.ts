@@ -30,6 +30,9 @@ import {
 } from "./microsoftentraidauthenticationendpointoptionssasl.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
 
+/**
+ * Authentication mechanism
+ */
 export const InputEventhubAmqpAuthenticationMechanism = {
   /**
    * Connection String
@@ -40,22 +43,50 @@ export const InputEventhubAmqpAuthenticationMechanism = {
    */
   OauthBearer: "oauth-bearer",
 } as const;
+/**
+ * Authentication mechanism
+ */
 export type InputEventhubAmqpAuthenticationMechanism = OpenEnum<
   typeof InputEventhubAmqpAuthenticationMechanism
 >;
 
+export type InputEventhubAmqpCertificate = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName: string;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+};
+
 export type InputEventhubAmqpAuth = {
+  /**
+   * Authentication mechanism
+   */
   mechanism: InputEventhubAmqpAuthenticationMechanism;
   /**
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Authentication method
+   */
   clientSecretAuthType?: AuthenticationMethodOptionsAuth | undefined;
   /**
    * Select or create a stored text secret
    */
   clientTextSecret?: string | undefined;
-  certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  certificate?: InputEventhubAmqpCertificate | undefined;
   /**
    * Endpoint used to acquire authentication tokens from Azure
    */
@@ -90,6 +121,9 @@ export type InputEventhubAmqpAuth = {
   __template_fullyQualifiedNamespace?: string | undefined;
 };
 
+/**
+ * Authentication method
+ */
 export const InputEventhubAmqpAuthenticationMethod = {
   Secret: "secret",
   ClientSecret: "clientSecret",
@@ -97,15 +131,24 @@ export const InputEventhubAmqpAuthenticationMethod = {
   ClientAssertion: "clientAssertion",
   ClientAssertionRpc: "clientAssertion_rpc",
 } as const;
+/**
+ * Authentication method
+ */
 export type InputEventhubAmqpAuthenticationMethod = OpenEnum<
   typeof InputEventhubAmqpAuthenticationMethod
 >;
 
+/**
+ * Azure Blob Storage
+ */
 export type InputEventhubAmqpAzureBlobStorage = {
   /**
    * Azure Blob Storage container used to store checkpoints. Must be 3–63 lowercase alphanumeric characters or hyphens.
    */
   containerName: string;
+  /**
+   * Authentication method
+   */
   authType?: InputEventhubAmqpAuthenticationMethod | undefined;
   /**
    * Select or create a stored text secret
@@ -155,6 +198,9 @@ export type InputEventhubAmqpAzureBlobStorage = {
 };
 
 export type InputEventhubAmqpCheckpointing = {
+  /**
+   * Azure Blob Storage
+   */
   blobStore: InputEventhubAmqpAzureBlobStorage;
 };
 
@@ -163,7 +209,13 @@ export type InputEventhubAmqpInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "eventhub_amqp";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -182,7 +234,7 @@ export type InputEventhubAmqpInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -248,6 +300,9 @@ export type InputEventhubAmqpInput = {
    * Fields to add to events from this input
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -267,12 +322,42 @@ export const InputEventhubAmqpAuthenticationMechanism$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(InputEventhubAmqpAuthenticationMechanism);
 
 /** @internal */
+export type InputEventhubAmqpCertificate$Outbound = {
+  certificateName: string;
+  certPath: string;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+};
+
+/** @internal */
+export const InputEventhubAmqpCertificate$outboundSchema: z.ZodType<
+  InputEventhubAmqpCertificate$Outbound,
+  z.ZodTypeDef,
+  InputEventhubAmqpCertificate
+> = z.object({
+  certificateName: z.string(),
+  certPath: z.string(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+});
+
+export function inputEventhubAmqpCertificateToJSON(
+  inputEventhubAmqpCertificate: InputEventhubAmqpCertificate,
+): string {
+  return JSON.stringify(
+    InputEventhubAmqpCertificate$outboundSchema.parse(
+      inputEventhubAmqpCertificate,
+    ),
+  );
+}
+
+/** @internal */
 export type InputEventhubAmqpAuth$Outbound = {
   mechanism: string;
   textSecret?: string | undefined;
   clientSecretAuthType?: string | undefined;
   clientTextSecret?: string | undefined;
-  certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
+  certificate?: InputEventhubAmqpCertificate$Outbound | undefined;
   oauthEndpoint?: string | undefined;
   clientId?: string | undefined;
   tenantId?: string | undefined;
@@ -294,7 +379,7 @@ export const InputEventhubAmqpAuth$outboundSchema: z.ZodType<
   clientSecretAuthType: AuthenticationMethodOptionsAuth$outboundSchema
     .optional(),
   clientTextSecret: z.string().optional(),
-  certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
+  certificate: z.lazy(() => InputEventhubAmqpCertificate$outboundSchema)
     .optional(),
   oauthEndpoint:
     MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema.optional(),

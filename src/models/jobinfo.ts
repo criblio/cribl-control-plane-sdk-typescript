@@ -35,6 +35,10 @@ export type JobInfo = {
    * Status of a job, including its current state and failure reason.
    */
   status: JobStatus;
+  /**
+   * The GUID of the worker node that owns this artifact, set when the job ran on a Captain while the leader was offline. When present, the leader proxies read access to the artifact; mutating actions (replay, delete, stop) are not supported.
+   */
+  workerOwner?: string | undefined;
 };
 
 /** @internal */
@@ -45,6 +49,7 @@ export const JobInfo$inboundSchema: z.ZodType<JobInfo, z.ZodTypeDef, unknown> =
     keep: types.optional(types.boolean()),
     stats: z.record(AdditionalPropertiesTypeJobInfoStats$inboundSchema),
     status: JobStatus$inboundSchema,
+    workerOwner: types.optional(types.string()),
   });
 
 export function jobInfoFromJSON(

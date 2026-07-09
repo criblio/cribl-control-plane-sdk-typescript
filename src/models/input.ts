@@ -24,6 +24,11 @@ import {
   InputAzureBlobInput$outboundSchema,
 } from "./inputazureblobinput.js";
 import {
+  InputBedrockS3Input,
+  InputBedrockS3Input$Outbound,
+  InputBedrockS3Input$outboundSchema,
+} from "./inputbedrocks3input.js";
+import {
   InputCloudflareHecInput,
   InputCloudflareHecInput$Outbound,
   InputCloudflareHecInput$outboundSchema,
@@ -289,6 +294,11 @@ import {
   InputSqsInput$outboundSchema,
 } from "./inputsqsinput.js";
 import {
+  InputSysdigHecInput,
+  InputSysdigHecInput$Outbound,
+  InputSysdigHecInput$outboundSchema,
+} from "./inputsysdighecinput.js";
+import {
   InputSyslogInputUnion,
   InputSyslogInputUnion$Outbound,
   InputSyslogInputUnion$outboundSchema,
@@ -313,6 +323,11 @@ import {
   InputTcpjsonInput$Outbound,
   InputTcpjsonInput$outboundSchema,
 } from "./inputtcpjsoninput.js";
+import {
+  InputUpwindHecInput,
+  InputUpwindHecInput$Outbound,
+  InputUpwindHecInput$outboundSchema,
+} from "./inputupwindhecinput.js";
 import {
   InputWefInput,
   InputWefInput$Outbound,
@@ -407,9 +422,12 @@ export type Input =
   | InputWizWebhookInput
   | InputNetflowInput
   | InputSecurityLakeInput
+  | InputBedrockS3Input
   | InputServicenowTableInput
   | InputZscalerHecInput
   | InputCloudflareHecInput
+  | InputSysdigHecInput
+  | InputUpwindHecInput
   | InputOpenaiComplianceLogsInput
   | InputAnthropicComplianceInput
   | InputOktaInput;
@@ -478,9 +496,12 @@ export type Input$Outbound =
   | InputWizWebhookInput$Outbound
   | InputNetflowInput$Outbound
   | InputSecurityLakeInput$Outbound
+  | InputBedrockS3Input$Outbound
   | InputServicenowTableInput$Outbound
   | InputZscalerHecInput$Outbound
   | InputCloudflareHecInput$Outbound
+  | InputSysdigHecInput$Outbound
+  | InputUpwindHecInput$Outbound
   | InputOpenaiComplianceLogsInput$Outbound
   | InputAnthropicComplianceInput$Outbound
   | InputOktaInput$Outbound;
@@ -557,9 +578,12 @@ export const Input$outboundSchema: z.ZodType<
   InputWizWebhookInput$outboundSchema,
   InputNetflowInput$outboundSchema,
   InputSecurityLakeInput$outboundSchema,
+  InputBedrockS3Input$outboundSchema,
   InputServicenowTableInput$outboundSchema,
   InputZscalerHecInput$outboundSchema,
   InputCloudflareHecInput$outboundSchema,
+  InputSysdigHecInput$outboundSchema,
+  InputUpwindHecInput$outboundSchema,
   InputOpenaiComplianceLogsInput$outboundSchema,
   InputAnthropicComplianceInput$outboundSchema,
   InputOktaInput$outboundSchema,

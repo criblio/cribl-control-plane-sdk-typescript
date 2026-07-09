@@ -14,5 +14,5 @@ let value: CreateOutputSystemByPackExtraLogType = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `logType`          | *string*           | :heavy_check_mark: | N/A                |
-| `description`      | *string*           | :heavy_minus_sign: | N/A                |
+| `logType`          | *string*           | :heavy_check_mark: | Log Type           |
+| `description`      | *string*           | :heavy_minus_sign: | Description        |

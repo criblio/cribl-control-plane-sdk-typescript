@@ -1,5 +1,7 @@
 # MaximumTlsVersionOptionsTls
 
+Maximum TLS version
+
 ## Example Usage
 
 ```typescript

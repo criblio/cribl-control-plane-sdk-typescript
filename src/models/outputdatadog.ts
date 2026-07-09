@@ -142,6 +142,9 @@ export type OutputDatadogDatadogSite = OpenEnum<
   typeof OutputDatadogDatadogSite
 >;
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputDatadogPqControls = {};
 
 export type OutputDatadog = {
@@ -149,6 +152,9 @@ export type OutputDatadog = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "datadog";
   /**
    * Pipeline to process data before sending out to this output
@@ -163,7 +169,7 @@ export type OutputDatadog = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -281,6 +287,9 @@ export type OutputDatadog = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
@@ -324,9 +333,12 @@ export type OutputDatadog = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputDatadogPqControls | undefined;
   /**
    * Organization's API key in Datadog

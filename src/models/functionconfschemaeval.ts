@@ -9,6 +9,9 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FunctionConfSchemaEvalAdd = {
+  /**
+   * Name
+   */
   name?: string | undefined;
   /**
    * JavaScript expression to compute the value (can be constant)

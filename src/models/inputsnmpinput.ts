@@ -20,12 +20,27 @@ import {
 } from "./privacyprotocoloptionssnmptrapserializev3userauthprotocolnotnone.js";
 
 export type InputSnmpV3User = {
+  /**
+   * V3 name
+   */
   name: string;
+  /**
+   * Authentication protocol
+   */
   authProtocol?: string | undefined;
+  /**
+   * V3 authentication key
+   */
   authKey?: string | undefined;
+  /**
+   * Privacy protocol
+   */
   privProtocol?:
     | PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone
     | undefined;
+  /**
+   * V3 privacy key
+   */
   privKey?: string | undefined;
 };
 
@@ -33,6 +48,9 @@ export type InputSnmpV3User = {
  * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
  */
 export type InputSnmpSNMPv3Authentication = {
+  /**
+   * Enabled
+   */
   v3AuthEnabled: boolean;
   /**
    * Pass through traps that don't match any of the configured users. @{product} will not attempt to decrypt these traps.
@@ -49,7 +67,13 @@ export type InputSnmpInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "snmp";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -68,7 +92,7 @@ export type InputSnmpInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -112,6 +136,9 @@ export type InputSnmpInput = {
    * If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
    */
   bestEffortParsing?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.

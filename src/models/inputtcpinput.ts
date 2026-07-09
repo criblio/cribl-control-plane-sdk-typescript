@@ -34,7 +34,13 @@ export type InputTcpInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "tcp";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -53,7 +59,7 @@ export type InputTcpInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -69,6 +75,9 @@ export type InputTcpInput = {
    * Port to listen on
    */
   port: number;
+  /**
+   * TLS settings (server side)
+   */
   tls?: TlsSettingsServerSideType | undefined;
   /**
    * Regex matching IP addresses that are allowed to establish a connection
@@ -111,6 +120,9 @@ export type InputTcpInput = {
    */
   enableHeader?: boolean | undefined;
   preprocess?: PreprocessType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.

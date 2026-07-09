@@ -34,6 +34,12 @@ import {
   HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema,
   HiddenDefaultBreakersOptionsDatabaseCollectorConf$outboundSchema,
 } from "./hiddendefaultbreakersoptionsdatabasecollectorconf.js";
+import {
+  RefreshRequestParamConfHealthCheckAuthenticationOauth,
+  RefreshRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
+  RefreshRequestParamConfHealthCheckAuthenticationOauth$Outbound,
+  RefreshRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+} from "./refreshrequestparamconfhealthcheckauthenticationoauth.js";
 
 export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone =
   {
@@ -555,6 +561,24 @@ export type HealthCheckAuthenticationOauthSecret = {
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
     | undefined;
   /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
+  /**
    * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
    */
   __template_loginUrl?: string | undefined;
@@ -562,6 +586,10 @@ export type HealthCheckAuthenticationOauthSecret = {
    * Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
    */
   __template_tokenRespAttribute?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
   discovery?:
     | (
       | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
@@ -602,6 +630,9 @@ export type HealthCheckAuthenticationOauthSecret = {
    * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
    */
   rejectUnauthorized?: boolean | undefined;
+  /**
+   * Hidden Default Breakers
+   */
   defaultBreakers?:
     | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
@@ -1166,6 +1197,24 @@ export type HealthCheckAuthenticationOauth = {
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin>
     | undefined;
   /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
+  /**
    * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
    */
   __template_loginUrl?: string | undefined;
@@ -1173,6 +1222,10 @@ export type HealthCheckAuthenticationOauth = {
    * Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
    */
   __template_tokenRespAttribute?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
   discovery?:
     | (
       | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
@@ -1213,6 +1266,9 @@ export type HealthCheckAuthenticationOauth = {
    * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
    */
   rejectUnauthorized?: boolean | undefined;
+  /**
+   * Hidden Default Breakers
+   */
   defaultBreakers?:
     | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
@@ -1821,6 +1877,9 @@ export type HealthCheckAuthenticationLoginSecret = {
    * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
    */
   rejectUnauthorized?: boolean | undefined;
+  /**
+   * Hidden Default Breakers
+   */
   defaultBreakers?:
     | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
@@ -1863,6 +1922,28 @@ export type HealthCheckAuthenticationLoginSecret = {
    */
   authRequestParams?:
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
+  /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth>
     | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
@@ -2444,6 +2525,9 @@ export type HealthCheckAuthenticationLogin = {
    * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
    */
   rejectUnauthorized?: boolean | undefined;
+  /**
+   * Hidden Default Breakers
+   */
   defaultBreakers?:
     | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
@@ -2474,6 +2558,28 @@ export type HealthCheckAuthenticationLogin = {
    */
   authRequestParams?:
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
+  /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth>
     | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
@@ -3016,6 +3122,9 @@ export type HealthCheckAuthenticationBasicSecret = {
    * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
    */
   rejectUnauthorized?: boolean | undefined;
+  /**
+   * Hidden Default Breakers
+   */
   defaultBreakers?:
     | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
@@ -3088,6 +3197,28 @@ export type HealthCheckAuthenticationBasicSecret = {
    */
   authRequestParams?:
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
+  /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth>
     | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
@@ -3639,6 +3770,9 @@ export type HealthCheckAuthenticationBasic = {
    * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
    */
   rejectUnauthorized?: boolean | undefined;
+  /**
+   * Hidden Default Breakers
+   */
   defaultBreakers?:
     | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
@@ -3699,6 +3833,28 @@ export type HealthCheckAuthenticationBasic = {
    */
   authRequestParams?:
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
+  /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth>
     | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
@@ -4234,6 +4390,9 @@ export type HealthCheckAuthenticationNone = {
    * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
    */
   rejectUnauthorized?: boolean | undefined;
+  /**
+   * Hidden Default Breakers
+   */
   defaultBreakers?:
     | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
@@ -4310,6 +4469,28 @@ export type HealthCheckAuthenticationNone = {
    */
   authRequestParams?:
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
+  /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth>
     | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
@@ -4871,6 +5052,9 @@ export type HealthCheckCollectMethodPostWithBody = {
    * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
    */
   rejectUnauthorized?: boolean | undefined;
+  /**
+   * Hidden Default Breakers
+   */
   defaultBreakers?:
     | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
@@ -4947,6 +5131,28 @@ export type HealthCheckCollectMethodPostWithBody = {
    */
   authRequestParams?:
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
+  /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth>
     | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
@@ -5504,6 +5710,9 @@ export type HealthCheckCollectMethodPost = {
    * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
    */
   rejectUnauthorized?: boolean | undefined;
+  /**
+   * Hidden Default Breakers
+   */
   defaultBreakers?:
     | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
@@ -5580,6 +5789,28 @@ export type HealthCheckCollectMethodPost = {
    */
   authRequestParams?:
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
+  /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth>
     | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
@@ -6148,6 +6379,9 @@ export type HealthCheckCollectMethodGet = {
    * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
    */
   rejectUnauthorized?: boolean | undefined;
+  /**
+   * Hidden Default Breakers
+   */
   defaultBreakers?:
     | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;
@@ -6224,6 +6458,28 @@ export type HealthCheckCollectMethodGet = {
    */
   authRequestParams?:
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
+  /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth>
     | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
@@ -7327,8 +7583,17 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
   authRequestHeaders: types.optional(
     z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
   ),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
+    ),
+  ),
   __template_loginUrl: types.optional(types.string()),
   __template_tokenRespAttribute: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
   discovery: types.optional(discriminatedUnion("discoverType", {
     http: discriminatedUnion("discoverMethod", {
       get: z.lazy(() =>
@@ -7400,8 +7665,15 @@ export type HealthCheckAuthenticationOauthSecret$Outbound = {
   authRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
     | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
   __template_loginUrl?: string | undefined;
   __template_tokenRespAttribute?: string | undefined;
+  __template_refreshUrl?: string | undefined;
   discovery?:
     | (
       | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -7456,8 +7728,15 @@ export const HealthCheckAuthenticationOauthSecret$outboundSchema: z.ZodType<
   authRequestHeaders: z.array(
     AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
   ).optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
   __template_loginUrl: z.string().optional(),
   __template_tokenRespAttribute: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
   discovery: z.union([
     z.union([
       z.lazy(() =>
@@ -8606,8 +8885,17 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
   authRequestHeaders: types.optional(
     z.array(AuthRequestHeaderConfHealthCheckAuthenticationLogin$inboundSchema),
   ),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
+    ),
+  ),
   __template_loginUrl: types.optional(types.string()),
   __template_tokenRespAttribute: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
   discovery: types.optional(discriminatedUnion("discoverType", {
     http: discriminatedUnion("discoverMethod", {
       get: z.lazy(() =>
@@ -8678,8 +8966,15 @@ export type HealthCheckAuthenticationOauth$Outbound = {
   authRequestHeaders?:
     | Array<AuthRequestHeaderConfHealthCheckAuthenticationLogin$Outbound>
     | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
   __template_loginUrl?: string | undefined;
   __template_tokenRespAttribute?: string | undefined;
+  __template_refreshUrl?: string | undefined;
   discovery?:
     | (
       | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -8734,8 +9029,15 @@ export const HealthCheckAuthenticationOauth$outboundSchema: z.ZodType<
   authRequestHeaders: z.array(
     AuthRequestHeaderConfHealthCheckAuthenticationLogin$outboundSchema,
   ).optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
   __template_loginUrl: z.string().optional(),
   __template_tokenRespAttribute: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
   discovery: z.union([
     z.union([
       z.lazy(() =>
@@ -9949,6 +10251,15 @@ export const HealthCheckAuthenticationLoginSecret$inboundSchema: z.ZodType<
   authRequestParams: types.optional(
     z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
   ),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
+    ),
+  ),
   textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -9999,6 +10310,13 @@ export type HealthCheckAuthenticationLoginSecret$Outbound = {
   clientSecretParamValue?: string | undefined;
   authRequestParams?:
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  __template_refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth$Outbound>
     | undefined;
   textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
@@ -10076,6 +10394,13 @@ export const HealthCheckAuthenticationLoginSecret$outboundSchema: z.ZodType<
   clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
     AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
   ).optional(),
   textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
@@ -11227,6 +11552,15 @@ export const HealthCheckAuthenticationLogin$inboundSchema: z.ZodType<
   authRequestParams: types.optional(
     z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
   ),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
+    ),
+  ),
   textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -11277,6 +11611,13 @@ export type HealthCheckAuthenticationLogin$Outbound = {
   clientSecretParamValue?: string | undefined;
   authRequestParams?:
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  __template_refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth$Outbound>
     | undefined;
   textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
@@ -11353,6 +11694,13 @@ export const HealthCheckAuthenticationLogin$outboundSchema: z.ZodType<
   clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
     AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
   ).optional(),
   textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
@@ -12515,6 +12863,15 @@ export const HealthCheckAuthenticationBasicSecret$inboundSchema: z.ZodType<
   authRequestParams: types.optional(
     z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
   ),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
+    ),
+  ),
   textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -12565,6 +12922,13 @@ export type HealthCheckAuthenticationBasicSecret$Outbound = {
   clientSecretParamValue?: string | undefined;
   authRequestParams?:
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  __template_refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth$Outbound>
     | undefined;
   textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
@@ -12642,6 +13006,13 @@ export const HealthCheckAuthenticationBasicSecret$outboundSchema: z.ZodType<
   clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
     AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
   ).optional(),
   textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
@@ -13793,6 +14164,15 @@ export const HealthCheckAuthenticationBasic$inboundSchema: z.ZodType<
   authRequestParams: types.optional(
     z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
   ),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
+    ),
+  ),
   textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -13843,6 +14223,13 @@ export type HealthCheckAuthenticationBasic$Outbound = {
   clientSecretParamValue?: string | undefined;
   authRequestParams?:
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  __template_refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth$Outbound>
     | undefined;
   textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
@@ -13919,6 +14306,13 @@ export const HealthCheckAuthenticationBasic$outboundSchema: z.ZodType<
   clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
     AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
   ).optional(),
   textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
@@ -15056,6 +15450,15 @@ export const HealthCheckAuthenticationNone$inboundSchema: z.ZodType<
   authRequestParams: types.optional(
     z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
   ),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
+    ),
+  ),
   textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -15106,6 +15509,13 @@ export type HealthCheckAuthenticationNone$Outbound = {
   clientSecretParamValue?: string | undefined;
   authRequestParams?:
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  __template_refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth$Outbound>
     | undefined;
   textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
@@ -15182,6 +15592,13 @@ export const HealthCheckAuthenticationNone$outboundSchema: z.ZodType<
   clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
     AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
   ).optional(),
   textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
@@ -16365,6 +16782,15 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
   authRequestParams: types.optional(
     z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
   ),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
+    ),
+  ),
   textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -16416,6 +16842,13 @@ export type HealthCheckCollectMethodPostWithBody$Outbound = {
   clientSecretParamValue?: string | undefined;
   authRequestParams?:
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  __template_refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth$Outbound>
     | undefined;
   textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
@@ -16495,6 +16928,13 @@ export const HealthCheckCollectMethodPostWithBody$outboundSchema: z.ZodType<
   clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
     AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
   ).optional(),
   textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
@@ -17639,6 +18079,15 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
   authRequestParams: types.optional(
     z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
   ),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
+    ),
+  ),
   textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -17692,6 +18141,13 @@ export type HealthCheckCollectMethodPost$Outbound = {
   clientSecretParamValue?: string | undefined;
   authRequestParams?:
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  __template_refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth$Outbound>
     | undefined;
   textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
@@ -17771,6 +18227,13 @@ export const HealthCheckCollectMethodPost$outboundSchema: z.ZodType<
   clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
     AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
   ).optional(),
   textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),
@@ -18970,6 +19433,15 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
   authRequestParams: types.optional(
     z.array(AuthRequestParamConfHealthCheckAuthenticationOauth$inboundSchema),
   ),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
+    ),
+  ),
   textSecret: types.optional(types.string()),
   __template_collectUrl: types.optional(types.string()),
 });
@@ -19023,6 +19495,13 @@ export type HealthCheckCollectMethodGet$Outbound = {
   clientSecretParamValue?: string | undefined;
   authRequestParams?:
     | Array<AuthRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  __template_refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth$Outbound>
     | undefined;
   textSecret?: string | undefined;
   __template_collectUrl?: string | undefined;
@@ -19102,6 +19581,13 @@ export const HealthCheckCollectMethodGet$outboundSchema: z.ZodType<
   clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
     AuthRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
   ).optional(),
   textSecret: z.string().optional(),
   __template_collectUrl: z.string().optional(),

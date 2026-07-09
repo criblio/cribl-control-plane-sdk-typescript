@@ -19,6 +19,9 @@ export type AuthTokensExtConfInputHttp = {
    * Shared secret to be provided by any client (Authorization: <token>)
    */
   token: string;
+  /**
+   * Description
+   */
   description?: string | undefined;
   /**
    * Fields to add to events referencing this token

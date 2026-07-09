@@ -13,7 +13,7 @@ export class Cribl extends ClientSDK {
    * Get system settings
    *
    * @remarks
-   * Get Cribl system settings.
+   * Get the current Cribl system settings.
    */
   async list(
     options?: RequestOptions,
@@ -28,10 +28,10 @@ export class Cribl extends ClientSDK {
    * Update system settings
    *
    * @remarks
-   * Update Cribl system settings.
+   * Update the specified Cribl system settings.<br/><br/>This endpoint supports partial updates — provide only the top-level sections (<code>api</code>, <code>workers</code>, <code>tls</code>, <code>proxy</code>, etc.) that you want to change. Omitted top-level sections are preserved unchanged.<br/><br/><b>Important:</b> while top-level sections are optional, nested objects within a section must be complete. For example, if you include <code>api</code>, you must provide its required fields (<code>host</code> and <code>port</code>).
    */
   async update(
-    request: models.SystemSettingsConf,
+    request: models.SystemSettingsConfUpdate,
     options?: RequestOptions,
   ): Promise<models.CountedSystemSettingsConf> {
     return unwrapAsync(systemSettingsCriblUpdate(

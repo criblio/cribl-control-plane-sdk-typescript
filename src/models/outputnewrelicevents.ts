@@ -44,6 +44,9 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputNewrelicEventsPqControls = {};
 
 export type OutputNewrelicEvents = {
@@ -51,6 +54,9 @@ export type OutputNewrelicEvents = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "newrelic_events";
   /**
    * Pipeline to process data before sending out to this output
@@ -65,7 +71,7 @@ export type OutputNewrelicEvents = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -147,6 +153,9 @@ export type OutputNewrelicEvents = {
    * Enter API key directly, or select a stored secret
    */
   authType?: AuthenticationMethodOptionsApi | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
@@ -190,9 +199,12 @@ export type OutputNewrelicEvents = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputNewrelicEventsPqControls | undefined;
   /**
    * New Relic API key. Can be overridden using __newRelic_apiKey field.

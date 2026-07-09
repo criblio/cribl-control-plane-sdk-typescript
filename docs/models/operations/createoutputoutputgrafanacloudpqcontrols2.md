@@ -1,5 +1,7 @@
 # CreateOutputOutputGrafanaCloudPqControls2
 
+Persistent queue controls.
+
 ## Example Usage
 
 ```typescript

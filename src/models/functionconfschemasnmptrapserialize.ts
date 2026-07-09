@@ -12,16 +12,37 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone = {
   privProtocol?: string | undefined;
+  /**
+   * V3 privacy key
+   */
   privKey: string;
+  /**
+   * Authentication protocol
+   */
   authProtocol?: string | undefined;
+  /**
+   * V3 authentication key
+   */
   authKey: string;
+  /**
+   * Username
+   */
   name: string;
 };
 
 export type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone = {
   privProtocol: "none";
+  /**
+   * Authentication protocol
+   */
   authProtocol?: string | undefined;
+  /**
+   * V3 authentication key
+   */
   authKey: string;
+  /**
+   * Username
+   */
   name: string;
 };
 
@@ -42,11 +63,20 @@ export type SnmpTrapSerializeV3UserAuthProtocolNotNone =
   | discriminatedUnionTypes.Unknown<"privProtocol">;
 
 export type SnmpTrapSerializeV3UserAuthProtocolNone = {
+  /**
+   * Authentication protocol
+   */
   authProtocol: "none";
+  /**
+   * Username
+   */
   name?: string | undefined;
   privProtocol?: string | undefined;
 };
 
+/**
+ * SNMPv3 user configuration, including authentication and privacy protocol settings.
+ */
 export type V3User =
   | SnmpTrapSerializeV3UserAuthProtocolNone
   | (
@@ -81,6 +111,9 @@ export type FunctionConfSchemaSnmpTrapSerialize = {
    * When disabled, `snmpSerializeErrors` will be set on the event, and the `__snmpRaw` field will be removed to prevent @{product} from sending the event from the SNMP Trap Destination
    */
   dropFailedEvents?: boolean | undefined;
+  /**
+   * SNMPv3 user configuration, including authentication and privacy protocol settings.
+   */
   v3User?:
     | SnmpTrapSerializeV3UserAuthProtocolNone
     | (

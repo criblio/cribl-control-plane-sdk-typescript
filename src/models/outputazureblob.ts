@@ -58,6 +58,9 @@ import {
   RetrySettingsType$outboundSchema,
 } from "./retrysettingstype.js";
 
+/**
+ * Blob access tier
+ */
 export const OutputAzureBlobBlobAccessTier = {
   /**
    * Default account access tier
@@ -80,6 +83,9 @@ export const OutputAzureBlobBlobAccessTier = {
    */
   Archive: "Archive",
 } as const;
+/**
+ * Blob access tier
+ */
 export type OutputAzureBlobBlobAccessTier = OpenEnum<
   typeof OutputAzureBlobBlobAccessTier
 >;
@@ -89,6 +95,9 @@ export type OutputAzureBlob = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "azure_blob";
   /**
    * Pipeline to process data before sending out to this output
@@ -103,7 +112,7 @@ export type OutputAzureBlob = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -191,9 +200,21 @@ export type OutputAzureBlob = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  /**
+   * Orphan file recovery
+   */
   orphans?: OrphanFileRecoveryType | undefined;
+  /**
+   * Authentication method
+   */
   authType?: AuthenticationMethodOptions | undefined;
+  /**
+   * Blob access tier
+   */
   storageClass?: OutputAzureBlobBlobAccessTier | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered

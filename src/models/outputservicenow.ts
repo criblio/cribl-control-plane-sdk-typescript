@@ -62,6 +62,9 @@ import {
   TlsSettingsClientSideTypeExtended$outboundSchema,
 } from "./tlssettingsclientsidetypeextended.js";
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputServiceNowPqControls = {};
 
 export type OutputServiceNow = {
@@ -69,6 +72,9 @@ export type OutputServiceNow = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "service_now";
   /**
    * Pipeline to process data before sending out to this output
@@ -83,7 +89,7 @@ export type OutputServiceNow = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -94,6 +100,9 @@ export type OutputServiceNow = {
    * Select or create a stored text secret
    */
   tokenSecret: string;
+  /**
+   * Auth token name
+   */
   authTokenName?: string | undefined;
   /**
    * The version of OTLP Protobuf definitions to use when structuring data to send
@@ -171,6 +180,9 @@ export type OutputServiceNow = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
@@ -203,6 +215,9 @@ export type OutputServiceNow = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * TLS settings (client side)
+   */
   tls?: TlsSettingsClientSideTypeExtended | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -245,9 +260,12 @@ export type OutputServiceNow = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputServiceNowPqControls | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

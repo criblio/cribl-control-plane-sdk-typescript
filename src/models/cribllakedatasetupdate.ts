@@ -50,11 +50,11 @@ export type CriblLakeDatasetUpdate = {
    */
   format?: FormatOptionsCriblLakeDataset | undefined;
   /**
-   * If <code>true</code>, the Dataset is used by Direct Access HTTP.
+   * If <code>true</code>, the Dataset is used by Direct Access HTTP. Otherwise, <code>false</code>.
    */
   httpDAUsed?: boolean | undefined;
   /**
-   * Dataset identifier. Optional; the path parameter <code>id</code> is authoritative.
+   * Unique identifier for the Dataset. Optional; the path parameter <code>id</code> is authoritative.
    */
   id?: string | undefined;
   metrics?: LakeDatasetMetrics | undefined;
@@ -68,7 +68,7 @@ export type CriblLakeDatasetUpdate = {
    */
   storageClass?: StorageClassOptionsCriblLakeDataset | undefined;
   /**
-   * Identifier for the Storage Location that backs the Dataset. Mutually exclusive with <code>bucketName</code>.
+   * Unique identifier for the Storage Location that backs the Dataset. Mutually exclusive with <code>bucketName</code>.
    */
   storageLocationId?: string | undefined;
   /**

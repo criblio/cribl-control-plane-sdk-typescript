@@ -1,21 +1,23 @@
 # Summary
 
+Summary of line changes in the commit.
+
 ## Example Usage
 
 ```typescript
 import { Summary } from "cribl-control-plane/models";
 
 let value: Summary = {
-  changes: 7170.63,
-  deletions: 3995.43,
-  insertions: 9501.47,
+  changes: 717063,
+  deletions: 399543,
+  insertions: 950147,
 };
 ```
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `changes`          | *number*           | :heavy_check_mark: | N/A                |
-| `deletions`        | *number*           | :heavy_check_mark: | N/A                |
-| `insertions`       | *number*           | :heavy_check_mark: | N/A                |
+| Field                                                      | Type                                                       | Required                                                   | Description                                                |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| `changes`                                                  | *number*                                                   | :heavy_check_mark:                                         | Total number of lines changed (insertions plus deletions). |
+| `deletions`                                                | *number*                                                   | :heavy_check_mark:                                         | Number of lines deleted.                                   |
+| `insertions`                                               | *number*                                                   | :heavy_check_mark:                                         | Number of lines inserted.                                  |

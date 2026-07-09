@@ -1,5 +1,7 @@
 # TlsSettingsClientSideType
 
+TLS settings (client side)
+
 ## Example Usage
 
 ```typescript
@@ -14,5 +16,5 @@ let value: TlsSettingsClientSideType = {
 
 | Field                                                                                                                           | Type                                                                                                                            | Required                                                                                                                        | Description                                                                                                                     |
 | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled`                                                                                                                      | *boolean*                                                                                                                       | :heavy_check_mark:                                                                                                              | N/A                                                                                                                             |
+| `disabled`                                                                                                                      | *boolean*                                                                                                                       | :heavy_check_mark:                                                                                                              | Disabled                                                                                                                        |
 | `rejectUnauthorized`                                                                                                            | *boolean*                                                                                                                       | :heavy_minus_sign:                                                                                                              | Reject certificates that are not authorized by a CA in the CA certificate path, or by another trusted CA (such as the system's) |

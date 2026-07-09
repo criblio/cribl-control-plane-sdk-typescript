@@ -1,5 +1,7 @@
 # OutputDynatraceHttpAuthenticationType
 
+Authentication type
+
 ## Example Usage
 
 ```typescript

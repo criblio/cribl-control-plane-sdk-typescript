@@ -16,6 +16,9 @@ import {
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type SniSettings = {
+  /**
+   * If <code>true</code>, disable Server Name Indication (SNI) routing. Otherwise, <code>false</code>.
+   */
   disableSNIRouting: boolean;
 };
 

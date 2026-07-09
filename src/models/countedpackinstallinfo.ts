@@ -16,11 +16,11 @@ export type CountedPackInstallInfo = {
   /**
    * number of items present in the items array
    */
-  count?: number | undefined;
+  count: number;
   /**
    * List of items in this response.
    */
-  items?: Array<PackInstallInfo> | undefined;
+  items: Array<PackInstallInfo>;
 };
 
 /** @internal */
@@ -29,8 +29,8 @@ export const CountedPackInstallInfo$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: types.optional(types.number()),
-  items: types.optional(z.array(PackInstallInfo$inboundSchema)),
+  count: types.number(),
+  items: z.array(PackInstallInfo$inboundSchema),
 });
 
 export function countedPackInstallInfoFromJSON(

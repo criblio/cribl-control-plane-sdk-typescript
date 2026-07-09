@@ -21,7 +21,13 @@ export type RunnableJobScheduledSearch = {
    * Unique ID for this Job
    */
   id?: string | undefined;
+  /**
+   * Description
+   */
   description?: string | undefined;
+  /**
+   * Job type
+   */
   type: JobTypeOptionsRunnableJobCollection;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
@@ -48,7 +54,7 @@ export type RunnableJobScheduledSearch = {
    */
   schedule?: ScheduleTypeRunnableJobCollection | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**

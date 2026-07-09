@@ -10,9 +10,9 @@ import { OutputStatus } from "cribl-control-plane/models";
 let value: OutputStatus = {
   id: "<id>",
   status: {
-    health: "Red",
+    health: "Unknown",
     healthCounts: {},
-    timestamp: 6319.41,
+    timestamp: 940749,
   },
 };
 ```

@@ -13,7 +13,13 @@ export type AuthTokenConfOutputCriblHttp = {
    * Select or create a stored text secret
    */
   tokenSecret: string;
+  /**
+   * Enable token
+   */
   enabled?: boolean | undefined;
+  /**
+   * Description
+   */
   description?: string | undefined;
 };
 

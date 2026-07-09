@@ -8,7 +8,13 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * TLS settings (client side)
+ */
 export type TlsSettingsClientSideType = {
+  /**
+   * Disabled
+   */
   disabled: boolean;
   /**
    * Reject certificates that are not authorized by a CA in the CA certificate path, or by another trusted CA (such as the system's)

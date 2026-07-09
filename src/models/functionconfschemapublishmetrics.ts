@@ -10,6 +10,9 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Metric Type
+ */
 export const FunctionConfSchemaPublishMetricsMetricType = {
   /**
    * Counter
@@ -36,6 +39,9 @@ export const FunctionConfSchemaPublishMetricsMetricType = {
    */
   Histogram: "histogram",
 } as const;
+/**
+ * Metric Type
+ */
 export type FunctionConfSchemaPublishMetricsMetricType = OpenEnum<
   typeof FunctionConfSchemaPublishMetricsMetricType
 >;
@@ -49,6 +55,9 @@ export type FunctionConfSchemaPublishMetricsField = {
    * JavaScript expression to evaluate the metric field name. Defaults to Event Field Name.
    */
   outFieldExpr?: string | undefined;
+  /**
+   * Metric Type
+   */
   metricType: FunctionConfSchemaPublishMetricsMetricType;
 };
 

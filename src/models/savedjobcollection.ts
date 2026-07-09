@@ -9,14 +9,14 @@ import {
   Collector$outboundSchema,
 } from "./collector.js";
 import {
+  InputTypeRunnableJobCollection,
+  InputTypeRunnableJobCollection$Outbound,
+  InputTypeRunnableJobCollection$outboundSchema,
+} from "./inputtyperunnablejobcollection.js";
+import {
   JobTypeOptionsRunnableJobCollection,
   JobTypeOptionsRunnableJobCollection$outboundSchema,
 } from "./jobtypeoptionsrunnablejobcollection.js";
-import {
-  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint,
-  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$Outbound,
-  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$outboundSchema,
-} from "./runnablejobcollectiontypecollectionwithbreakerrulesetsconstraint.js";
 import {
   ScheduleTypeSavedJobResponseCollection,
   ScheduleTypeSavedJobResponseCollection$Outbound,
@@ -28,7 +28,13 @@ export type SavedJobCollection = {
    * Unique ID for this Job
    */
   id?: string | undefined;
+  /**
+   * Description
+   */
   description?: string | undefined;
+  /**
+   * Job type
+   */
   type: JobTypeOptionsRunnableJobCollection;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
@@ -55,7 +61,7 @@ export type SavedJobCollection = {
    */
   schedule?: ScheduleTypeSavedJobResponseCollection | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -66,9 +72,7 @@ export type SavedJobCollection = {
    * Collector configuration
    */
   collector: Collector;
-  input?:
-    | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint
-    | undefined;
+  input?: InputTypeRunnableJobCollection | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -89,9 +93,7 @@ export type SavedJobCollection$Outbound = {
   streamtags?: Array<string> | undefined;
   workerAffinity?: boolean | undefined;
   collector: Collector$Outbound;
-  input?:
-    | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$Outbound
-    | undefined;
+  input?: InputTypeRunnableJobCollection$Outbound | undefined;
   __template_streamtags?: string | undefined;
 };
 
@@ -113,9 +115,7 @@ export const SavedJobCollection$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   workerAffinity: z.boolean().optional(),
   collector: Collector$outboundSchema,
-  input:
-    RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$outboundSchema
-      .optional(),
+  input: InputTypeRunnableJobCollection$outboundSchema.optional(),
   __template_streamtags: z.string().optional(),
 });
 

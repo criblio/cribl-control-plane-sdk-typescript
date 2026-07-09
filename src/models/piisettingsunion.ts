@@ -16,6 +16,9 @@ import {
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PiiSettings = {
+  /**
+   * If <code>true</code>, enable PII detection for events processed by the Cribl instance. Otherwise, <code>false</code>.
+   */
   enablePiiDetection: boolean;
 };
 

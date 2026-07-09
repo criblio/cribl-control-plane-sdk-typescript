@@ -3,6 +3,8 @@
  */
 
 import * as z from "zod/v3";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import {
   ConnectionConfInputCollection,
   ConnectionConfInputCollection$Outbound,
@@ -20,11 +22,41 @@ import {
   RetryRulesType$outboundSchema,
 } from "./retryrulestype.js";
 
+/**
+ * Endpoint name
+ */
+export const InputAnthropicComplianceEndpointName = {
+  Activities: "activities",
+  Chats: "chats",
+  Projects: "projects",
+  ChatMessages: "chat_messages",
+  ProjectDetails: "project_details",
+  Groups: "groups",
+  Organizations: "organizations",
+  OrgUsers: "org_users",
+  OrgRoles: "org_roles",
+} as const;
+/**
+ * Endpoint name
+ */
+export type InputAnthropicComplianceEndpointName = OpenEnum<
+  typeof InputAnthropicComplianceEndpointName
+>;
+
 export type InputAnthropicComplianceManageState = {};
 
 export type InputAnthropicComplianceContentConfig = {
-  contentType: string;
+  /**
+   * Endpoint name
+   */
+  contentType: InputAnthropicComplianceEndpointName;
+  /**
+   * Description
+   */
   contentDescription?: string | undefined;
+  /**
+   * Enable endpoint
+   */
   enabled?: boolean | undefined;
   /**
    * Track collection progress between consecutive scheduled executions
@@ -40,21 +72,25 @@ export type InputAnthropicComplianceContentConfig = {
   stateMergeExpression?: string | undefined;
   manageState?: InputAnthropicComplianceManageState | undefined;
   /**
+   * Earliest time for data collection, relative to now
+   */
+  earliest?: string | undefined;
+  /**
+   * Latest time for data collection, relative to now
+   */
+  latest?: string | undefined;
+  /**
    * Schedule on which to run this collection job
    */
   cronSchedule: string;
   /**
-   * Earliest time for data collection, relative to now
-   */
-  earliest: string;
-  /**
-   * Latest time for data collection, relative to now
-   */
-  latest: string;
-  /**
    * Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
    */
   jobTimeout?: string | undefined;
+  /**
+   * Number of items per API page request. Leave empty to use the endpoint default.
+   */
+  pageSize?: number | undefined;
 };
 
 export type InputAnthropicComplianceInput = {
@@ -62,7 +98,13 @@ export type InputAnthropicComplianceInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "anthropic_compliance";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -81,7 +123,7 @@ export type InputAnthropicComplianceInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -89,11 +131,17 @@ export type InputAnthropicComplianceInput = {
    */
   connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
+  /**
+   * API key
+   */
   apiKey?: string | undefined;
   /**
    * Select or create a stored Anthropic API key
    */
   textSecret: string;
+  /**
+   * Endpoint types
+   */
   contentConfig: Array<InputAnthropicComplianceContentConfig>;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
@@ -120,6 +168,9 @@ export type InputAnthropicComplianceInput = {
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
   retryRules?: RetryRulesType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -130,6 +181,13 @@ export type InputAnthropicComplianceInput = {
    */
   __template_streamtags?: string | undefined;
 };
+
+/** @internal */
+export const InputAnthropicComplianceEndpointName$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputAnthropicComplianceEndpointName
+> = openEnums.outboundSchema(InputAnthropicComplianceEndpointName);
 
 /** @internal */
 export type InputAnthropicComplianceManageState$Outbound = {};
@@ -160,10 +218,11 @@ export type InputAnthropicComplianceContentConfig$Outbound = {
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
   manageState?: InputAnthropicComplianceManageState$Outbound | undefined;
+  earliest?: string | undefined;
+  latest?: string | undefined;
   cronSchedule: string;
-  earliest: string;
-  latest: string;
   jobTimeout?: string | undefined;
+  pageSize?: number | undefined;
 };
 
 /** @internal */
@@ -172,7 +231,7 @@ export const InputAnthropicComplianceContentConfig$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputAnthropicComplianceContentConfig
 > = z.object({
-  contentType: z.string(),
+  contentType: InputAnthropicComplianceEndpointName$outboundSchema,
   contentDescription: z.string().optional(),
   enabled: z.boolean().optional(),
   stateTracking: z.boolean().optional(),
@@ -180,10 +239,11 @@ export const InputAnthropicComplianceContentConfig$outboundSchema: z.ZodType<
   stateMergeExpression: z.string().optional(),
   manageState: z.lazy(() => InputAnthropicComplianceManageState$outboundSchema)
     .optional(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
   cronSchedule: z.string(),
-  earliest: z.string(),
-  latest: z.string(),
   jobTimeout: z.string().optional(),
+  pageSize: z.number().optional(),
 });
 
 export function inputAnthropicComplianceContentConfigToJSON(

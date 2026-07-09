@@ -1,5 +1,7 @@
 # CaptureSettings
 
+Capture Settings
+
 ## Example Usage
 
 ```typescript
@@ -14,4 +16,4 @@ let value: CaptureSettings = {};
 | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
 | `duration`                                           | *number*                                             | :heavy_minus_sign:                                   | Amount of time to keep capture open, in seconds      |
 | `maxEvents`                                          | *number*                                             | :heavy_minus_sign:                                   | Maximum number of events to capture                  |
-| `level`                                              | [models.WhereToCapture](../models/wheretocapture.md) | :heavy_minus_sign:                                   | N/A                                                  |
+| `level`                                              | [models.WhereToCapture](../models/wheretocapture.md) | :heavy_minus_sign:                                   | Where to capture                                     |

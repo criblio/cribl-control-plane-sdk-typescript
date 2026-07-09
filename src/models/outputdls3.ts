@@ -64,6 +64,9 @@ export type OutputDlS3 = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "dl_s3";
   /**
    * Pipeline to process data before sending out to this output
@@ -78,7 +81,7 @@ export type OutputDlS3 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -202,6 +205,9 @@ export type OutputDlS3 = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  /**
+   * Orphan file recovery
+   */
   orphans?: OrphanFileRecoveryType | undefined;
   /**
    * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
@@ -229,6 +235,9 @@ export type OutputDlS3 = {
    * List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
    */
   partitioningFields?: Array<string> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)

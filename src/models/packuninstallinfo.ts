@@ -9,7 +9,13 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PackUninstallInfo = {
+  /**
+   * Unique identifier for the Pack.
+   */
   id: string;
+  /**
+   * Source from which the Pack was originally installed.
+   */
   source: string;
 };
 

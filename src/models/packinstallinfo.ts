@@ -13,24 +13,69 @@ import {
 } from "./tagstypepackinstallinfo.js";
 
 export type PackInstallInfo = {
+  /**
+   * Name or identifier of the Pack author.
+   */
   author?: string | undefined;
+  /**
+   * Number of Collectors (saved jobs) configured within the Pack.
+   */
   collectors?: number | undefined;
+  /**
+   * Map of Pack dependency identifiers to their version constraints.
+   */
   dependencies?: { [k: string]: string } | undefined;
+  /**
+   * Brief description of the Pack and its purpose.
+   */
   description?: string | undefined;
+  /**
+   * Human-readable display name for the Pack.
+   */
   displayName?: string | undefined;
+  /**
+   * List of entity IDs exported by this Pack and available for use outside the Pack context.
+   */
   exports?: Array<string> | undefined;
   /**
    * Unique identifier.
    */
   id: string;
+  /**
+   * Number of Sources configured within the Pack.
+   */
   inputs?: number | undefined;
+  /**
+   * If <code>true</code>, the Pack is disabled. Otherwise, <code>false</code>.
+   */
   isDisabled?: boolean | undefined;
+  /**
+   * Minimum version of Cribl Stream required to run this Pack.
+   */
   minLogStreamVersion?: string | undefined;
+  /**
+   * Number of Destinations configured within the Pack.
+   */
   outputs?: number | undefined;
+  /**
+   * Pack-specific settings object. Contents vary by Pack.
+   */
   settings?: { [k: string]: any } | undefined;
+  /**
+   * Source of the Pack — a file path, URL, or Git URL from which the Pack was installed.
+   */
   source: string;
+  /**
+   * Semver range constraint that was applied when the Pack was installed.
+   */
   spec?: string | undefined;
+  /**
+   * Categorization tags for the Pack.
+   */
   tags?: TagsTypePackInstallInfo | undefined;
+  /**
+   * Version of the Pack, following semantic versioning.
+   */
   version?: string | undefined;
   warnings?: Array<string> | undefined;
 };

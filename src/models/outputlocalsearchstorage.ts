@@ -114,6 +114,9 @@ export type OutputLocalSearchStorageColumnMapping = {
   columnValueExpression: string;
 };
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputLocalSearchStoragePqControls = {};
 
 export type OutputLocalSearchStorage = {
@@ -121,6 +124,9 @@ export type OutputLocalSearchStorage = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "local_search_storage";
   /**
    * Pipeline to process data before sending out to this output
@@ -135,14 +141,20 @@ export type OutputLocalSearchStorage = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
    * URL of the database instance. Example: http://localhost:8123/
    */
   url: string;
+  /**
+   * Authentication type
+   */
   authType?: AuthenticationTypeOptions | undefined;
+  /**
+   * Database
+   */
   database: string;
   /**
    * Name of the table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
@@ -160,6 +172,9 @@ export type OutputLocalSearchStorage = {
    * Collect data into batches for later processing. Disable to write to a table immediately.
    */
   asyncInserts?: boolean | undefined;
+  /**
+   * TLS settings (client side)
+   */
   tls?: TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum number of ongoing requests before blocking
@@ -221,6 +236,10 @@ export type OutputLocalSearchStorage = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
+   * Optional ClickHouse workload name to append as a SETTINGS clause on INSERT queries. Used for workload scheduling classification.
+   */
+  workload?: string | undefined;
+  /**
    * Log the most recent event that fails to match the table schema
    */
   dumpFormatErrorsToDisk?: boolean | undefined;
@@ -229,8 +248,17 @@ export type OutputLocalSearchStorage = {
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
   statsDestination?: OutputLocalSearchStorageStatsDestination | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Select or create a secret that references your credentials
@@ -252,6 +280,9 @@ export type OutputLocalSearchStorage = {
    * Retrieves the table schema and populates the Column Mapping table
    */
   describeTable?: string | undefined;
+  /**
+   * Column Mapping
+   */
   columnMappings?: Array<OutputLocalSearchStorageColumnMapping> | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -294,9 +325,12 @@ export type OutputLocalSearchStorage = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputLocalSearchStoragePqControls | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -461,6 +495,7 @@ export type OutputLocalSearchStorage$Outbound = {
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
+  workload?: string | undefined;
   dumpFormatErrorsToDisk?: boolean | undefined;
   onBackpressure?: string | undefined;
   statsDestination?:
@@ -536,6 +571,7 @@ export const OutputLocalSearchStorage$outboundSchema: z.ZodType<
   ).optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
+  workload: z.string().optional(),
   dumpFormatErrorsToDisk: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   statsDestination: z.lazy(() =>

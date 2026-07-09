@@ -13,6 +13,9 @@ export type AuthTokenConfInputCriblTcp = {
    * Select or create a stored text secret
    */
   tokenSecret: string;
+  /**
+   * Enable token
+   */
   enabled?: boolean | undefined;
   /**
    * Optional token description

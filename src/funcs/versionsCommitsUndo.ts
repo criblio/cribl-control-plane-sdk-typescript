@@ -28,7 +28,7 @@ import { Result } from "../types/fp.js";
  * Discard uncommitted (staged) changes
  *
  * @remarks
- * Discard all uncommitted (staged) configuration changes, resetting the working directory to the last committed state. Use only if you are certain that you do not need to preserve your local changes.
+ * Discard all uncommitted (staged) configuration changes, resetting the working directory to the last committed state. Use only if you are certain that you do not need to preserve your local changes.<br/><br/>When applied globally (no group), triggers a Cribl restart to reload the reverted configuration. Returns <code>false</code> if the working directory is already clean.
  */
 export function versionsCommitsUndo(
   client: CriblControlPlaneCore,
@@ -150,8 +150,9 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, models.CountedBoolean$inboundSchema),
+    M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

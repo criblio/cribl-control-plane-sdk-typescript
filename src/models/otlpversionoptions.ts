@@ -6,6 +6,9 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
+/**
+ * OTLP version
+ */
 export const OtlpVersionOptions = {
   /**
    * 0.10.0
@@ -16,6 +19,9 @@ export const OtlpVersionOptions = {
    */
   OneDot3Dot1: "1.3.1",
 } as const;
+/**
+ * OTLP version
+ */
 export type OtlpVersionOptions = OpenEnum<typeof OtlpVersionOptions>;
 
 /** @internal */

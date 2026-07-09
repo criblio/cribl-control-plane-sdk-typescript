@@ -6,6 +6,9 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
+/**
+ * Authentication method
+ */
 export const AuthenticationMethodOptions = {
   Manual: "manual",
   Secret: "secret",
@@ -14,6 +17,9 @@ export const AuthenticationMethodOptions = {
   ClientAssertion: "clientAssertion",
   ClientAssertionRpc: "clientAssertion_rpc",
 } as const;
+/**
+ * Authentication method
+ */
 export type AuthenticationMethodOptions = OpenEnum<
   typeof AuthenticationMethodOptions
 >;

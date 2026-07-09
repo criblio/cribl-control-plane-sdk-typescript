@@ -1,5 +1,7 @@
 # EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew
 
+Whether to use an existing event breaker ruleset or create a new one inline.
+
 ## Example Usage
 
 ```typescript
