@@ -41,7 +41,7 @@ export type GetProductsWorkersByProductRequest = {
 };
 
 export type GetProductsWorkersByProductResponse = {
-  result: models.CountedMasterWorkerEntry;
+  result: models.PaginatedMasterWorkerEntry;
 };
 
 /** @internal */
@@ -86,7 +86,7 @@ export const GetProductsWorkersByProductResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Result: models.CountedMasterWorkerEntry$inboundSchema,
+  Result: models.PaginatedMasterWorkerEntry$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
     "Result": "result",

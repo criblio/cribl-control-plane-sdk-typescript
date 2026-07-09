@@ -7,25 +7,73 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
+  DatabaseConnectionAuthType,
+  DatabaseConnectionAuthType$inboundSchema,
+  DatabaseConnectionAuthType$outboundSchema,
+} from "./databaseconnectionauthtype.js";
+import {
   DatabaseConnectionType,
   DatabaseConnectionType$inboundSchema,
   DatabaseConnectionType$outboundSchema,
 } from "./databaseconnectiontype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  TLSClientParams,
+  TLSClientParams$inboundSchema,
+  TLSClientParams$Outbound,
+  TLSClientParams$outboundSchema,
+} from "./tlsclientparams.js";
 
 export type DatabaseConnectionConfig = {
-  authType: string;
+  authType: DatabaseConnectionAuthType;
+  /**
+   * JSON configuration object for advanced SQL Server connection settings.
+   */
   configObj?: string | undefined;
+  /**
+   * Database connection string with embedded credentials or server information.
+   */
   connectionString?: string | undefined;
+  /**
+   * Maximum time (in milliseconds) to wait when establishing the database connection.
+   */
   connectionTimeout?: number | undefined;
+  /**
+   * Name of the stored credentials secret containing username and password. Used with Oracle connections.
+   */
   credsSecrets?: string | undefined;
   databaseType: DatabaseConnectionType;
+  /**
+   * Brief description of the Database Connection.
+   */
   description: string;
+  /**
+   * Unique identifier for the Database Connection.
+   */
   id: string;
+  /**
+   * Database password for authentication. Used with Oracle connections.
+   */
   password?: string | undefined;
+  /**
+   * Maximum time (in milliseconds) to wait for a database query to complete. Applies to SQL Server connections only.
+   */
   requestTimeout?: number | undefined;
+  /**
+   * Comma-separated list of tags for categorizing and filtering Database Connections.
+   */
   tags?: string | undefined;
+  /**
+   * Name of the stored text secret containing the connection string.
+   */
   textSecret?: string | undefined;
+  /**
+   * TLS client connection settings.
+   */
+  tls?: TLSClientParams | undefined;
+  /**
+   * Database username for authentication. Used with Oracle connections.
+   */
   user?: string | undefined;
 };
 
@@ -35,7 +83,7 @@ export const DatabaseConnectionConfig$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: types.string(),
+  authType: DatabaseConnectionAuthType$inboundSchema,
   configObj: types.optional(types.string()),
   connectionString: types.optional(types.string()),
   connectionTimeout: types.optional(types.number()),
@@ -47,6 +95,7 @@ export const DatabaseConnectionConfig$inboundSchema: z.ZodType<
   requestTimeout: types.optional(types.number()),
   tags: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  tls: types.optional(TLSClientParams$inboundSchema),
   user: types.optional(types.string()),
 });
 /** @internal */
@@ -63,6 +112,7 @@ export type DatabaseConnectionConfig$Outbound = {
   requestTimeout?: number | undefined;
   tags?: string | undefined;
   textSecret?: string | undefined;
+  tls?: TLSClientParams$Outbound | undefined;
   user?: string | undefined;
 };
 
@@ -72,18 +122,19 @@ export const DatabaseConnectionConfig$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DatabaseConnectionConfig
 > = z.object({
-  authType: z.string(),
+  authType: DatabaseConnectionAuthType$outboundSchema,
   configObj: z.string().optional(),
   connectionString: z.string().optional(),
-  connectionTimeout: z.number().optional(),
+  connectionTimeout: z.number().int().optional(),
   credsSecrets: z.string().optional(),
   databaseType: DatabaseConnectionType$outboundSchema,
   description: z.string(),
   id: z.string(),
   password: z.string().optional(),
-  requestTimeout: z.number().optional(),
+  requestTimeout: z.number().int().optional(),
   tags: z.string().optional(),
   textSecret: z.string().optional(),
+  tls: TLSClientParams$outboundSchema.optional(),
   user: z.string().optional(),
 });
 

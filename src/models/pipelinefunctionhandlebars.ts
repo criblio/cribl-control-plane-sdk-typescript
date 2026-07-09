@@ -27,6 +27,9 @@ export type TemplateDefinition = {
   type: string;
 };
 
+/**
+ * Configuration specific to the Pipeline Function.
+ */
 export type PipelineFunctionHandlebarsConf = {
   /**
    * Array of template definitions. Uses event.__template_id to select template at runtime.
@@ -48,28 +51,31 @@ export type PipelineFunctionHandlebarsConf = {
 
 export type PipelineFunctionHandlebars = {
   /**
-   * Filter that selects data to be fed through this Function
+   * JavaScript expression that selects data to pass through the Function.
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>handlebars</code>
    */
   id: "handlebars";
   /**
-   * Simple description of this step
+   * Brief description of the Pipeline function.
    */
   description?: string | undefined;
   /**
-   * If true, data will not be pushed through this function
+   * If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
    */
   disabled?: boolean | undefined;
   /**
-   * If enabled, stops the results of this Function from being passed to the downstream Functions
+   * If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
    */
   final?: boolean | undefined;
+  /**
+   * Configuration specific to the Pipeline Function.
+   */
   conf: PipelineFunctionHandlebarsConf;
   /**
-   * Group ID
+   * Unique identifier of the group that contains the Pipeline Function.
    */
   groupId?: string | undefined;
 };

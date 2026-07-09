@@ -9,7 +9,13 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ConnectionConfInputCollection = {
+  /**
+   * Pipeline or Pack to process data before sending to the Destination.
+   */
   pipeline?: string | undefined;
+  /**
+   * Destination to send data to when not using Routes.
+   */
   output?: string | undefined;
 };
 

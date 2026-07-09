@@ -14,4 +14,4 @@ let value: CreateInputContainerFilter = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `expr`             | *string*           | :heavy_check_mark: | N/A                |
+| `expr`             | *string*           | :heavy_check_mark: | Expression         |

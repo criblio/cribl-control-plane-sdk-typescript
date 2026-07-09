@@ -1,5 +1,7 @@
 # PipelineFunctionMaskConf
 
+Configuration specific to the Pipeline Function.
+
 ## Example Usage
 
 ```typescript
@@ -14,7 +16,7 @@ let value: PipelineFunctionMaskConf = {
 
 | Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
 | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `rules`                                                                                                | [models.PipelineFunctionMaskRule](../models/pipelinefunctionmaskrule.md)[]                             | :heavy_check_mark:                                                                                     | N/A                                                                                                    |
+| `rules`                                                                                                | [models.PipelineFunctionMaskRule](../models/pipelinefunctionmaskrule.md)[]                             | :heavy_check_mark:                                                                                     | List of masking rules, each specifying a regex to match and an expression to replace matched content.  |
 | `fields`                                                                                               | *string*[]                                                                                             | :heavy_minus_sign:                                                                                     | Fields on which to apply the masking rules. Supports * wildcards, except when used on internal fields. |
 | `depth`                                                                                                | *number*                                                                                               | :heavy_minus_sign:                                                                                     | Depth to which the Mask Function will search for fields to mask                                        |
 | `flags`                                                                                                | [models.AddConfFunctionConfSchemaAggregation](../models/addconffunctionconfschemaaggregation.md)[]     | :heavy_minus_sign:                                                                                     | Fields to evaluate if one or more masking rules are matched                                            |

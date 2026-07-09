@@ -43,6 +43,9 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 
+/**
+ * API version
+ */
 export const OutputGoogleChronicleAPIVersion = {
   /**
    * V1
@@ -53,10 +56,16 @@ export const OutputGoogleChronicleAPIVersion = {
    */
   V2: "v2",
 } as const;
+/**
+ * API version
+ */
 export type OutputGoogleChronicleAPIVersion = OpenEnum<
   typeof OutputGoogleChronicleAPIVersion
 >;
 
+/**
+ * Authentication method
+ */
 export const OutputGoogleChronicleAuthenticationMethod = {
   /**
    * API key
@@ -75,10 +84,16 @@ export const OutputGoogleChronicleAuthenticationMethod = {
    */
   ServiceAccountSecret: "serviceAccountSecret",
 } as const;
+/**
+ * Authentication method
+ */
 export type OutputGoogleChronicleAuthenticationMethod = OpenEnum<
   typeof OutputGoogleChronicleAuthenticationMethod
 >;
 
+/**
+ * Send events as
+ */
 export const OutputGoogleChronicleSendEventsAs = {
   /**
    * Unstructured
@@ -89,12 +104,21 @@ export const OutputGoogleChronicleSendEventsAs = {
    */
   Udm: "udm",
 } as const;
+/**
+ * Send events as
+ */
 export type OutputGoogleChronicleSendEventsAs = OpenEnum<
   typeof OutputGoogleChronicleSendEventsAs
 >;
 
 export type OutputGoogleChronicleExtraLogType = {
+  /**
+   * Log Type
+   */
   logType: string;
+  /**
+   * Description
+   */
   description?: string | undefined;
 };
 
@@ -112,6 +136,9 @@ export type OutputGoogleChronicleUDMType = OpenEnum<
   typeof OutputGoogleChronicleUDMType
 >;
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputGoogleChroniclePqControls = {};
 
 export type OutputGoogleChronicle = {
@@ -119,6 +146,9 @@ export type OutputGoogleChronicle = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "google_chronicle";
   /**
    * Pipeline to process data before sending out to this output
@@ -133,10 +163,16 @@ export type OutputGoogleChronicle = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * API version
+   */
   apiVersion?: OutputGoogleChronicleAPIVersion | undefined;
+  /**
+   * Authentication method
+   */
   authenticationMethod?: OutputGoogleChronicleAuthenticationMethod | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
@@ -149,6 +185,9 @@ export type OutputGoogleChronicle = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Send events as
+   */
   logFormatType: OutputGoogleChronicleSendEventsAs;
   /**
    * Regional endpoint to send events to
@@ -210,6 +249,9 @@ export type OutputGoogleChronicle = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
@@ -296,9 +338,12 @@ export type OutputGoogleChronicle = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputGoogleChroniclePqControls | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

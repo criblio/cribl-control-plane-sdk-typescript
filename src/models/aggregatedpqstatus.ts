@@ -4,6 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -11,15 +13,28 @@ import {
   HealthCountType,
   HealthCountType$inboundSchema,
 } from "./healthcounttype.js";
-import {
-  HealthStringType,
-  HealthStringType$inboundSchema,
-} from "./healthstringtype.js";
 import { StatusError, StatusError$inboundSchema } from "./statuserror.js";
+
+/**
+ * Health status of the persistent queue.
+ */
+export const Health = {
+  Green: "Green",
+  Red: "Red",
+  Unknown: "Unknown",
+  Yellow: "Yellow",
+} as const;
+/**
+ * Health status of the persistent queue.
+ */
+export type Health = OpenEnum<typeof Health>;
 
 export type AggregatedPQStatus = {
   error?: StatusError | undefined;
-  health: HealthStringType;
+  /**
+   * Health status of the persistent queue.
+   */
+  health: Health;
   healthCounts: HealthCountType;
   /**
    * Timestamp (in Unix time) when the persistent queue status was last updated.
@@ -28,13 +43,17 @@ export type AggregatedPQStatus = {
 };
 
 /** @internal */
+export const Health$inboundSchema: z.ZodType<Health, z.ZodTypeDef, unknown> =
+  openEnums.inboundSchema(Health);
+
+/** @internal */
 export const AggregatedPQStatus$inboundSchema: z.ZodType<
   AggregatedPQStatus,
   z.ZodTypeDef,
   unknown
 > = z.object({
   error: types.optional(StatusError$inboundSchema),
-  health: HealthStringType$inboundSchema,
+  health: Health$inboundSchema,
   healthCounts: HealthCountType$inboundSchema,
   timestamp: types.number(),
 });

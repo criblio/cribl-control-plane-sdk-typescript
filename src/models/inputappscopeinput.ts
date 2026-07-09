@@ -55,6 +55,9 @@ export type InputAppscopeFilter = {
   transportURL?: string | undefined;
 };
 
+/**
+ * Persistence
+ */
 export type InputAppscopePersistence = {
   /**
    * Spool events and metrics on disk for Cribl Edge and Search
@@ -72,6 +75,9 @@ export type InputAppscopePersistence = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
+  /**
+   * Data compression format
+   */
   compress?: DataCompressionFormatOptionsPersistence | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/appscope
@@ -89,7 +95,13 @@ export type InputAppscopeInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "appscope";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -108,7 +120,7 @@ export type InputAppscopeInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -157,11 +169,17 @@ export type InputAppscopeInput = {
    */
   enableUnixPath?: boolean | undefined;
   filter?: InputAppscopeFilter | undefined;
+  /**
+   * Persistence
+   */
   persistence?: InputAppscopePersistence | undefined;
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
   authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
@@ -171,6 +189,9 @@ export type InputAppscopeInput = {
    * Port to listen on
    */
   port?: number | undefined;
+  /**
+   * TLS settings (server side)
+   */
   tls?: TlsSettingsServerSideType | undefined;
   /**
    * Path to the UNIX domain socket to listen on.

@@ -15,7 +15,7 @@ Get a list of all Functions.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getFunctions" method="get" path="/functions" -->
+<!-- UsageSnippet language="typescript" operationID="getFunctions" method="get" path="/functions" example="FunctionListResponseExamplesFunctionList" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -29,7 +29,9 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.functions.list();
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -56,7 +58,9 @@ async function run() {
   const res = await functionsList(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("functionsList failed:", res.error);
   }
@@ -69,18 +73,20 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetFunctionsRequest](../../models/operations/getfunctionsrequest.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[models.CountedFunctionResponse](../../models/countedfunctionresponse.md)\>**
+**Promise\<[operations.GetFunctionsResponse](../../models/operations/getfunctionsresponse.md)\>**
 
 ### Errors
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -88,9 +94,64 @@ run();
 
 Get the specified Function.
 
-### Example Usage
+### Example Usage: FunctionResponseExamplesDropFunction
 
-<!-- UsageSnippet language="typescript" operationID="getFunctionsById" method="get" path="/functions/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="getFunctionsById" method="get" path="/functions/{id}" example="FunctionResponseExamplesDropFunction" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.functions.get({
+    id: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { functionsGet } from "cribl-control-plane/funcs/functionsGet.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await functionsGet(criblControlPlane, {
+    id: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("functionsGet failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: FunctionResponseExamplesEvalFunction
+
+<!-- UsageSnippet language="typescript" operationID="getFunctionsById" method="get" path="/functions/{id}" example="FunctionResponseExamplesEvalFunction" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -161,5 +222,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

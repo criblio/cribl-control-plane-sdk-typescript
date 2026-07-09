@@ -18,6 +18,9 @@ import {
  * Credentials to use when authenticating with the schema registry
  */
 export type AuthType = {
+  /**
+   * Disabled
+   */
   disabled: boolean;
   /**
    * Authenticate with the schema registry using OAuth instead of basic HTTP authentication

@@ -9,36 +9,41 @@ let value: GetProductsWorkersByProductResponse = {
   result: {
     items: [
       {
-        firstMsgTime: 9898.26,
+        firstMsgTime: 698043,
         group: "<value>",
         id: "<id>",
         info: {
-          architecture: "<value>",
-          cpus: 6980.43,
+          architecture: "x64",
+          cpus: 576212,
           cribl: {
             config: {},
             distMode: "worker",
             group: "<value>",
             guid: "<id>",
-            startTime: 576212,
+            startTime: 136388,
           },
-          env: {},
-          hostname: "smoggy-reach.net",
+          env: {
+            "key": "<value>",
+            "key1": "<value>",
+            "key2": "<value>",
+          },
+          hostname: "shameless-skyline.org",
           node: "<value>",
-          platform: "<value>",
+          platform: "linux",
           release: "<value>",
-          totalmem: 8517.58,
+          totalmem: 774740,
         },
-        lastMsgTime: 7747.4,
-        workerProcesses: 4050.07,
+        lastMsgTime: 405007,
+        workerProcesses: 77624,
       },
     ],
+    count: 189781,
   },
 };
 ```
 
 ## Fields
 
-| Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
-| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `result`                                                                    | [models.CountedMasterWorkerEntry](../../models/countedmasterworkerentry.md) | :heavy_check_mark:                                                          | N/A                                                                         |
+| Field                                                                           | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `result`                                                                        | [models.PaginatedMasterWorkerEntry](../../models/paginatedmasterworkerentry.md) | :heavy_check_mark:                                                              | N/A                                                                             |

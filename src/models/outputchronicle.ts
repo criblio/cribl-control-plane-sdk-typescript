@@ -38,16 +38,28 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 
+/**
+ * Authentication method
+ */
 export const OutputChronicleAuthenticationMethod = {
   ServiceAccount: "serviceAccount",
   ServiceAccountSecret: "serviceAccountSecret",
 } as const;
+/**
+ * Authentication method
+ */
 export type OutputChronicleAuthenticationMethod = OpenEnum<
   typeof OutputChronicleAuthenticationMethod
 >;
 
 export type OutputChronicleCustomLabel = {
+  /**
+   * Key
+   */
   key: string;
+  /**
+   * Value
+   */
   value: string;
   /**
    * Designate this label for role-based access control and filtering
@@ -55,6 +67,9 @@ export type OutputChronicleCustomLabel = {
   rbacEnabled?: boolean | undefined;
 };
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputChroniclePqControls = {};
 
 export type OutputChronicle = {
@@ -62,6 +77,9 @@ export type OutputChronicle = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "chronicle";
   /**
    * Pipeline to process data before sending out to this output
@@ -76,10 +94,16 @@ export type OutputChronicle = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * API version
+   */
   apiVersion?: string | undefined;
+  /**
+   * Authentication method
+   */
   authenticationMethod?: OutputChronicleAuthenticationMethod | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
@@ -152,6 +176,9 @@ export type OutputChronicle = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Chronicle API ingestion method
+   */
   ingestionMethod?: string | undefined;
   /**
    * User-configured environment namespace to identify the data domain the logs originated from. This namespace is used as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
@@ -181,6 +208,9 @@ export type OutputChronicle = {
    * Chronicle API service endpoint. If empty, defaults to the Region-specific endpoint. Otherwise, it must point to a Chronicle API-compatible endpoint. (Example: https://custom-endpoint.googleapis.com)
    */
   endpoint?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
@@ -231,9 +261,12 @@ export type OutputChronicle = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputChroniclePqControls | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

@@ -12,7 +12,7 @@ Get the configuration and versioning status for the Git integration for the Crib
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getVersionInfo" method="get" path="/version/info" -->
+<!-- UsageSnippet language="typescript" operationID="getVersionInfo" method="get" path="/version/info" example="VersionInfoResponseExamplesGitInfo" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -78,5 +78,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

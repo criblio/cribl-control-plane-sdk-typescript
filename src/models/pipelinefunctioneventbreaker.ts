@@ -19,12 +19,21 @@ import {
 } from "./timestampformattypeeventbreakerexistingornewnew.js";
 
 export type EventBreakerExistingOrNewExisting = {
+  /**
+   * Whether to use an existing event breaker ruleset or create a new one inline.
+   */
   existingOrNew: "existing";
+  /**
+   * ID of an existing event breaker ruleset to apply.
+   */
   existingRule?: string | undefined;
   /**
    * Add this Function name to the cribl_breaker field
    */
   shouldMarkCriblBreaker?: boolean | undefined;
+  /**
+   * Event Breaker type
+   */
   ruleType?: string | undefined;
   /**
    * The maximum number of bytes that an event can be before being flushed to the Pipelines
@@ -34,6 +43,9 @@ export type EventBreakerExistingOrNewExisting = {
    * Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
    */
   timestampAnchorRegex?: string | undefined;
+  /**
+   * Timestamp format
+   */
   timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
   /**
    * Timezone to assign to timestamps without timezone info
@@ -49,6 +61,9 @@ export type EventBreakerExistingOrNewExisting = {
   timestampLatest?: string | undefined;
 };
 
+/**
+ * Whether to use an existing event breaker ruleset or create a new one inline.
+ */
 export const EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew = {
   /**
    * Use Existing
@@ -59,11 +74,17 @@ export const EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew = {
    */
   New: "new",
 } as const;
+/**
+ * Whether to use an existing event breaker ruleset or create a new one inline.
+ */
 export type EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew = OpenEnum<
   typeof EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew
 >;
 
 export type EventBreakerExistingOrNewNewRuleTypeCsv = {
+  /**
+   * Event Breaker type
+   */
   ruleType: "csv";
   /**
    * Delimiter character to use to split values
@@ -81,6 +102,9 @@ export type EventBreakerExistingOrNewNewRuleTypeCsv = {
    * Optional timestamp field name in extracted events
    */
   timeField?: string | undefined;
+  /**
+   * Whether to use an existing event breaker ruleset or create a new one inline.
+   */
   existingOrNew: EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew;
   /**
    * The maximum number of bytes that an event can be before being flushed to the Pipelines
@@ -90,6 +114,9 @@ export type EventBreakerExistingOrNewNewRuleTypeCsv = {
    * Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
    */
   timestampAnchorRegex?: string | undefined;
+  /**
+   * Timestamp format
+   */
   timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
   /**
    * Timezone to assign to timestamps without timezone info
@@ -107,9 +134,15 @@ export type EventBreakerExistingOrNewNewRuleTypeCsv = {
    * Add this Function name to the cribl_breaker field
    */
   shouldMarkCriblBreaker?: boolean | undefined;
+  /**
+   * ID of an existing event breaker ruleset to apply.
+   */
   existingRule?: string | undefined;
 };
 
+/**
+ * Whether to use an existing event breaker ruleset or create a new one inline.
+ */
 export const EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew = {
   /**
    * Use Existing
@@ -120,11 +153,17 @@ export const EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew = {
    */
   New: "new",
 } as const;
+/**
+ * Whether to use an existing event breaker ruleset or create a new one inline.
+ */
 export type EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew = OpenEnum<
   typeof EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew
 >;
 
 export type EventBreakerExistingOrNewNewRuleTypeHeader = {
+  /**
+   * Event Breaker type
+   */
   ruleType: "header";
   /**
    * Field delimiter regex
@@ -146,6 +185,9 @@ export type EventBreakerExistingOrNewNewRuleTypeHeader = {
    * Clean field names by replacing non [a-zA-Z0-9] characters with _
    */
   cleanFields?: boolean | undefined;
+  /**
+   * Whether to use an existing event breaker ruleset or create a new one inline.
+   */
   existingOrNew: EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew;
   /**
    * The maximum number of bytes that an event can be before being flushed to the Pipelines
@@ -155,6 +197,9 @@ export type EventBreakerExistingOrNewNewRuleTypeHeader = {
    * Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
    */
   timestampAnchorRegex?: string | undefined;
+  /**
+   * Timestamp format
+   */
   timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
   /**
    * Timezone to assign to timestamps without timezone info
@@ -172,9 +217,15 @@ export type EventBreakerExistingOrNewNewRuleTypeHeader = {
    * Add this Function name to the cribl_breaker field
    */
   shouldMarkCriblBreaker?: boolean | undefined;
+  /**
+   * ID of an existing event breaker ruleset to apply.
+   */
   existingRule?: string | undefined;
 };
 
+/**
+ * Whether to use an existing event breaker ruleset or create a new one inline.
+ */
 export const EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew = {
   /**
    * Use Existing
@@ -185,10 +236,16 @@ export const EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew = {
    */
   New: "new",
 } as const;
+/**
+ * Whether to use an existing event breaker ruleset or create a new one inline.
+ */
 export type EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew =
   OpenEnum<typeof EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew>;
 
 export type EventBreakerExistingOrNewNewRuleTypeJsonArray = {
+  /**
+   * Event Breaker type
+   */
   ruleType: "json_array";
   /**
    * The path to an array in a JSON event with records to extract, such as Records or level1.level2.events. Leave blank if result itself is an array, such as [{...},{...}]
@@ -210,6 +267,9 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArray = {
    * Optional path to timestamp field in extracted events, such as eventTime or level1.level2.eventTime.
    */
   jsonTimeField?: string | undefined;
+  /**
+   * Whether to use an existing event breaker ruleset or create a new one inline.
+   */
   existingOrNew: EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew;
   /**
    * The maximum number of bytes that an event can be before being flushed to the Pipelines
@@ -219,6 +279,9 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArray = {
    * Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
    */
   timestampAnchorRegex?: string | undefined;
+  /**
+   * Timestamp format
+   */
   timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
   /**
    * Timezone to assign to timestamps without timezone info
@@ -236,9 +299,15 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArray = {
    * Add this Function name to the cribl_breaker field
    */
   shouldMarkCriblBreaker?: boolean | undefined;
+  /**
+   * ID of an existing event breaker ruleset to apply.
+   */
   existingRule?: string | undefined;
 };
 
+/**
+ * Whether to use an existing event breaker ruleset or create a new one inline.
+ */
 export const EventBreakerExistingOrNewNewRuleTypeJsonExistingOrNew = {
   /**
    * Use Existing
@@ -249,12 +318,21 @@ export const EventBreakerExistingOrNewNewRuleTypeJsonExistingOrNew = {
    */
   New: "new",
 } as const;
+/**
+ * Whether to use an existing event breaker ruleset or create a new one inline.
+ */
 export type EventBreakerExistingOrNewNewRuleTypeJsonExistingOrNew = OpenEnum<
   typeof EventBreakerExistingOrNewNewRuleTypeJsonExistingOrNew
 >;
 
 export type EventBreakerExistingOrNewNewRuleTypeJson = {
+  /**
+   * Event Breaker type
+   */
   ruleType: "json";
+  /**
+   * Whether to use an existing event breaker ruleset or create a new one inline.
+   */
   existingOrNew: EventBreakerExistingOrNewNewRuleTypeJsonExistingOrNew;
   /**
    * The maximum number of bytes that an event can be before being flushed to the Pipelines
@@ -264,6 +342,9 @@ export type EventBreakerExistingOrNewNewRuleTypeJson = {
    * Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
    */
   timestampAnchorRegex?: string | undefined;
+  /**
+   * Timestamp format
+   */
   timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
   /**
    * Timezone to assign to timestamps without timezone info
@@ -281,9 +362,15 @@ export type EventBreakerExistingOrNewNewRuleTypeJson = {
    * Add this Function name to the cribl_breaker field
    */
   shouldMarkCriblBreaker?: boolean | undefined;
+  /**
+   * ID of an existing event breaker ruleset to apply.
+   */
   existingRule?: string | undefined;
 };
 
+/**
+ * Whether to use an existing event breaker ruleset or create a new one inline.
+ */
 export const EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew = {
   /**
    * Use Existing
@@ -294,16 +381,25 @@ export const EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew = {
    */
   New: "new",
 } as const;
+/**
+ * Whether to use an existing event breaker ruleset or create a new one inline.
+ */
 export type EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew = OpenEnum<
   typeof EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew
 >;
 
 export type EventBreakerExistingOrNewNewRuleTypeRegex = {
+  /**
+   * Event Breaker type
+   */
   ruleType: "regex";
   /**
    * The regex used to break the stream into events at the beginning of the match. Matched content will be consumed, unless you use a lookahead regex such as (?=pattern) to keep it. Do NOT use capturing groups in the pattern.
    */
   eventBreakerRegex: string;
+  /**
+   * Whether to use an existing event breaker ruleset or create a new one inline.
+   */
   existingOrNew: EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew;
   /**
    * The maximum number of bytes that an event can be before being flushed to the Pipelines
@@ -313,6 +409,9 @@ export type EventBreakerExistingOrNewNewRuleTypeRegex = {
    * Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
    */
   timestampAnchorRegex?: string | undefined;
+  /**
+   * Timestamp format
+   */
   timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
   /**
    * Timezone to assign to timestamps without timezone info
@@ -330,6 +429,9 @@ export type EventBreakerExistingOrNewNewRuleTypeRegex = {
    * Add this Function name to the cribl_breaker field
    */
   shouldMarkCriblBreaker?: boolean | undefined;
+  /**
+   * ID of an existing event breaker ruleset to apply.
+   */
   existingRule?: string | undefined;
 };
 
@@ -341,6 +443,9 @@ export type EventBreakerExistingOrNewNew =
   | EventBreakerExistingOrNewNewRuleTypeCsv
   | discriminatedUnionTypes.Unknown<"ruleType">;
 
+/**
+ * Configuration specific to the Pipeline Function.
+ */
 export type PipelineFunctionEventBreakerConf =
   | (
     | EventBreakerExistingOrNewNewRuleTypeRegex
@@ -355,25 +460,28 @@ export type PipelineFunctionEventBreakerConf =
 
 export type PipelineFunctionEventBreaker = {
   /**
-   * Filter that selects data to be fed through this Function
+   * JavaScript expression that selects data to pass through the Function.
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>event_breaker</code>
    */
   id: "event_breaker";
   /**
-   * Simple description of this step
+   * Brief description of the Pipeline function.
    */
   description?: string | undefined;
   /**
-   * If true, data will not be pushed through this function
+   * If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
    */
   disabled?: boolean | undefined;
   /**
-   * If enabled, stops the results of this Function from being passed to the downstream Functions
+   * If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
    */
   final?: boolean | undefined;
+  /**
+   * Configuration specific to the Pipeline Function.
+   */
   conf:
     | (
       | EventBreakerExistingOrNewNewRuleTypeRegex
@@ -386,7 +494,7 @@ export type PipelineFunctionEventBreaker = {
     | EventBreakerExistingOrNewExisting
     | discriminatedUnionTypes.Unknown<"existingOrNew">;
   /**
-   * Group ID
+   * Unique identifier of the group that contains the Pipeline Function.
    */
   groupId?: string | undefined;
 };

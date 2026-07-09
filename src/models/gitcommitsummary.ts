@@ -7,27 +7,82 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FilesTypeGitCommitSummary,
-  FilesTypeGitCommitSummary$inboundSchema,
-} from "./filestypegitcommitsummary.js";
+import { GitFileRename, GitFileRename$inboundSchema } from "./gitfilerename.js";
 
+/**
+ * Author of the Git commit, including email and display name.
+ */
 export type Author = {
+  /**
+   * Email address of the commit author.
+   */
   email: string;
+  /**
+   * Display name of the commit author.
+   */
   name: string;
 };
 
+/**
+ * Files affected by the commit, grouped by change type.
+ */
+export type GitCommitSummaryFiles = {
+  /**
+   * Array of file paths that were created in the commit.
+   */
+  created?: Array<string> | undefined;
+  /**
+   * Array of file paths that were deleted in the commit.
+   */
+  deleted?: Array<string> | undefined;
+  /**
+   * Array of file paths that were modified in the commit.
+   */
+  modified?: Array<string> | undefined;
+  /**
+   * Array of file rename operations, each containing the original path and the new path.
+   */
+  renamed?: Array<GitFileRename> | undefined;
+};
+
+/**
+ * Summary of line changes in the commit.
+ */
 export type Summary = {
+  /**
+   * Total number of lines changed (insertions plus deletions).
+   */
   changes: number;
+  /**
+   * Number of lines deleted.
+   */
   deletions: number;
+  /**
+   * Number of lines inserted.
+   */
   insertions: number;
 };
 
 export type GitCommitSummary = {
+  /**
+   * Author of the Git commit, including email and display name.
+   */
   author?: Author | undefined;
+  /**
+   * Name of the Git branch the commit was made on.
+   */
   branch: string;
+  /**
+   * Full SHA-1 hash of the new commit.
+   */
   commit: string;
-  files?: FilesTypeGitCommitSummary | undefined;
+  /**
+   * Files affected by the commit, grouped by change type.
+   */
+  files?: GitCommitSummaryFiles | undefined;
+  /**
+   * Summary of line changes in the commit.
+   */
   summary: Summary;
 };
 
@@ -45,6 +100,28 @@ export function authorFromJSON(
     jsonString,
     (x) => Author$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'Author' from JSON`,
+  );
+}
+
+/** @internal */
+export const GitCommitSummaryFiles$inboundSchema: z.ZodType<
+  GitCommitSummaryFiles,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  created: types.optional(z.array(types.string())),
+  deleted: types.optional(z.array(types.string())),
+  modified: types.optional(z.array(types.string())),
+  renamed: types.optional(z.array(GitFileRename$inboundSchema)),
+});
+
+export function gitCommitSummaryFilesFromJSON(
+  jsonString: string,
+): SafeParseResult<GitCommitSummaryFiles, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GitCommitSummaryFiles$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GitCommitSummaryFiles' from JSON`,
   );
 }
 
@@ -75,7 +152,7 @@ export const GitCommitSummary$inboundSchema: z.ZodType<
   author: types.optional(z.lazy(() => Author$inboundSchema)),
   branch: types.string(),
   commit: types.string(),
-  files: types.optional(FilesTypeGitCommitSummary$inboundSchema),
+  files: types.optional(z.lazy(() => GitCommitSummaryFiles$inboundSchema)),
   summary: z.lazy(() => Summary$inboundSchema),
 });
 

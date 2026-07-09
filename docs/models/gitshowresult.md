@@ -15,5 +15,5 @@ let value: GitShowResult = {
 
 | Field                                        | Type                                         | Required                                     | Description                                  |
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| `commitMessage`                              | *string*                                     | :heavy_check_mark:                           | N/A                                          |
+| `commitMessage`                              | *string*                                     | :heavy_check_mark:                           | Full commit message of the specified commit. |
 | `diffJson`                                   | [models.DiffFiles](../models/difffiles.md)[] | :heavy_check_mark:                           | N/A                                          |

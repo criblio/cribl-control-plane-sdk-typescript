@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -22,33 +22,41 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
+import {
+  createPageIterator,
+  haltIterator,
+  PageIterator,
+  Paginator,
+} from "../types/operations.js";
 
 /**
- * Get a summary of the deployment for a specific product.
+ * Get a summary of the deployment for a Cribl product
  *
  * @remarks
- * Get a summary of the deployment for the specified Cribl product (Stream or Edge).<br/><br/>The summary includes a count of Worker Groups or Edge Fleets and resources  such as Pipelines, Routes, Sources, and Destinations. For Distributed deployments,  it also includes a count and statistics for Worker or Edge Nodes.
+ * Get a summary of the deployment for the specified Cribl product (Stream or Edge).<br/><br/>The summary includes a count of Worker Groups or Edge Fleets and resources such as Pipelines, Routes, Sources, and Destinations. For Distributed deployments, the summary also includes a count and statistics for Worker or Edge Nodes.
  */
 export function nodesSummariesGet(
   client: CriblControlPlaneCore,
   request: operations.GetProductsSummaryByProductRequest,
   options?: RequestOptions,
 ): APIPromise<
-  Result<
-    models.CountedDistributedSummary,
-    | errors.ErrorT
-    | CriblControlPlaneError
-    | ResponseValidationError
-    | ConnectionError
-    | RequestAbortedError
-    | RequestTimeoutError
-    | InvalidRequestError
-    | UnexpectedClientError
-    | SDKValidationError
+  PageIterator<
+    Result<
+      operations.GetProductsSummaryByProductResponse,
+      | errors.ErrorT
+      | CriblControlPlaneError
+      | ResponseValidationError
+      | ConnectionError
+      | RequestAbortedError
+      | RequestTimeoutError
+      | InvalidRequestError
+      | UnexpectedClientError
+      | SDKValidationError
+    >,
+    { offset: number }
   >
 > {
   return new APIPromise($do(
@@ -64,17 +72,20 @@ async function $do(
   options?: RequestOptions,
 ): Promise<
   [
-    Result<
-      models.CountedDistributedSummary,
-      | errors.ErrorT
-      | CriblControlPlaneError
-      | ResponseValidationError
-      | ConnectionError
-      | RequestAbortedError
-      | RequestTimeoutError
-      | InvalidRequestError
-      | UnexpectedClientError
-      | SDKValidationError
+    PageIterator<
+      Result<
+        operations.GetProductsSummaryByProductResponse,
+        | errors.ErrorT
+        | CriblControlPlaneError
+        | ResponseValidationError
+        | ConnectionError
+        | RequestAbortedError
+        | RequestTimeoutError
+        | InvalidRequestError
+        | UnexpectedClientError
+        | SDKValidationError
+      >,
+      { offset: number }
     >,
     APICall,
   ]
@@ -86,7 +97,7 @@ async function $do(
     "Input validation failed",
   );
   if (!parsed.ok) {
-    return [parsed, { status: "invalid" }];
+    return [haltIterator(parsed), { status: "invalid" }];
   }
   const payload = parsed.value;
   const body = null;
@@ -98,6 +109,11 @@ async function $do(
     }),
   };
   const path = pathToFunc("/products/{product}/summary")(pathParams);
+
+  const query = encodeFormQuery({
+    "limit": payload.limit,
+    "offset": payload.offset,
+  });
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -137,12 +153,13 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
   if (!requestRes.ok) {
-    return [requestRes, { status: "invalid" }];
+    return [haltIterator(requestRes), { status: "invalid" }];
   }
   const req = requestRes.value;
 
@@ -154,7 +171,7 @@ async function $do(
     retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
-    return [doResult, { status: "request-error", request: req }];
+    return [haltIterator(doResult), { status: "request-error", request: req }];
   }
   const response = doResult.value;
 
@@ -162,8 +179,8 @@ async function $do(
     HttpMeta: { Response: response, Request: req },
   };
 
-  const [result] = await M.match<
-    models.CountedDistributedSummary,
+  const [result, raw] = await M.match<
+    operations.GetProductsSummaryByProductResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -174,14 +191,73 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.CountedDistributedSummary$inboundSchema),
+    M.json(200, operations.GetProductsSummaryByProductResponse$inboundSchema, {
+      key: "Result",
+    }),
+    M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([400, 401, 403, "4XX"]),
+    M.fail([400, 403, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {
-    return [result, { status: "complete", request: req, response }];
+    return [haltIterator(result), {
+      status: "complete",
+      request: req,
+      response,
+    }];
   }
 
-  return [result, { status: "complete", request: req, response }];
+  const nextFunc = (
+    responseData: unknown,
+  ): {
+    next: Paginator<
+      Result<
+        operations.GetProductsSummaryByProductResponse,
+        | errors.ErrorT
+        | CriblControlPlaneError
+        | ResponseValidationError
+        | ConnectionError
+        | RequestAbortedError
+        | RequestTimeoutError
+        | InvalidRequestError
+        | UnexpectedClientError
+        | SDKValidationError
+      >
+    >;
+    "~next"?: { offset: number };
+  } => {
+    const offset = request?.offset ?? 0;
+
+    if (!responseData) {
+      return { next: () => null };
+    }
+    const results = (responseData as { items: unknown }).items;
+    if (!Array.isArray(results) || !results.length) {
+      return { next: () => null };
+    }
+    const limit = request?.limit ?? 0;
+    if (results.length < limit) {
+      return { next: () => null };
+    }
+    const nextOffset = offset + results.length;
+
+    const nextVal = () =>
+      nodesSummariesGet(
+        client,
+        {
+          ...request,
+          offset: nextOffset,
+        },
+        options,
+      );
+
+    return { next: nextVal, "~next": { offset: nextOffset } };
+  };
+
+  const page = { ...result, ...nextFunc(raw) };
+  return [{ ...page, ...createPageIterator(page, (v) => !v.ok) }, {
+    status: "complete",
+    request: req,
+    response,
+  }];
 }

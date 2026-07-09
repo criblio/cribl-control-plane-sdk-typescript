@@ -13,7 +13,7 @@ let value: DeployRequestLookupsLookup = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `file`             | *string*           | :heavy_check_mark: | N/A                |
-| `version`          | *string*           | :heavy_check_mark: | N/A                |
+| Field                                                  | Type                                                   | Required                                               | Description                                            |
+| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
+| `file`                                                 | *string*                                               | :heavy_check_mark:                                     | Unique identifier (file name) of the lookup to deploy. |
+| `version`                                              | *string*                                               | :heavy_check_mark:                                     | Version of the lookup file to deploy.                  |

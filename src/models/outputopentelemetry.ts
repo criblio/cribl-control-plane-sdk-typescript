@@ -90,6 +90,9 @@ export type OutputOpenTelemetryOTLPVersion = OpenEnum<
   typeof OutputOpenTelemetryOTLPVersion
 >;
 
+/**
+ * Authentication type
+ */
 export const OutputOpenTelemetryAuthenticationType = {
   /**
    * None
@@ -116,10 +119,16 @@ export const OutputOpenTelemetryAuthenticationType = {
    */
   OauthSecret: "oauthSecret",
 } as const;
+/**
+ * Authentication type
+ */
 export type OutputOpenTelemetryAuthenticationType = OpenEnum<
   typeof OutputOpenTelemetryAuthenticationType
 >;
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputOpenTelemetryPqControls = {};
 
 export type OutputOpenTelemetry = {
@@ -127,6 +136,9 @@ export type OutputOpenTelemetry = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "open_telemetry";
   /**
    * Pipeline to process data before sending out to this output
@@ -141,7 +153,7 @@ export type OutputOpenTelemetry = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -164,6 +176,9 @@ export type OutputOpenTelemetry = {
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
   httpCompress?: CompressionOptionsMessages | undefined;
+  /**
+   * Authentication type
+   */
   authType?: OutputOpenTelemetryAuthenticationType | undefined;
   /**
    * If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
@@ -225,8 +240,17 @@ export type OutputOpenTelemetry = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -303,6 +327,9 @@ export type OutputOpenTelemetry = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * TLS settings (client side)
+   */
   tls?: TlsSettingsClientSideTypeExtended | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -345,9 +372,12 @@ export type OutputOpenTelemetry = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputOpenTelemetryPqControls | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

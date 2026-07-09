@@ -3,6 +3,11 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type GetInputSystemByPackRequest = {
   /**
@@ -10,14 +15,28 @@ export type GetInputSystemByPackRequest = {
    */
   type?: Array<string> | undefined;
   /**
+   * Pagination offset
+   */
+  offset?: number | undefined;
+  /**
+   * Maximum number of items to return
+   */
+  limit?: number | undefined;
+  /**
    * The <code>id</code> of the Pack.
    */
   pack: string;
 };
 
+export type GetInputSystemByPackResponse = {
+  result: models.PaginatedInputResponse;
+};
+
 /** @internal */
 export type GetInputSystemByPackRequest$Outbound = {
   type?: Array<string> | undefined;
+  offset?: number | undefined;
+  limit?: number | undefined;
   pack: string;
 };
 
@@ -28,6 +47,8 @@ export const GetInputSystemByPackRequest$outboundSchema: z.ZodType<
   GetInputSystemByPackRequest
 > = z.object({
   type: z.array(z.string()).optional(),
+  offset: z.number().int().optional(),
+  limit: z.number().int().optional(),
   pack: z.string(),
 });
 
@@ -38,5 +59,28 @@ export function getInputSystemByPackRequestToJSON(
     GetInputSystemByPackRequest$outboundSchema.parse(
       getInputSystemByPackRequest,
     ),
+  );
+}
+
+/** @internal */
+export const GetInputSystemByPackResponse$inboundSchema: z.ZodType<
+  GetInputSystemByPackResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: models.PaginatedInputResponse$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+
+export function getInputSystemByPackResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetInputSystemByPackResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetInputSystemByPackResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetInputSystemByPackResponse' from JSON`,
   );
 }

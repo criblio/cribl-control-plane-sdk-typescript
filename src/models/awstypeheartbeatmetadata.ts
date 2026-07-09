@@ -9,11 +9,29 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type AwsTypeHeartbeatMetadata = {
+  /**
+   * If <code>true</code>, the AWS metadata collector is enabled on the node. Otherwise, <code>false</code>.
+   */
   enabled: boolean;
+  /**
+   * AWS EC2 instance ID.
+   */
   instanceId: string;
+  /**
+   * AWS region name.
+   */
   region: string;
+  /**
+   * String-keyed tag map. Each property name is a tag key and the corresponding value is the tag's string value.
+   */
   tags?: { [k: string]: string } | undefined;
+  /**
+   * AWS EC2 instance type.
+   */
   type: string;
+  /**
+   * AWS availability zone name.
+   */
   zone: string;
 };
 

@@ -7,7 +7,7 @@
 
 ```typescript
 const value: models.InputResponseInputSyslogSyslog1 = {
-  type: "syslog",
+  type: "<value>",
   host: "webbed-importance.info",
   udpPort: 7547.16,
 };
@@ -17,7 +17,7 @@ const value: models.InputResponseInputSyslogSyslog1 = {
 
 ```typescript
 const value: models.InputResponseInputSyslogSyslog2 = {
-  type: "syslog",
+  type: "<value>",
   host: "husky-babushka.info",
   tcpPort: 4204.62,
 };

@@ -37,6 +37,9 @@ export type DatabaseCollectorConf = {
    * Enforces a basic query validation that allows only a single 'select' statement. Disable for more complex queries or when using semicolons. Caution: Disabling query validation allows DDL and DML statements to be executed, which could be destructive to your database.
    */
   queryValidationEnabled?: boolean | undefined;
+  /**
+   * Hidden Default Breakers
+   */
   defaultBreakers?:
     | HiddenDefaultBreakersOptionsDatabaseCollectorConf
     | undefined;

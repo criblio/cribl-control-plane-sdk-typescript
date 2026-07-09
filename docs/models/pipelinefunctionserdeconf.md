@@ -1,5 +1,7 @@
 # PipelineFunctionSerdeConf
 
+Configuration specific to the Pipeline Function.
+
 
 ## Supported Types
 
@@ -46,6 +48,15 @@ const value: models.SerdeTypeRegex = {
   type: "regex",
   regex: "<value>",
   mode: "extract",
+};
+```
+
+### `models.SerdeTypeAuto`
+
+```typescript
+const value: models.SerdeTypeAuto = {
+  type: "auto",
+  mode: "reserialize",
 };
 ```
 

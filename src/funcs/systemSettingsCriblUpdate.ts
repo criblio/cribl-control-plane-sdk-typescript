@@ -30,11 +30,11 @@ import { Result } from "../types/fp.js";
  * Update system settings
  *
  * @remarks
- * Update Cribl system settings.
+ * Update the specified Cribl system settings.<br/><br/>This endpoint supports partial updates — provide only the top-level sections (<code>api</code>, <code>workers</code>, <code>tls</code>, <code>proxy</code>, etc.) that you want to change. Omitted top-level sections are preserved unchanged.<br/><br/><b>Important:</b> while top-level sections are optional, nested objects within a section must be complete. For example, if you include <code>api</code>, you must provide its required fields (<code>host</code> and <code>port</code>).
  */
 export function systemSettingsCriblUpdate(
   client: CriblControlPlaneCore,
-  request: models.SystemSettingsConf,
+  request: models.SystemSettingsConfUpdate,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +59,7 @@ export function systemSettingsCriblUpdate(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: models.SystemSettingsConf,
+  request: models.SystemSettingsConfUpdate,
   options?: RequestOptions,
 ): Promise<
   [
@@ -80,7 +80,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => models.SystemSettingsConf$outboundSchema.parse(value),
+    (value) => models.SystemSettingsConfUpdate$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -168,8 +168,9 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, models.CountedSystemSettingsConf$inboundSchema),
+    M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail([400, 403, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

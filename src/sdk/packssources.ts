@@ -11,6 +11,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 import { PacksHecTokens } from "./packshectokens.js";
 import { PacksSourcesPq } from "./packssourcespq.js";
 import { PacksSourcesStatuses } from "./packssourcesstatuses.js";
@@ -40,8 +41,10 @@ export class PacksSources extends ClientSDK {
   async list(
     request: operations.GetInputSystemByPackRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedInputResponse> {
-    return unwrapAsync(packsSourcesList(
+  ): Promise<
+    PageIterator<operations.GetInputSystemByPackResponse, { offset: number }>
+  > {
+    return unwrapResultIterator(packsSourcesList(
       this,
       request,
       options,

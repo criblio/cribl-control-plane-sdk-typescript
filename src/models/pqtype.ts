@@ -18,15 +18,18 @@ import {
   ModeOptionsPq$outboundSchema,
 } from "./modeoptionspq.js";
 
+/**
+ * Management controls for the persistent queue.
+ */
 export type PqTypePqControls = {};
 
 export type PqType = {
   /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   * With Smart mode (deprecated), PQ will write events to the filesystem only when it detects backpressure from the processing engine. Smart mode will have no new development starting July 2026, followed by End of Support and feature removal (auto-migrating to Always On) in January 2027. We recommend using Always On mode instead. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
    */
   mode?: ModeOptionsPq | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   maxBufferSizeBytes?: string | undefined;
   /**
@@ -53,6 +56,9 @@ export type PqType = {
    * Codec to use to compress the persisted data
    */
   compress?: CompressionOptionsPq | undefined;
+  /**
+   * Management controls for the persistent queue.
+   */
   pqControls?: PqTypePqControls | undefined;
 };
 

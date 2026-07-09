@@ -13,11 +13,11 @@ export type CountedBranchInfo = {
   /**
    * number of items present in the items array
    */
-  count?: number | undefined;
+  count: number;
   /**
    * List of items in this response.
    */
-  items?: Array<BranchInfo> | undefined;
+  items: Array<BranchInfo>;
 };
 
 /** @internal */
@@ -26,8 +26,8 @@ export const CountedBranchInfo$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: types.optional(types.number()),
-  items: types.optional(z.array(BranchInfo$inboundSchema)),
+  count: types.number(),
+  items: z.array(BranchInfo$inboundSchema),
 });
 
 export function countedBranchInfoFromJSON(

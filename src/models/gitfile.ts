@@ -9,14 +9,28 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type GitFile = {
+  /**
+   * If <code>true</code>, this file is automatically included in commits without being explicitly listed. Otherwise, <code>false</code>.
+   */
+  autoIncludedInCommit?: boolean | undefined;
+  /**
+   * When this entry is a directory, nested files and subdirectories. Each array element matches this same object shape (recursive file tree).
+   */
   children?: Array<GitFile> | undefined;
+  /**
+   * Path of the file relative to the configuration root.
+   */
   name: string;
+  /**
+   * Git status code for the file: <code>M</code> for modified, <code>A</code> for added, or <code>D</code> for deleted.
+   */
   state?: string | undefined;
 };
 
 /** @internal */
 export const GitFile$inboundSchema: z.ZodType<GitFile, z.ZodTypeDef, unknown> =
   z.object({
+    autoIncludedInCommit: types.optional(types.boolean()),
     children: types.optional(z.array(z.lazy(() => GitFile$inboundSchema))),
     name: types.string(),
     state: types.optional(types.string()),

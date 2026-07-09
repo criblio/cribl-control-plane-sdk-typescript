@@ -1,5 +1,7 @@
 # OutputServiceNowPqControls
 
+Persistent queue controls.
+
 ## Example Usage
 
 ```typescript

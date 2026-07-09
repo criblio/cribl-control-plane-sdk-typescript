@@ -5,8 +5,17 @@
 import * as z from "zod/v3";
 
 export type GitCommitBody = {
+  /**
+   * If <code>true</code>, apply the commit to the group's effective configuration. Otherwise, <code>false</code>.
+   */
   effective?: boolean | undefined;
+  /**
+   * Array of file paths to include in the commit, relative to the configuration root. If omitted, all pending changes are committed.
+   */
   files?: Array<string> | undefined;
+  /**
+   * Commit message to use for the new Git commit.
+   */
   message: string;
 };
 

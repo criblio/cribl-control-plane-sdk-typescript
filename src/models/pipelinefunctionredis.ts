@@ -73,11 +73,17 @@ export type RedisAuthTypeTextSecretDeploymentType = OpenEnum<
 >;
 
 export type RedisAuthTypeTextSecret = {
+  /**
+   * Authentication method to use when connecting to Redis.
+   */
   authType: "textSecret";
   /**
    * Secret that references Redis admin password
    */
   textSecret: string;
+  /**
+   * List of Redis commands to execute against the specified keys.
+   */
   commands: Array<RedisAuthTypeTextSecretCommand>;
   /**
    * How the Redis server is configured. Defaults to Standalone
@@ -112,12 +118,21 @@ export type RedisAuthTypeTextSecret = {
    * Which nodes read commands should be sent to
    */
   scaleReads?: ScaleReadsOptionsRedisDeploymentTypeCluster | undefined;
+  /**
+   * Name of the Redis Sentinel master group to connect to.
+   */
   masterName?: string | undefined;
+  /**
+   * Username for Redis authentication.
+   */
   username?: string | undefined;
   /**
    * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
    */
   __template_username?: string | undefined;
+  /**
+   * Password for Redis authentication.
+   */
   password?: string | undefined;
   /**
    * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
@@ -173,11 +188,17 @@ export type RedisAuthTypeCredentialsSecretDeploymentType = OpenEnum<
 >;
 
 export type RedisAuthTypeCredentialsSecret = {
+  /**
+   * Authentication method to use when connecting to Redis.
+   */
   authType: "credentialsSecret";
   /**
    * Secret that references Redis username and password
    */
   credentialsSecret: string;
+  /**
+   * List of Redis commands to execute against the specified keys.
+   */
   commands: Array<RedisAuthTypeCredentialsSecretCommand>;
   /**
    * How the Redis server is configured. Defaults to Standalone
@@ -212,12 +233,21 @@ export type RedisAuthTypeCredentialsSecret = {
    * Which nodes read commands should be sent to
    */
   scaleReads?: ScaleReadsOptionsRedisDeploymentTypeCluster | undefined;
+  /**
+   * Name of the Redis Sentinel master group to connect to.
+   */
   masterName?: string | undefined;
+  /**
+   * Username for Redis authentication.
+   */
   username?: string | undefined;
   /**
    * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
    */
   __template_username?: string | undefined;
+  /**
+   * Password for Redis authentication.
+   */
   password?: string | undefined;
   /**
    * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
@@ -273,8 +303,17 @@ export type RedisAuthTypeManualDeploymentType = OpenEnum<
 >;
 
 export type RedisAuthTypeManual = {
+  /**
+   * Authentication method to use when connecting to Redis.
+   */
   authType: "manual";
+  /**
+   * Username for Redis authentication.
+   */
   username?: string | undefined;
+  /**
+   * Password for Redis authentication.
+   */
   password: string;
   /**
    * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
@@ -284,6 +323,9 @@ export type RedisAuthTypeManual = {
    * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
    */
   __template_password?: string | undefined;
+  /**
+   * List of Redis commands to execute against the specified keys.
+   */
   commands: Array<RedisAuthTypeManualCommand>;
   /**
    * How the Redis server is configured. Defaults to Standalone
@@ -318,6 +360,9 @@ export type RedisAuthTypeManual = {
    * Which nodes read commands should be sent to
    */
   scaleReads?: ScaleReadsOptionsRedisDeploymentTypeCluster | undefined;
+  /**
+   * Name of the Redis Sentinel master group to connect to.
+   */
   masterName?: string | undefined;
   /**
    * Secret that references Redis username and password
@@ -373,7 +418,13 @@ export type RedisAuthTypeNoneDeploymentType = OpenEnum<
 >;
 
 export type RedisAuthTypeNone = {
+  /**
+   * Authentication method to use when connecting to Redis.
+   */
   authType: "none";
+  /**
+   * List of Redis commands to execute against the specified keys.
+   */
   commands: Array<RedisAuthTypeNoneCommand>;
   /**
    * How the Redis server is configured. Defaults to Standalone
@@ -408,12 +459,21 @@ export type RedisAuthTypeNone = {
    * Which nodes read commands should be sent to
    */
   scaleReads?: ScaleReadsOptionsRedisDeploymentTypeCluster | undefined;
+  /**
+   * Name of the Redis Sentinel master group to connect to.
+   */
   masterName?: string | undefined;
+  /**
+   * Username for Redis authentication.
+   */
   username?: string | undefined;
   /**
    * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
    */
   __template_username?: string | undefined;
+  /**
+   * Password for Redis authentication.
+   */
   password?: string | undefined;
   /**
    * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
@@ -472,6 +532,9 @@ export type RedisDeploymentTypeSentinelCommand = {
   argsExpr?: string | undefined;
 };
 
+/**
+ * Authentication method to use when connecting to Redis.
+ */
 export const RedisDeploymentTypeSentinelAuthenticationMethod = {
   /**
    * None
@@ -490,6 +553,9 @@ export const RedisDeploymentTypeSentinelAuthenticationMethod = {
    */
   TextSecret: "textSecret",
 } as const;
+/**
+ * Authentication method to use when connecting to Redis.
+ */
 export type RedisDeploymentTypeSentinelAuthenticationMethod = OpenEnum<
   typeof RedisDeploymentTypeSentinelAuthenticationMethod
 >;
@@ -499,6 +565,9 @@ export type RedisDeploymentTypeSentinel = {
    * How the Redis server is configured. Defaults to Standalone
    */
   deploymentType?: RedisDeploymentTypeSentinelDeploymentType | undefined;
+  /**
+   * Name of the Redis Sentinel master group to connect to.
+   */
   masterName: string;
   /**
    * Root nodes to which the cluster connection should be initiated
@@ -509,7 +578,13 @@ export type RedisDeploymentTypeSentinel = {
    */
   tls?: boolean | undefined;
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone | undefined;
+  /**
+   * List of Redis commands to execute against the specified keys.
+   */
   commands: Array<RedisDeploymentTypeSentinelCommand>;
+  /**
+   * Authentication method to use when connecting to Redis.
+   */
   authType?: RedisDeploymentTypeSentinelAuthenticationMethod | undefined;
   /**
    * Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
@@ -531,11 +606,17 @@ export type RedisDeploymentTypeSentinel = {
    * Which nodes read commands should be sent to
    */
   scaleReads?: ScaleReadsOptionsRedisDeploymentTypeCluster | undefined;
+  /**
+   * Username for Redis authentication.
+   */
   username?: string | undefined;
   /**
    * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
    */
   __template_username?: string | undefined;
+  /**
+   * Password for Redis authentication.
+   */
   password?: string | undefined;
   /**
    * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
@@ -594,6 +675,9 @@ export type RedisDeploymentTypeClusterCommand = {
   argsExpr?: string | undefined;
 };
 
+/**
+ * Authentication method to use when connecting to Redis.
+ */
 export const RedisDeploymentTypeClusterAuthenticationMethod = {
   /**
    * None
@@ -612,6 +696,9 @@ export const RedisDeploymentTypeClusterAuthenticationMethod = {
    */
   TextSecret: "textSecret",
 } as const;
+/**
+ * Authentication method to use when connecting to Redis.
+ */
 export type RedisDeploymentTypeClusterAuthenticationMethod = OpenEnum<
   typeof RedisDeploymentTypeClusterAuthenticationMethod
 >;
@@ -634,7 +721,13 @@ export type RedisDeploymentTypeCluster = {
    */
   scaleReads?: ScaleReadsOptionsRedisDeploymentTypeCluster | undefined;
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone | undefined;
+  /**
+   * List of Redis commands to execute against the specified keys.
+   */
   commands: Array<RedisDeploymentTypeClusterCommand>;
+  /**
+   * Authentication method to use when connecting to Redis.
+   */
   authType?: RedisDeploymentTypeClusterAuthenticationMethod | undefined;
   /**
    * Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
@@ -652,12 +745,21 @@ export type RedisDeploymentTypeCluster = {
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
+  /**
+   * Name of the Redis Sentinel master group to connect to.
+   */
   masterName?: string | undefined;
+  /**
+   * Username for Redis authentication.
+   */
   username?: string | undefined;
   /**
    * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
    */
   __template_username?: string | undefined;
+  /**
+   * Password for Redis authentication.
+   */
   password?: string | undefined;
   /**
    * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
@@ -716,6 +818,9 @@ export type RedisDeploymentTypeStandaloneCommand = {
   argsExpr?: string | undefined;
 };
 
+/**
+ * Authentication method to use when connecting to Redis.
+ */
 export const RedisDeploymentTypeStandaloneAuthenticationMethod = {
   /**
    * None
@@ -734,6 +839,9 @@ export const RedisDeploymentTypeStandaloneAuthenticationMethod = {
    */
   TextSecret: "textSecret",
 } as const;
+/**
+ * Authentication method to use when connecting to Redis.
+ */
 export type RedisDeploymentTypeStandaloneAuthenticationMethod = OpenEnum<
   typeof RedisDeploymentTypeStandaloneAuthenticationMethod
 >;
@@ -752,7 +860,13 @@ export type RedisDeploymentTypeStandalone = {
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
+  /**
+   * List of Redis commands to execute against the specified keys.
+   */
   commands: Array<RedisDeploymentTypeStandaloneCommand>;
+  /**
+   * Authentication method to use when connecting to Redis.
+   */
   authType?: RedisDeploymentTypeStandaloneAuthenticationMethod | undefined;
   /**
    * Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
@@ -774,12 +888,21 @@ export type RedisDeploymentTypeStandalone = {
    * Which nodes read commands should be sent to
    */
   scaleReads?: ScaleReadsOptionsRedisDeploymentTypeCluster | undefined;
+  /**
+   * Name of the Redis Sentinel master group to connect to.
+   */
   masterName?: string | undefined;
+  /**
+   * Username for Redis authentication.
+   */
   username?: string | undefined;
   /**
    * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
    */
   __template_username?: string | undefined;
+  /**
+   * Password for Redis authentication.
+   */
   password?: string | undefined;
   /**
    * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
@@ -795,6 +918,9 @@ export type RedisDeploymentTypeStandalone = {
   textSecret?: string | undefined;
 };
 
+/**
+ * Configuration specific to the Pipeline Function.
+ */
 export type PipelineFunctionRedisConf =
   | RedisAuthTypeNone
   | RedisAuthTypeManual
@@ -804,25 +930,28 @@ export type PipelineFunctionRedisConf =
 
 export type PipelineFunctionRedis = {
   /**
-   * Filter that selects data to be fed through this Function
+   * JavaScript expression that selects data to pass through the Function.
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>redis</code>
    */
   id: "redis";
   /**
-   * Simple description of this step
+   * Brief description of the Pipeline function.
    */
   description?: string | undefined;
   /**
-   * If true, data will not be pushed through this function
+   * If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
    */
   disabled?: boolean | undefined;
   /**
-   * If enabled, stops the results of this Function from being passed to the downstream Functions
+   * If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
    */
   final?: boolean | undefined;
+  /**
+   * Configuration specific to the Pipeline Function.
+   */
   conf:
     | RedisAuthTypeNone
     | RedisAuthTypeManual
@@ -830,7 +959,7 @@ export type PipelineFunctionRedis = {
     | RedisAuthTypeTextSecret
     | discriminatedUnionTypes.Unknown<"authType">;
   /**
-   * Group ID
+   * Unique identifier of the group that contains the Pipeline Function.
    */
   groupId?: string | undefined;
 };

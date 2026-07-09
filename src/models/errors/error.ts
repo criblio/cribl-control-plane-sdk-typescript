@@ -8,12 +8,29 @@ import { CriblControlPlaneError } from "./criblcontrolplaneerror.js";
 
 export type ErrorTData = {
   /**
-   * Error message
+   * Always "error" for API error responses.
    */
-  message?: string | undefined;
+  status: "error";
+  /**
+   * Human-readable message describing the error.
+   */
+  message: string;
+  /**
+   * Optional structured details about the error (e.g. validation failures).
+   */
+  details?: any | undefined;
 };
 
 export class ErrorT extends CriblControlPlaneError {
+  /**
+   * Always "error" for API error responses.
+   */
+  status: "error";
+  /**
+   * Optional structured details about the error (e.g. validation failures).
+   */
+  details?: any | undefined;
+
   /** The original data that was passed to this error instance. */
   data$: ErrorTData;
 
@@ -24,6 +41,8 @@ export class ErrorT extends CriblControlPlaneError {
     const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    this.status = err.status;
+    if (err.details != null) this.details = err.details;
 
     this.name = "ErrorT";
   }
@@ -32,7 +51,9 @@ export class ErrorT extends CriblControlPlaneError {
 /** @internal */
 export const ErrorT$inboundSchema: z.ZodType<ErrorT, z.ZodTypeDef, unknown> = z
   .object({
-    message: types.optional(types.string()),
+    status: types.literal("error"),
+    message: types.string(),
+    details: types.optional(z.any()),
     request$: z.instanceof(Request),
     response$: z.instanceof(Response),
     body$: z.string(),

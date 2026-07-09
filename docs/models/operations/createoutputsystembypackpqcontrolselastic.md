@@ -1,5 +1,7 @@
 # CreateOutputSystemByPackPqControlsElastic
 
+Persistent queue controls.
+
 ## Example Usage
 
 ```typescript

@@ -1,5 +1,7 @@
 # MinimumTlsVersionOptionsTls
 
+Minimum TLS version
+
 ## Example Usage
 
 ```typescript

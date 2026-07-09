@@ -9,117 +9,112 @@ import * as types from "../types/primitives.js";
 import {
   ApiTypeSystemSettingsConf,
   ApiTypeSystemSettingsConf$inboundSchema,
-  ApiTypeSystemSettingsConf$Outbound,
-  ApiTypeSystemSettingsConf$outboundSchema,
 } from "./apitypesystemsettingsconf.js";
 import {
   AppsTypeSystemSettingsConf,
   AppsTypeSystemSettingsConf$inboundSchema,
-  AppsTypeSystemSettingsConf$Outbound,
-  AppsTypeSystemSettingsConf$outboundSchema,
 } from "./appstypesystemsettingsconf.js";
 import {
   BackupsSettingsUnion,
   BackupsSettingsUnion$inboundSchema,
-  BackupsSettingsUnion$Outbound,
-  BackupsSettingsUnion$outboundSchema,
 } from "./backupssettingsunion.js";
 import {
   CustomLogoTypeSystemSettingsConf,
   CustomLogoTypeSystemSettingsConf$inboundSchema,
-  CustomLogoTypeSystemSettingsConf$Outbound,
-  CustomLogoTypeSystemSettingsConf$outboundSchema,
 } from "./customlogotypesystemsettingsconf.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PiiSettingsUnion,
   PiiSettingsUnion$inboundSchema,
-  PiiSettingsUnion$Outbound,
-  PiiSettingsUnion$outboundSchema,
 } from "./piisettingsunion.js";
 import {
   ProxyTypeSystemSettingsConf,
   ProxyTypeSystemSettingsConf$inboundSchema,
-  ProxyTypeSystemSettingsConf$Outbound,
-  ProxyTypeSystemSettingsConf$outboundSchema,
 } from "./proxytypesystemsettingsconf.js";
 import {
   RollbackSettingsUnion,
   RollbackSettingsUnion$inboundSchema,
-  RollbackSettingsUnion$Outbound,
-  RollbackSettingsUnion$outboundSchema,
 } from "./rollbacksettingsunion.js";
 import {
   ShutdownTypeSystemSettingsConf,
   ShutdownTypeSystemSettingsConf$inboundSchema,
-  ShutdownTypeSystemSettingsConf$Outbound,
-  ShutdownTypeSystemSettingsConf$outboundSchema,
 } from "./shutdowntypesystemsettingsconf.js";
 import {
   SniSettingsUnion,
   SniSettingsUnion$inboundSchema,
-  SniSettingsUnion$Outbound,
-  SniSettingsUnion$outboundSchema,
 } from "./snisettingsunion.js";
 import {
   SocketsTypeSystemSettingsConf,
   SocketsTypeSystemSettingsConf$inboundSchema,
-  SocketsTypeSystemSettingsConf$Outbound,
-  SocketsTypeSystemSettingsConf$outboundSchema,
 } from "./socketstypesystemsettingsconf.js";
 import {
   SupportTypeSystemSettingsConf,
   SupportTypeSystemSettingsConf$inboundSchema,
-  SupportTypeSystemSettingsConf$Outbound,
-  SupportTypeSystemSettingsConf$outboundSchema,
 } from "./supporttypesystemsettingsconf.js";
 import {
   SystemTypeSystemSettingsConf,
   SystemTypeSystemSettingsConf$inboundSchema,
-  SystemTypeSystemSettingsConf$Outbound,
-  SystemTypeSystemSettingsConf$outboundSchema,
 } from "./systemtypesystemsettingsconf.js";
 import {
   TlsSettingsUnion,
   TlsSettingsUnion$inboundSchema,
-  TlsSettingsUnion$Outbound,
-  TlsSettingsUnion$outboundSchema,
 } from "./tlssettingsunion.js";
 import {
   UpgradeGroupSettings,
   UpgradeGroupSettings$inboundSchema,
-  UpgradeGroupSettings$Outbound,
-  UpgradeGroupSettings$outboundSchema,
 } from "./upgradegroupsettings.js";
 import {
   UpgradeSettings,
   UpgradeSettings$inboundSchema,
-  UpgradeSettings$Outbound,
-  UpgradeSettings$outboundSchema,
 } from "./upgradesettings.js";
 import {
   WorkersTypeSystemSettingsConf,
   WorkersTypeSystemSettingsConf$inboundSchema,
-  WorkersTypeSystemSettingsConf$Outbound,
-  WorkersTypeSystemSettingsConf$outboundSchema,
 } from "./workerstypesystemsettingsconf.js";
 
 export type SystemSettingsConf = {
+  /**
+   * API server configuration for the Cribl instance.
+   */
   api: ApiTypeSystemSettingsConf;
+  /**
+   * App configuration.
+   */
   apps?: AppsTypeSystemSettingsConf | undefined;
   backups: BackupsSettingsUnion;
+  /**
+   * Custom logo configuration for the Cribl UI login page and navigation bar.
+   */
   customLogo?: CustomLogoTypeSystemSettingsConf | undefined;
   pii: PiiSettingsUnion;
+  /**
+   * HTTP proxy configuration for outbound connections.
+   */
   proxy: ProxyTypeSystemSettingsConf;
   rollback: RollbackSettingsUnion;
+  /**
+   * Graceful shutdown configuration.
+   */
   shutdown: ShutdownTypeSystemSettingsConf;
   sni: SniSettingsUnion;
+  /**
+   * Unix domain socket configuration.
+   */
   sockets?: SocketsTypeSystemSettingsConf | undefined;
+  /**
+   * Support and diagnostics settings.
+   */
   support?: SupportTypeSystemSettingsConf | undefined;
+  /**
+   * System-level operational settings for the Cribl instance.
+   */
   system: SystemTypeSystemSettingsConf;
   tls: TlsSettingsUnion;
   upgradeGroupSettings: UpgradeGroupSettings;
   upgradeSettings: UpgradeSettings;
+  /**
+   * Worker Process configuration.
+   */
   workers: WorkersTypeSystemSettingsConf;
 };
 
@@ -146,57 +141,7 @@ export const SystemSettingsConf$inboundSchema: z.ZodType<
   upgradeSettings: UpgradeSettings$inboundSchema,
   workers: WorkersTypeSystemSettingsConf$inboundSchema,
 });
-/** @internal */
-export type SystemSettingsConf$Outbound = {
-  api: ApiTypeSystemSettingsConf$Outbound;
-  apps?: AppsTypeSystemSettingsConf$Outbound | undefined;
-  backups: BackupsSettingsUnion$Outbound;
-  customLogo?: CustomLogoTypeSystemSettingsConf$Outbound | undefined;
-  pii: PiiSettingsUnion$Outbound;
-  proxy: ProxyTypeSystemSettingsConf$Outbound;
-  rollback: RollbackSettingsUnion$Outbound;
-  shutdown: ShutdownTypeSystemSettingsConf$Outbound;
-  sni: SniSettingsUnion$Outbound;
-  sockets?: SocketsTypeSystemSettingsConf$Outbound | undefined;
-  support?: SupportTypeSystemSettingsConf$Outbound | undefined;
-  system: SystemTypeSystemSettingsConf$Outbound;
-  tls: TlsSettingsUnion$Outbound;
-  upgradeGroupSettings: UpgradeGroupSettings$Outbound;
-  upgradeSettings: UpgradeSettings$Outbound;
-  workers: WorkersTypeSystemSettingsConf$Outbound;
-};
 
-/** @internal */
-export const SystemSettingsConf$outboundSchema: z.ZodType<
-  SystemSettingsConf$Outbound,
-  z.ZodTypeDef,
-  SystemSettingsConf
-> = z.object({
-  api: ApiTypeSystemSettingsConf$outboundSchema,
-  apps: AppsTypeSystemSettingsConf$outboundSchema.optional(),
-  backups: BackupsSettingsUnion$outboundSchema,
-  customLogo: CustomLogoTypeSystemSettingsConf$outboundSchema.optional(),
-  pii: PiiSettingsUnion$outboundSchema,
-  proxy: ProxyTypeSystemSettingsConf$outboundSchema,
-  rollback: RollbackSettingsUnion$outboundSchema,
-  shutdown: ShutdownTypeSystemSettingsConf$outboundSchema,
-  sni: SniSettingsUnion$outboundSchema,
-  sockets: SocketsTypeSystemSettingsConf$outboundSchema.optional(),
-  support: SupportTypeSystemSettingsConf$outboundSchema.optional(),
-  system: SystemTypeSystemSettingsConf$outboundSchema,
-  tls: TlsSettingsUnion$outboundSchema,
-  upgradeGroupSettings: UpgradeGroupSettings$outboundSchema,
-  upgradeSettings: UpgradeSettings$outboundSchema,
-  workers: WorkersTypeSystemSettingsConf$outboundSchema,
-});
-
-export function systemSettingsConfToJSON(
-  systemSettingsConf: SystemSettingsConf,
-): string {
-  return JSON.stringify(
-    SystemSettingsConf$outboundSchema.parse(systemSettingsConf),
-  );
-}
 export function systemSettingsConfFromJSON(
   jsonString: string,
 ): SafeParseResult<SystemSettingsConf, SDKValidationError> {

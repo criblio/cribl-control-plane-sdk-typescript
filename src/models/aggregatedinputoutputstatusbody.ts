@@ -16,14 +16,17 @@ import {
   HealthCountType$inboundSchema,
 } from "./healthcounttype.js";
 import {
-  HealthStringType,
-  HealthStringType$inboundSchema,
-} from "./healthstringtype.js";
+  HealthOptionsStatus,
+  HealthOptionsStatus$inboundSchema,
+} from "./healthoptionsstatus.js";
 import { StatusError, StatusError$inboundSchema } from "./statuserror.js";
 
 export type AggregatedInputOutputStatusBody = {
   error?: StatusError | undefined;
-  health: HealthStringType;
+  /**
+   * Overall health status of the Source or Destination.
+   */
+  health: HealthOptionsStatus;
   healthCounts: HealthCountType;
   /**
    * Metrics data for the Source or Destination, including base metrics, aggregated across all Worker Processes. For load-balanced Destinations, includes item-level metrics.
@@ -43,7 +46,7 @@ export const AggregatedInputOutputStatusBody$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   error: types.optional(StatusError$inboundSchema),
-  health: HealthStringType$inboundSchema,
+  health: HealthOptionsStatus$inboundSchema,
   healthCounts: HealthCountType$inboundSchema,
   metrics: types.optional(z.record(z.any())),
   pq: types.optional(AggregatedPQStatus$inboundSchema),

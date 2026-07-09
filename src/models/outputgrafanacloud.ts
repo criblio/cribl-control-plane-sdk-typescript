@@ -37,10 +37,10 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
-  RequestParamConfInputOpenai,
-  RequestParamConfInputOpenai$Outbound,
-  RequestParamConfInputOpenai$outboundSchema,
-} from "./requestparamconfinputopenai.js";
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+} from "./refreshrequestparamconfhealthcheckauthenticationoauthsecret.js";
 import {
   ResponseRetrySettingConfOutputWebhook,
   ResponseRetrySettingConfOutputWebhook$Outbound,
@@ -52,13 +52,22 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 
+/**
+ * Connector type identifier.
+ */
 export const OutputGrafanaCloudType2 = {
   GrafanaCloud: "grafana_cloud",
 } as const;
+/**
+ * Connector type identifier.
+ */
 export type OutputGrafanaCloudType2 = ClosedEnum<
   typeof OutputGrafanaCloudType2
 >;
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputGrafanaCloudPqControls2 = {};
 
 export type OutputGrafanaCloudGrafanaCloud2 = {
@@ -66,6 +75,9 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: OutputGrafanaCloudType2;
   /**
    * Pipeline to process data before sending out to this output
@@ -80,7 +92,7 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -102,7 +114,9 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<RequestParamConfInputOpenai> | undefined;
+  labels?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -168,6 +182,9 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Compress the payload body before sending. Applies only to JSON payloads; the Protobuf variant for both Prometheus and Loki are snappy-compressed by default.
@@ -214,9 +231,12 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputGrafanaCloudPqControls2 | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -240,13 +260,22 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   __template_onBackpressure?: string | undefined;
 };
 
+/**
+ * Connector type identifier.
+ */
 export const OutputGrafanaCloudType1 = {
   GrafanaCloud: "grafana_cloud",
 } as const;
+/**
+ * Connector type identifier.
+ */
 export type OutputGrafanaCloudType1 = ClosedEnum<
   typeof OutputGrafanaCloudType1
 >;
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputGrafanaCloudPqControls1 = {};
 
 export type OutputGrafanaCloudGrafanaCloud1 = {
@@ -254,6 +283,9 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: OutputGrafanaCloudType1;
   /**
    * Pipeline to process data before sending out to this output
@@ -268,7 +300,7 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -290,7 +322,9 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<RequestParamConfInputOpenai> | undefined;
+  labels?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -356,6 +390,9 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Compress the payload body before sending. Applies only to JSON payloads; the Protobuf variant for both Prometheus and Loki are snappy-compressed by default.
@@ -402,9 +439,12 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   /**
-   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+   * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputGrafanaCloudPqControls1 | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -469,7 +509,11 @@ export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   prometheusUrl: string;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<RequestParamConfInputOpenai$Outbound> | undefined;
+  labels?:
+    | Array<
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
+    | undefined;
   metricRenameExpr?: string | undefined;
   prometheusAuth?: PrometheusAuthType$Outbound | undefined;
   lokiAuth?: PrometheusAuthType$Outbound | undefined;
@@ -528,7 +572,9 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
   prometheusUrl: z.string(),
   message: z.string().optional(),
   messageFormat: MessageFormatOptions$outboundSchema.optional(),
-  labels: z.array(RequestParamConfInputOpenai$outboundSchema).optional(),
+  labels: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+  ).optional(),
   metricRenameExpr: z.string().optional(),
   prometheusAuth: PrometheusAuthType$outboundSchema.optional(),
   lokiAuth: PrometheusAuthType$outboundSchema.optional(),
@@ -619,7 +665,11 @@ export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   prometheusUrl?: string | undefined;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<RequestParamConfInputOpenai$Outbound> | undefined;
+  labels?:
+    | Array<
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
+    | undefined;
   metricRenameExpr?: string | undefined;
   prometheusAuth?: PrometheusAuthType$Outbound | undefined;
   lokiAuth?: PrometheusAuthType$Outbound | undefined;
@@ -678,7 +728,9 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
   prometheusUrl: z.string().optional(),
   message: z.string().optional(),
   messageFormat: MessageFormatOptions$outboundSchema.optional(),
-  labels: z.array(RequestParamConfInputOpenai$outboundSchema).optional(),
+  labels: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+  ).optional(),
   metricRenameExpr: z.string().optional(),
   prometheusAuth: PrometheusAuthType$outboundSchema.optional(),
   lokiAuth: PrometheusAuthType$outboundSchema.optional(),

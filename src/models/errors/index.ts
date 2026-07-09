@@ -8,4 +8,5 @@ export * from "./error.js";
 export * from "./healthserverstatuserror.js";
 export * from "./httpclienterrors.js";
 export * from "./responsevalidationerror.js";
+export * from "./restapijsonerror.js";
 export * from "./sdkvalidationerror.js";

@@ -551,7 +551,7 @@ const value: operations.CreateInputInputSqs = {
 ```typescript
 const value: operations.CreateInputInputSyslogUnion = {
   id: "<id>",
-  type: "syslog",
+  type: "<value>",
   host: "kooky-passport.biz",
   udpPort: 1144.97,
 };
@@ -715,6 +715,16 @@ const value: operations.CreateInputInputSecurityLake = {
 };
 ```
 
+### `operations.CreateInputInputBedrockS3`
+
+```typescript
+const value: operations.CreateInputInputBedrockS3 = {
+  id: "<id>",
+  type: "bedrock_s3",
+  queueName: "<value>",
+};
+```
+
 ### `operations.CreateInputInputServicenowTable`
 
 ```typescript
@@ -749,6 +759,30 @@ const value: operations.CreateInputInputCloudflareHec = {
   type: "cloudflare_hec",
   host: "rural-scaffold.net",
   port: 8504.37,
+  hecAPI: "<value>",
+};
+```
+
+### `operations.CreateInputInputSysdigHec`
+
+```typescript
+const value: operations.CreateInputInputSysdigHec = {
+  id: "<id>",
+  type: "sysdig_hec",
+  host: "cuddly-molasses.name",
+  port: 5901.79,
+  hecAPI: "<value>",
+};
+```
+
+### `operations.CreateInputInputUpwindHec`
+
+```typescript
+const value: operations.CreateInputInputUpwindHec = {
+  id: "<id>",
+  type: "upwind_hec",
+  host: "sturdy-innovation.org",
+  port: 2501.04,
   hecAPI: "<value>",
 };
 ```

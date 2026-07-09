@@ -9,12 +9,33 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type GitLogResult = {
+  /**
+   * Email address of the commit author.
+   */
   author_email?: string | undefined;
+  /**
+   * Display name of the commit author.
+   */
   author_name?: string | undefined;
+  /**
+   * Body of the commit message, excluding the subject line.
+   */
   body?: string | undefined;
+  /**
+   * Date and time of the commit in ISO 8601 format with timezone offset.
+   */
   date?: string | undefined;
+  /**
+   * Full SHA-1 hash of the commit.
+   */
   hash?: string | undefined;
+  /**
+   * First line of the commit message (the subject).
+   */
   message?: string | undefined;
+  /**
+   * Git refs (branches, tags) pointing to this commit.
+   */
   refs?: string | undefined;
 };
 

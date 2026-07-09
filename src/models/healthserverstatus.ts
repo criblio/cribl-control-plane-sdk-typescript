@@ -9,6 +9,10 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  HealthOverlayStatus,
+  HealthOverlayStatus$inboundSchema,
+} from "./healthoverlaystatus.js";
 
 /**
  * Leader Node role: <code>primary</code> or <code>standby</code>.
@@ -41,6 +45,7 @@ export type HealthServerStatusStatus = OpenEnum<
  * Health status of the Leader or Worker Node.
  */
 export type HealthServerStatus = {
+  overlay: HealthOverlayStatus;
   /**
    * Leader Node role: <code>primary</code> or <code>standby</code>.
    */
@@ -72,6 +77,7 @@ export const HealthServerStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  overlay: HealthOverlayStatus$inboundSchema,
   role: types.optional(Role$inboundSchema),
   startTime: types.number(),
   status: HealthServerStatusStatus$inboundSchema,

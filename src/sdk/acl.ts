@@ -22,7 +22,7 @@ export class Acl extends ClientSDK {
    * Get the Access Control List (ACL) for the specified Worker Group, Outpost Group, or Edge Fleet.
    */
   async get(
-    request: operations.GetConfigGroupAclByProductAndIdRequest,
+    request: operations.GetProductsGroupsAclByProductAndIdRequest,
     options?: RequestOptions,
   ): Promise<models.CountedUserAccessControlList> {
     return unwrapAsync(groupsAclGet(

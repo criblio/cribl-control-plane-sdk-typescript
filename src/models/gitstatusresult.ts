@@ -9,27 +9,75 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FileT = {
+  /**
+   * Status code for the file in the index (staging area), using Git short-format notation.
+   */
   index: string;
+  /**
+   * File path relative to the configuration root.
+   */
   path: string;
+  /**
+   * Status code for the file in the working directory, using Git short-format notation.
+   */
   working_dir: string;
 };
 
 export type Renamed = {
+  /**
+   * Original file path before the rename.
+   */
   from: string;
+  /**
+   * New file path after the rename.
+   */
   to: string;
 };
 
 export type GitStatusResult = {
+  /**
+   * Number of local commits that have not been pushed to the remote repository.
+   */
   ahead: number;
+  /**
+   * Number of commits in the remote repository that have not been pulled to the local branch.
+   */
   behind: number;
+  /**
+   * Array of file paths that have merge conflicts.
+   */
   conflicted: Array<string>;
+  /**
+   * Array of file paths for newly created files that are staged for commit.
+   */
   created: Array<string>;
+  /**
+   * Name of the current Git branch.
+   */
   current: string;
+  /**
+   * Array of file paths for deleted files that are staged for commit.
+   */
   deleted: Array<string>;
+  /**
+   * Array of all changed files with their index and working directory status codes.
+   */
   files: Array<FileT>;
+  /**
+   * Array of file paths for modified files that are staged for commit.
+   */
   modified: Array<string>;
+  /**
+   * Array of file paths that have been modified but are not staged for commit.
+   */
   not_added: Array<string>;
+  /**
+   * Array of file rename operations that are staged for commit.
+   */
   renamed: Array<Renamed>;
+  /**
+   * Array of file paths that are staged for the next commit.
+   */
   staged: Array<string>;
 };
 

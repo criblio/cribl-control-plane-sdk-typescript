@@ -52,6 +52,9 @@ export type OutputDatabricks = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "databricks";
   /**
    * Pipeline to process data before sending out to this output
@@ -66,7 +69,7 @@ export type OutputDatabricks = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -142,6 +145,9 @@ export type OutputDatabricks = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  /**
+   * Orphan file recovery
+   */
   orphans?: OrphanFileRecoveryType | undefined;
   /**
    * Unique identifier for the Databricks workspace. Used to construct the OAuth login URL and API base URL.
@@ -179,6 +185,9 @@ export type OutputDatabricks = {
    * Amount of time, in seconds, to wait for a request to complete before canceling it.
    */
   timeoutSec?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered

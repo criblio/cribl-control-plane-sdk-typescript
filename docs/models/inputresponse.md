@@ -168,7 +168,7 @@ const value: models.InputResponseInputPrometheus = {
 ```typescript
 const value: models.InputResponseInputEdgePrometheus = {
   type: "edge_prometheus",
-  discoveryType: "dns",
+  discoveryType: "ec2",
   interval: 785.78,
 };
 ```
@@ -502,7 +502,7 @@ const value: models.InputResponseInputSqs = {
 
 ```typescript
 const value: models.InputResponseInputSyslogUnion = {
-  type: "syslog",
+  type: "<value>",
   host: "brisk-bend.com",
   udpPort: 3478.24,
 };
@@ -675,6 +675,15 @@ const value: models.InputResponseInputSecurityLake = {
 };
 ```
 
+### `models.InputResponseInputBedrockS3`
+
+```typescript
+const value: models.InputResponseInputBedrockS3 = {
+  type: "bedrock_s3",
+  queueName: "<value>",
+};
+```
+
 ### `models.InputResponseInputServicenowTable`
 
 ```typescript
@@ -710,6 +719,28 @@ const value: models.InputResponseInputCloudflareHec = {
 };
 ```
 
+### `models.InputResponseInputSysdigHec`
+
+```typescript
+const value: models.InputResponseInputSysdigHec = {
+  type: "sysdig_hec",
+  host: "staid-straw.info",
+  port: 1375.43,
+  hecAPI: "<value>",
+};
+```
+
+### `models.InputResponseInputUpwindHec`
+
+```typescript
+const value: models.InputResponseInputUpwindHec = {
+  type: "upwind_hec",
+  host: "wise-place.info",
+  port: 555.86,
+  hecAPI: "<value>",
+};
+```
+
 ### `models.InputResponseInputOpenaiComplianceLogs`
 
 ```typescript
@@ -729,10 +760,8 @@ const value: models.InputResponseInputAnthropicCompliance = {
   textSecret: "<value>",
   contentConfig: [
     {
-      contentType: "<value>",
+      contentType: "chats",
       cronSchedule: "<value>",
-      earliest: "<value>",
-      latest: "<value>",
     },
   ],
 };

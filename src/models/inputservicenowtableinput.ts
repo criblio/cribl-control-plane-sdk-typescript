@@ -107,7 +107,13 @@ export type InputServicenowTableInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "servicenow_table";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -126,7 +132,7 @@ export type InputServicenowTableInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -227,6 +233,9 @@ export type InputServicenowTableInput = {
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
   retryRules?: RetryRulesType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a secret that references your credentials
@@ -256,6 +265,9 @@ export type InputServicenowTableInput = {
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
   oauthHeaders?: Array<OauthHeaderConfInputServicenowTable> | undefined;
+  /**
+   * ServiceNow OAuth client ID
+   */
   clientId?: string | undefined;
   /**
    * Select or create a stored text secret for the OAuth client secret value

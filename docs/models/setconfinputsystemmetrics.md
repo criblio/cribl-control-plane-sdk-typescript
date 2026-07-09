@@ -13,8 +13,8 @@ let value: SetConfInputSystemMetrics = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `name`             | *string*           | :heavy_check_mark: | N/A                |
-| `filter`           | *string*           | :heavy_check_mark: | N/A                |
-| `includeChildren`  | *boolean*          | :heavy_minus_sign: | N/A                |
+| Field                   | Type                    | Required                | Description             |
+| ----------------------- | ----------------------- | ----------------------- | ----------------------- |
+| `name`                  | *string*                | :heavy_check_mark:      | Set Name                |
+| `filter`                | *string*                | :heavy_check_mark:      | Filter Expression       |
+| `includeChildren`       | *boolean*               | :heavy_minus_sign:      | Include Child Processes |

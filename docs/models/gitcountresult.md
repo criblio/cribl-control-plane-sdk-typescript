@@ -6,12 +6,12 @@
 import { GitCountResult } from "cribl-control-plane/models";
 
 let value: GitCountResult = {
-  count: 3186.11,
+  count: 318611,
 };
 ```
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `count`            | *number*           | :heavy_check_mark: | N/A                |
+| Field                                                    | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `count`                                                  | *number*                                                 | :heavy_check_mark:                                       | Number of files that changed since the specified commit. |

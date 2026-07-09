@@ -10,46 +10,45 @@ import {
   BackpressureBehaviorOptionsBlockDrop$outboundSchema,
 } from "./backpressurebehavioroptionsblockdrop.js";
 import {
+  CompressionLevelOptions,
+  CompressionLevelOptions$outboundSchema,
+} from "./compressionleveloptions.js";
+import {
+  CompressionOptionsHttp,
+  CompressionOptionsHttp$outboundSchema,
+} from "./compressionoptionshttp.js";
+import {
+  DataPageVersionOptions,
+  DataPageVersionOptions$outboundSchema,
+} from "./datapageversionoptions.js";
+import {
   DiskSpaceProtectionOptions,
   DiskSpaceProtectionOptions$outboundSchema,
 } from "./diskspaceprotectionoptions.js";
 import {
-  ObjectAclOptions,
-  ObjectAclOptions$outboundSchema,
-} from "./objectacloptions.js";
+  KeyValueMetadataConfOutputFilesystem,
+  KeyValueMetadataConfOutputFilesystem$Outbound,
+  KeyValueMetadataConfOutputFilesystem$outboundSchema,
+} from "./keyvaluemetadataconfoutputfilesystem.js";
 import {
   OrphanFileRecoveryType,
   OrphanFileRecoveryType$Outbound,
   OrphanFileRecoveryType$outboundSchema,
 } from "./orphanfilerecoverytype.js";
 import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$outboundSchema,
+} from "./parquetversionoptions.js";
+import {
   RetrySettingsType,
   RetrySettingsType$Outbound,
   RetrySettingsType$outboundSchema,
 } from "./retrysettingstype.js";
-import {
-  ServerSideEncryptionForUploadedObjectsOptions,
-  ServerSideEncryptionForUploadedObjectsOptions$outboundSchema,
-} from "./serversideencryptionforuploadedobjectsoptions.js";
-import {
-  StorageClassOptions,
-  StorageClassOptions$outboundSchema,
-} from "./storageclassoptions.js";
-
-export const OutputCriblLakeAwsAuthenticationMethod = {
-  Auto: "auto",
-  AutoRpc: "auto_rpc",
-  Manual: "manual",
-} as const;
-export type OutputCriblLakeAwsAuthenticationMethod = OpenEnum<
-  typeof OutputCriblLakeAwsAuthenticationMethod
->;
 
 export const OutputCriblLakeFormat = {
   Json: "json",
   Parquet: "parquet",
-  Ddss: "ddss",
-  Netskope: "netskope",
+  Raw: "raw",
 } as const;
 export type OutputCriblLakeFormat = OpenEnum<typeof OutputCriblLakeFormat>;
 
@@ -58,6 +57,9 @@ export type OutputCriblLake = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "cribl_lake";
   /**
    * Pipeline to process data before sending out to this output
@@ -72,57 +74,9 @@ export type OutputCriblLake = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
-  /**
-   * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
-   */
-  endpoint?: string | undefined;
-  /**
-   * Use Assume Role credentials to access S3
-   */
-  enableAssumeRole?: boolean | undefined;
-  /**
-   * Amazon Resource Name (ARN) of the role to assume
-   */
-  assumeRoleArn?: string | undefined;
-  /**
-   * External ID to use when assuming role
-   */
-  assumeRoleExternalId?: string | undefined;
-  /**
-   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-   */
-  durationSeconds?: number | undefined;
-  /**
-   * Reuse connections between requests, which can improve performance
-   */
-  reuseConnections?: boolean | undefined;
-  /**
-   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-   */
-  bucket?: string | undefined;
-  /**
-   * Region where the S3 bucket is located
-   */
-  region?: string | undefined;
-  /**
-   * Lake dataset to send the data to.
-   */
-  destPath?: string | undefined;
-  /**
-   * Disable if you can access files within the bucket but not the bucket itself
-   */
-  verifyPermissions?: boolean | undefined;
-  /**
-   * Maximum number of files that can be waiting for upload before backpressure is applied
-   */
-  maxClosingFilesToBackpressure?: number | undefined;
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
@@ -184,36 +138,74 @@ export type OutputCriblLake = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  /**
+   * Orphan file recovery
+   */
   orphans?: OrphanFileRecoveryType | undefined;
   /**
-   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+   * Lake dataset to send the data to.
    */
-  awsSecretKey?: string | undefined;
-  /**
-   * Object ACL to assign to uploaded objects
-   */
-  objectACL?: ObjectAclOptions | undefined;
-  /**
-   * Storage class to select for uploaded objects
-   */
-  storageClass?: StorageClassOptions | undefined;
-  /**
-   * Server-side encryption to use for uploaded objects
-   */
-  serverSideEncryption?:
-    | ServerSideEncryptionForUploadedObjectsOptions
-    | undefined;
-  /**
-   * ID or ARN of the KMS customer-managed key to use for encryption
-   */
-  kmsKeyId?: string | undefined;
-  awsAuthenticationMethod?: OutputCriblLakeAwsAuthenticationMethod | undefined;
+  destPath?: string | undefined;
   format?: OutputCriblLakeFormat | undefined;
-  /**
-   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
-   */
+  dynamicDataset?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
   maxConcurrentFileParts?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Data compression format to apply to HTTP content before it is delivered
+   */
+  compress?: CompressionOptionsHttp | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: DataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<KeyValueMetadataConfOutputFilesystem> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
   /**
    * How frequently, in seconds, to clean up empty directories
    */
@@ -235,30 +227,6 @@ export type OutputCriblLake = {
    */
   __template_streamtags?: string | undefined;
   /**
-   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
-   */
-  __template_endpoint?: string | undefined;
-  /**
-   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-   */
-  __template_assumeRoleArn?: string | undefined;
-  /**
-   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-   */
-  __template_assumeRoleExternalId?: string | undefined;
-  /**
-   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-   */
-  __template_bucket?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
-   */
-  __template_destPath?: string | undefined;
-  /**
    * Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
    */
   __template_baseFileName?: string | undefined;
@@ -271,33 +239,18 @@ export type OutputCriblLake = {
    */
   __template_onBackpressure?: string | undefined;
   /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
    */
-  __template_awsSecretKey?: string | undefined;
+  __template_destPath?: string | undefined;
   /**
-   * Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+   * Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
    */
-  __template_objectACL?: string | undefined;
+  __template_compress?: string | undefined;
   /**
-   * Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+   * Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
    */
-  __template_storageClass?: string | undefined;
-  /**
-   * Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
-   */
-  __template_serverSideEncryption?: string | undefined;
-  /**
-   * Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
-   */
-  __template_kmsKeyId?: string | undefined;
+  __template_parquetSchema?: string | undefined;
 };
-
-/** @internal */
-export const OutputCriblLakeAwsAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputCriblLakeAwsAuthenticationMethod
-> = openEnums.outboundSchema(OutputCriblLakeAwsAuthenticationMethod);
 
 /** @internal */
 export const OutputCriblLakeFormat$outboundSchema: z.ZodType<
@@ -314,18 +267,6 @@ export type OutputCriblLake$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  endpoint?: string | undefined;
-  enableAssumeRole?: boolean | undefined;
-  assumeRoleArn?: string | undefined;
-  assumeRoleExternalId?: string | undefined;
-  durationSeconds?: number | undefined;
-  reuseConnections?: boolean | undefined;
-  rejectUnauthorized?: boolean | undefined;
-  bucket?: string | undefined;
-  region?: string | undefined;
-  destPath?: string | undefined;
-  verifyPermissions?: boolean | undefined;
-  maxClosingFilesToBackpressure?: number | undefined;
   stagePath?: string | undefined;
   addIdToStagePath?: boolean | undefined;
   removeEmptyDirs?: boolean | undefined;
@@ -343,34 +284,38 @@ export type OutputCriblLake$Outbound = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
   orphans?: OrphanFileRecoveryType$Outbound | undefined;
-  awsSecretKey?: string | undefined;
-  objectACL?: string | undefined;
-  storageClass?: string | undefined;
-  serverSideEncryption?: string | undefined;
-  kmsKeyId?: string | undefined;
-  awsAuthenticationMethod?: string | undefined;
+  destPath?: string | undefined;
   format?: string | undefined;
+  dynamicDataset?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
   maxConcurrentFileParts?: number | undefined;
   description?: string | undefined;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
+  parquetSchema?: string | undefined;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?:
+    | Array<KeyValueMetadataConfOutputFilesystem$Outbound>
+    | undefined;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
   emptyDirCleanupSec?: number | undefined;
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
   __template_streamtags?: string | undefined;
-  __template_endpoint?: string | undefined;
-  __template_assumeRoleArn?: string | undefined;
-  __template_assumeRoleExternalId?: string | undefined;
-  __template_bucket?: string | undefined;
-  __template_region?: string | undefined;
-  __template_destPath?: string | undefined;
   __template_baseFileName?: string | undefined;
   __template_fileNameSuffix?: string | undefined;
   __template_onBackpressure?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
-  __template_objectACL?: string | undefined;
-  __template_storageClass?: string | undefined;
-  __template_serverSideEncryption?: string | undefined;
-  __template_kmsKeyId?: string | undefined;
+  __template_destPath?: string | undefined;
+  __template_compress?: string | undefined;
+  __template_parquetSchema?: string | undefined;
 };
 
 /** @internal */
@@ -385,18 +330,6 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  endpoint: z.string().optional(),
-  enableAssumeRole: z.boolean().optional(),
-  assumeRoleArn: z.string().optional(),
-  assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  bucket: z.string().optional(),
-  region: z.string().optional(),
-  destPath: z.string().optional(),
-  verifyPermissions: z.boolean().optional(),
-  maxClosingFilesToBackpressure: z.number().optional(),
   stagePath: z.string().optional(),
   addIdToStagePath: z.boolean().optional(),
   removeEmptyDirs: z.boolean().optional(),
@@ -415,36 +348,37 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
   orphans: OrphanFileRecoveryType$outboundSchema.optional(),
-  awsSecretKey: z.string().optional(),
-  objectACL: ObjectAclOptions$outboundSchema.optional(),
-  storageClass: StorageClassOptions$outboundSchema.optional(),
-  serverSideEncryption:
-    ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
-  kmsKeyId: z.string().optional(),
-  awsAuthenticationMethod: OutputCriblLakeAwsAuthenticationMethod$outboundSchema
-    .optional(),
+  destPath: z.string().optional(),
   format: OutputCriblLakeFormat$outboundSchema.optional(),
+  dynamicDataset: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
   maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
+  compress: CompressionOptionsHttp$outboundSchema.optional(),
+  compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: DataPageVersionOptions$outboundSchema.optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(KeyValueMetadataConfOutputFilesystem$outboundSchema)
+    .optional(),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
   emptyDirCleanupSec: z.number().optional(),
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
   __template_streamtags: z.string().optional(),
-  __template_endpoint: z.string().optional(),
-  __template_assumeRoleArn: z.string().optional(),
-  __template_assumeRoleExternalId: z.string().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_destPath: z.string().optional(),
   __template_baseFileName: z.string().optional(),
   __template_fileNameSuffix: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_objectACL: z.string().optional(),
-  __template_storageClass: z.string().optional(),
-  __template_serverSideEncryption: z.string().optional(),
-  __template_kmsKeyId: z.string().optional(),
+  __template_destPath: z.string().optional(),
+  __template_compress: z.string().optional(),
+  __template_parquetSchema: z.string().optional(),
 });
 
 export function outputCriblLakeToJSON(

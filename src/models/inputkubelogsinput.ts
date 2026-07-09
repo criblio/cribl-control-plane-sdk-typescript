@@ -36,7 +36,13 @@ export type InputKubeLogsInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "kube_logs";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -55,7 +61,7 @@ export type InputKubeLogsInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -76,9 +82,20 @@ export type InputKubeLogsInput = {
    */
   timestamps?: boolean | undefined;
   /**
+   * Maximum bytes to buffer while reassembling a single log line. A line that exceeds this size is flushed as-is, either whole or partially. The default is 1048576 (1 MB).
+   */
+  lineBufferLimit?: number | undefined;
+  /**
+   * Internal flag to disable LB worker payload reassembly.
+   */
+  __LBDisableAssembly?: boolean | undefined;
+  /**
    * Fields to add to events from this input
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Disk Spooling
+   */
   persistence?: DiskSpoolingType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
@@ -92,6 +109,9 @@ export type InputKubeLogsInput = {
    * Load balance traffic across all Worker Processes
    */
   enableLoadBalancing?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -142,6 +162,8 @@ export type InputKubeLogsInput$Outbound = {
   interval?: number | undefined;
   rules?: Array<InputKubeLogsRule$Outbound> | undefined;
   timestamps?: boolean | undefined;
+  lineBufferLimit?: number | undefined;
+  __LBDisableAssembly?: boolean | undefined;
   metadata?: Array<MetadataConfInputCollection$Outbound> | undefined;
   persistence?: DiskSpoolingType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
@@ -171,6 +193,8 @@ export const InputKubeLogsInput$outboundSchema: z.ZodType<
   interval: z.number().optional(),
   rules: z.array(z.lazy(() => InputKubeLogsRule$outboundSchema)).optional(),
   timestamps: z.boolean().optional(),
+  lineBufferLimit: z.number().optional(),
+  __LBDisableAssembly: z.boolean().optional(),
   metadata: z.array(MetadataConfInputCollection$outboundSchema).optional(),
   persistence: DiskSpoolingType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),

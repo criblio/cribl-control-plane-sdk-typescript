@@ -9,8 +9,17 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OutpostNodeInfo = {
+  /**
+   * Name of the Outpost Group that contains the Outpost Node.
+   */
   groupname?: string | undefined;
+  /**
+   * Unique identifier for the Outpost Node.
+   */
   guid: string;
+  /**
+   * Hostname or IP address for the Outpost Node.
+   */
   host: string;
 };
 

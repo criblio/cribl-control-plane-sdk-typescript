@@ -364,6 +364,18 @@ const value: models.PipelineFunctionMask = {
 };
 ```
 
+### `models.PipelineFunctionMetricsExport`
+
+```typescript
+const value: models.PipelineFunctionMetricsExport = {
+  id: "metrics_export",
+  conf: {
+    searchJobId: "<id>",
+    dataset: "<value>",
+  },
+};
+```
+
 ### `models.PipelineFunctionMvExpand`
 
 ```typescript

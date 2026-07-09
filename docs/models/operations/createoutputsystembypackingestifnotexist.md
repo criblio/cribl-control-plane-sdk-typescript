@@ -14,4 +14,4 @@ let value: CreateOutputSystemByPackIngestIfNotExist = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `value`            | *string*           | :heavy_check_mark: | N/A                |
+| `value`            | *string*           | :heavy_check_mark: | Value              |

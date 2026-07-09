@@ -27,6 +27,9 @@ import {
 } from "./retryrulestype.js";
 
 export type InputSplunkSearchEndpointParam = {
+  /**
+   * Parameter Name
+   */
   name: string;
   /**
    * JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
@@ -35,6 +38,9 @@ export type InputSplunkSearchEndpointParam = {
 };
 
 export type InputSplunkSearchEndpointHeader = {
+  /**
+   * Header Name
+   */
   name: string;
   /**
    * JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
@@ -95,7 +101,13 @@ export type InputSplunkSearchInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "splunk_search";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -114,7 +126,7 @@ export type InputSplunkSearchInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -215,8 +227,17 @@ export type InputSplunkSearchInput = {
    * Splunk Search authentication type
    */
   authType: InputSplunkSearchAuthenticationType;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Bearer token to include in the authorization header

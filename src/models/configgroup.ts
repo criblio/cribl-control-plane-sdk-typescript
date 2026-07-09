@@ -57,6 +57,10 @@ export type Git = {
 export type ConfigGroup = {
   cloud?: ConfigGroupCloud | undefined;
   /**
+   * Keeps Collector jobs running if the Leader Node fails. Applies only to Stream Worker Groups. Always <code>true</code> for Cribl.Cloud groups; defaults to <code>false</code> for on-prem groups. to Stream Worker Groups. Always <code>true</code> for Cribl.Cloud groups; defaults to <code>false</code> for on-prem groups.
+   */
+  collectorsHaEnabled?: boolean | undefined;
+  /**
    * Commit hash of the deployed configuration version for the Worker Group, Outpost Group, or Edge Fleet. Automatically populated and returned in responses.<br/><br/> **Warning**: Do not change the value of <code>configVersion</code> in the body of PATCH requests. The PATCH request body must include the value as it appears in the <code>GET /products/{product}/groups/{id}</code> response.
    */
   configVersion?: string | undefined;
@@ -190,6 +194,7 @@ export const ConfigGroup$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   cloud: types.optional(ConfigGroupCloud$inboundSchema),
+  collectorsHaEnabled: types.optional(types.boolean()),
   configVersion: types.optional(types.string()),
   deployingWorkerCount: types.optional(types.number()),
   description: types.optional(types.string()),
@@ -217,6 +222,7 @@ export const ConfigGroup$inboundSchema: z.ZodType<
 /** @internal */
 export type ConfigGroup$Outbound = {
   cloud?: ConfigGroupCloud$Outbound | undefined;
+  collectorsHaEnabled?: boolean | undefined;
   configVersion?: string | undefined;
   deployingWorkerCount?: number | undefined;
   description?: string | undefined;
@@ -247,6 +253,7 @@ export const ConfigGroup$outboundSchema: z.ZodType<
   ConfigGroup
 > = z.object({
   cloud: ConfigGroupCloud$outboundSchema.optional(),
+  collectorsHaEnabled: z.boolean().optional(),
   configVersion: z.string().optional(),
   deployingWorkerCount: z.number().int().optional(),
   description: z.string().optional(),

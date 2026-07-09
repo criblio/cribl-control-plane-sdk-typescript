@@ -18,7 +18,13 @@ import {
   MinimumTlsVersionOptionsTls$outboundSchema,
 } from "./minimumtlsversionoptionstls.js";
 
+/**
+ * TLS settings (client side)
+ */
 export type TlsSettingsClientSideTypeExtended = {
+  /**
+   * Disabled
+   */
   disabled?: boolean | undefined;
   /**
    * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
@@ -47,7 +53,13 @@ export type TlsSettingsClientSideTypeExtended = {
    * Passphrase to use to decrypt private key
    */
   passphrase?: string | undefined;
+  /**
+   * Minimum TLS version
+   */
   minVersion?: MinimumTlsVersionOptionsTls | undefined;
+  /**
+   * Maximum TLS version
+   */
   maxVersion?: MaximumTlsVersionOptionsTls | undefined;
 };
 

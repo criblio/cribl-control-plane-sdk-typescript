@@ -38,6 +38,9 @@ export type ScheduleTypeSavedJobResponseCollection = {
    * The maximum number of instances of this scheduled job that may be running at any time
    */
   maxConcurrentRuns?: number | undefined;
+  /**
+   * Run settings
+   */
   run?: RunSettingsTypeSavedJobResponseCollectionSchedule | undefined;
 };
 

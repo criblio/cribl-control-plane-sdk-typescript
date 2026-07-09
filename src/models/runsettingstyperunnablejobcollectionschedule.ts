@@ -19,9 +19,15 @@ import {
   LogLevelOptionsRunnableJobCollectionScheduleRun$inboundSchema,
 } from "./logleveloptionsrunnablejobcollectionschedulerun.js";
 
+/**
+ * Resource type identifier.
+ */
 export const RunSettingsTypeRunnableJobCollectionScheduleType = {
   Collection: "collection",
 } as const;
+/**
+ * Resource type identifier.
+ */
 export type RunSettingsTypeRunnableJobCollectionScheduleType = OpenEnum<
   typeof RunSettingsTypeRunnableJobCollectionScheduleType
 >;
@@ -40,7 +46,13 @@ export type RunSettingsTypeRunnableJobCollectionScheduleLatest =
   | number
   | string;
 
+/**
+ * Run settings
+ */
 export type RunSettingsTypeRunnableJobCollectionSchedule = {
+  /**
+   * Resource type identifier.
+   */
   type?: RunSettingsTypeRunnableJobCollectionScheduleType | undefined;
   /**
    * Reschedule tasks that failed with non-fatal errors
@@ -62,6 +74,9 @@ export type RunSettingsTypeRunnableJobCollectionSchedule = {
    * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
    */
   mode: string;
+  /**
+   * Time range
+   */
   timeRangeType?: string | undefined;
   /**
    * Earliest time to collect data for the selected timezone

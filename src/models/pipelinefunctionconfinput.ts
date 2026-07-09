@@ -174,6 +174,11 @@ import {
   PipelineFunctionMask$outboundSchema,
 } from "./pipelinefunctionmask.js";
 import {
+  PipelineFunctionMetricsExport,
+  PipelineFunctionMetricsExport$Outbound,
+  PipelineFunctionMetricsExport$outboundSchema,
+} from "./pipelinefunctionmetricsexport.js";
+import {
   PipelineFunctionMvExpand,
   PipelineFunctionMvExpand$Outbound,
   PipelineFunctionMvExpand$outboundSchema,
@@ -384,6 +389,7 @@ export type PipelineFunctionConfInput =
   | PipelineFunctionLocalSearchTransformer
   | PipelineFunctionLookup
   | PipelineFunctionMask
+  | PipelineFunctionMetricsExport
   | PipelineFunctionMvExpand
   | PipelineFunctionMvPull
   | PipelineFunctionNotificationPolicies
@@ -456,6 +462,7 @@ export type PipelineFunctionConfInput$Outbound =
   | PipelineFunctionLocalSearchTransformer$Outbound
   | PipelineFunctionLookup$Outbound
   | PipelineFunctionMask$Outbound
+  | PipelineFunctionMetricsExport$Outbound
   | PipelineFunctionMvExpand$Outbound
   | PipelineFunctionMvPull$Outbound
   | PipelineFunctionNotificationPolicies$Outbound
@@ -532,6 +539,7 @@ export const PipelineFunctionConfInput$outboundSchema: z.ZodType<
   PipelineFunctionLocalSearchTransformer$outboundSchema,
   PipelineFunctionLookup$outboundSchema,
   PipelineFunctionMask$outboundSchema,
+  PipelineFunctionMetricsExport$outboundSchema,
   PipelineFunctionMvExpand$outboundSchema,
   PipelineFunctionMvPull$outboundSchema,
   PipelineFunctionNotificationPolicies$outboundSchema,

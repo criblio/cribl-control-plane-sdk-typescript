@@ -6,7 +6,7 @@ import * as z from "zod/v3";
 
 export type DeletePacksByIdRequest = {
   /**
-   * The <code>id</code> of the Pack to uninstall.
+   * The <code>id</code> of the Pack to uninstall. Use the <code>id</code> field from the list response.
    */
   id: string;
 };

@@ -1,5 +1,7 @@
 # ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor
 
+Executor-specific settings
+
 ## Example Usage
 
 ```typescript

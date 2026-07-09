@@ -210,6 +210,18 @@ const value: models.OutputAzureEventhub = {
 };
 ```
 
+### `models.OutputGoogleBigquery`
+
+```typescript
+const value: models.OutputGoogleBigquery = {
+  type: "google_bigquery",
+  projectId: "<id>",
+  datasetId: "<id>",
+  tableId: "<id>",
+  googleAuthMethod: "secret",
+};
+```
+
 ### `models.OutputGoogleChronicle`
 
 ```typescript
@@ -239,6 +251,15 @@ const value: models.OutputGoogleCloudLogging = {
   logLocationType: "folder",
   logNameExpression: "<value>",
   logLocationExpression: "<value>",
+};
+```
+
+### `models.OutputGoogleCloudObservability`
+
+```typescript
+const value: models.OutputGoogleCloudObservability = {
+  type: "google_cloud_observability",
+  googleAuthMethod: "auto",
 };
 ```
 
@@ -477,6 +498,17 @@ const value: models.OutputLoki = {
 };
 ```
 
+### `models.OutputAmazonManagedPrometheus`
+
+```typescript
+const value: models.OutputAmazonManagedPrometheus = {
+  type: "amazon_managed_prometheus",
+  url: "https://rusty-hovel.org/",
+  awsAuthenticationMethod: "secret",
+  region: "<value>",
+};
+```
+
 ### `models.OutputPrometheus`
 
 ```typescript
@@ -613,6 +645,17 @@ const value: models.OutputDiskSpool = {
 const value: models.OutputClickHouse = {
   type: "click_house",
   url: "https://lucky-ignorance.name/",
+  database: "<value>",
+  tableName: "<value>",
+};
+```
+
+### `models.OutputCustomerMetricsStorage`
+
+```typescript
+const value: models.OutputCustomerMetricsStorage = {
+  type: "customer_metrics_storage",
+  url: "https://broken-goodwill.com",
   database: "<value>",
   tableName: "<value>",
 };
@@ -806,6 +849,17 @@ const value: models.OutputAlibabaCloudS3 = {
   bucket: "<value>",
   stagePath: "<value>",
   endpoint: "<value>",
+};
+```
+
+### `models.OutputIbmCloudS3`
+
+```typescript
+const value: models.OutputIbmCloudS3 = {
+  type: "ibm_cloud_s3",
+  endpoint: "<value>",
+  bucket: "<value>",
+  stagePath: "<value>",
 };
 ```
 
