@@ -34,9 +34,9 @@ async function main() {
 
     // Get the first available Worker Group
     const workerGroups = await criblClient.groups.list({ product: 'stream' });
-    
-    if (workerGroups.items && workerGroups.items.length > 0) {
-      const firstWorkerGroup = workerGroups.items[0];
+
+    if (workerGroups.result.items && workerGroups.result.items.length > 0) {
+      const firstWorkerGroup = workerGroups.result.items[0];
       console.log(`Replicating Worker Group: ${firstWorkerGroup.id}`);
       
       // Replicate the first Worker Group
