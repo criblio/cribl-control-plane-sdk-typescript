@@ -105,6 +105,9 @@ export type RedisAuthTypeTextSecret = {
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
+  /**
+   * TLS settings for encrypting the connection to Redis.
+   */
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone | undefined;
   /**
    * Root nodes to which the cluster connection should be initiated
@@ -220,6 +223,9 @@ export type RedisAuthTypeCredentialsSecret = {
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
+  /**
+   * TLS settings for encrypting the connection to Redis.
+   */
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone | undefined;
   /**
    * Root nodes to which the cluster connection should be initiated
@@ -347,6 +353,9 @@ export type RedisAuthTypeManual = {
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
+  /**
+   * TLS settings for encrypting the connection to Redis.
+   */
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone | undefined;
   /**
    * Root nodes to which the cluster connection should be initiated
@@ -446,6 +455,9 @@ export type RedisAuthTypeNone = {
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
+  /**
+   * TLS settings for encrypting the connection to Redis.
+   */
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone | undefined;
   /**
    * Root nodes to which the cluster connection should be initiated
@@ -577,6 +589,9 @@ export type RedisDeploymentTypeSentinel = {
    * Use TLS for connections to this cluster
    */
   tls?: boolean | undefined;
+  /**
+   * TLS settings for encrypting the connection to Redis.
+   */
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone | undefined;
   /**
    * List of Redis commands to execute against the specified keys.
@@ -720,6 +735,9 @@ export type RedisDeploymentTypeCluster = {
    * Which nodes read commands should be sent to
    */
   scaleReads?: ScaleReadsOptionsRedisDeploymentTypeCluster | undefined;
+  /**
+   * TLS settings for encrypting the connection to Redis.
+   */
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone | undefined;
   /**
    * List of Redis commands to execute against the specified keys.
@@ -855,6 +873,9 @@ export type RedisDeploymentTypeStandalone = {
    * Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
    */
   url: string;
+  /**
+   * TLS settings for encrypting the connection to Redis.
+   */
   tlsOptions?: TlsOptionsTypeRedisDeploymentTypeStandalone | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.

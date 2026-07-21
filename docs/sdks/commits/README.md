@@ -97,6 +97,61 @@ run();
 
 Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.<br/><br/>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
 
+### Example Usage: VersionCommitBadRequestExamplesEffectiveWithoutGroup
+
+<!-- UsageSnippet language="typescript" operationID="createVersionCommit" method="post" path="/version/commit" example="VersionCommitBadRequestExamplesEffectiveWithoutGroup" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.versions.commits.create({
+    message: "<value>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { versionsCommitsCreate } from "cribl-control-plane/funcs/versionsCommitsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await versionsCommitsCreate(criblControlPlane, {
+    message: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("versionsCommitsCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: VersionCommitExamplesCommitAll
 
 <!-- UsageSnippet language="typescript" operationID="createVersionCommit" method="post" path="/version/commit" example="VersionCommitExamplesCommitAll" -->
@@ -290,6 +345,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.RestApiJsonError              | 400                                  | application/json                     |
 | errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

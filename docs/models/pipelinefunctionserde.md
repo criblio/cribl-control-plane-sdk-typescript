@@ -8,7 +8,7 @@ import { PipelineFunctionSerde } from "cribl-control-plane/models";
 let value: PipelineFunctionSerde = {
   id: "serde",
   conf: {
-    type: "delim",
+    type: "kvp",
     mode: "extract",
   },
 };

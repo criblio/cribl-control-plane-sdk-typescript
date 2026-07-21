@@ -143,6 +143,10 @@ export type OutputCriblLake = {
    */
   orphans?: OrphanFileRecoveryType | undefined;
   /**
+   * Storage location that contains the target Lake dataset.
+   */
+  storageLocationId?: string | undefined;
+  /**
    * Lake dataset to send the data to.
    */
   destPath?: string | undefined;
@@ -284,6 +288,7 @@ export type OutputCriblLake$Outbound = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType$Outbound | undefined;
   orphans?: OrphanFileRecoveryType$Outbound | undefined;
+  storageLocationId?: string | undefined;
   destPath?: string | undefined;
   format?: string | undefined;
   dynamicDataset?: boolean | undefined;
@@ -348,6 +353,7 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: RetrySettingsType$outboundSchema.optional(),
   orphans: OrphanFileRecoveryType$outboundSchema.optional(),
+  storageLocationId: z.string().optional(),
   destPath: z.string().optional(),
   format: OutputCriblLakeFormat$outboundSchema.optional(),
   dynamicDataset: z.boolean().optional(),

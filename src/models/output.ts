@@ -344,6 +344,11 @@ import {
   OutputSnmp$outboundSchema,
 } from "./outputsnmp.js";
 import {
+  OutputSnowflakeStreaming,
+  OutputSnowflakeStreaming$Outbound,
+  OutputSnowflakeStreaming$outboundSchema,
+} from "./outputsnowflakestreaming.js";
+import {
   OutputSns,
   OutputSns$Outbound,
   OutputSns$outboundSchema,
@@ -493,6 +498,7 @@ export type Output =
   | OutputSentinelOneAiSiem
   | OutputChronicle
   | OutputDatabricks
+  | OutputSnowflakeStreaming
   | OutputMicrosoftFabric
   | OutputCloudflareR2
   | OutputNutanixObjects
@@ -579,6 +585,7 @@ export type Output$Outbound =
   | OutputSentinelOneAiSiem$Outbound
   | OutputChronicle$Outbound
   | OutputDatabricks$Outbound
+  | OutputSnowflakeStreaming$Outbound
   | OutputMicrosoftFabric$Outbound
   | OutputCloudflareR2$Outbound
   | OutputNutanixObjects$Outbound
@@ -671,6 +678,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputSentinelOneAiSiem$outboundSchema,
   OutputChronicle$outboundSchema,
   OutputDatabricks$outboundSchema,
+  OutputSnowflakeStreaming$outboundSchema,
   OutputMicrosoftFabric$outboundSchema,
   OutputCloudflareR2$outboundSchema,
   OutputNutanixObjects$outboundSchema,

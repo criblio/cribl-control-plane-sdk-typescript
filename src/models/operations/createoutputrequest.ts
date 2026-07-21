@@ -8,8 +8,6 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 import {
-  CreateOutputLogLocationType,
-  CreateOutputLogLocationType$outboundSchema,
   CreateOutputOutputAlibabaCloudS3,
   CreateOutputOutputAlibabaCloudS3$Outbound,
   CreateOutputOutputAlibabaCloudS3$outboundSchema,
@@ -166,6 +164,9 @@ import {
   CreateOutputOutputSnmp,
   CreateOutputOutputSnmp$Outbound,
   CreateOutputOutputSnmp$outboundSchema,
+  CreateOutputOutputSnowflakeStreaming,
+  CreateOutputOutputSnowflakeStreaming$Outbound,
+  CreateOutputOutputSnowflakeStreaming$outboundSchema,
   CreateOutputOutputSns,
   CreateOutputOutputSns$Outbound,
   CreateOutputOutputSns$outboundSchema,
@@ -187,12 +188,60 @@ import {
   CreateOutputOutputXsiam,
   CreateOutputOutputXsiam$Outbound,
   CreateOutputOutputXsiam$outboundSchema,
-  CreateOutputPayloadFormat,
-  CreateOutputPayloadFormat$outboundSchema,
-  CreateOutputPqControlsGoogleCloudLogging,
-  CreateOutputPqControlsGoogleCloudLogging$Outbound,
-  CreateOutputPqControlsGoogleCloudLogging$outboundSchema,
-} from "./createoutputpqcontrolsgooglecloudlogging.js";
+} from "./createoutputoutputgooglecloudobservability.js";
+
+/**
+ * Log location type
+ */
+export const CreateOutputLogLocationType = {
+  /**
+   * Project
+   */
+  Project: "project",
+  /**
+   * Organization
+   */
+  Organization: "organization",
+  /**
+   * Billing Account
+   */
+  BillingAccount: "billingAccount",
+  /**
+   * Folder
+   */
+  Folder: "folder",
+} as const;
+/**
+ * Log location type
+ */
+export type CreateOutputLogLocationType = OpenEnum<
+  typeof CreateOutputLogLocationType
+>;
+
+/**
+ * Format to use when sending payload. Defaults to Text.
+ */
+export const CreateOutputPayloadFormat = {
+  /**
+   * Text
+   */
+  Text: "text",
+  /**
+   * JSON
+   */
+  Json: "json",
+} as const;
+/**
+ * Format to use when sending payload. Defaults to Text.
+ */
+export type CreateOutputPayloadFormat = OpenEnum<
+  typeof CreateOutputPayloadFormat
+>;
+
+/**
+ * Persistent queue controls.
+ */
+export type CreateOutputPqControlsGoogleCloudLogging = {};
 
 export type CreateOutputOutputGoogleCloudLogging = {
   /**
@@ -6665,6 +6714,7 @@ export type CreateOutputRequest =
   | CreateOutputOutputSentinelOneAiSiem
   | CreateOutputOutputChronicle
   | CreateOutputOutputDatabricks
+  | CreateOutputOutputSnowflakeStreaming
   | CreateOutputOutputMicrosoftFabric
   | CreateOutputOutputCloudflareR2
   | CreateOutputOutputNutanixObjects
@@ -6675,6 +6725,41 @@ export type CreateOutputRequest =
   | CreateOutputOutputScalityS3
   | CreateOutputOutputAlibabaCloudS3
   | CreateOutputOutputIbmCloudS3;
+
+/** @internal */
+export const CreateOutputLogLocationType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputLogLocationType
+> = openEnums.outboundSchema(CreateOutputLogLocationType);
+
+/** @internal */
+export const CreateOutputPayloadFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputPayloadFormat
+> = openEnums.outboundSchema(CreateOutputPayloadFormat);
+
+/** @internal */
+export type CreateOutputPqControlsGoogleCloudLogging$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsGoogleCloudLogging$outboundSchema: z.ZodType<
+  CreateOutputPqControlsGoogleCloudLogging$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsGoogleCloudLogging
+> = z.object({});
+
+export function createOutputPqControlsGoogleCloudLoggingToJSON(
+  createOutputPqControlsGoogleCloudLogging:
+    CreateOutputPqControlsGoogleCloudLogging,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsGoogleCloudLogging$outboundSchema.parse(
+      createOutputPqControlsGoogleCloudLogging,
+    ),
+  );
+}
 
 /** @internal */
 export type CreateOutputOutputGoogleCloudLogging$Outbound = {
@@ -6846,8 +6931,9 @@ export const CreateOutputOutputGoogleCloudLogging$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqMaxBufferSizeBytes: z.string().optional(),
-  pqControls: CreateOutputPqControlsGoogleCloudLogging$outboundSchema
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputPqControlsGoogleCloudLogging$outboundSchema
+  ).optional(),
   __template_streamtags: z.string().optional(),
   __template_logLocationType: z.string().optional(),
   __template_logNameExpression: z.string().optional(),
@@ -11065,6 +11151,7 @@ export type CreateOutputRequest$Outbound =
   | CreateOutputOutputSentinelOneAiSiem$Outbound
   | CreateOutputOutputChronicle$Outbound
   | CreateOutputOutputDatabricks$Outbound
+  | CreateOutputOutputSnowflakeStreaming$Outbound
   | CreateOutputOutputMicrosoftFabric$Outbound
   | CreateOutputOutputCloudflareR2$Outbound
   | CreateOutputOutputNutanixObjects$Outbound
@@ -11160,6 +11247,7 @@ export const CreateOutputRequest$outboundSchema: z.ZodType<
   CreateOutputOutputSentinelOneAiSiem$outboundSchema,
   CreateOutputOutputChronicle$outboundSchema,
   CreateOutputOutputDatabricks$outboundSchema,
+  CreateOutputOutputSnowflakeStreaming$outboundSchema,
   CreateOutputOutputMicrosoftFabric$outboundSchema,
   CreateOutputOutputCloudflareR2$outboundSchema,
   CreateOutputOutputNutanixObjects$outboundSchema,

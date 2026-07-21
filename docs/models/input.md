@@ -728,12 +728,6 @@ const value: models.InputOpenaiComplianceLogsInput = {
 const value: models.InputAnthropicComplianceInput = {
   type: "anthropic_compliance",
   textSecret: "<value>",
-  contentConfig: [
-    {
-      contentType: "project_details",
-      cronSchedule: "<value>",
-    },
-  ],
 };
 ```
 

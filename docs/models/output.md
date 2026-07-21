@@ -755,6 +755,22 @@ const value: models.OutputDatabricks = {
 };
 ```
 
+### `models.OutputSnowflakeStreaming`
+
+```typescript
+const value: models.OutputSnowflakeStreaming = {
+  type: "snowflake_streaming",
+  accountIdentifier: "<value>",
+  user: "Claire_McLaughlin",
+  pem: {
+    keyName: "<value>",
+  },
+  database: "<value>",
+  schema: "<value>",
+  table: "<value>",
+};
+```
+
 ### `models.OutputMicrosoftFabric`
 
 ```typescript

@@ -628,7 +628,7 @@ const value: models.PipelineFunctionSensitiveDataScanner = {
 const value: models.PipelineFunctionSerde = {
   id: "serde",
   conf: {
-    type: "delim",
+    type: "kvp",
     mode: "extract",
   },
 };

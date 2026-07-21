@@ -1,13 +1,13 @@
 # OtlpVersionOptions
 
-OTLP version
+The version of OTLP Protobuf definitions to use when structuring data to send
 
 ## Example Usage
 
 ```typescript
 import { OtlpVersionOptions } from "cribl-control-plane/models";
 
-let value: OtlpVersionOptions = "0.10.0";
+let value: OtlpVersionOptions = "1.3.1";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -15,5 +15,5 @@ let value: OtlpVersionOptions = "0.10.0";
 ## Values
 
 ```typescript
-"0.10.0" | "1.3.1" | Unrecognized<string>
+"1.3.1" | Unrecognized<string>
 ```

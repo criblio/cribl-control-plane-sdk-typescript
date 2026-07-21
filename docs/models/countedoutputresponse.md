@@ -9,9 +9,7 @@ let value: CountedOutputResponse = {
   count: 228713,
   items: [
     {
-      type: "elastic_cloud",
-      url: "https://aching-stir-fry.net/",
-      index: "<value>",
+      type: "newrelic",
     },
   ],
 };

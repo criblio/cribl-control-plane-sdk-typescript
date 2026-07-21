@@ -8,11 +8,9 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 import {
-  CreateInputAuth,
-  CreateInputAuth$Outbound,
-  CreateInputAuth$outboundSchema,
-  CreateInputBlobStoreAuthenticationMethod,
-  CreateInputBlobStoreAuthenticationMethod$outboundSchema,
+  CreateInputElasticsearchMetadata,
+  CreateInputElasticsearchMetadata$Outbound,
+  CreateInputElasticsearchMetadata$outboundSchema,
   CreateInputInputAnthropicCompliance,
   CreateInputInputAnthropicCompliance$Outbound,
   CreateInputInputAnthropicCompliance$outboundSchema,
@@ -28,21 +26,9 @@ import {
   CreateInputInputCloudflareHec,
   CreateInputInputCloudflareHec$Outbound,
   CreateInputInputCloudflareHec$outboundSchema,
-  CreateInputInputCribl,
-  CreateInputInputCribl$Outbound,
-  CreateInputInputCribl$outboundSchema,
-  CreateInputInputCriblHttp,
-  CreateInputInputCriblHttp$Outbound,
-  CreateInputInputCriblHttp$outboundSchema,
-  CreateInputInputCriblLakeHttp,
-  CreateInputInputCriblLakeHttp$Outbound,
-  CreateInputInputCriblLakeHttp$outboundSchema,
   CreateInputInputCriblmetrics,
   CreateInputInputCriblmetrics$Outbound,
   CreateInputInputCriblmetrics$outboundSchema,
-  CreateInputInputCriblTcp,
-  CreateInputInputCriblTcp$Outbound,
-  CreateInputInputCriblTcp$outboundSchema,
   CreateInputInputCrowdstrike,
   CreateInputInputCrowdstrike$Outbound,
   CreateInputInputCrowdstrike$outboundSchema,
@@ -52,18 +38,9 @@ import {
   CreateInputInputDatagen,
   CreateInputInputDatagen$Outbound,
   CreateInputInputDatagen$outboundSchema,
-  CreateInputInputExec,
-  CreateInputInputExec$Outbound,
-  CreateInputInputExec$outboundSchema,
   CreateInputInputFile,
   CreateInputInputFile$Outbound,
   CreateInputInputFile$outboundSchema,
-  CreateInputInputFirehose,
-  CreateInputInputFirehose$Outbound,
-  CreateInputInputFirehose$outboundSchema,
-  CreateInputInputGooglePubsub,
-  CreateInputInputGooglePubsub$Outbound,
-  CreateInputInputGooglePubsub$outboundSchema,
   CreateInputInputHttpRaw,
   CreateInputInputHttpRaw$Outbound,
   CreateInputInputHttpRaw$outboundSchema,
@@ -163,7 +140,927 @@ import {
   CreateInputInputZscalerHec,
   CreateInputInputZscalerHec$Outbound,
   CreateInputInputZscalerHec$outboundSchema,
-} from "./createinputblobstoreauthenticationmethod.js";
+  CreateInputSplunkHecMetadata,
+  CreateInputSplunkHecMetadata$Outbound,
+  CreateInputSplunkHecMetadata$outboundSchema,
+} from "./createinputelasticsearchmetadata.js";
+
+export type CreateInputAuthTokensExt = {
+  /**
+   * Token
+   */
+  token: string;
+  description?: string | undefined;
+  /**
+   * Fields to add to events referencing this token
+   */
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  splunkHecMetadata?: CreateInputSplunkHecMetadata | undefined;
+  elasticsearchMetadata?: CreateInputElasticsearchMetadata | undefined;
+};
+
+export type CreateInputInputCriblLakeHttp = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  /**
+   * Source type identifier.
+   */
+  type: "cribl_lake_http";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  /**
+   * TLS settings (server side)
+   */
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+   */
+  criblAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+   */
+  splunkHecAPI?: string | undefined;
+  /**
+   * Enable Splunk HEC acknowledgements
+   */
+  splunkHecAcks?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Auth tokens
+   */
+  authTokensExt?: Array<CreateInputAuthTokensExt> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
+   */
+  __template_authTokens?: string | undefined;
+  /**
+   * Binds 'criblAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'criblAPI' at runtime.
+   */
+  __template_criblAPI?: string | undefined;
+  /**
+   * Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
+   */
+  __template_elasticAPI?: string | undefined;
+  /**
+   * Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
+   */
+  __template_splunkHecAPI?: string | undefined;
+};
+
+export type CreateInputInputCriblHttp = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  /**
+   * Source type identifier.
+   */
+  type: "cribl_http";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
+   */
+  authTokens?: Array<models.AuthTokenConfInputCriblTcp> | undefined;
+  /**
+   * TLS settings (server side)
+   */
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+};
+
+export type CreateInputInputCriblTcp = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  /**
+   * Connector type identifier.
+   */
+  type: "cribl_tcp";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * TLS settings (server side)
+   */
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Load balance traffic across all Worker Processes
+   */
+  enableLoadBalancing?: boolean | undefined;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
+   */
+  authTokens?: Array<models.AuthTokenConfInputCriblTcp> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+};
+
+export type CreateInputInputCribl = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  /**
+   * Connector type identifier.
+   */
+  type: "cribl";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
+  filter?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+};
+
+export type CreateInputInputGooglePubsub = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  /**
+   * Connector type identifier.
+   */
+  type: "google_pubsub";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
+   */
+  topicName: string;
+  /**
+   * ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
+   */
+  subscriptionName: string;
+  /**
+   * Use when the subscription is not created by this Source and topic is not known
+   */
+  monitorSubscription?: boolean | undefined;
+  /**
+   * Create topic if it does not exist
+   */
+  createTopic?: boolean | undefined;
+  /**
+   * Create subscription if it does not exist
+   */
+  createSubscription?: boolean | undefined;
+  /**
+   * Region to retrieve messages from. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
+   */
+  region?: string | undefined;
+  /**
+   * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+   */
+  googleAuthMethod?: models.GoogleAuthenticationMethodOptions | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  secret?: string | undefined;
+  /**
+   * If Destination exerts backpressure, this setting limits how many inbound events Stream will queue for processing before it stops retrieving events
+   */
+  maxBacklog?: number | undefined;
+  /**
+   * How many streams to pull messages from at one time. Doubling the value doubles the number of messages this Source pulls from the topic (if available), while consuming more CPU and memory. Defaults to 5.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Pull request timeout, in milliseconds
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
+   */
+  orderedDelivery?: boolean | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
+   */
+  __template_topicName?: string | undefined;
+  /**
+   * Binds 'subscriptionName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subscriptionName' at runtime.
+   */
+  __template_subscriptionName?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+};
+
+export type CreateInputInputFirehose = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  /**
+   * Source type identifier.
+   */
+  type: "firehose";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  /**
+   * TLS settings (server side)
+   */
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
+   */
+  __template_authTokens?: string | undefined;
+};
+
+/**
+ * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+ */
+export const CreateInputScheduleType = {
+  Interval: "interval",
+  CronSchedule: "cronSchedule",
+} as const;
+/**
+ * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+ */
+export type CreateInputScheduleType = OpenEnum<typeof CreateInputScheduleType>;
+
+export type CreateInputInputExec = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  /**
+   * Connector type identifier.
+   */
+  type: "exec";
+  /**
+   * Disabled
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Command to execute; supports Bourne shell (or CMD on Windows) syntax
+   */
+  command: string;
+  /**
+   * Optional script content to pipe into the command's stdin. The stdin stream is closed after the script is written.
+   */
+  script?: string | undefined;
+  /**
+   * Maximum number of retry attempts in the event that the command fails
+   */
+  retries?: number | undefined;
+  /**
+   * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+   */
+  scheduleType?: CreateInputScheduleType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Interval between command executions in seconds.
+   */
+  interval?: number | undefined;
+  /**
+   * Cron schedule to execute the command on.
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+};
+
+/**
+ * Authentication mechanism
+ */
+export const CreateInputAuthenticationMechanism = {
+  /**
+   * Connection String
+   */
+  ConnectionString: "connection-string",
+  /**
+   * OAuth Bearer
+   */
+  OauthBearer: "oauth-bearer",
+} as const;
+/**
+ * Authentication mechanism
+ */
+export type CreateInputAuthenticationMechanism = OpenEnum<
+  typeof CreateInputAuthenticationMechanism
+>;
+
+export type CreateInputCertificate = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName: string;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+};
+
+export type CreateInputAuth = {
+  /**
+   * Authentication mechanism
+   */
+  mechanism: CreateInputAuthenticationMechanism;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Authentication method
+   */
+  clientSecretAuthType?: models.AuthenticationMethodOptionsAuth | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: CreateInputCertificate | undefined;
+  /**
+   * Endpoint used to acquire authentication tokens from Azure
+   */
+  oauthEndpoint?:
+    | models.MicrosoftEntraIdAuthenticationEndpointOptionsSasl
+    | undefined;
+  /**
+   * client_id to pass in the OAuth request parameter
+   */
+  clientId?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory
+   */
+  tenantId?: string | undefined;
+  /**
+   * The fully qualified Event Hubs namespace that the consumer is associated with. This is likely to be similar to {yournamespace}.servicebus.windows.net.
+   */
+  fullyQualifiedNamespace?: string | undefined;
+  /**
+   * Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+   */
+  __template_oauthEndpoint?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'fullyQualifiedNamespace' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fullyQualifiedNamespace' at runtime.
+   */
+  __template_fullyQualifiedNamespace?: string | undefined;
+};
+
+/**
+ * Authentication method
+ */
+export const CreateInputBlobStoreAuthenticationMethod = {
+  Secret: "secret",
+  ClientSecret: "clientSecret",
+  ClientCert: "clientCert",
+  ClientAssertion: "clientAssertion",
+  ClientAssertionRpc: "clientAssertion_rpc",
+} as const;
+/**
+ * Authentication method
+ */
+export type CreateInputBlobStoreAuthenticationMethod = OpenEnum<
+  typeof CreateInputBlobStoreAuthenticationMethod
+>;
 
 /**
  * Azure Blob Storage
@@ -4557,6 +5454,702 @@ export type CreateInputRequest =
   | CreateInputInputOkta;
 
 /** @internal */
+export type CreateInputAuthTokensExt$Outbound = {
+  token: string;
+  description?: string | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  splunkHecMetadata?: CreateInputSplunkHecMetadata$Outbound | undefined;
+  elasticsearchMetadata?: CreateInputElasticsearchMetadata$Outbound | undefined;
+};
+
+/** @internal */
+export const CreateInputAuthTokensExt$outboundSchema: z.ZodType<
+  CreateInputAuthTokensExt$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuthTokensExt
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  splunkHecMetadata: CreateInputSplunkHecMetadata$outboundSchema.optional(),
+  elasticsearchMetadata: CreateInputElasticsearchMetadata$outboundSchema
+    .optional(),
+});
+
+export function createInputAuthTokensExtToJSON(
+  createInputAuthTokensExt: CreateInputAuthTokensExt,
+): string {
+  return JSON.stringify(
+    CreateInputAuthTokensExt$outboundSchema.parse(createInputAuthTokensExt),
+  );
+}
+
+/** @internal */
+export type CreateInputInputCriblLakeHttp$Outbound = {
+  id: string;
+  type: "cribl_lake_http";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  criblAPI?: string | undefined;
+  elasticAPI?: string | undefined;
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  authTokensExt?: Array<CreateInputAuthTokensExt$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_authTokens?: string | undefined;
+  __template_criblAPI?: string | undefined;
+  __template_elasticAPI?: string | undefined;
+  __template_splunkHecAPI?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputCriblLakeHttp$outboundSchema: z.ZodType<
+  CreateInputInputCriblLakeHttp$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputCriblLakeHttp
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl_lake_http"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  criblAPI: z.string().optional(),
+  elasticAPI: z.string().optional(),
+  splunkHecAPI: z.string().optional(),
+  splunkHecAcks: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  authTokensExt: z.array(z.lazy(() => CreateInputAuthTokensExt$outboundSchema))
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_authTokens: z.string().optional(),
+  __template_criblAPI: z.string().optional(),
+  __template_elasticAPI: z.string().optional(),
+  __template_splunkHecAPI: z.string().optional(),
+});
+
+export function createInputInputCriblLakeHttpToJSON(
+  createInputInputCriblLakeHttp: CreateInputInputCriblLakeHttp,
+): string {
+  return JSON.stringify(
+    CreateInputInputCriblLakeHttp$outboundSchema.parse(
+      createInputInputCriblLakeHttp,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputCriblHttp$Outbound = {
+  id: string;
+  type: "cribl_http";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<models.AuthTokenConfInputCriblTcp$Outbound> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputCriblHttp$outboundSchema: z.ZodType<
+  CreateInputInputCriblHttp$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputCriblHttp
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl_http"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(models.AuthTokenConfInputCriblTcp$outboundSchema)
+    .optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+});
+
+export function createInputInputCriblHttpToJSON(
+  createInputInputCriblHttp: CreateInputInputCriblHttp,
+): string {
+  return JSON.stringify(
+    CreateInputInputCriblHttp$outboundSchema.parse(createInputInputCriblHttp),
+  );
+}
+
+/** @internal */
+export type CreateInputInputCriblTcp$Outbound = {
+  id: string;
+  type: "cribl_tcp";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  enableLoadBalancing?: boolean | undefined;
+  authTokens?: Array<models.AuthTokenConfInputCriblTcp$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputCriblTcp$outboundSchema: z.ZodType<
+  CreateInputInputCriblTcp$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputCriblTcp
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl_tcp"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  enableLoadBalancing: z.boolean().optional(),
+  authTokens: z.array(models.AuthTokenConfInputCriblTcp$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+});
+
+export function createInputInputCriblTcpToJSON(
+  createInputInputCriblTcp: CreateInputInputCriblTcp,
+): string {
+  return JSON.stringify(
+    CreateInputInputCriblTcp$outboundSchema.parse(createInputInputCriblTcp),
+  );
+}
+
+/** @internal */
+export type CreateInputInputCribl$Outbound = {
+  id: string;
+  type: "cribl";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  filter?: string | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputCribl$outboundSchema: z.ZodType<
+  CreateInputInputCribl$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputCribl
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  filter: z.string().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
+
+export function createInputInputCriblToJSON(
+  createInputInputCribl: CreateInputInputCribl,
+): string {
+  return JSON.stringify(
+    CreateInputInputCribl$outboundSchema.parse(createInputInputCribl),
+  );
+}
+
+/** @internal */
+export type CreateInputInputGooglePubsub$Outbound = {
+  id: string;
+  type: "google_pubsub";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  topicName: string;
+  subscriptionName: string;
+  monitorSubscription?: boolean | undefined;
+  createTopic?: boolean | undefined;
+  createSubscription?: boolean | undefined;
+  region?: string | undefined;
+  googleAuthMethod?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  secret?: string | undefined;
+  maxBacklog?: number | undefined;
+  concurrency?: number | undefined;
+  requestTimeout?: number | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  orderedDelivery?: boolean | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_topicName?: string | undefined;
+  __template_subscriptionName?: string | undefined;
+  __template_region?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputGooglePubsub$outboundSchema: z.ZodType<
+  CreateInputInputGooglePubsub$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputGooglePubsub
+> = z.object({
+  id: z.string(),
+  type: z.literal("google_pubsub"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  topicName: z.string(),
+  subscriptionName: z.string(),
+  monitorSubscription: z.boolean().optional(),
+  createTopic: z.boolean().optional(),
+  createSubscription: z.boolean().optional(),
+  region: z.string().optional(),
+  googleAuthMethod: models.GoogleAuthenticationMethodOptions$outboundSchema
+    .optional(),
+  serviceAccountCredentials: z.string().optional(),
+  secret: z.string().optional(),
+  maxBacklog: z.number().optional(),
+  concurrency: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  orderedDelivery: z.boolean().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_topicName: z.string().optional(),
+  __template_subscriptionName: z.string().optional(),
+  __template_region: z.string().optional(),
+});
+
+export function createInputInputGooglePubsubToJSON(
+  createInputInputGooglePubsub: CreateInputInputGooglePubsub,
+): string {
+  return JSON.stringify(
+    CreateInputInputGooglePubsub$outboundSchema.parse(
+      createInputInputGooglePubsub,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputFirehose$Outbound = {
+  id: string;
+  type: "firehose";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_authTokens?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputFirehose$outboundSchema: z.ZodType<
+  CreateInputInputFirehose$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputFirehose
+> = z.object({
+  id: z.string(),
+  type: z.literal("firehose"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_authTokens: z.string().optional(),
+});
+
+export function createInputInputFirehoseToJSON(
+  createInputInputFirehose: CreateInputInputFirehose,
+): string {
+  return JSON.stringify(
+    CreateInputInputFirehose$outboundSchema.parse(createInputInputFirehose),
+  );
+}
+
+/** @internal */
+export const CreateInputScheduleType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputScheduleType
+> = openEnums.outboundSchema(CreateInputScheduleType);
+
+/** @internal */
+export type CreateInputInputExec$Outbound = {
+  id: string;
+  type: "exec";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  command: string;
+  script?: string | undefined;
+  retries?: number | undefined;
+  scheduleType?: string | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  interval?: number | undefined;
+  cronSchedule?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputExec$outboundSchema: z.ZodType<
+  CreateInputInputExec$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputExec
+> = z.object({
+  id: z.string(),
+  type: z.literal("exec"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  command: z.string(),
+  script: z.string().optional(),
+  retries: z.number().optional(),
+  scheduleType: CreateInputScheduleType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  interval: z.number().optional(),
+  cronSchedule: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
+
+export function createInputInputExecToJSON(
+  createInputInputExec: CreateInputInputExec,
+): string {
+  return JSON.stringify(
+    CreateInputInputExec$outboundSchema.parse(createInputInputExec),
+  );
+}
+
+/** @internal */
+export const CreateInputAuthenticationMechanism$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputAuthenticationMechanism
+> = openEnums.outboundSchema(CreateInputAuthenticationMechanism);
+
+/** @internal */
+export type CreateInputCertificate$Outbound = {
+  certificateName: string;
+  certPath: string;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputCertificate$outboundSchema: z.ZodType<
+  CreateInputCertificate$Outbound,
+  z.ZodTypeDef,
+  CreateInputCertificate
+> = z.object({
+  certificateName: z.string(),
+  certPath: z.string(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+});
+
+export function createInputCertificateToJSON(
+  createInputCertificate: CreateInputCertificate,
+): string {
+  return JSON.stringify(
+    CreateInputCertificate$outboundSchema.parse(createInputCertificate),
+  );
+}
+
+/** @internal */
+export type CreateInputAuth$Outbound = {
+  mechanism: string;
+  textSecret?: string | undefined;
+  clientSecretAuthType?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?: CreateInputCertificate$Outbound | undefined;
+  oauthEndpoint?: string | undefined;
+  clientId?: string | undefined;
+  tenantId?: string | undefined;
+  fullyQualifiedNamespace?: string | undefined;
+  __template_oauthEndpoint?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_fullyQualifiedNamespace?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputAuth$outboundSchema: z.ZodType<
+  CreateInputAuth$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuth
+> = z.object({
+  mechanism: CreateInputAuthenticationMechanism$outboundSchema,
+  textSecret: z.string().optional(),
+  clientSecretAuthType: models.AuthenticationMethodOptionsAuth$outboundSchema
+    .optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: z.lazy(() => CreateInputCertificate$outboundSchema).optional(),
+  oauthEndpoint: models
+    .MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema
+    .optional(),
+  clientId: z.string().optional(),
+  tenantId: z.string().optional(),
+  fullyQualifiedNamespace: z.string().optional(),
+  __template_oauthEndpoint: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_fullyQualifiedNamespace: z.string().optional(),
+});
+
+export function createInputAuthToJSON(
+  createInputAuth: CreateInputAuth,
+): string {
+  return JSON.stringify(CreateInputAuth$outboundSchema.parse(createInputAuth));
+}
+
+/** @internal */
+export const CreateInputBlobStoreAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputBlobStoreAuthenticationMethod
+> = openEnums.outboundSchema(CreateInputBlobStoreAuthenticationMethod);
+
+/** @internal */
 export type CreateInputAzureBlobStorage$Outbound = {
   containerName: string;
   authType?: string | undefined;
@@ -4685,7 +6278,7 @@ export const CreateInputInputEventhubAmqp$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   eventHubName: z.string().optional(),
   consumerGroup: z.string(),
-  auth: CreateInputAuth$outboundSchema.optional(),
+  auth: z.lazy(() => CreateInputAuth$outboundSchema).optional(),
   checkpointing: z.lazy(() => CreateInputCheckpointing$outboundSchema),
   fromBeginning: z.boolean().optional(),
   maxBatchSize: z.number().int().optional(),
@@ -7694,13 +9287,13 @@ export const CreateInputRequest$outboundSchema: z.ZodType<
   z.lazy(() => CreateInputInputMicrosoftGraph$outboundSchema),
   z.lazy(() => CreateInputInputEventhub$outboundSchema),
   z.lazy(() => CreateInputInputEventhubAmqp$outboundSchema),
-  CreateInputInputExec$outboundSchema,
-  CreateInputInputFirehose$outboundSchema,
-  CreateInputInputGooglePubsub$outboundSchema,
-  CreateInputInputCribl$outboundSchema,
-  CreateInputInputCriblTcp$outboundSchema,
-  CreateInputInputCriblHttp$outboundSchema,
-  CreateInputInputCriblLakeHttp$outboundSchema,
+  z.lazy(() => CreateInputInputExec$outboundSchema),
+  z.lazy(() => CreateInputInputFirehose$outboundSchema),
+  z.lazy(() => CreateInputInputGooglePubsub$outboundSchema),
+  z.lazy(() => CreateInputInputCribl$outboundSchema),
+  z.lazy(() => CreateInputInputCriblTcp$outboundSchema),
+  z.lazy(() => CreateInputInputCriblHttp$outboundSchema),
+  z.lazy(() => CreateInputInputCriblLakeHttp$outboundSchema),
   CreateInputInputTcpjson$outboundSchema,
   CreateInputInputSystemMetrics$outboundSchema,
   CreateInputInputSystemState$outboundSchema,

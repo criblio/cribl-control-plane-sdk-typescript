@@ -139,12 +139,6 @@ import {
   OrphanFileRecoveryType$inboundSchema,
 } from "./orphanfilerecoverytype.js";
 import {
-  ParquetVersionOptions,
-  ParquetVersionOptions$inboundSchema,
-} from "./parquetversionoptions.js";
-import {
-  OutputResponseLogLocationType,
-  OutputResponseLogLocationType$inboundSchema,
   OutputResponseOutputAlibabaCloudS3,
   OutputResponseOutputAlibabaCloudS3$inboundSchema,
   OutputResponseOutputAlphasocS3,
@@ -249,6 +243,8 @@ import {
   OutputResponseOutputServiceNow$inboundSchema,
   OutputResponseOutputSnmp,
   OutputResponseOutputSnmp$inboundSchema,
+  OutputResponseOutputSnowflakeStreaming,
+  OutputResponseOutputSnowflakeStreaming$inboundSchema,
   OutputResponseOutputSns,
   OutputResponseOutputSns$inboundSchema,
   OutputResponseOutputSqs,
@@ -263,11 +259,11 @@ import {
   OutputResponseOutputSumoLogic$inboundSchema,
   OutputResponseOutputXsiam,
   OutputResponseOutputXsiam$inboundSchema,
-  OutputResponsePayloadFormat,
-  OutputResponsePayloadFormat$inboundSchema,
-  PqControlsGoogleCloudLogging,
-  PqControlsGoogleCloudLogging$inboundSchema,
-} from "./pqcontrolsgooglecloudlogging.js";
+} from "./outputresponseoutputgooglecloudobservability.js";
+import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+} from "./parquetversionoptions.js";
 import {
   QueueFullBehaviorOptions,
   QueueFullBehaviorOptions$inboundSchema,
@@ -317,6 +313,59 @@ import {
   TlsSettingsClientSideTypeCaPathCertPathExtended,
   TlsSettingsClientSideTypeCaPathCertPathExtended$inboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpathextended.js";
+
+/**
+ * Log location type
+ */
+export const OutputResponseLogLocationType = {
+  /**
+   * Project
+   */
+  Project: "project",
+  /**
+   * Organization
+   */
+  Organization: "organization",
+  /**
+   * Billing Account
+   */
+  BillingAccount: "billingAccount",
+  /**
+   * Folder
+   */
+  Folder: "folder",
+} as const;
+/**
+ * Log location type
+ */
+export type OutputResponseLogLocationType = OpenEnum<
+  typeof OutputResponseLogLocationType
+>;
+
+/**
+ * Format to use when sending payload. Defaults to Text.
+ */
+export const OutputResponsePayloadFormat = {
+  /**
+   * Text
+   */
+  Text: "text",
+  /**
+   * JSON
+   */
+  Json: "json",
+} as const;
+/**
+ * Format to use when sending payload. Defaults to Text.
+ */
+export type OutputResponsePayloadFormat = OpenEnum<
+  typeof OutputResponsePayloadFormat
+>;
+
+/**
+ * Persistent queue controls.
+ */
+export type PqControlsGoogleCloudLogging = {};
 
 export type OutputResponseOutputGoogleCloudLogging = {
   /**
@@ -6973,6 +7022,7 @@ export type OutputResponse =
   | OutputResponseOutputSentinelOneAiSiem
   | OutputResponseOutputChronicle
   | OutputResponseOutputDatabricks
+  | OutputResponseOutputSnowflakeStreaming
   | OutputResponseOutputMicrosoftFabric
   | OutputResponseOutputCloudflareR2
   | OutputResponseOutputNutanixObjects
@@ -6984,6 +7034,37 @@ export type OutputResponse =
   | OutputResponseOutputAlibabaCloudS3
   | OutputResponseOutputIbmCloudS3
   | discriminatedUnionTypes.Unknown<"type">;
+
+/** @internal */
+export const OutputResponseLogLocationType$inboundSchema: z.ZodType<
+  OutputResponseLogLocationType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputResponseLogLocationType);
+
+/** @internal */
+export const OutputResponsePayloadFormat$inboundSchema: z.ZodType<
+  OutputResponsePayloadFormat,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputResponsePayloadFormat);
+
+/** @internal */
+export const PqControlsGoogleCloudLogging$inboundSchema: z.ZodType<
+  PqControlsGoogleCloudLogging,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+export function pqControlsGoogleCloudLoggingFromJSON(
+  jsonString: string,
+): SafeParseResult<PqControlsGoogleCloudLogging, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PqControlsGoogleCloudLogging$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PqControlsGoogleCloudLogging' from JSON`,
+  );
+}
 
 /** @internal */
 export const OutputResponseOutputGoogleCloudLogging$inboundSchema: z.ZodType<
@@ -7066,7 +7147,9 @@ export const OutputResponseOutputGoogleCloudLogging$inboundSchema: z.ZodType<
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
   pqMaxBufferSizeBytes: types.optional(types.string()),
-  pqControls: types.optional(PqControlsGoogleCloudLogging$inboundSchema),
+  pqControls: types.optional(
+    z.lazy(() => PqControlsGoogleCloudLogging$inboundSchema),
+  ),
   __template_streamtags: types.optional(types.string()),
   __template_logLocationType: types.optional(types.string()),
   __template_logNameExpression: types.optional(types.string()),
@@ -9848,6 +9931,7 @@ export const OutputResponse$inboundSchema: z.ZodType<
   sentinel_one_ai_siem: OutputResponseOutputSentinelOneAiSiem$inboundSchema,
   chronicle: OutputResponseOutputChronicle$inboundSchema,
   databricks: OutputResponseOutputDatabricks$inboundSchema,
+  snowflake_streaming: OutputResponseOutputSnowflakeStreaming$inboundSchema,
   microsoft_fabric: OutputResponseOutputMicrosoftFabric$inboundSchema,
   cloudflare_r2: OutputResponseOutputCloudflareR2$inboundSchema,
   nutanix_objects: OutputResponseOutputNutanixObjects$inboundSchema,

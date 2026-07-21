@@ -10,7 +10,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FunctionConfSchemaEvalAdd = {
   /**
-   * Name
+   * Name of the field to set or add to the event.
    */
   name?: string | undefined;
   /**

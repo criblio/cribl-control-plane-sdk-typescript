@@ -3,8 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import {
   ConnectionConfInputCollection,
   ConnectionConfInputCollection$Outbound,
@@ -22,42 +20,32 @@ import {
   RetryRulesType$outboundSchema,
 } from "./retryrulestype.js";
 
-/**
- * Endpoint name
- */
-export const InputAnthropicComplianceEndpointName = {
-  Activities: "activities",
-  Chats: "chats",
-  Projects: "projects",
-  ChatMessages: "chat_messages",
-  ProjectDetails: "project_details",
-  Groups: "groups",
-  Organizations: "organizations",
-  OrgUsers: "org_users",
-  OrgRoles: "org_roles",
-} as const;
-/**
- * Endpoint name
- */
-export type InputAnthropicComplianceEndpointName = OpenEnum<
-  typeof InputAnthropicComplianceEndpointName
->;
+export type InputAnthropicComplianceActivitiesManageState = {};
 
-export type InputAnthropicComplianceManageState = {};
-
-export type InputAnthropicComplianceContentConfig = {
+/**
+ * Activities
+ */
+export type InputAnthropicComplianceActivities = {
   /**
-   * Endpoint name
-   */
-  contentType: InputAnthropicComplianceEndpointName;
-  /**
-   * Description
-   */
-  contentDescription?: string | undefined;
-  /**
-   * Enable endpoint
+   * Enabled
    */
   enabled?: boolean | undefined;
+  /**
+   * Schedule on which to run this collection job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * Earliest time for data collection, relative to now
+   */
+  earliest?: string | undefined;
+  /**
+   * Latest time for data collection, relative to now
+   */
+  latest?: string | undefined;
+  /**
+   * Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
   /**
    * Track collection progress between consecutive scheduled executions
    */
@@ -70,7 +58,23 @@ export type InputAnthropicComplianceContentConfig = {
    * JavaScript expression that defines which state to keep when merging task state
    */
   stateMergeExpression?: string | undefined;
-  manageState?: InputAnthropicComplianceManageState | undefined;
+  manageState?: InputAnthropicComplianceActivitiesManageState | undefined;
+};
+
+export type InputAnthropicComplianceChatsManageState = {};
+
+/**
+ * Chats
+ */
+export type InputAnthropicComplianceChats = {
+  /**
+   * Enabled
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Schedule on which to run this collection job
+   */
+  cronSchedule?: string | undefined;
   /**
    * Earliest time for data collection, relative to now
    */
@@ -80,17 +84,217 @@ export type InputAnthropicComplianceContentConfig = {
    */
   latest?: string | undefined;
   /**
+   * Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  stateTracking?: boolean | undefined;
+  /**
+   * JavaScript expression that defines how to update the state from an event
+   */
+  stateUpdateExpression?: string | undefined;
+  /**
+   * JavaScript expression that defines which state to keep when merging task state
+   */
+  stateMergeExpression?: string | undefined;
+  manageState?: InputAnthropicComplianceChatsManageState | undefined;
+};
+
+export type InputAnthropicComplianceProjectsManageState = {};
+
+/**
+ * Projects
+ */
+export type InputAnthropicComplianceProjects = {
+  /**
+   * Enabled
+   */
+  enabled?: boolean | undefined;
+  /**
    * Schedule on which to run this collection job
    */
-  cronSchedule: string;
+  cronSchedule?: string | undefined;
+  /**
+   * Earliest time for data collection, relative to now
+   */
+  earliest?: string | undefined;
+  /**
+   * Latest time for data collection, relative to now
+   */
+  latest?: string | undefined;
   /**
    * Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
    */
   jobTimeout?: string | undefined;
   /**
-   * Number of items per API page request. Leave empty to use the endpoint default.
+   * Track collection progress between consecutive scheduled executions
    */
-  pageSize?: number | undefined;
+  stateTracking?: boolean | undefined;
+  /**
+   * JavaScript expression that defines how to update the state from an event
+   */
+  stateUpdateExpression?: string | undefined;
+  /**
+   * JavaScript expression that defines which state to keep when merging task state
+   */
+  stateMergeExpression?: string | undefined;
+  manageState?: InputAnthropicComplianceProjectsManageState | undefined;
+};
+
+export type InputAnthropicComplianceChatMessagesManageState = {};
+
+/**
+ * Chat Messages
+ */
+export type InputAnthropicComplianceChatMessages = {
+  /**
+   * Enabled
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Schedule on which to run this collection job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * Earliest time for data collection, relative to now
+   */
+  earliest?: string | undefined;
+  /**
+   * Latest time for data collection, relative to now
+   */
+  latest?: string | undefined;
+  /**
+   * Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  stateTracking?: boolean | undefined;
+  /**
+   * JavaScript expression that defines how to update the state from an event
+   */
+  stateUpdateExpression?: string | undefined;
+  /**
+   * JavaScript expression that defines which state to keep when merging task state
+   */
+  stateMergeExpression?: string | undefined;
+  manageState?: InputAnthropicComplianceChatMessagesManageState | undefined;
+};
+
+export type InputAnthropicComplianceProjectDetailsManageState = {};
+
+/**
+ * Project Details
+ */
+export type InputAnthropicComplianceProjectDetails = {
+  /**
+   * Enabled
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Schedule on which to run this collection job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * Earliest time for data collection, relative to now
+   */
+  earliest?: string | undefined;
+  /**
+   * Latest time for data collection, relative to now
+   */
+  latest?: string | undefined;
+  /**
+   * Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  stateTracking?: boolean | undefined;
+  /**
+   * JavaScript expression that defines how to update the state from an event
+   */
+  stateUpdateExpression?: string | undefined;
+  /**
+   * JavaScript expression that defines which state to keep when merging task state
+   */
+  stateMergeExpression?: string | undefined;
+  manageState?: InputAnthropicComplianceProjectDetailsManageState | undefined;
+};
+
+/**
+ * Groups
+ */
+export type InputAnthropicComplianceGroups = {
+  /**
+   * Enabled
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Schedule on which to run this collection job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+};
+
+/**
+ * Organizations
+ */
+export type InputAnthropicComplianceOrganizations = {
+  /**
+   * Enabled
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Schedule on which to run this collection job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+};
+
+/**
+ * Organization Users
+ */
+export type InputAnthropicComplianceOrganizationUsers = {
+  /**
+   * Enabled
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Schedule on which to run this collection job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+};
+
+/**
+ * Organization Roles
+ */
+export type InputAnthropicComplianceOrganizationRoles = {
+  /**
+   * Enabled
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Schedule on which to run this collection job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
 };
 
 export type InputAnthropicComplianceInput = {
@@ -140,9 +344,41 @@ export type InputAnthropicComplianceInput = {
    */
   textSecret: string;
   /**
-   * Endpoint types
+   * Activities
    */
-  contentConfig: Array<InputAnthropicComplianceContentConfig>;
+  activities?: InputAnthropicComplianceActivities | undefined;
+  /**
+   * Chats
+   */
+  chats?: InputAnthropicComplianceChats | undefined;
+  /**
+   * Projects
+   */
+  projects?: InputAnthropicComplianceProjects | undefined;
+  /**
+   * Chat Messages
+   */
+  chat_messages?: InputAnthropicComplianceChatMessages | undefined;
+  /**
+   * Project Details
+   */
+  project_details?: InputAnthropicComplianceProjectDetails | undefined;
+  /**
+   * Groups
+   */
+  groups?: InputAnthropicComplianceGroups | undefined;
+  /**
+   * Organizations
+   */
+  organizations?: InputAnthropicComplianceOrganizations | undefined;
+  /**
+   * Organization Users
+   */
+  org_users?: InputAnthropicComplianceOrganizationUsers | undefined;
+  /**
+   * Organization Roles
+   */
+  org_roles?: InputAnthropicComplianceOrganizationRoles | undefined;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
    */
@@ -183,75 +419,445 @@ export type InputAnthropicComplianceInput = {
 };
 
 /** @internal */
-export const InputAnthropicComplianceEndpointName$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputAnthropicComplianceEndpointName
-> = openEnums.outboundSchema(InputAnthropicComplianceEndpointName);
+export type InputAnthropicComplianceActivitiesManageState$Outbound = {};
 
 /** @internal */
-export type InputAnthropicComplianceManageState$Outbound = {};
+export const InputAnthropicComplianceActivitiesManageState$outboundSchema:
+  z.ZodType<
+    InputAnthropicComplianceActivitiesManageState$Outbound,
+    z.ZodTypeDef,
+    InputAnthropicComplianceActivitiesManageState
+  > = z.object({});
 
-/** @internal */
-export const InputAnthropicComplianceManageState$outboundSchema: z.ZodType<
-  InputAnthropicComplianceManageState$Outbound,
-  z.ZodTypeDef,
-  InputAnthropicComplianceManageState
-> = z.object({});
-
-export function inputAnthropicComplianceManageStateToJSON(
-  inputAnthropicComplianceManageState: InputAnthropicComplianceManageState,
+export function inputAnthropicComplianceActivitiesManageStateToJSON(
+  inputAnthropicComplianceActivitiesManageState:
+    InputAnthropicComplianceActivitiesManageState,
 ): string {
   return JSON.stringify(
-    InputAnthropicComplianceManageState$outboundSchema.parse(
-      inputAnthropicComplianceManageState,
+    InputAnthropicComplianceActivitiesManageState$outboundSchema.parse(
+      inputAnthropicComplianceActivitiesManageState,
     ),
   );
 }
 
 /** @internal */
-export type InputAnthropicComplianceContentConfig$Outbound = {
-  contentType: string;
-  contentDescription?: string | undefined;
+export type InputAnthropicComplianceActivities$Outbound = {
   enabled?: boolean | undefined;
+  cronSchedule?: string | undefined;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  jobTimeout?: string | undefined;
   stateTracking?: boolean | undefined;
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
-  manageState?: InputAnthropicComplianceManageState$Outbound | undefined;
-  earliest?: string | undefined;
-  latest?: string | undefined;
-  cronSchedule: string;
-  jobTimeout?: string | undefined;
-  pageSize?: number | undefined;
+  manageState?:
+    | InputAnthropicComplianceActivitiesManageState$Outbound
+    | undefined;
 };
 
 /** @internal */
-export const InputAnthropicComplianceContentConfig$outboundSchema: z.ZodType<
-  InputAnthropicComplianceContentConfig$Outbound,
+export const InputAnthropicComplianceActivities$outboundSchema: z.ZodType<
+  InputAnthropicComplianceActivities$Outbound,
   z.ZodTypeDef,
-  InputAnthropicComplianceContentConfig
+  InputAnthropicComplianceActivities
 > = z.object({
-  contentType: InputAnthropicComplianceEndpointName$outboundSchema,
-  contentDescription: z.string().optional(),
   enabled: z.boolean().optional(),
+  cronSchedule: z.string().optional(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  jobTimeout: z.string().optional(),
   stateTracking: z.boolean().optional(),
   stateUpdateExpression: z.string().optional(),
   stateMergeExpression: z.string().optional(),
-  manageState: z.lazy(() => InputAnthropicComplianceManageState$outboundSchema)
-    .optional(),
-  earliest: z.string().optional(),
-  latest: z.string().optional(),
-  cronSchedule: z.string(),
-  jobTimeout: z.string().optional(),
-  pageSize: z.number().optional(),
+  manageState: z.lazy(() =>
+    InputAnthropicComplianceActivitiesManageState$outboundSchema
+  ).optional(),
 });
 
-export function inputAnthropicComplianceContentConfigToJSON(
-  inputAnthropicComplianceContentConfig: InputAnthropicComplianceContentConfig,
+export function inputAnthropicComplianceActivitiesToJSON(
+  inputAnthropicComplianceActivities: InputAnthropicComplianceActivities,
 ): string {
   return JSON.stringify(
-    InputAnthropicComplianceContentConfig$outboundSchema.parse(
-      inputAnthropicComplianceContentConfig,
+    InputAnthropicComplianceActivities$outboundSchema.parse(
+      inputAnthropicComplianceActivities,
+    ),
+  );
+}
+
+/** @internal */
+export type InputAnthropicComplianceChatsManageState$Outbound = {};
+
+/** @internal */
+export const InputAnthropicComplianceChatsManageState$outboundSchema: z.ZodType<
+  InputAnthropicComplianceChatsManageState$Outbound,
+  z.ZodTypeDef,
+  InputAnthropicComplianceChatsManageState
+> = z.object({});
+
+export function inputAnthropicComplianceChatsManageStateToJSON(
+  inputAnthropicComplianceChatsManageState:
+    InputAnthropicComplianceChatsManageState,
+): string {
+  return JSON.stringify(
+    InputAnthropicComplianceChatsManageState$outboundSchema.parse(
+      inputAnthropicComplianceChatsManageState,
+    ),
+  );
+}
+
+/** @internal */
+export type InputAnthropicComplianceChats$Outbound = {
+  enabled?: boolean | undefined;
+  cronSchedule?: string | undefined;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  jobTimeout?: string | undefined;
+  stateTracking?: boolean | undefined;
+  stateUpdateExpression?: string | undefined;
+  stateMergeExpression?: string | undefined;
+  manageState?: InputAnthropicComplianceChatsManageState$Outbound | undefined;
+};
+
+/** @internal */
+export const InputAnthropicComplianceChats$outboundSchema: z.ZodType<
+  InputAnthropicComplianceChats$Outbound,
+  z.ZodTypeDef,
+  InputAnthropicComplianceChats
+> = z.object({
+  enabled: z.boolean().optional(),
+  cronSchedule: z.string().optional(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  jobTimeout: z.string().optional(),
+  stateTracking: z.boolean().optional(),
+  stateUpdateExpression: z.string().optional(),
+  stateMergeExpression: z.string().optional(),
+  manageState: z.lazy(() =>
+    InputAnthropicComplianceChatsManageState$outboundSchema
+  ).optional(),
+});
+
+export function inputAnthropicComplianceChatsToJSON(
+  inputAnthropicComplianceChats: InputAnthropicComplianceChats,
+): string {
+  return JSON.stringify(
+    InputAnthropicComplianceChats$outboundSchema.parse(
+      inputAnthropicComplianceChats,
+    ),
+  );
+}
+
+/** @internal */
+export type InputAnthropicComplianceProjectsManageState$Outbound = {};
+
+/** @internal */
+export const InputAnthropicComplianceProjectsManageState$outboundSchema:
+  z.ZodType<
+    InputAnthropicComplianceProjectsManageState$Outbound,
+    z.ZodTypeDef,
+    InputAnthropicComplianceProjectsManageState
+  > = z.object({});
+
+export function inputAnthropicComplianceProjectsManageStateToJSON(
+  inputAnthropicComplianceProjectsManageState:
+    InputAnthropicComplianceProjectsManageState,
+): string {
+  return JSON.stringify(
+    InputAnthropicComplianceProjectsManageState$outboundSchema.parse(
+      inputAnthropicComplianceProjectsManageState,
+    ),
+  );
+}
+
+/** @internal */
+export type InputAnthropicComplianceProjects$Outbound = {
+  enabled?: boolean | undefined;
+  cronSchedule?: string | undefined;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  jobTimeout?: string | undefined;
+  stateTracking?: boolean | undefined;
+  stateUpdateExpression?: string | undefined;
+  stateMergeExpression?: string | undefined;
+  manageState?:
+    | InputAnthropicComplianceProjectsManageState$Outbound
+    | undefined;
+};
+
+/** @internal */
+export const InputAnthropicComplianceProjects$outboundSchema: z.ZodType<
+  InputAnthropicComplianceProjects$Outbound,
+  z.ZodTypeDef,
+  InputAnthropicComplianceProjects
+> = z.object({
+  enabled: z.boolean().optional(),
+  cronSchedule: z.string().optional(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  jobTimeout: z.string().optional(),
+  stateTracking: z.boolean().optional(),
+  stateUpdateExpression: z.string().optional(),
+  stateMergeExpression: z.string().optional(),
+  manageState: z.lazy(() =>
+    InputAnthropicComplianceProjectsManageState$outboundSchema
+  ).optional(),
+});
+
+export function inputAnthropicComplianceProjectsToJSON(
+  inputAnthropicComplianceProjects: InputAnthropicComplianceProjects,
+): string {
+  return JSON.stringify(
+    InputAnthropicComplianceProjects$outboundSchema.parse(
+      inputAnthropicComplianceProjects,
+    ),
+  );
+}
+
+/** @internal */
+export type InputAnthropicComplianceChatMessagesManageState$Outbound = {};
+
+/** @internal */
+export const InputAnthropicComplianceChatMessagesManageState$outboundSchema:
+  z.ZodType<
+    InputAnthropicComplianceChatMessagesManageState$Outbound,
+    z.ZodTypeDef,
+    InputAnthropicComplianceChatMessagesManageState
+  > = z.object({});
+
+export function inputAnthropicComplianceChatMessagesManageStateToJSON(
+  inputAnthropicComplianceChatMessagesManageState:
+    InputAnthropicComplianceChatMessagesManageState,
+): string {
+  return JSON.stringify(
+    InputAnthropicComplianceChatMessagesManageState$outboundSchema.parse(
+      inputAnthropicComplianceChatMessagesManageState,
+    ),
+  );
+}
+
+/** @internal */
+export type InputAnthropicComplianceChatMessages$Outbound = {
+  enabled?: boolean | undefined;
+  cronSchedule?: string | undefined;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  jobTimeout?: string | undefined;
+  stateTracking?: boolean | undefined;
+  stateUpdateExpression?: string | undefined;
+  stateMergeExpression?: string | undefined;
+  manageState?:
+    | InputAnthropicComplianceChatMessagesManageState$Outbound
+    | undefined;
+};
+
+/** @internal */
+export const InputAnthropicComplianceChatMessages$outboundSchema: z.ZodType<
+  InputAnthropicComplianceChatMessages$Outbound,
+  z.ZodTypeDef,
+  InputAnthropicComplianceChatMessages
+> = z.object({
+  enabled: z.boolean().optional(),
+  cronSchedule: z.string().optional(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  jobTimeout: z.string().optional(),
+  stateTracking: z.boolean().optional(),
+  stateUpdateExpression: z.string().optional(),
+  stateMergeExpression: z.string().optional(),
+  manageState: z.lazy(() =>
+    InputAnthropicComplianceChatMessagesManageState$outboundSchema
+  ).optional(),
+});
+
+export function inputAnthropicComplianceChatMessagesToJSON(
+  inputAnthropicComplianceChatMessages: InputAnthropicComplianceChatMessages,
+): string {
+  return JSON.stringify(
+    InputAnthropicComplianceChatMessages$outboundSchema.parse(
+      inputAnthropicComplianceChatMessages,
+    ),
+  );
+}
+
+/** @internal */
+export type InputAnthropicComplianceProjectDetailsManageState$Outbound = {};
+
+/** @internal */
+export const InputAnthropicComplianceProjectDetailsManageState$outboundSchema:
+  z.ZodType<
+    InputAnthropicComplianceProjectDetailsManageState$Outbound,
+    z.ZodTypeDef,
+    InputAnthropicComplianceProjectDetailsManageState
+  > = z.object({});
+
+export function inputAnthropicComplianceProjectDetailsManageStateToJSON(
+  inputAnthropicComplianceProjectDetailsManageState:
+    InputAnthropicComplianceProjectDetailsManageState,
+): string {
+  return JSON.stringify(
+    InputAnthropicComplianceProjectDetailsManageState$outboundSchema.parse(
+      inputAnthropicComplianceProjectDetailsManageState,
+    ),
+  );
+}
+
+/** @internal */
+export type InputAnthropicComplianceProjectDetails$Outbound = {
+  enabled?: boolean | undefined;
+  cronSchedule?: string | undefined;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  jobTimeout?: string | undefined;
+  stateTracking?: boolean | undefined;
+  stateUpdateExpression?: string | undefined;
+  stateMergeExpression?: string | undefined;
+  manageState?:
+    | InputAnthropicComplianceProjectDetailsManageState$Outbound
+    | undefined;
+};
+
+/** @internal */
+export const InputAnthropicComplianceProjectDetails$outboundSchema: z.ZodType<
+  InputAnthropicComplianceProjectDetails$Outbound,
+  z.ZodTypeDef,
+  InputAnthropicComplianceProjectDetails
+> = z.object({
+  enabled: z.boolean().optional(),
+  cronSchedule: z.string().optional(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  jobTimeout: z.string().optional(),
+  stateTracking: z.boolean().optional(),
+  stateUpdateExpression: z.string().optional(),
+  stateMergeExpression: z.string().optional(),
+  manageState: z.lazy(() =>
+    InputAnthropicComplianceProjectDetailsManageState$outboundSchema
+  ).optional(),
+});
+
+export function inputAnthropicComplianceProjectDetailsToJSON(
+  inputAnthropicComplianceProjectDetails:
+    InputAnthropicComplianceProjectDetails,
+): string {
+  return JSON.stringify(
+    InputAnthropicComplianceProjectDetails$outboundSchema.parse(
+      inputAnthropicComplianceProjectDetails,
+    ),
+  );
+}
+
+/** @internal */
+export type InputAnthropicComplianceGroups$Outbound = {
+  enabled?: boolean | undefined;
+  cronSchedule?: string | undefined;
+  jobTimeout?: string | undefined;
+};
+
+/** @internal */
+export const InputAnthropicComplianceGroups$outboundSchema: z.ZodType<
+  InputAnthropicComplianceGroups$Outbound,
+  z.ZodTypeDef,
+  InputAnthropicComplianceGroups
+> = z.object({
+  enabled: z.boolean().optional(),
+  cronSchedule: z.string().optional(),
+  jobTimeout: z.string().optional(),
+});
+
+export function inputAnthropicComplianceGroupsToJSON(
+  inputAnthropicComplianceGroups: InputAnthropicComplianceGroups,
+): string {
+  return JSON.stringify(
+    InputAnthropicComplianceGroups$outboundSchema.parse(
+      inputAnthropicComplianceGroups,
+    ),
+  );
+}
+
+/** @internal */
+export type InputAnthropicComplianceOrganizations$Outbound = {
+  enabled?: boolean | undefined;
+  cronSchedule?: string | undefined;
+  jobTimeout?: string | undefined;
+};
+
+/** @internal */
+export const InputAnthropicComplianceOrganizations$outboundSchema: z.ZodType<
+  InputAnthropicComplianceOrganizations$Outbound,
+  z.ZodTypeDef,
+  InputAnthropicComplianceOrganizations
+> = z.object({
+  enabled: z.boolean().optional(),
+  cronSchedule: z.string().optional(),
+  jobTimeout: z.string().optional(),
+});
+
+export function inputAnthropicComplianceOrganizationsToJSON(
+  inputAnthropicComplianceOrganizations: InputAnthropicComplianceOrganizations,
+): string {
+  return JSON.stringify(
+    InputAnthropicComplianceOrganizations$outboundSchema.parse(
+      inputAnthropicComplianceOrganizations,
+    ),
+  );
+}
+
+/** @internal */
+export type InputAnthropicComplianceOrganizationUsers$Outbound = {
+  enabled?: boolean | undefined;
+  cronSchedule?: string | undefined;
+  jobTimeout?: string | undefined;
+};
+
+/** @internal */
+export const InputAnthropicComplianceOrganizationUsers$outboundSchema:
+  z.ZodType<
+    InputAnthropicComplianceOrganizationUsers$Outbound,
+    z.ZodTypeDef,
+    InputAnthropicComplianceOrganizationUsers
+  > = z.object({
+    enabled: z.boolean().optional(),
+    cronSchedule: z.string().optional(),
+    jobTimeout: z.string().optional(),
+  });
+
+export function inputAnthropicComplianceOrganizationUsersToJSON(
+  inputAnthropicComplianceOrganizationUsers:
+    InputAnthropicComplianceOrganizationUsers,
+): string {
+  return JSON.stringify(
+    InputAnthropicComplianceOrganizationUsers$outboundSchema.parse(
+      inputAnthropicComplianceOrganizationUsers,
+    ),
+  );
+}
+
+/** @internal */
+export type InputAnthropicComplianceOrganizationRoles$Outbound = {
+  enabled?: boolean | undefined;
+  cronSchedule?: string | undefined;
+  jobTimeout?: string | undefined;
+};
+
+/** @internal */
+export const InputAnthropicComplianceOrganizationRoles$outboundSchema:
+  z.ZodType<
+    InputAnthropicComplianceOrganizationRoles$Outbound,
+    z.ZodTypeDef,
+    InputAnthropicComplianceOrganizationRoles
+  > = z.object({
+    enabled: z.boolean().optional(),
+    cronSchedule: z.string().optional(),
+    jobTimeout: z.string().optional(),
+  });
+
+export function inputAnthropicComplianceOrganizationRolesToJSON(
+  inputAnthropicComplianceOrganizationRoles:
+    InputAnthropicComplianceOrganizationRoles,
+): string {
+  return JSON.stringify(
+    InputAnthropicComplianceOrganizationRoles$outboundSchema.parse(
+      inputAnthropicComplianceOrganizationRoles,
     ),
   );
 }
@@ -270,7 +876,15 @@ export type InputAnthropicComplianceInput$Outbound = {
   pq?: PqType$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret: string;
-  contentConfig: Array<InputAnthropicComplianceContentConfig$Outbound>;
+  activities?: InputAnthropicComplianceActivities$Outbound | undefined;
+  chats?: InputAnthropicComplianceChats$Outbound | undefined;
+  projects?: InputAnthropicComplianceProjects$Outbound | undefined;
+  chat_messages?: InputAnthropicComplianceChatMessages$Outbound | undefined;
+  project_details?: InputAnthropicComplianceProjectDetails$Outbound | undefined;
+  groups?: InputAnthropicComplianceGroups$Outbound | undefined;
+  organizations?: InputAnthropicComplianceOrganizations$Outbound | undefined;
+  org_users?: InputAnthropicComplianceOrganizationUsers$Outbound | undefined;
+  org_roles?: InputAnthropicComplianceOrganizationRoles$Outbound | undefined;
   requestTimeout?: number | undefined;
   keepAliveTime?: number | undefined;
   maxMissedKeepAlives?: number | undefined;
@@ -301,9 +915,28 @@ export const InputAnthropicComplianceInput$outboundSchema: z.ZodType<
   pq: PqType$outboundSchema.optional(),
   apiKey: z.string().optional(),
   textSecret: z.string(),
-  contentConfig: z.array(
-    z.lazy(() => InputAnthropicComplianceContentConfig$outboundSchema),
-  ),
+  activities: z.lazy(() => InputAnthropicComplianceActivities$outboundSchema)
+    .optional(),
+  chats: z.lazy(() => InputAnthropicComplianceChats$outboundSchema).optional(),
+  projects: z.lazy(() => InputAnthropicComplianceProjects$outboundSchema)
+    .optional(),
+  chat_messages: z.lazy(() =>
+    InputAnthropicComplianceChatMessages$outboundSchema
+  ).optional(),
+  project_details: z.lazy(() =>
+    InputAnthropicComplianceProjectDetails$outboundSchema
+  ).optional(),
+  groups: z.lazy(() => InputAnthropicComplianceGroups$outboundSchema)
+    .optional(),
+  organizations: z.lazy(() =>
+    InputAnthropicComplianceOrganizations$outboundSchema
+  ).optional(),
+  org_users: z.lazy(() =>
+    InputAnthropicComplianceOrganizationUsers$outboundSchema
+  ).optional(),
+  org_roles: z.lazy(() =>
+    InputAnthropicComplianceOrganizationRoles$outboundSchema
+  ).optional(),
   requestTimeout: z.number().optional(),
   keepAliveTime: z.number().optional(),
   maxMissedKeepAlives: z.number().optional(),

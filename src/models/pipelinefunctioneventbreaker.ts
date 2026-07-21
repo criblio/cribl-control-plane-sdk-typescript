@@ -32,7 +32,7 @@ export type EventBreakerExistingOrNewExisting = {
    */
   shouldMarkCriblBreaker?: boolean | undefined;
   /**
-   * Event Breaker type
+   * Type of event-breaking rule to apply when creating a new inline ruleset.
    */
   ruleType?: string | undefined;
   /**
@@ -44,7 +44,7 @@ export type EventBreakerExistingOrNewExisting = {
    */
   timestampAnchorRegex?: string | undefined;
   /**
-   * Timestamp format
+   * Configuration for extracting and parsing timestamps from events.
    */
   timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
   /**
@@ -83,7 +83,7 @@ export type EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew = OpenEnum<
 
 export type EventBreakerExistingOrNewNewRuleTypeCsv = {
   /**
-   * Event Breaker type
+   * Type of event-breaking rule to apply when creating a new inline ruleset.
    */
   ruleType: "csv";
   /**
@@ -115,7 +115,7 @@ export type EventBreakerExistingOrNewNewRuleTypeCsv = {
    */
   timestampAnchorRegex?: string | undefined;
   /**
-   * Timestamp format
+   * Configuration for extracting and parsing timestamps from events.
    */
   timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
   /**
@@ -162,7 +162,7 @@ export type EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew = OpenEnum<
 
 export type EventBreakerExistingOrNewNewRuleTypeHeader = {
   /**
-   * Event Breaker type
+   * Type of event-breaking rule to apply when creating a new inline ruleset.
    */
   ruleType: "header";
   /**
@@ -198,7 +198,7 @@ export type EventBreakerExistingOrNewNewRuleTypeHeader = {
    */
   timestampAnchorRegex?: string | undefined;
   /**
-   * Timestamp format
+   * Configuration for extracting and parsing timestamps from events.
    */
   timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
   /**
@@ -244,7 +244,7 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArrayExistingOrNew =
 
 export type EventBreakerExistingOrNewNewRuleTypeJsonArray = {
   /**
-   * Event Breaker type
+   * Type of event-breaking rule to apply when creating a new inline ruleset.
    */
   ruleType: "json_array";
   /**
@@ -280,7 +280,7 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonArray = {
    */
   timestampAnchorRegex?: string | undefined;
   /**
-   * Timestamp format
+   * Configuration for extracting and parsing timestamps from events.
    */
   timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
   /**
@@ -327,7 +327,7 @@ export type EventBreakerExistingOrNewNewRuleTypeJsonExistingOrNew = OpenEnum<
 
 export type EventBreakerExistingOrNewNewRuleTypeJson = {
   /**
-   * Event Breaker type
+   * Type of event-breaking rule to apply when creating a new inline ruleset.
    */
   ruleType: "json";
   /**
@@ -343,7 +343,7 @@ export type EventBreakerExistingOrNewNewRuleTypeJson = {
    */
   timestampAnchorRegex?: string | undefined;
   /**
-   * Timestamp format
+   * Configuration for extracting and parsing timestamps from events.
    */
   timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
   /**
@@ -390,7 +390,7 @@ export type EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew = OpenEnum<
 
 export type EventBreakerExistingOrNewNewRuleTypeRegex = {
   /**
-   * Event Breaker type
+   * Type of event-breaking rule to apply when creating a new inline ruleset.
    */
   ruleType: "regex";
   /**
@@ -410,7 +410,7 @@ export type EventBreakerExistingOrNewNewRuleTypeRegex = {
    */
   timestampAnchorRegex?: string | undefined;
   /**
-   * Timestamp format
+   * Configuration for extracting and parsing timestamps from events.
    */
   timestamp?: TimestampFormatTypeEventBreakerExistingOrNewNew | undefined;
   /**

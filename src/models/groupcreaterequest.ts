@@ -17,6 +17,9 @@ import {
   TypeOptionsConfigGroup$outboundSchema,
 } from "./typeoptionsconfiggroup.js";
 
+/**
+ * Request body for creating a new Worker Group, Outpost Group, or Edge Fleet. Do not include automatically populated fields.
+ */
 export type GroupCreateRequest = {
   cloud?: ConfigGroupCloud | undefined;
   /**

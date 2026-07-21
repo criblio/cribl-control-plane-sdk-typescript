@@ -22,7 +22,7 @@ import {
 
 export type InputCriblLakeHttpSplunkHecMetadata = {
   /**
-   * Splunk HEC
+   * When enabled, the token value is available on events as __hecToken
    */
   enabled?: boolean | undefined;
   defaultDataset?: string | undefined;

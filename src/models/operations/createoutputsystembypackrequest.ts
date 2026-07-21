@@ -9,8 +9,6 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 import {
-  CreateOutputSystemByPackLogLocationType,
-  CreateOutputSystemByPackLogLocationType$outboundSchema,
   CreateOutputSystemByPackOutputAlibabaCloudS3,
   CreateOutputSystemByPackOutputAlibabaCloudS3$Outbound,
   CreateOutputSystemByPackOutputAlibabaCloudS3$outboundSchema,
@@ -167,6 +165,9 @@ import {
   CreateOutputSystemByPackOutputSnmp,
   CreateOutputSystemByPackOutputSnmp$Outbound,
   CreateOutputSystemByPackOutputSnmp$outboundSchema,
+  CreateOutputSystemByPackOutputSnowflakeStreaming,
+  CreateOutputSystemByPackOutputSnowflakeStreaming$Outbound,
+  CreateOutputSystemByPackOutputSnowflakeStreaming$outboundSchema,
   CreateOutputSystemByPackOutputSns,
   CreateOutputSystemByPackOutputSns$Outbound,
   CreateOutputSystemByPackOutputSns$outboundSchema,
@@ -188,12 +189,60 @@ import {
   CreateOutputSystemByPackOutputXsiam,
   CreateOutputSystemByPackOutputXsiam$Outbound,
   CreateOutputSystemByPackOutputXsiam$outboundSchema,
-  CreateOutputSystemByPackPayloadFormat,
-  CreateOutputSystemByPackPayloadFormat$outboundSchema,
-  CreateOutputSystemByPackPqControlsGoogleCloudLogging,
-  CreateOutputSystemByPackPqControlsGoogleCloudLogging$Outbound,
-  CreateOutputSystemByPackPqControlsGoogleCloudLogging$outboundSchema,
-} from "./createoutputsystembypackpqcontrolsgooglecloudlogging.js";
+} from "./createoutputsystembypackoutputgooglecloudobservability.js";
+
+/**
+ * Log location type
+ */
+export const CreateOutputSystemByPackLogLocationType = {
+  /**
+   * Project
+   */
+  Project: "project",
+  /**
+   * Organization
+   */
+  Organization: "organization",
+  /**
+   * Billing Account
+   */
+  BillingAccount: "billingAccount",
+  /**
+   * Folder
+   */
+  Folder: "folder",
+} as const;
+/**
+ * Log location type
+ */
+export type CreateOutputSystemByPackLogLocationType = OpenEnum<
+  typeof CreateOutputSystemByPackLogLocationType
+>;
+
+/**
+ * Format to use when sending payload. Defaults to Text.
+ */
+export const CreateOutputSystemByPackPayloadFormat = {
+  /**
+   * Text
+   */
+  Text: "text",
+  /**
+   * JSON
+   */
+  Json: "json",
+} as const;
+/**
+ * Format to use when sending payload. Defaults to Text.
+ */
+export type CreateOutputSystemByPackPayloadFormat = OpenEnum<
+  typeof CreateOutputSystemByPackPayloadFormat
+>;
+
+/**
+ * Persistent queue controls.
+ */
+export type CreateOutputSystemByPackPqControlsGoogleCloudLogging = {};
 
 export type CreateOutputSystemByPackOutputGoogleCloudLogging = {
   /**
@@ -6693,6 +6742,7 @@ export type CreateOutputSystemByPackRequestBody =
   | CreateOutputSystemByPackOutputSentinelOneAiSiem
   | CreateOutputSystemByPackOutputChronicle
   | CreateOutputSystemByPackOutputDatabricks
+  | CreateOutputSystemByPackOutputSnowflakeStreaming
   | CreateOutputSystemByPackOutputMicrosoftFabric
   | CreateOutputSystemByPackOutputCloudflareR2
   | CreateOutputSystemByPackOutputNutanixObjects
@@ -6791,6 +6841,7 @@ export type CreateOutputSystemByPackRequest = {
     | CreateOutputSystemByPackOutputSentinelOneAiSiem
     | CreateOutputSystemByPackOutputChronicle
     | CreateOutputSystemByPackOutputDatabricks
+    | CreateOutputSystemByPackOutputSnowflakeStreaming
     | CreateOutputSystemByPackOutputMicrosoftFabric
     | CreateOutputSystemByPackOutputCloudflareR2
     | CreateOutputSystemByPackOutputNutanixObjects
@@ -6802,6 +6853,42 @@ export type CreateOutputSystemByPackRequest = {
     | CreateOutputSystemByPackOutputAlibabaCloudS3
     | CreateOutputSystemByPackOutputIbmCloudS3;
 };
+
+/** @internal */
+export const CreateOutputSystemByPackLogLocationType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackLogLocationType
+> = openEnums.outboundSchema(CreateOutputSystemByPackLogLocationType);
+
+/** @internal */
+export const CreateOutputSystemByPackPayloadFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackPayloadFormat
+> = openEnums.outboundSchema(CreateOutputSystemByPackPayloadFormat);
+
+/** @internal */
+export type CreateOutputSystemByPackPqControlsGoogleCloudLogging$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsGoogleCloudLogging$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsGoogleCloudLogging$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsGoogleCloudLogging
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsGoogleCloudLoggingToJSON(
+  createOutputSystemByPackPqControlsGoogleCloudLogging:
+    CreateOutputSystemByPackPqControlsGoogleCloudLogging,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsGoogleCloudLogging$outboundSchema.parse(
+      createOutputSystemByPackPqControlsGoogleCloudLogging,
+    ),
+  );
+}
 
 /** @internal */
 export type CreateOutputSystemByPackOutputGoogleCloudLogging$Outbound = {
@@ -6979,9 +7066,9 @@ export const CreateOutputSystemByPackOutputGoogleCloudLogging$outboundSchema:
     pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
     pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
     pqMaxBufferSizeBytes: z.string().optional(),
-    pqControls:
+    pqControls: z.lazy(() =>
       CreateOutputSystemByPackPqControlsGoogleCloudLogging$outboundSchema
-        .optional(),
+    ).optional(),
     __template_streamtags: z.string().optional(),
     __template_logLocationType: z.string().optional(),
     __template_logNameExpression: z.string().optional(),
@@ -11383,6 +11470,7 @@ export type CreateOutputSystemByPackRequestBody$Outbound =
   | CreateOutputSystemByPackOutputSentinelOneAiSiem$Outbound
   | CreateOutputSystemByPackOutputChronicle$Outbound
   | CreateOutputSystemByPackOutputDatabricks$Outbound
+  | CreateOutputSystemByPackOutputSnowflakeStreaming$Outbound
   | CreateOutputSystemByPackOutputMicrosoftFabric$Outbound
   | CreateOutputSystemByPackOutputCloudflareR2$Outbound
   | CreateOutputSystemByPackOutputNutanixObjects$Outbound
@@ -11478,6 +11566,7 @@ export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
   CreateOutputSystemByPackOutputSentinelOneAiSiem$outboundSchema,
   CreateOutputSystemByPackOutputChronicle$outboundSchema,
   CreateOutputSystemByPackOutputDatabricks$outboundSchema,
+  CreateOutputSystemByPackOutputSnowflakeStreaming$outboundSchema,
   CreateOutputSystemByPackOutputMicrosoftFabric$outboundSchema,
   CreateOutputSystemByPackOutputCloudflareR2$outboundSchema,
   CreateOutputSystemByPackOutputNutanixObjects$outboundSchema,
@@ -11584,6 +11673,7 @@ export type CreateOutputSystemByPackRequest$Outbound = {
     | CreateOutputSystemByPackOutputSentinelOneAiSiem$Outbound
     | CreateOutputSystemByPackOutputChronicle$Outbound
     | CreateOutputSystemByPackOutputDatabricks$Outbound
+    | CreateOutputSystemByPackOutputSnowflakeStreaming$Outbound
     | CreateOutputSystemByPackOutputMicrosoftFabric$Outbound
     | CreateOutputSystemByPackOutputCloudflareR2$Outbound
     | CreateOutputSystemByPackOutputNutanixObjects$Outbound
@@ -11692,6 +11782,7 @@ export const CreateOutputSystemByPackRequest$outboundSchema: z.ZodType<
     CreateOutputSystemByPackOutputSentinelOneAiSiem$outboundSchema,
     CreateOutputSystemByPackOutputChronicle$outboundSchema,
     CreateOutputSystemByPackOutputDatabricks$outboundSchema,
+    CreateOutputSystemByPackOutputSnowflakeStreaming$outboundSchema,
     CreateOutputSystemByPackOutputMicrosoftFabric$outboundSchema,
     CreateOutputSystemByPackOutputCloudflareR2$outboundSchema,
     CreateOutputSystemByPackOutputNutanixObjects$outboundSchema,

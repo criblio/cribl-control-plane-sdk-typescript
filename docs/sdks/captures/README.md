@@ -351,6 +351,63 @@ async function run() {
 
 run();
 ```
+### Example Usage: CaptureNdjsonResponseExamplesCapturedEvent
+
+<!-- UsageSnippet language="typescript" operationID="createSystemCapture" method="post" path="/system/capture" example="CaptureNdjsonResponseExamplesCapturedEvent" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.system.captures.create({});
+
+  for await (const event of result) {
+    // Handle the event
+    console.log(event);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { systemCapturesCreate } from "cribl-control-plane/funcs/systemCapturesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await systemCapturesCreate(criblControlPlane, {});
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const event of result) {
+    // Handle the event
+    console.log(event);
+  }
+  } else {
+    console.log("systemCapturesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 

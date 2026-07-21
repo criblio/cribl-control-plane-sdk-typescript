@@ -101,6 +101,9 @@ export type NodeProvidedInfo = {
    * Operating system metadata collected from the node.
    */
   os?: OsTypeHeartbeatMetadata | NodeOsInfo | undefined;
+  /**
+   * Node information for the Outpost through which a Worker connects to the Leader.
+   */
   outpost?: OutpostNodeInfo | undefined;
   /**
    * Operating system platform.

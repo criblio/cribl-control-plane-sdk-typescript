@@ -6,42 +6,138 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as discriminatedUnionTypes from "../types/discriminatedUnion.js";
 import { discriminatedUnion } from "../types/discriminatedUnion.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Authentication protocol for the SNMPv3 user.
+ */
+export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol =
+  {
+    /**
+     * None
+     */
+    None: "none",
+    /**
+     * MD5
+     */
+    Md5: "md5",
+    /**
+     * SHA1
+     */
+    Sha: "sha",
+    /**
+     * SHA224
+     */
+    Sha224: "sha224",
+    /**
+     * SHA256
+     */
+    Sha256: "sha256",
+    /**
+     * SHA384
+     */
+    Sha384: "sha384",
+    /**
+     * SHA512
+     */
+    Sha512: "sha512",
+  } as const;
+/**
+ * Authentication protocol for the SNMPv3 user.
+ */
+export type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol =
+  OpenEnum<
+    typeof SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol
+  >;
+
 export type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone = {
+  /**
+   * Privacy protocol for SNMPv3 encryption.
+   */
   privProtocol?: string | undefined;
   /**
-   * V3 privacy key
+   * Privacy key for SNMPv3 encryption. Required when a privacy protocol is selected.
    */
   privKey: string;
   /**
-   * Authentication protocol
+   * Authentication protocol for the SNMPv3 user.
    */
-  authProtocol?: string | undefined;
+  authProtocol?:
+    | SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol
+    | undefined;
   /**
-   * V3 authentication key
+   * Authentication key for SNMPv3 user. Required when an authentication protocol is selected.
    */
   authKey: string;
   /**
-   * Username
+   * Username for the SNMPv3 user.
    */
   name: string;
 };
 
+/**
+ * Authentication protocol for the SNMPv3 user.
+ */
+export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol =
+  {
+    /**
+     * None
+     */
+    None: "none",
+    /**
+     * MD5
+     */
+    Md5: "md5",
+    /**
+     * SHA1
+     */
+    Sha: "sha",
+    /**
+     * SHA224
+     */
+    Sha224: "sha224",
+    /**
+     * SHA256
+     */
+    Sha256: "sha256",
+    /**
+     * SHA384
+     */
+    Sha384: "sha384",
+    /**
+     * SHA512
+     */
+    Sha512: "sha512",
+  } as const;
+/**
+ * Authentication protocol for the SNMPv3 user.
+ */
+export type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol =
+  OpenEnum<
+    typeof SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol
+  >;
+
 export type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone = {
+  /**
+   * Privacy protocol for SNMPv3 encryption.
+   */
   privProtocol: "none";
   /**
-   * Authentication protocol
+   * Authentication protocol for the SNMPv3 user.
    */
-  authProtocol?: string | undefined;
+  authProtocol?:
+    | SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol
+    | undefined;
   /**
-   * V3 authentication key
+   * Authentication key for SNMPv3 user. Required when an authentication protocol is selected.
    */
   authKey: string;
   /**
-   * Username
+   * Username for the SNMPv3 user.
    */
   name: string;
 };
@@ -64,13 +160,16 @@ export type SnmpTrapSerializeV3UserAuthProtocolNotNone =
 
 export type SnmpTrapSerializeV3UserAuthProtocolNone = {
   /**
-   * Authentication protocol
+   * Authentication protocol for the SNMPv3 user.
    */
   authProtocol: "none";
   /**
-   * Username
+   * Username for the SNMPv3 user.
    */
   name?: string | undefined;
+  /**
+   * Privacy protocol for SNMPv3 encryption.
+   */
   privProtocol?: string | undefined;
 };
 
@@ -144,6 +243,25 @@ export type FunctionConfSchemaSnmpTrapSerialize = {
 };
 
 /** @internal */
+export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol$inboundSchema:
+  z.ZodType<
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol,
+  );
+/** @internal */
+export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol
+  > = openEnums.outboundSchema(
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol,
+  );
+
+/** @internal */
 export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$inboundSchema:
   z.ZodType<
     SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone,
@@ -152,7 +270,9 @@ export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$inbou
   > = z.object({
     privProtocol: types.optional(types.string()),
     privKey: types.string(),
-    authProtocol: types.optional(types.string()),
+    authProtocol: types.optional(
+      SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol$inboundSchema,
+    ),
     authKey: types.string(),
     name: types.string(),
   });
@@ -175,7 +295,9 @@ export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$outbo
   > = z.object({
     privProtocol: z.string().optional(),
     privKey: z.string(),
-    authProtocol: z.string().optional(),
+    authProtocol:
+      SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol$outboundSchema
+        .optional(),
     authKey: z.string(),
     name: z.string(),
   });
@@ -205,6 +327,25 @@ export function snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneFro
 }
 
 /** @internal */
+export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol$inboundSchema:
+  z.ZodType<
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol,
+  );
+/** @internal */
+export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol
+  > = openEnums.outboundSchema(
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol,
+  );
+
+/** @internal */
 export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$inboundSchema:
   z.ZodType<
     SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone,
@@ -212,7 +353,9 @@ export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$inboundS
     unknown
   > = z.object({
     privProtocol: types.literal("none"),
-    authProtocol: types.optional(types.string()),
+    authProtocol: types.optional(
+      SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol$inboundSchema,
+    ),
     authKey: types.string(),
     name: types.string(),
   });
@@ -233,7 +376,9 @@ export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$outbound
     SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone
   > = z.object({
     privProtocol: z.literal("none"),
-    authProtocol: z.string().optional(),
+    authProtocol:
+      SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol$outboundSchema
+        .optional(),
     authKey: z.string(),
     name: z.string(),
   });

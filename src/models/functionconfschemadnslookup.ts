@@ -66,7 +66,7 @@ export type ResourceRecordType = OpenEnum<typeof ResourceRecordType>;
 
 export type DnsLookupField = {
   /**
-   * Lookup field name
+   * Name of the field containing the hostname or IP address to look up.
    */
   inFieldName?: string | undefined;
   /**

@@ -37,9 +37,9 @@ import {
 } from "./keyvaluemetadataconfoutputfilesystem.js";
 import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
-  OtlpVersionOptions131,
-  OtlpVersionOptions131$outboundSchema,
-} from "./otlpversionoptions131.js";
+  OtlpVersionOptions,
+  OtlpVersionOptions$outboundSchema,
+} from "./otlpversionoptions.js";
 import {
   QueueFullBehaviorOptions,
   QueueFullBehaviorOptions$outboundSchema,
@@ -132,7 +132,7 @@ export type OutputDynatraceOtlp = {
   /**
    * The version of OTLP Protobuf definitions to use when structuring data to send
    */
-  otlpVersion: OtlpVersionOptions131;
+  otlpVersion: OtlpVersionOptions;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
@@ -418,7 +418,7 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   protocol: OutputDynatraceOtlpProtocol$outboundSchema,
   endpoint: z.string(),
-  otlpVersion: OtlpVersionOptions131$outboundSchema,
+  otlpVersion: OtlpVersionOptions$outboundSchema,
   compress: CompressionOptionsDeflateGzip$outboundSchema.optional(),
   httpCompress: CompressionOptionsMessages$outboundSchema.optional(),
   httpTracesEndpointOverride: z.string().optional(),

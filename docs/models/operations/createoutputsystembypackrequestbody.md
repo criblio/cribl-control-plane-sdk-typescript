@@ -825,6 +825,23 @@ const value: operations.CreateOutputSystemByPackOutputDatabricks = {
 };
 ```
 
+### `operations.CreateOutputSystemByPackOutputSnowflakeStreaming`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputSnowflakeStreaming = {
+  id: "<id>",
+  type: "snowflake_streaming",
+  accountIdentifier: "<value>",
+  user: "Toby.Hettinger74",
+  pem: {
+    keyName: "<value>",
+  },
+  database: "<value>",
+  schema: "<value>",
+  table: "<value>",
+};
+```
+
 ### `operations.CreateOutputSystemByPackOutputMicrosoftFabric`
 
 ```typescript

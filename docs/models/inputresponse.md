@@ -758,12 +758,6 @@ const value: models.InputResponseInputOpenaiComplianceLogs = {
 const value: models.InputResponseInputAnthropicCompliance = {
   type: "anthropic_compliance",
   textSecret: "<value>",
-  contentConfig: [
-    {
-      contentType: "chats",
-      cronSchedule: "<value>",
-    },
-  ],
 };
 ```
 

@@ -42,7 +42,7 @@ export type Aggregation = {
 
 export type PipelineFunctionAggregateMetricsAdd = {
   /**
-   * Name
+   * Name of the field to set or add to the event.
    */
   name?: string | undefined;
   /**

@@ -12,10 +12,81 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
 import {
-  AuthenticationMethodEventhubAmqp,
-  AuthenticationMethodEventhubAmqp$inboundSchema,
-  InputResponseAuth,
-  InputResponseAuth$inboundSchema,
+  AuthenticationMethodOptions,
+  AuthenticationMethodOptions$inboundSchema,
+} from "./authenticationmethodoptions.js";
+import {
+  AuthenticationMethodOptionsAuth,
+  AuthenticationMethodOptionsAuth$inboundSchema,
+} from "./authenticationmethodoptionsauth.js";
+import {
+  AuthenticationMethodOptionsAuthTokensItems,
+  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+} from "./authenticationmethodoptionsauthtokensitems.js";
+import {
+  AuthenticationMethodOptionsManualSecret,
+  AuthenticationMethodOptionsManualSecret$inboundSchema,
+} from "./authenticationmethodoptionsmanualsecret.js";
+import {
+  AuthenticationMethodOptionsSasl,
+  AuthenticationMethodOptionsSasl$inboundSchema,
+} from "./authenticationmethodoptionssasl.js";
+import {
+  AuthenticationType,
+  AuthenticationType$inboundSchema,
+} from "./authenticationtype.js";
+import {
+  AuthenticationTypeOptionsLokiAuth,
+  AuthenticationTypeOptionsLokiAuth$inboundSchema,
+} from "./authenticationtypeoptionslokiauth.js";
+import {
+  AuthenticationTypeOptionsPrometheusAuth,
+  AuthenticationTypeOptionsPrometheusAuth$inboundSchema,
+} from "./authenticationtypeoptionsprometheusauth.js";
+import {
+  AuthenticationTypeUse,
+  AuthenticationTypeUse$inboundSchema,
+} from "./authenticationtypeuse.js";
+import {
+  AuthTokenConfInputCriblTcp,
+  AuthTokenConfInputCriblTcp$inboundSchema,
+} from "./authtokenconfinputcribltcp.js";
+import {
+  AuthTokensExtConfInputHttp,
+  AuthTokensExtConfInputHttp$inboundSchema,
+} from "./authtokensextconfinputhttp.js";
+import {
+  CertificateTypeAzureBlobAuthTypeClientCert,
+  CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
+} from "./certificatetypeazureblobauthtypeclientcert.js";
+import {
+  CertOptionsType,
+  CertOptionsType$inboundSchema,
+} from "./certoptionstype.js";
+import {
+  ConnectionConfInputCollection,
+  ConnectionConfInputCollection$inboundSchema,
+} from "./connectionconfinputcollection.js";
+import {
+  DiskSpoolingType,
+  DiskSpoolingType$inboundSchema,
+} from "./diskspoolingtype.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeaderConfInputElastic,
+  ExtraHttpHeaderConfInputElastic$inboundSchema,
+} from "./extrahttpheaderconfinputelastic.js";
+import {
+  GoogleAuthenticationMethodOptions,
+  GoogleAuthenticationMethodOptions$inboundSchema,
+} from "./googleauthenticationmethodoptions.js";
+import {
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
+  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+import {
+  InputResponseElasticsearchMetadata,
+  InputResponseElasticsearchMetadata$inboundSchema,
   InputResponseInputAnthropicCompliance,
   InputResponseInputAnthropicCompliance$inboundSchema,
   InputResponseInputAppleUnifiedLogs,
@@ -26,30 +97,16 @@ import {
   InputResponseInputBedrockS3$inboundSchema,
   InputResponseInputCloudflareHec,
   InputResponseInputCloudflareHec$inboundSchema,
-  InputResponseInputCribl,
-  InputResponseInputCribl$inboundSchema,
-  InputResponseInputCriblHttp,
-  InputResponseInputCriblHttp$inboundSchema,
-  InputResponseInputCriblLakeHttp,
-  InputResponseInputCriblLakeHttp$inboundSchema,
   InputResponseInputCriblmetrics,
   InputResponseInputCriblmetrics$inboundSchema,
-  InputResponseInputCriblTcp,
-  InputResponseInputCriblTcp$inboundSchema,
   InputResponseInputCrowdstrike,
   InputResponseInputCrowdstrike$inboundSchema,
   InputResponseInputDatadogAgent,
   InputResponseInputDatadogAgent$inboundSchema,
   InputResponseInputDatagen,
   InputResponseInputDatagen$inboundSchema,
-  InputResponseInputExec,
-  InputResponseInputExec$inboundSchema,
   InputResponseInputFile,
   InputResponseInputFile$inboundSchema,
-  InputResponseInputFirehose,
-  InputResponseInputFirehose$inboundSchema,
-  InputResponseInputGooglePubsub,
-  InputResponseInputGooglePubsub$inboundSchema,
   InputResponseInputHttpRaw,
   InputResponseInputHttpRaw$inboundSchema,
   InputResponseInputJournalFiles,
@@ -116,68 +173,9 @@ import {
   InputResponseInputWizWebhook$inboundSchema,
   InputResponseInputZscalerHec,
   InputResponseInputZscalerHec$inboundSchema,
-} from "./authenticationmethodeventhubamqp.js";
-import {
-  AuthenticationMethodOptions,
-  AuthenticationMethodOptions$inboundSchema,
-} from "./authenticationmethodoptions.js";
-import {
-  AuthenticationMethodOptionsAuthTokensItems,
-  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-} from "./authenticationmethodoptionsauthtokensitems.js";
-import {
-  AuthenticationMethodOptionsManualSecret,
-  AuthenticationMethodOptionsManualSecret$inboundSchema,
-} from "./authenticationmethodoptionsmanualsecret.js";
-import {
-  AuthenticationMethodOptionsSasl,
-  AuthenticationMethodOptionsSasl$inboundSchema,
-} from "./authenticationmethodoptionssasl.js";
-import {
-  AuthenticationType,
-  AuthenticationType$inboundSchema,
-} from "./authenticationtype.js";
-import {
-  AuthenticationTypeOptionsLokiAuth,
-  AuthenticationTypeOptionsLokiAuth$inboundSchema,
-} from "./authenticationtypeoptionslokiauth.js";
-import {
-  AuthenticationTypeOptionsPrometheusAuth,
-  AuthenticationTypeOptionsPrometheusAuth$inboundSchema,
-} from "./authenticationtypeoptionsprometheusauth.js";
-import {
-  AuthenticationTypeUse,
-  AuthenticationTypeUse$inboundSchema,
-} from "./authenticationtypeuse.js";
-import {
-  AuthTokensExtConfInputHttp,
-  AuthTokensExtConfInputHttp$inboundSchema,
-} from "./authtokensextconfinputhttp.js";
-import {
-  CertificateTypeAzureBlobAuthTypeClientCert,
-  CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
-} from "./certificatetypeazureblobauthtypeclientcert.js";
-import {
-  CertOptionsType,
-  CertOptionsType$inboundSchema,
-} from "./certoptionstype.js";
-import {
-  ConnectionConfInputCollection,
-  ConnectionConfInputCollection$inboundSchema,
-} from "./connectionconfinputcollection.js";
-import {
-  DiskSpoolingType,
-  DiskSpoolingType$inboundSchema,
-} from "./diskspoolingtype.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ExtraHttpHeaderConfInputElastic,
-  ExtraHttpHeaderConfInputElastic$inboundSchema,
-} from "./extrahttpheaderconfinputelastic.js";
-import {
-  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint,
-  InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
-} from "./inputcollectionorigindatasourcediscoverywithdestinationarnconstraint.js";
+  InputResponseSplunkHecMetadata,
+  InputResponseSplunkHecMetadata$inboundSchema,
+} from "./inputresponseelasticsearchmetadata.js";
 import {
   KafkaSchemaRegistryAuthenticationType,
   KafkaSchemaRegistryAuthenticationType$inboundSchema,
@@ -198,6 +196,10 @@ import {
   MetadataConfInputCollection,
   MetadataConfInputCollection$inboundSchema,
 } from "./metadataconfinputcollection.js";
+import {
+  MicrosoftEntraIdAuthenticationEndpointOptionsSasl,
+  MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema,
+} from "./microsoftentraidauthenticationendpointoptionssasl.js";
 import {
   NotificationUnion,
   NotificationUnion$inboundSchema,
@@ -252,6 +254,1024 @@ import {
   TlsSettingsServerSideType,
   TlsSettingsServerSideType$inboundSchema,
 } from "./tlssettingsserversidetype.js";
+
+export type InputResponseAuthTokensExt = {
+  /**
+   * Token
+   */
+  token: string;
+  description?: string | undefined;
+  /**
+   * Fields to add to events referencing this token
+   */
+  metadata?: Array<MetadataConfInputCollection> | undefined;
+  splunkHecMetadata?: InputResponseSplunkHecMetadata | undefined;
+  elasticsearchMetadata?: InputResponseElasticsearchMetadata | undefined;
+};
+
+export type InputResponseInputCriblLakeHttp = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  /**
+   * Source type identifier.
+   */
+  type: "cribl_lake_http";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionConfInputCollection> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  /**
+   * TLS settings (server side)
+   */
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  captureHeadersWarning?: "" | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+   */
+  criblAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+   */
+  splunkHecAPI?: string | undefined;
+  /**
+   * Enable Splunk HEC acknowledgements
+   */
+  splunkHecAcks?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Auth tokens
+   */
+  authTokensExt?: Array<InputResponseAuthTokensExt> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
+   */
+  __template_authTokens?: string | undefined;
+  /**
+   * Binds 'criblAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'criblAPI' at runtime.
+   */
+  __template_criblAPI?: string | undefined;
+  /**
+   * Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
+   */
+  __template_elasticAPI?: string | undefined;
+  /**
+   * Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
+   */
+  __template_splunkHecAPI?: string | undefined;
+  /**
+   * Notifications attached to the Source.
+   */
+  notifications?: Array<NotificationUnion> | undefined;
+  /**
+   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
+   */
+  status?: StatusType | undefined;
+};
+
+export type InputResponseInputCriblHttp = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  /**
+   * Source type identifier.
+   */
+  type: "cribl_http";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionConfInputCollection> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
+   */
+  authTokens?: Array<AuthTokenConfInputCriblTcp> | undefined;
+  /**
+   * TLS settings (server side)
+   */
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  captureHeadersWarning?: "" | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Notifications attached to the Source.
+   */
+  notifications?: Array<NotificationUnion> | undefined;
+  /**
+   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
+   */
+  status?: StatusType | undefined;
+};
+
+export type InputResponseInputCriblTcp = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
+  type: "cribl_tcp";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionConfInputCollection> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * TLS settings (server side)
+   */
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Load balance traffic across all Worker Processes
+   */
+  enableLoadBalancing?: boolean | undefined;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
+   */
+  authTokens?: Array<AuthTokenConfInputCriblTcp> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Notifications attached to the Source.
+   */
+  notifications?: Array<NotificationUnion> | undefined;
+  /**
+   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
+   */
+  status?: StatusType | undefined;
+};
+
+export type InputResponseInputCribl = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
+  type: "cribl";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionConfInputCollection> | undefined;
+  pq?: PqType | undefined;
+  filter?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Notifications attached to the Source.
+   */
+  notifications?: Array<NotificationUnion> | undefined;
+  /**
+   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
+   */
+  status?: StatusType | undefined;
+};
+
+export type InputResponseInputGooglePubsub = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
+  type: "google_pubsub";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionConfInputCollection> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
+   */
+  topicName: string;
+  /**
+   * ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
+   */
+  subscriptionName: string;
+  /**
+   * Use when the subscription is not created by this Source and topic is not known
+   */
+  monitorSubscription?: boolean | undefined;
+  /**
+   * Create topic if it does not exist
+   */
+  createTopic?: boolean | undefined;
+  /**
+   * Create subscription if it does not exist
+   */
+  createSubscription?: boolean | undefined;
+  /**
+   * Region to retrieve messages from. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
+   */
+  region?: string | undefined;
+  /**
+   * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+   */
+  googleAuthMethod?: GoogleAuthenticationMethodOptions | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  secret?: string | undefined;
+  /**
+   * If Destination exerts backpressure, this setting limits how many inbound events Stream will queue for processing before it stops retrieving events
+   */
+  maxBacklog?: number | undefined;
+  /**
+   * How many streams to pull messages from at one time. Doubling the value doubles the number of messages this Source pulls from the topic (if available), while consuming more CPU and memory. Defaults to 5.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Pull request timeout, in milliseconds
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
+   */
+  orderedDelivery?: boolean | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
+   */
+  __template_topicName?: string | undefined;
+  /**
+   * Binds 'subscriptionName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subscriptionName' at runtime.
+   */
+  __template_subscriptionName?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Notifications attached to the Source.
+   */
+  notifications?: Array<NotificationUnion> | undefined;
+  /**
+   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
+   */
+  status?: StatusType | undefined;
+};
+
+export type InputResponseInputFirehose = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  /**
+   * Source type identifier.
+   */
+  type: "firehose";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionConfInputCollection> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  /**
+   * TLS settings (server side)
+   */
+  tls?: TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  captureHeadersWarning?: "" | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
+   */
+  __template_authTokens?: string | undefined;
+  /**
+   * Notifications attached to the Source.
+   */
+  notifications?: Array<NotificationUnion> | undefined;
+  /**
+   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
+   */
+  status?: StatusType | undefined;
+};
+
+/**
+ * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+ */
+export const InputResponseScheduleType = {
+  Interval: "interval",
+  CronSchedule: "cronSchedule",
+} as const;
+/**
+ * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+ */
+export type InputResponseScheduleType = OpenEnum<
+  typeof InputResponseScheduleType
+>;
+
+export type InputResponseInputExec = {
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
+  type: "exec";
+  /**
+   * Disabled
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+   */
+  criblSourceProvenance?:
+    | InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint
+    | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionConfInputCollection> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Command to execute; supports Bourne shell (or CMD on Windows) syntax
+   */
+  command: string;
+  /**
+   * Optional script content to pipe into the command's stdin. The stdin stream is closed after the script is written.
+   */
+  script?: string | undefined;
+  /**
+   * Maximum number of retry attempts in the event that the command fails
+   */
+  retries?: number | undefined;
+  /**
+   * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+   */
+  scheduleType?: InputResponseScheduleType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Interval between command executions in seconds.
+   */
+  interval?: number | undefined;
+  /**
+   * Cron schedule to execute the command on.
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Notifications attached to the Source.
+   */
+  notifications?: Array<NotificationUnion> | undefined;
+  /**
+   * Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
+   */
+  status?: StatusType | undefined;
+};
+
+/**
+ * Authentication mechanism
+ */
+export const InputResponseAuthenticationMechanism = {
+  /**
+   * Connection String
+   */
+  ConnectionString: "connection-string",
+  /**
+   * OAuth Bearer
+   */
+  OauthBearer: "oauth-bearer",
+} as const;
+/**
+ * Authentication mechanism
+ */
+export type InputResponseAuthenticationMechanism = OpenEnum<
+  typeof InputResponseAuthenticationMechanism
+>;
+
+export type InputResponseCertificate = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName: string;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+};
+
+export type InputResponseAuth = {
+  /**
+   * Authentication mechanism
+   */
+  mechanism: InputResponseAuthenticationMechanism;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Authentication method
+   */
+  clientSecretAuthType?: AuthenticationMethodOptionsAuth | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: InputResponseCertificate | undefined;
+  /**
+   * Endpoint used to acquire authentication tokens from Azure
+   */
+  oauthEndpoint?: MicrosoftEntraIdAuthenticationEndpointOptionsSasl | undefined;
+  /**
+   * client_id to pass in the OAuth request parameter
+   */
+  clientId?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory
+   */
+  tenantId?: string | undefined;
+  /**
+   * The fully qualified Event Hubs namespace that the consumer is associated with. This is likely to be similar to {yournamespace}.servicebus.windows.net.
+   */
+  fullyQualifiedNamespace?: string | undefined;
+  /**
+   * Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+   */
+  __template_oauthEndpoint?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'fullyQualifiedNamespace' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fullyQualifiedNamespace' at runtime.
+   */
+  __template_fullyQualifiedNamespace?: string | undefined;
+};
+
+/**
+ * Authentication method
+ */
+export const AuthenticationMethodEventhubAmqp = {
+  Secret: "secret",
+  ClientSecret: "clientSecret",
+  ClientCert: "clientCert",
+  ClientAssertion: "clientAssertion",
+  ClientAssertionRpc: "clientAssertion_rpc",
+} as const;
+/**
+ * Authentication method
+ */
+export type AuthenticationMethodEventhubAmqp = OpenEnum<
+  typeof AuthenticationMethodEventhubAmqp
+>;
 
 /**
  * Azure Blob Storage
@@ -2136,6 +3156,7 @@ export type InputResponseInputPrometheusRw = {
    * Add request headers to events, in the __headers field
    */
   captureHeaders?: boolean | undefined;
+  captureHeadersWarning?: "" | undefined;
   /**
    * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
    */
@@ -2306,6 +3327,7 @@ export type InputResponseInputLoki = {
    * Add request headers to events, in the __headers field
    */
   captureHeaders?: boolean | undefined;
+  captureHeadersWarning?: "" | undefined;
   /**
    * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
    */
@@ -2539,6 +3561,7 @@ export type InputResponseInputGrafanaGrafana2 = {
    * Add request headers to events, in the __headers field
    */
   captureHeaders?: boolean | undefined;
+  captureHeadersWarning?: "" | undefined;
   /**
    * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
    */
@@ -2758,6 +3781,7 @@ export type InputResponseInputGrafanaGrafana1 = {
    * Add request headers to events, in the __headers field
    */
   captureHeaders?: boolean | undefined;
+  captureHeadersWarning?: "" | undefined;
   /**
    * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
    */
@@ -3203,6 +4227,7 @@ export type InputResponseInputElastic = {
    * Add request headers to events, in the __headers field
    */
   captureHeaders?: boolean | undefined;
+  captureHeadersWarning?: "" | undefined;
   /**
    * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
    */
@@ -3592,6 +4617,7 @@ export type InputResponseInputSplunkHec = {
    * Add request headers to events, in the __headers field
    */
   captureHeaders?: boolean | undefined;
+  captureHeadersWarning?: "" | undefined;
   /**
    * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
    */
@@ -4254,6 +5280,7 @@ export type InputResponseInputHttp = {
    * Add request headers to events, in the __headers field
    */
   captureHeaders?: boolean | undefined;
+  captureHeadersWarning?: "" | undefined;
   /**
    * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
    */
@@ -4946,6 +5973,491 @@ export type InputResponse =
   | discriminatedUnionTypes.Unknown<"type">;
 
 /** @internal */
+export const InputResponseAuthTokensExt$inboundSchema: z.ZodType<
+  InputResponseAuthTokensExt,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  token: types.string(),
+  description: types.optional(types.string()),
+  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
+  splunkHecMetadata: types.optional(
+    InputResponseSplunkHecMetadata$inboundSchema,
+  ),
+  elasticsearchMetadata: types.optional(
+    InputResponseElasticsearchMetadata$inboundSchema,
+  ),
+});
+
+export function inputResponseAuthTokensExtFromJSON(
+  jsonString: string,
+): SafeParseResult<InputResponseAuthTokensExt, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputResponseAuthTokensExt$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputResponseAuthTokensExt' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputResponseInputCriblLakeHttp$inboundSchema: z.ZodType<
+  InputResponseInputCriblLakeHttp,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.optional(types.string()),
+  type: types.literal("cribl_lake_http"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
+  connections: types.optional(
+    z.array(ConnectionConfInputCollection$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  authTokens: types.optional(z.array(types.string())),
+  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  captureHeadersWarning: types.optional(types.literal("")),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  criblAPI: types.optional(types.string()),
+  elasticAPI: types.optional(types.string()),
+  splunkHecAPI: types.optional(types.string()),
+  splunkHecAcks: types.optional(types.boolean()),
+  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
+  authTokensExt: types.optional(
+    z.array(z.lazy(() => InputResponseAuthTokensExt$inboundSchema)),
+  ),
+  description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+  __template_authTokens: types.optional(types.string()),
+  __template_criblAPI: types.optional(types.string()),
+  __template_elasticAPI: types.optional(types.string()),
+  __template_splunkHecAPI: types.optional(types.string()),
+  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
+  status: types.optional(StatusType$inboundSchema),
+});
+
+export function inputResponseInputCriblLakeHttpFromJSON(
+  jsonString: string,
+): SafeParseResult<InputResponseInputCriblLakeHttp, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputResponseInputCriblLakeHttp$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputResponseInputCriblLakeHttp' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputResponseInputCriblHttp$inboundSchema: z.ZodType<
+  InputResponseInputCriblHttp,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.optional(types.string()),
+  type: types.literal("cribl_http"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
+  connections: types.optional(
+    z.array(ConnectionConfInputCollection$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  authTokens: types.optional(z.array(AuthTokenConfInputCriblTcp$inboundSchema)),
+  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  captureHeadersWarning: types.optional(types.literal("")),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
+  description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
+  status: types.optional(StatusType$inboundSchema),
+});
+
+export function inputResponseInputCriblHttpFromJSON(
+  jsonString: string,
+): SafeParseResult<InputResponseInputCriblHttp, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputResponseInputCriblHttp$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputResponseInputCriblHttp' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputResponseInputCriblTcp$inboundSchema: z.ZodType<
+  InputResponseInputCriblTcp,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.optional(types.string()),
+  type: types.literal("cribl_tcp"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
+  connections: types.optional(
+    z.array(ConnectionConfInputCollection$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
+  maxActiveCxn: types.optional(types.number()),
+  socketIdleTimeout: types.optional(types.number()),
+  socketEndingMaxWait: types.optional(types.number()),
+  socketMaxLifespan: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
+  enableLoadBalancing: types.optional(types.boolean()),
+  authTokens: types.optional(z.array(AuthTokenConfInputCriblTcp$inboundSchema)),
+  description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
+  status: types.optional(StatusType$inboundSchema),
+});
+
+export function inputResponseInputCriblTcpFromJSON(
+  jsonString: string,
+): SafeParseResult<InputResponseInputCriblTcp, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputResponseInputCriblTcp$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputResponseInputCriblTcp' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputResponseInputCribl$inboundSchema: z.ZodType<
+  InputResponseInputCribl,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.optional(types.string()),
+  type: types.literal("cribl"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
+  connections: types.optional(
+    z.array(ConnectionConfInputCollection$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  filter: types.optional(types.string()),
+  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
+  description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
+  status: types.optional(StatusType$inboundSchema),
+});
+
+export function inputResponseInputCriblFromJSON(
+  jsonString: string,
+): SafeParseResult<InputResponseInputCribl, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputResponseInputCribl$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputResponseInputCribl' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputResponseInputGooglePubsub$inboundSchema: z.ZodType<
+  InputResponseInputGooglePubsub,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.optional(types.string()),
+  type: types.literal("google_pubsub"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
+  connections: types.optional(
+    z.array(ConnectionConfInputCollection$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  topicName: types.string(),
+  subscriptionName: types.string(),
+  monitorSubscription: types.optional(types.boolean()),
+  createTopic: types.optional(types.boolean()),
+  createSubscription: types.optional(types.boolean()),
+  region: types.optional(types.string()),
+  googleAuthMethod: types.optional(
+    GoogleAuthenticationMethodOptions$inboundSchema,
+  ),
+  serviceAccountCredentials: types.optional(types.string()),
+  secret: types.optional(types.string()),
+  maxBacklog: types.optional(types.number()),
+  concurrency: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
+  description: types.optional(types.string()),
+  orderedDelivery: types.optional(types.boolean()),
+  __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  __template_topicName: types.optional(types.string()),
+  __template_subscriptionName: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
+  status: types.optional(StatusType$inboundSchema),
+});
+
+export function inputResponseInputGooglePubsubFromJSON(
+  jsonString: string,
+): SafeParseResult<InputResponseInputGooglePubsub, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputResponseInputGooglePubsub$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputResponseInputGooglePubsub' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputResponseInputFirehose$inboundSchema: z.ZodType<
+  InputResponseInputFirehose,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.optional(types.string()),
+  type: types.literal("firehose"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
+  connections: types.optional(
+    z.array(ConnectionConfInputCollection$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  authTokens: types.optional(z.array(types.string())),
+  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  captureHeadersWarning: types.optional(types.literal("")),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
+  description: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+  __template_authTokens: types.optional(types.string()),
+  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
+  status: types.optional(StatusType$inboundSchema),
+});
+
+export function inputResponseInputFirehoseFromJSON(
+  jsonString: string,
+): SafeParseResult<InputResponseInputFirehose, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputResponseInputFirehose$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputResponseInputFirehose' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputResponseScheduleType$inboundSchema: z.ZodType<
+  InputResponseScheduleType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputResponseScheduleType);
+
+/** @internal */
+export const InputResponseInputExec$inboundSchema: z.ZodType<
+  InputResponseInputExec,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.optional(types.string()),
+  type: types.literal("exec"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  criblSourceProvenance: types.optional(
+    InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint$inboundSchema,
+  ),
+  connections: types.optional(
+    z.array(ConnectionConfInputCollection$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  command: types.string(),
+  script: types.optional(types.string()),
+  retries: types.optional(types.number()),
+  scheduleType: types.optional(InputResponseScheduleType$inboundSchema),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  metadata: types.optional(z.array(MetadataConfInputCollection$inboundSchema)),
+  description: types.optional(types.string()),
+  interval: types.optional(types.number()),
+  cronSchedule: types.optional(types.string()),
+  __template_environment: types.optional(types.string()),
+  __template_streamtags: types.optional(types.string()),
+  notifications: types.optional(z.array(NotificationUnion$inboundSchema)),
+  status: types.optional(StatusType$inboundSchema),
+});
+
+export function inputResponseInputExecFromJSON(
+  jsonString: string,
+): SafeParseResult<InputResponseInputExec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputResponseInputExec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputResponseInputExec' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputResponseAuthenticationMechanism$inboundSchema: z.ZodType<
+  InputResponseAuthenticationMechanism,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputResponseAuthenticationMechanism);
+
+/** @internal */
+export const InputResponseCertificate$inboundSchema: z.ZodType<
+  InputResponseCertificate,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: types.string(),
+  certPath: types.string(),
+  privKeyPath: types.string(),
+  passphrase: types.optional(types.string()),
+});
+
+export function inputResponseCertificateFromJSON(
+  jsonString: string,
+): SafeParseResult<InputResponseCertificate, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputResponseCertificate$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputResponseCertificate' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputResponseAuth$inboundSchema: z.ZodType<
+  InputResponseAuth,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mechanism: InputResponseAuthenticationMechanism$inboundSchema,
+  textSecret: types.optional(types.string()),
+  clientSecretAuthType: types.optional(
+    AuthenticationMethodOptionsAuth$inboundSchema,
+  ),
+  clientTextSecret: types.optional(types.string()),
+  certificate: types.optional(
+    z.lazy(() => InputResponseCertificate$inboundSchema),
+  ),
+  oauthEndpoint: types.optional(
+    MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema,
+  ),
+  clientId: types.optional(types.string()),
+  tenantId: types.optional(types.string()),
+  fullyQualifiedNamespace: types.optional(types.string()),
+  __template_oauthEndpoint: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
+  __template_tenantId: types.optional(types.string()),
+  __template_fullyQualifiedNamespace: types.optional(types.string()),
+});
+
+export function inputResponseAuthFromJSON(
+  jsonString: string,
+): SafeParseResult<InputResponseAuth, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputResponseAuth$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputResponseAuth' from JSON`,
+  );
+}
+
+/** @internal */
+export const AuthenticationMethodEventhubAmqp$inboundSchema: z.ZodType<
+  AuthenticationMethodEventhubAmqp,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(AuthenticationMethodEventhubAmqp);
+
+/** @internal */
 export const InputResponseAzureBlobStorage$inboundSchema: z.ZodType<
   InputResponseAzureBlobStorage,
   z.ZodTypeDef,
@@ -5021,7 +6533,7 @@ export const InputResponseInputEventhubAmqp$inboundSchema: z.ZodType<
   pq: types.optional(PqType$inboundSchema),
   eventHubName: types.optional(types.string()),
   consumerGroup: types.string(),
-  auth: types.optional(InputResponseAuth$inboundSchema),
+  auth: types.optional(z.lazy(() => InputResponseAuth$inboundSchema)),
   checkpointing: z.lazy(() => InputResponseCheckpointing$inboundSchema),
   fromBeginning: types.optional(types.boolean()),
   maxBatchSize: types.optional(types.number()),
@@ -5742,6 +7254,7 @@ export const InputResponseInputPrometheusRw$inboundSchema: z.ZodType<
   maxRequestsPerSocket: types.optional(types.number()),
   enableProxyHeader: types.optional(types.boolean()),
   captureHeaders: types.optional(types.boolean()),
+  captureHeadersWarning: types.optional(types.literal("")),
   activityLogSampleRate: types.optional(types.number()),
   requestTimeout: types.optional(types.number()),
   socketTimeout: types.optional(types.number()),
@@ -5808,6 +7321,7 @@ export const InputResponseInputLoki$inboundSchema: z.ZodType<
   maxRequestsPerSocket: types.optional(types.number()),
   enableProxyHeader: types.optional(types.boolean()),
   captureHeaders: types.optional(types.boolean()),
+  captureHeadersWarning: types.optional(types.literal("")),
   activityLogSampleRate: types.optional(types.number()),
   requestTimeout: types.optional(types.number()),
   socketTimeout: types.optional(types.number()),
@@ -5926,6 +7440,7 @@ export const InputResponseInputGrafanaGrafana2$inboundSchema: z.ZodType<
   maxRequestsPerSocket: types.optional(types.number()),
   enableProxyHeader: types.optional(types.boolean()),
   captureHeaders: types.optional(types.boolean()),
+  captureHeadersWarning: types.optional(types.literal("")),
   activityLogSampleRate: types.optional(types.number()),
   requestTimeout: types.optional(types.number()),
   socketTimeout: types.optional(types.number()),
@@ -6044,6 +7559,7 @@ export const InputResponseInputGrafanaGrafana1$inboundSchema: z.ZodType<
   maxRequestsPerSocket: types.optional(types.number()),
   enableProxyHeader: types.optional(types.boolean()),
   captureHeaders: types.optional(types.boolean()),
+  captureHeadersWarning: types.optional(types.literal("")),
   activityLogSampleRate: types.optional(types.number()),
   requestTimeout: types.optional(types.number()),
   socketTimeout: types.optional(types.number()),
@@ -6243,6 +7759,7 @@ export const InputResponseInputElastic$inboundSchema: z.ZodType<
   maxRequestsPerSocket: types.optional(types.number()),
   enableProxyHeader: types.optional(types.boolean()),
   captureHeaders: types.optional(types.boolean()),
+  captureHeadersWarning: types.optional(types.literal("")),
   activityLogSampleRate: types.optional(types.number()),
   requestTimeout: types.optional(types.number()),
   socketTimeout: types.optional(types.number()),
@@ -6410,6 +7927,7 @@ export const InputResponseInputSplunkHec$inboundSchema: z.ZodType<
   maxRequestsPerSocket: types.optional(types.number()),
   enableProxyHeader: types.optional(types.boolean()),
   captureHeaders: types.optional(types.boolean()),
+  captureHeadersWarning: types.optional(types.literal("")),
   activityLogSampleRate: types.optional(types.number()),
   requestTimeout: types.optional(types.number()),
   socketTimeout: types.optional(types.number()),
@@ -6704,6 +8222,7 @@ export const InputResponseInputHttp$inboundSchema: z.ZodType<
   maxRequestsPerSocket: types.optional(types.number()),
   enableProxyHeader: types.optional(types.boolean()),
   captureHeaders: types.optional(types.boolean()),
+  captureHeadersWarning: types.optional(types.literal("")),
   activityLogSampleRate: types.optional(types.number()),
   requestTimeout: types.optional(types.number()),
   socketTimeout: types.optional(types.number()),
@@ -6970,13 +8489,13 @@ export const InputResponse$inboundSchema: z.ZodType<
   microsoft_graph: z.lazy(() => InputResponseInputMicrosoftGraph$inboundSchema),
   eventhub: z.lazy(() => InputResponseInputEventhub$inboundSchema),
   eventhub_amqp: z.lazy(() => InputResponseInputEventhubAmqp$inboundSchema),
-  exec: InputResponseInputExec$inboundSchema,
-  firehose: InputResponseInputFirehose$inboundSchema,
-  google_pubsub: InputResponseInputGooglePubsub$inboundSchema,
-  cribl: InputResponseInputCribl$inboundSchema,
-  cribl_tcp: InputResponseInputCriblTcp$inboundSchema,
-  cribl_http: InputResponseInputCriblHttp$inboundSchema,
-  cribl_lake_http: InputResponseInputCriblLakeHttp$inboundSchema,
+  exec: z.lazy(() => InputResponseInputExec$inboundSchema),
+  firehose: z.lazy(() => InputResponseInputFirehose$inboundSchema),
+  google_pubsub: z.lazy(() => InputResponseInputGooglePubsub$inboundSchema),
+  cribl: z.lazy(() => InputResponseInputCribl$inboundSchema),
+  cribl_tcp: z.lazy(() => InputResponseInputCriblTcp$inboundSchema),
+  cribl_http: z.lazy(() => InputResponseInputCriblHttp$inboundSchema),
+  cribl_lake_http: z.lazy(() => InputResponseInputCriblLakeHttp$inboundSchema),
   tcpjson: InputResponseInputTcpjson$inboundSchema,
   system_metrics: InputResponseInputSystemMetrics$inboundSchema,
   system_state: InputResponseInputSystemState$inboundSchema,
