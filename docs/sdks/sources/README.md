@@ -5250,6 +5250,67 @@ async function run() {
 
 run();
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="typescript" operationID="createInput" method="post" path="/system/inputs" example="authenticationFailed" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.create({
+    id: "<id>",
+    type: "wiz_webhook",
+    host: "amused-glider.biz",
+    port: 7905.42,
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesCreate } from "cribl-control-plane/funcs/sourcesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesCreate(criblControlPlane, {
+    id: "<id>",
+    type: "wiz_webhook",
+    host: "amused-glider.biz",
+    port: 7905.42,
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -16060,6 +16121,71 @@ async function run() {
       host: "0.0.0.0",
       port: 8088,
       hecAPI: "/services/collector",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="typescript" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="authenticationFailed" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.update({
+    id: "<id>",
+    input: {
+      type: "http_raw",
+      host: "focused-invite.org",
+      port: 4085.76,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesUpdate } from "cribl-control-plane/funcs/sourcesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesUpdate(criblControlPlane, {
+    id: "<id>",
+    input: {
+      type: "http_raw",
+      host: "focused-invite.org",
+      port: 4085.76,
     },
   });
   if (res.ok) {

@@ -461,6 +461,69 @@ async function run() {
 
 run();
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="typescript" operationID="createProductsGroupsByProduct" method="post" path="/products/{product}/groups" example="authenticationFailed" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.groups.create({
+    product: "stream",
+    groupCreateRequest: {
+      estimatedIngestRate: 4096,
+      id: "<id>",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { groupsCreate } from "cribl-control-plane/funcs/groupsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await groupsCreate(criblControlPlane, {
+    product: "stream",
+    groupCreateRequest: {
+      estimatedIngestRate: 4096,
+      id: "<id>",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("groupsCreate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -813,6 +876,71 @@ async function run() {
 
 run();
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="typescript" operationID="updateProductsGroupsByProductAndId" method="patch" path="/products/{product}/groups/{id}" example="authenticationFailed" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.groups.update({
+    product: "stream",
+    id: "<id>",
+    configGroup: {
+      estimatedIngestRate: 4096,
+      id: "<id>",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { groupsUpdate } from "cribl-control-plane/funcs/groupsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await groupsUpdate(criblControlPlane, {
+    product: "stream",
+    id: "<id>",
+    configGroup: {
+      estimatedIngestRate: 4096,
+      id: "<id>",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("groupsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -1055,6 +1183,69 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await groupsDeploy(criblControlPlane, {
     product: "outpost",
+    id: "<id>",
+    deployRequest: {
+      version: "<value>",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("groupsDeploy failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="typescript" operationID="updateProductsGroupsDeployByProductAndId" method="patch" path="/products/{product}/groups/{id}/deploy" example="authenticationFailed" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.groups.deploy({
+    product: "edge",
+    id: "<id>",
+    deployRequest: {
+      version: "<value>",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { groupsDeploy } from "cribl-control-plane/funcs/groupsDeploy.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await groupsDeploy(criblControlPlane, {
+    product: "edge",
     id: "<id>",
     deployRequest: {
       version: "<value>",

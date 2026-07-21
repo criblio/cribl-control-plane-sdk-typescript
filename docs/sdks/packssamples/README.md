@@ -380,6 +380,69 @@ async function run() {
 
 run();
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="typescript" operationID="createOutputSystemTestByPackAndId" method="post" path="/p/{pack}/system/outputs/{id}/test" example="authenticationFailed" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.samples.create({
+    id: "<id>",
+    pack: "<value>",
+    outputTestRequest: {
+      events: [],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsSamplesCreate } from "cribl-control-plane/funcs/packsDestinationsSamplesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsSamplesCreate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    outputTestRequest: {
+      events: [],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsSamplesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 

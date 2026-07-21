@@ -435,6 +435,83 @@ async function run() {
 
 run();
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="typescript" operationID="createPacks" method="post" path="/packs" example="authenticationFailed" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.install({
+    version: "1.0.0",
+    source: "<value>",
+    tags: {
+      domain: [
+        "security",
+        "observability",
+      ],
+      technology: [
+        "aws",
+        "splunk",
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsInstall } from "cribl-control-plane/funcs/packsInstall.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsInstall(criblControlPlane, {
+    version: "1.0.0",
+    source: "<value>",
+    tags: {
+      domain: [
+        "security",
+        "observability",
+      ],
+      technology: [
+        "aws",
+        "splunk",
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsInstall failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -542,9 +619,68 @@ run();
 
 Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs</code>, which you must call separately.
 
-### Example Usage
+### Example Usage: PackUploadResponseExamplesUploadedPack
 
 <!-- UsageSnippet language="typescript" operationID="updatePacks" method="put" path="/packs" example="PackUploadResponseExamplesUploadedPack" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+import { openAsBlob } from "node:fs";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.upload({
+    filename: "example.file",
+    requestBody: await openAsBlob("example.file"),
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsUpload } from "cribl-control-plane/funcs/packsUpload.js";
+import { openAsBlob } from "node:fs";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsUpload(criblControlPlane, {
+    filename: "example.file",
+    requestBody: await openAsBlob("example.file"),
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsUpload failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="typescript" operationID="updatePacks" method="put" path="/packs" example="authenticationFailed" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 import { openAsBlob } from "node:fs";
@@ -827,6 +963,67 @@ run();
 ### Example Usage: PackUpgradeResponseExamplesUpgraded
 
 <!-- UsageSnippet language="typescript" operationID="updatePacksById" method="patch" path="/packs/{id}" example="PackUpgradeResponseExamplesUpgraded" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.update({
+    id: "<id>",
+    packUpgradeRequest: {
+      source: "<value>",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsUpdate } from "cribl-control-plane/funcs/packsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsUpdate(criblControlPlane, {
+    id: "<id>",
+    packUpgradeRequest: {
+      source: "<value>",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="typescript" operationID="updatePacksById" method="patch" path="/packs/{id}" example="authenticationFailed" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

@@ -4546,6 +4546,77 @@ async function run() {
 
 run();
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="authenticationFailed" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.pipelines.create({
+    id: "<id>",
+    conf: {
+      functions: [
+        {
+          id: "cef",
+          conf: {},
+        },
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { pipelinesCreate } from "cribl-control-plane/funcs/pipelinesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await pipelinesCreate(criblControlPlane, {
+    id: "<id>",
+    conf: {
+      functions: [
+        {
+          id: "cef",
+          conf: {},
+        },
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("pipelinesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -13969,6 +14040,83 @@ async function run() {
         groups: {
   
         },
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("pipelinesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="authenticationFailed" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.pipelines.update({
+    id: "<id>",
+    pipeline: {
+      id: "<id>",
+      conf: {
+        functions: [
+          {
+            id: "snmp_trap_serialize",
+            conf: {},
+          },
+        ],
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { pipelinesUpdate } from "cribl-control-plane/funcs/pipelinesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await pipelinesUpdate(criblControlPlane, {
+    id: "<id>",
+    pipeline: {
+      id: "<id>",
+      conf: {
+        functions: [
+          {
+            id: "snmp_trap_serialize",
+            conf: {},
+          },
+        ],
       },
     },
   });

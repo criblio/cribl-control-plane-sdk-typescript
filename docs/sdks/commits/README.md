@@ -327,6 +327,61 @@ async function run() {
 
 run();
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="typescript" operationID="createVersionCommit" method="post" path="/version/commit" example="authenticationFailed" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.versions.commits.create({
+    message: "<value>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { versionsCommitsCreate } from "cribl-control-plane/funcs/versionsCommitsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await versionsCommitsCreate(criblControlPlane, {
+    message: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("versionsCommitsCreate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -624,6 +679,61 @@ run();
 ### Example Usage: VersionRevertResponseExamplesRevertResult
 
 <!-- UsageSnippet language="typescript" operationID="createVersionRevert" method="post" path="/version/revert" example="VersionRevertResponseExamplesRevertResult" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.versions.commits.revert({
+    commit: "<value>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { versionsCommitsRevert } from "cribl-control-plane/funcs/versionsCommitsRevert.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await versionsCommitsRevert(criblControlPlane, {
+    commit: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("versionsCommitsRevert failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="typescript" operationID="createVersionRevert" method="post" path="/version/revert" example="authenticationFailed" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
