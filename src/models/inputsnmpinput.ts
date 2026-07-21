@@ -3,6 +3,8 @@
  */
 
 import * as z from "zod/v3";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import {
   ConnectionConfInputCollection,
   ConnectionConfInputCollection$Outbound,
@@ -14,10 +16,78 @@ import {
   MetadataConfInputCollection$outboundSchema,
 } from "./metadataconfinputcollection.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
-import {
-  PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone,
-  PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema,
-} from "./privacyprotocoloptionssnmptrapserializev3userauthprotocolnotnone.js";
+
+/**
+ * Authentication protocol
+ */
+export const InputSnmpAuthenticationProtocol = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * MD5
+   */
+  Md5: "md5",
+  /**
+   * SHA1
+   */
+  Sha: "sha",
+  /**
+   * SHA224
+   */
+  Sha224: "sha224",
+  /**
+   * SHA256
+   */
+  Sha256: "sha256",
+  /**
+   * SHA384
+   */
+  Sha384: "sha384",
+  /**
+   * SHA512
+   */
+  Sha512: "sha512",
+} as const;
+/**
+ * Authentication protocol
+ */
+export type InputSnmpAuthenticationProtocol = OpenEnum<
+  typeof InputSnmpAuthenticationProtocol
+>;
+
+/**
+ * Privacy protocol
+ */
+export const InputSnmpPrivacyProtocol = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * DES
+   */
+  Des: "des",
+  /**
+   * AES128
+   */
+  Aes: "aes",
+  /**
+   * AES256b (Blumenthal)
+   */
+  Aes256b: "aes256b",
+  /**
+   * AES256r (Reeder)
+   */
+  Aes256r: "aes256r",
+} as const;
+/**
+ * Privacy protocol
+ */
+export type InputSnmpPrivacyProtocol = OpenEnum<
+  typeof InputSnmpPrivacyProtocol
+>;
 
 export type InputSnmpV3User = {
   /**
@@ -27,7 +97,7 @@ export type InputSnmpV3User = {
   /**
    * Authentication protocol
    */
-  authProtocol?: string | undefined;
+  authProtocol?: InputSnmpAuthenticationProtocol | undefined;
   /**
    * V3 authentication key
    */
@@ -35,9 +105,7 @@ export type InputSnmpV3User = {
   /**
    * Privacy protocol
    */
-  privProtocol?:
-    | PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone
-    | undefined;
+  privProtocol?: InputSnmpPrivacyProtocol | undefined;
   /**
    * V3 privacy key
    */
@@ -159,6 +227,20 @@ export type InputSnmpInput = {
 };
 
 /** @internal */
+export const InputSnmpAuthenticationProtocol$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSnmpAuthenticationProtocol
+> = openEnums.outboundSchema(InputSnmpAuthenticationProtocol);
+
+/** @internal */
+export const InputSnmpPrivacyProtocol$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSnmpPrivacyProtocol
+> = openEnums.outboundSchema(InputSnmpPrivacyProtocol);
+
+/** @internal */
 export type InputSnmpV3User$Outbound = {
   name: string;
   authProtocol?: string | undefined;
@@ -174,11 +256,9 @@ export const InputSnmpV3User$outboundSchema: z.ZodType<
   InputSnmpV3User
 > = z.object({
   name: z.string(),
-  authProtocol: z.string().optional(),
+  authProtocol: InputSnmpAuthenticationProtocol$outboundSchema.optional(),
   authKey: z.string().optional(),
-  privProtocol:
-    PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema
-      .optional(),
+  privProtocol: InputSnmpPrivacyProtocol$outboundSchema.optional(),
   privKey: z.string().optional(),
 });
 

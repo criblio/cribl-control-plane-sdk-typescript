@@ -17,16 +17,19 @@ export type PipelineFunctionSensitiveDataScannerRule = {
    * A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
    */
   replaceExpr: string;
+  /**
+   * If <code>true</code>, disable this rule so that it is not applied during scanning.
+   */
   disabled?: boolean | undefined;
 };
 
-export type Flag = {
+export type PipelineFunctionSensitiveDataScannerFlag = {
   /**
-   * Name
+   * Name of the field to set when one or more scanning rules match.
    */
   name?: string | undefined;
   /**
-   * Value
+   * JavaScript expression to compute the value to assign to this field.
    */
   value: string;
 };
@@ -50,7 +53,7 @@ export type PipelineFunctionSensitiveDataScannerConf = {
   /**
    * Fields to add when mitigation is applied to an event
    */
-  flags?: Array<Flag> | undefined;
+  flags?: Array<PipelineFunctionSensitiveDataScannerFlag> | undefined;
   /**
    * Add matching ruleset IDs to a field called "__detected"
    */
@@ -147,34 +150,53 @@ export function pipelineFunctionSensitiveDataScannerRuleFromJSON(
 }
 
 /** @internal */
-export const Flag$inboundSchema: z.ZodType<Flag, z.ZodTypeDef, unknown> = z
-  .object({
-    name: types.optional(types.string()),
-    value: types.string(),
-  });
+export const PipelineFunctionSensitiveDataScannerFlag$inboundSchema: z.ZodType<
+  PipelineFunctionSensitiveDataScannerFlag,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: types.optional(types.string()),
+  value: types.string(),
+});
 /** @internal */
-export type Flag$Outbound = {
+export type PipelineFunctionSensitiveDataScannerFlag$Outbound = {
   name?: string | undefined;
   value: string;
 };
 
 /** @internal */
-export const Flag$outboundSchema: z.ZodType<Flag$Outbound, z.ZodTypeDef, Flag> =
-  z.object({
-    name: z.string().optional(),
-    value: z.string(),
-  });
+export const PipelineFunctionSensitiveDataScannerFlag$outboundSchema: z.ZodType<
+  PipelineFunctionSensitiveDataScannerFlag$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionSensitiveDataScannerFlag
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
 
-export function flagToJSON(flag: Flag): string {
-  return JSON.stringify(Flag$outboundSchema.parse(flag));
+export function pipelineFunctionSensitiveDataScannerFlagToJSON(
+  pipelineFunctionSensitiveDataScannerFlag:
+    PipelineFunctionSensitiveDataScannerFlag,
+): string {
+  return JSON.stringify(
+    PipelineFunctionSensitiveDataScannerFlag$outboundSchema.parse(
+      pipelineFunctionSensitiveDataScannerFlag,
+    ),
+  );
 }
-export function flagFromJSON(
+export function pipelineFunctionSensitiveDataScannerFlagFromJSON(
   jsonString: string,
-): SafeParseResult<Flag, SDKValidationError> {
+): SafeParseResult<
+  PipelineFunctionSensitiveDataScannerFlag,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
-    (x) => Flag$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Flag' from JSON`,
+    (x) =>
+      PipelineFunctionSensitiveDataScannerFlag$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'PipelineFunctionSensitiveDataScannerFlag' from JSON`,
   );
 }
 
@@ -189,7 +211,11 @@ export const PipelineFunctionSensitiveDataScannerConf$inboundSchema: z.ZodType<
   ),
   fields: types.optional(z.array(types.string())),
   excludeFields: types.optional(z.array(types.string())),
-  flags: types.optional(z.array(z.lazy(() => Flag$inboundSchema))),
+  flags: types.optional(
+    z.array(
+      z.lazy(() => PipelineFunctionSensitiveDataScannerFlag$inboundSchema),
+    ),
+  ),
   includeDetectedRules: types.optional(types.boolean()),
   backgroundDetection: types.optional(types.boolean()),
 });
@@ -198,7 +224,7 @@ export type PipelineFunctionSensitiveDataScannerConf$Outbound = {
   rules: Array<PipelineFunctionSensitiveDataScannerRule$Outbound>;
   fields?: Array<string> | undefined;
   excludeFields?: Array<string> | undefined;
-  flags?: Array<Flag$Outbound> | undefined;
+  flags?: Array<PipelineFunctionSensitiveDataScannerFlag$Outbound> | undefined;
   includeDetectedRules?: boolean | undefined;
   backgroundDetection?: boolean | undefined;
 };
@@ -214,7 +240,9 @@ export const PipelineFunctionSensitiveDataScannerConf$outboundSchema: z.ZodType<
   ),
   fields: z.array(z.string()).optional(),
   excludeFields: z.array(z.string()).optional(),
-  flags: z.array(z.lazy(() => Flag$outboundSchema)).optional(),
+  flags: z.array(
+    z.lazy(() => PipelineFunctionSensitiveDataScannerFlag$outboundSchema),
+  ).optional(),
   includeDetectedRules: z.boolean().optional(),
   backgroundDetection: z.boolean().optional(),
 });

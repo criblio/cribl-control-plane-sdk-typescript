@@ -6,7 +6,7 @@ import * as z from "zod/v3";
 
 export type GitCommitBody = {
   /**
-   * If <code>true</code>, apply the commit to the group's effective configuration. Otherwise, <code>false</code>.
+   * If <code>true</code>, apply the commit to the group's effective configuration. Requires a group context.
    */
   effective?: boolean | undefined;
   /**

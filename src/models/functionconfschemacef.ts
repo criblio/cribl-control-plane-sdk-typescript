@@ -10,7 +10,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type Header = {
   /**
-   * Name
+   * Name of the CEF header field. Header names are predefined by the CEF standard.
    */
   name?: string | undefined;
   /**
@@ -21,7 +21,7 @@ export type Header = {
 
 export type Extension = {
   /**
-   * Name
+   * Name of the CEF extension field. Must contain only alphanumeric characters.
    */
   name: string;
   /**

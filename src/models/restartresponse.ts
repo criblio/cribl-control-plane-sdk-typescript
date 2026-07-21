@@ -10,15 +10,33 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Result of the restart request for this Node (<code>Restarting</code> or <code>Error</code>).
+ */
 export const RestartResponseStatus = {
   Error: "Error",
   Restarting: "Restarting",
 } as const;
+/**
+ * Result of the restart request for this Node (<code>Restarting</code> or <code>Error</code>).
+ */
 export type RestartResponseStatus = OpenEnum<typeof RestartResponseStatus>;
 
+/**
+ * Result of a restart request for a Worker or Edge Node.
+ */
 export type RestartResponse = {
+  /**
+   * Unique identifier for the Worker or Edge Node (GUID).
+   */
   id: string;
+  /**
+   * Error message if the restart request failed for this Node.
+   */
   message?: string | undefined;
+  /**
+   * Result of the restart request for this Node (<code>Restarting</code> or <code>Error</code>).
+   */
   status: RestartResponseStatus;
 };
 

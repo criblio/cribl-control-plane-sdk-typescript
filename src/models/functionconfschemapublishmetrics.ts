@@ -11,7 +11,7 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
- * Metric Type
+ * The type of metric to publish (counter, timer, gauge, distribution, summary, or histogram).
  */
 export const FunctionConfSchemaPublishMetricsMetricType = {
   /**
@@ -40,7 +40,7 @@ export const FunctionConfSchemaPublishMetricsMetricType = {
   Histogram: "histogram",
 } as const;
 /**
- * Metric Type
+ * The type of metric to publish (counter, timer, gauge, distribution, summary, or histogram).
  */
 export type FunctionConfSchemaPublishMetricsMetricType = OpenEnum<
   typeof FunctionConfSchemaPublishMetricsMetricType
@@ -56,7 +56,7 @@ export type FunctionConfSchemaPublishMetricsField = {
    */
   outFieldExpr?: string | undefined;
   /**
-   * Metric Type
+   * The type of metric to publish (counter, timer, gauge, distribution, summary, or histogram).
    */
   metricType: FunctionConfSchemaPublishMetricsMetricType;
 };

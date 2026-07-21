@@ -822,6 +822,23 @@ const value: operations.CreateOutputOutputDatabricks = {
 };
 ```
 
+### `operations.CreateOutputOutputSnowflakeStreaming`
+
+```typescript
+const value: operations.CreateOutputOutputSnowflakeStreaming = {
+  id: "<id>",
+  type: "snowflake_streaming",
+  accountIdentifier: "<value>",
+  user: "Vern38",
+  pem: {
+    keyName: "<value>",
+  },
+  database: "<value>",
+  schema: "<value>",
+  table: "<value>",
+};
+```
+
 ### `operations.CreateOutputOutputMicrosoftFabric`
 
 ```typescript

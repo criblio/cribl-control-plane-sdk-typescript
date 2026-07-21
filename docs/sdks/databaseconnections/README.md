@@ -474,6 +474,7 @@ async function run() {
     password: "Oracle_Pass456!",
     tags: "erp,oracle,mtls,production",
     tls: {
+      certificateName: "oracle-client-cert",
       disabled: false,
       rejectUnauthorized: true,
     },
@@ -514,6 +515,7 @@ async function run() {
     password: "Oracle_Pass456!",
     tags: "erp,oracle,mtls,production",
     tls: {
+      certificateName: "oracle-client-cert",
       disabled: false,
       rejectUnauthorized: true,
     },

@@ -18,6 +18,9 @@ import {
   MinimumTlsVersionOptionsRedisDeploymentTypeStandaloneTlsOptions$outboundSchema,
 } from "./minimumtlsversionoptionsredisdeploymenttypestandalonetlsoptions.js";
 
+/**
+ * TLS settings for encrypting the connection to Redis.
+ */
 export type TlsOptionsTypeRedisDeploymentTypeStandalone = {
   /**
    * Reject certificates that are not authorized by a CA in the 'CA certificate path', or by another trusted CA (such as the system's CA)

@@ -26,6 +26,10 @@ export type TLSClientParams = {
    */
   certPath?: string | undefined;
   /**
+   * Name of a certificate stored in Cribl.
+   */
+  certificateName?: string | undefined;
+  /**
    * If <code>true</code>, TLS is disabled for the connection.
    */
   disabled: boolean;
@@ -57,6 +61,7 @@ export const TLSClientParams$inboundSchema: z.ZodType<
 > = z.object({
   caPath: types.optional(types.string()),
   certPath: types.optional(types.string()),
+  certificateName: types.optional(types.string()),
   disabled: types.boolean(),
   maxVersion: types.optional(SecureVersion$inboundSchema),
   minVersion: types.optional(SecureVersion$inboundSchema),
@@ -69,6 +74,7 @@ export const TLSClientParams$inboundSchema: z.ZodType<
 export type TLSClientParams$Outbound = {
   caPath?: string | undefined;
   certPath?: string | undefined;
+  certificateName?: string | undefined;
   disabled: boolean;
   maxVersion?: string | undefined;
   minVersion?: string | undefined;
@@ -86,6 +92,7 @@ export const TLSClientParams$outboundSchema: z.ZodType<
 > = z.object({
   caPath: z.string().optional(),
   certPath: z.string().optional(),
+  certificateName: z.string().optional(),
   disabled: z.boolean(),
   maxVersion: SecureVersion$outboundSchema.optional(),
   minVersion: SecureVersion$outboundSchema.optional(),

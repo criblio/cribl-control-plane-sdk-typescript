@@ -17,6 +17,11 @@ import {
   ModeOptionsPq$inboundSchema,
   ModeOptionsPq$outboundSchema,
 } from "./modeoptionspq.js";
+import {
+  QueueFullBehaviorOptionsPq,
+  QueueFullBehaviorOptionsPq$inboundSchema,
+  QueueFullBehaviorOptionsPq$outboundSchema,
+} from "./queuefullbehavioroptionspq.js";
 
 /**
  * Management controls for the persistent queue.
@@ -56,6 +61,10 @@ export type PqType = {
    * Codec to use to compress the persisted data
    */
   compress?: CompressionOptionsPq | undefined;
+  /**
+   * Whether to block or drop events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: QueueFullBehaviorOptionsPq | undefined;
   /**
    * Management controls for the persistent queue.
    */
@@ -106,6 +115,7 @@ export const PqType$inboundSchema: z.ZodType<PqType, z.ZodTypeDef, unknown> = z
     maxSize: types.optional(types.string()),
     path: types.optional(types.string()),
     compress: types.optional(CompressionOptionsPq$inboundSchema),
+    onBackpressure: types.optional(QueueFullBehaviorOptionsPq$inboundSchema),
     pqControls: types.optional(z.lazy(() => PqTypePqControls$inboundSchema)),
   });
 /** @internal */
@@ -118,6 +128,7 @@ export type PqType$Outbound = {
   maxSize?: string | undefined;
   path?: string | undefined;
   compress?: string | undefined;
+  onBackpressure?: string | undefined;
   pqControls?: PqTypePqControls$Outbound | undefined;
 };
 
@@ -135,6 +146,7 @@ export const PqType$outboundSchema: z.ZodType<
   maxSize: z.string().optional(),
   path: z.string().optional(),
   compress: CompressionOptionsPq$outboundSchema.optional(),
+  onBackpressure: QueueFullBehaviorOptionsPq$outboundSchema.optional(),
   pqControls: z.lazy(() => PqTypePqControls$outboundSchema).optional(),
 });
 

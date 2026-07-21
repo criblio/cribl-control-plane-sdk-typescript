@@ -181,6 +181,61 @@ async function run() {
 
 run();
 ```
+### Example Usage: InputResponseExamplesSyslogWithPQSource
+
+<!-- UsageSnippet language="typescript" operationID="listInput" method="get" path="/system/inputs" example="InputResponseExamplesSyslogWithPQSource" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.list();
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesList } from "cribl-control-plane/funcs/sourcesList.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesList(criblControlPlane);
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
+    console.log(page);
+  }
+  } else {
+    console.log("sourcesList failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -227,20 +282,6 @@ async function run() {
     sendToRoutes: true,
     pqEnabled: false,
     textSecret: "anthropic-api-key-secret",
-    contentConfig: [
-      {
-        contentType: "activities",
-        contentDescription: "Compliance Activities",
-        enabled: true,
-        stateTracking: true,
-        stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
-        stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-        earliest: "-7d@d",
-        latest: "now",
-        cronSchedule: "*/5 * * * *",
-        jobTimeout: "300",
-      },
-    ],
   });
 
   console.log(result);
@@ -273,20 +314,6 @@ async function run() {
     sendToRoutes: true,
     pqEnabled: false,
     textSecret: "anthropic-api-key-secret",
-    contentConfig: [
-      {
-        contentType: "activities",
-        contentDescription: "Compliance Activities",
-        enabled: true,
-        stateTracking: true,
-        stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
-        stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-        earliest: "-7d@d",
-        latest: "now",
-        cronSchedule: "*/5 * * * *",
-        jobTimeout: "300",
-      },
-    ],
   });
   if (res.ok) {
     const { value: result } = res;
@@ -4167,6 +4194,89 @@ async function run() {
 
 run();
 ```
+### Example Usage: InputCreateExamplesSyslogWithPQ
+
+<!-- UsageSnippet language="typescript" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesSyslogWithPQ" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.create({
+    id: "syslog-pq-source",
+    type: "syslog",
+    sendToRoutes: true,
+    pqEnabled: true,
+    pq: {
+      mode: "always",
+      maxBufferSizeBytes: "1MB",
+      maxFileSize: "10MB",
+      maxSize: "5GB",
+      path: "$CRIBL_HOME/state/queues",
+      compress: "none",
+      onBackpressure: "drop",
+    },
+    host: "0.0.0.0",
+    udpPort: 514,
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesCreate } from "cribl-control-plane/funcs/sourcesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesCreate(criblControlPlane, {
+    id: "syslog-pq-source",
+    type: "syslog",
+    sendToRoutes: true,
+    pqEnabled: true,
+    pq: {
+      mode: "always",
+      maxBufferSizeBytes: "1MB",
+      maxFileSize: "10MB",
+      maxSize: "5GB",
+      path: "$CRIBL_HOME/state/queues",
+      compress: "none",
+      onBackpressure: "drop",
+    },
+    host: "0.0.0.0",
+    udpPort: 514,
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: InputCreateExamplesSystemMetrics
 
 <!-- UsageSnippet language="typescript" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesSystemMetrics" -->
@@ -5079,6 +5189,67 @@ async function run() {
 
 run();
 ```
+### Example Usage: InputResponseExamplesSyslogWithPQSource
+
+<!-- UsageSnippet language="typescript" operationID="createInput" method="post" path="/system/inputs" example="InputResponseExamplesSyslogWithPQSource" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.create({
+    id: "<id>",
+    type: "wiz_webhook",
+    host: "amused-glider.biz",
+    port: 7905.42,
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesCreate } from "cribl-control-plane/funcs/sourcesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesCreate(criblControlPlane, {
+    id: "<id>",
+    type: "wiz_webhook",
+    host: "amused-glider.biz",
+    port: 7905.42,
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -5270,6 +5441,61 @@ async function run() {
 
 run();
 ```
+### Example Usage: InputResponseExamplesSyslogWithPQSource
+
+<!-- UsageSnippet language="typescript" operationID="getInputById" method="get" path="/system/inputs/{id}" example="InputResponseExamplesSyslogWithPQSource" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.get({
+    id: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesGet } from "cribl-control-plane/funcs/sourcesGet.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesGet(criblControlPlane, {
+    id: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesGet failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -5318,20 +5544,6 @@ async function run() {
       sendToRoutes: true,
       pqEnabled: false,
       textSecret: "anthropic-api-key-secret",
-      contentConfig: [
-        {
-          contentType: "activities",
-          contentDescription: "Compliance Activities",
-          enabled: true,
-          stateTracking: true,
-          stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
-          stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-          earliest: "-7d@d",
-          latest: "now",
-          cronSchedule: "*/5 * * * *",
-          jobTimeout: "300",
-        },
-      ],
     },
   });
 
@@ -5367,20 +5579,6 @@ async function run() {
       sendToRoutes: true,
       pqEnabled: false,
       textSecret: "anthropic-api-key-secret",
-      contentConfig: [
-        {
-          contentType: "activities",
-          contentDescription: "Compliance Activities",
-          enabled: true,
-          stateTracking: true,
-          stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
-          stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-          earliest: "-7d@d",
-          latest: "now",
-          cronSchedule: "*/5 * * * *",
-          jobTimeout: "300",
-        },
-      ],
     },
   });
   if (res.ok) {
@@ -10507,6 +10705,71 @@ async function run() {
 
 run();
 ```
+### Example Usage: InputResponseExamplesSyslogWithPQSource
+
+<!-- UsageSnippet language="typescript" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputResponseExamplesSyslogWithPQSource" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.update({
+    id: "<id>",
+    input: {
+      type: "http_raw",
+      host: "focused-invite.org",
+      port: 4085.76,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesUpdate } from "cribl-control-plane/funcs/sourcesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesUpdate(criblControlPlane, {
+    id: "<id>",
+    input: {
+      type: "http_raw",
+      host: "focused-invite.org",
+      port: 4085.76,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: UpdateInputExamplesAnthropicCompliance
 
 <!-- UsageSnippet language="typescript" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="UpdateInputExamplesAnthropicCompliance" -->
@@ -10529,20 +10792,6 @@ async function run() {
       sendToRoutes: true,
       pqEnabled: false,
       textSecret: "anthropic-api-key-secret",
-      contentConfig: [
-        {
-          contentType: "activities",
-          contentDescription: "Compliance Activities",
-          enabled: true,
-          stateTracking: true,
-          stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
-          stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-          earliest: "-7d@d",
-          latest: "now",
-          cronSchedule: "*/5 * * * *",
-          jobTimeout: "300",
-        },
-      ],
     },
   });
 
@@ -10578,20 +10827,6 @@ async function run() {
       sendToRoutes: true,
       pqEnabled: false,
       textSecret: "anthropic-api-key-secret",
-      contentConfig: [
-        {
-          contentType: "activities",
-          contentDescription: "Compliance Activities",
-          enabled: true,
-          stateTracking: true,
-          stateUpdateExpression: "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
-          stateMergeExpression: "prevState.latestTime > newState.latestTime ? prevState : newState",
-          earliest: "-7d@d",
-          latest: "now",
-          cronSchedule: "*/5 * * * *",
-          jobTimeout: "300",
-        },
-      ],
     },
   });
   if (res.ok) {
@@ -14949,6 +15184,95 @@ async function run() {
 
 run();
 ```
+### Example Usage: UpdateInputExamplesSyslogWithPQ
+
+<!-- UsageSnippet language="typescript" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="UpdateInputExamplesSyslogWithPQ" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.update({
+    id: "<id>",
+    input: {
+      id: "syslog-pq-source",
+      type: "syslog",
+      sendToRoutes: true,
+      pqEnabled: true,
+      pq: {
+        mode: "always",
+        maxBufferSizeBytes: "1MB",
+        maxFileSize: "10MB",
+        maxSize: "5GB",
+        path: "$CRIBL_HOME/state/queues",
+        compress: "none",
+        onBackpressure: "drop",
+      },
+      host: "0.0.0.0",
+      udpPort: 514,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesUpdate } from "cribl-control-plane/funcs/sourcesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesUpdate(criblControlPlane, {
+    id: "<id>",
+    input: {
+      id: "syslog-pq-source",
+      type: "syslog",
+      sendToRoutes: true,
+      pqEnabled: true,
+      pq: {
+        mode: "always",
+        maxBufferSizeBytes: "1MB",
+        maxFileSize: "10MB",
+        maxSize: "5GB",
+        path: "$CRIBL_HOME/state/queues",
+        compress: "none",
+        onBackpressure: "drop",
+      },
+      host: "0.0.0.0",
+      udpPort: 514,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
 ### Example Usage: UpdateInputExamplesSystemMetrics
 
 <!-- UsageSnippet language="typescript" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="UpdateInputExamplesSystemMetrics" -->
@@ -15887,6 +16211,61 @@ run();
 ### Example Usage: InputResponseExamplesSyslogSource
 
 <!-- UsageSnippet language="typescript" operationID="deleteInputById" method="delete" path="/system/inputs/{id}" example="InputResponseExamplesSyslogSource" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.delete({
+    id: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesDelete } from "cribl-control-plane/funcs/sourcesDelete.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesDelete(criblControlPlane, {
+    id: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesDelete failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: InputResponseExamplesSyslogWithPQSource
+
+<!-- UsageSnippet language="typescript" operationID="deleteInputById" method="delete" path="/system/inputs/{id}" example="InputResponseExamplesSyslogWithPQSource" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

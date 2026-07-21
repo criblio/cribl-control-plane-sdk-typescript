@@ -12,51 +12,51 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type EventBreakerExistingOrNewNewTimestampTypeCurrent = {
   /**
-   * Timestamp type
+   * Method to use for timestamp extraction. Use <code>auto</code> for automatic detection, <code>format</code> to specify a strptime format, or <code>current</code> to use the current system time.
    */
   type: "current";
   /**
-   * Length
+   * Maximum number of characters to search for a timestamp value from the beginning of the match.
    */
   length?: number | undefined;
   /**
-   * Format
+   * Strptime format string for parsing timestamps (for example, <code>%Y-%m-%d %H:%M:%S</code>).
    */
   format?: string | undefined;
 };
 
 export type EventBreakerExistingOrNewNewTimestampTypeFormat = {
   /**
-   * Timestamp type
+   * Method to use for timestamp extraction. Use <code>auto</code> for automatic detection, <code>format</code> to specify a strptime format, or <code>current</code> to use the current system time.
    */
   type: "format";
   /**
-   * Format
+   * Strptime format string for parsing timestamps (for example, <code>%Y-%m-%d %H:%M:%S</code>).
    */
   format: string;
   /**
-   * Length
+   * Maximum number of characters to search for a timestamp value from the beginning of the match.
    */
   length?: number | undefined;
 };
 
 export type EventBreakerExistingOrNewNewTimestampTypeAuto = {
   /**
-   * Timestamp type
+   * Method to use for timestamp extraction. Use <code>auto</code> for automatic detection, <code>format</code> to specify a strptime format, or <code>current</code> to use the current system time.
    */
   type: "auto";
   /**
-   * Length
+   * Maximum number of characters to search for a timestamp value from the beginning of the match.
    */
   length: number;
   /**
-   * Format
+   * Strptime format string for parsing timestamps (for example, <code>%Y-%m-%d %H:%M:%S</code>).
    */
   format?: string | undefined;
 };
 
 /**
- * Timestamp format
+ * Configuration for extracting and parsing timestamps from events.
  */
 export type TimestampFormatTypeEventBreakerExistingOrNewNew =
   | EventBreakerExistingOrNewNewTimestampTypeAuto

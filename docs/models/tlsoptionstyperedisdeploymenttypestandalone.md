@@ -1,5 +1,7 @@
 # TlsOptionsTypeRedisDeploymentTypeStandalone
 
+TLS settings for encrypting the connection to Redis.
+
 ## Example Usage
 
 ```typescript

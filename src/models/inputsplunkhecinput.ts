@@ -316,6 +316,7 @@ export type InputSplunkHec = {
    * Add request headers to events, in the __headers field
    */
   captureHeaders?: boolean | undefined;
+  captureHeadersWarning?: "" | undefined;
   /**
    * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
    */
@@ -610,6 +611,7 @@ export const InputSplunkHec$inboundSchema: z.ZodType<
   maxRequestsPerSocket: types.optional(types.number()),
   enableProxyHeader: types.optional(types.boolean()),
   captureHeaders: types.optional(types.boolean()),
+  captureHeadersWarning: types.optional(types.literal("")),
   activityLogSampleRate: types.optional(types.number()),
   requestTimeout: types.optional(types.number()),
   socketTimeout: types.optional(types.number()),

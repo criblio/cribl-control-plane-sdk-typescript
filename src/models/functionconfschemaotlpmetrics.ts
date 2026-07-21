@@ -4,14 +4,31 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  OtlpVersionOptions,
-  OtlpVersionOptions$inboundSchema,
-  OtlpVersionOptions$outboundSchema,
-} from "./otlpversionoptions.js";
+
+/**
+ * OpenTelemetry Protocol (OTLP) version to use for metric serialization.
+ */
+export const FunctionConfSchemaOTLPMetricsOTLPVersion = {
+  /**
+   * 0.10.0
+   */
+  ZeroDot10Dot0: "0.10.0",
+  /**
+   * 1.3.1
+   */
+  OneDot3Dot1: "1.3.1",
+} as const;
+/**
+ * OpenTelemetry Protocol (OTLP) version to use for metric serialization.
+ */
+export type FunctionConfSchemaOTLPMetricsOTLPVersion = OpenEnum<
+  typeof FunctionConfSchemaOTLPMetricsOTLPVersion
+>;
 
 export type FunctionConfSchemaOtlpMetrics = {
   /**
@@ -23,9 +40,9 @@ export type FunctionConfSchemaOtlpMetrics = {
    */
   dropNonMetricEvents?: boolean | undefined;
   /**
-   * OTLP version
+   * OpenTelemetry Protocol (OTLP) version to use for metric serialization.
    */
-  otlpVersion?: OtlpVersionOptions | undefined;
+  otlpVersion?: FunctionConfSchemaOTLPMetricsOTLPVersion | undefined;
   /**
    * Batch OTLP metrics by shared top-level `resource` attributes
    */
@@ -53,6 +70,19 @@ export type FunctionConfSchemaOtlpMetrics = {
 };
 
 /** @internal */
+export const FunctionConfSchemaOTLPMetricsOTLPVersion$inboundSchema: z.ZodType<
+  FunctionConfSchemaOTLPMetricsOTLPVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(FunctionConfSchemaOTLPMetricsOTLPVersion);
+/** @internal */
+export const FunctionConfSchemaOTLPMetricsOTLPVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  FunctionConfSchemaOTLPMetricsOTLPVersion
+> = openEnums.outboundSchema(FunctionConfSchemaOTLPMetricsOTLPVersion);
+
+/** @internal */
 export const FunctionConfSchemaOtlpMetrics$inboundSchema: z.ZodType<
   FunctionConfSchemaOtlpMetrics,
   z.ZodTypeDef,
@@ -60,7 +90,9 @@ export const FunctionConfSchemaOtlpMetrics$inboundSchema: z.ZodType<
 > = z.object({
   resourceAttributePrefixes: types.optional(z.array(types.string())),
   dropNonMetricEvents: types.optional(types.boolean()),
-  otlpVersion: types.optional(OtlpVersionOptions$inboundSchema),
+  otlpVersion: types.optional(
+    FunctionConfSchemaOTLPMetricsOTLPVersion$inboundSchema,
+  ),
   batchOTLPMetrics: types.optional(types.boolean()),
   sendBatchSize: types.optional(types.number()),
   timeout: types.optional(types.number()),
@@ -89,7 +121,8 @@ export const FunctionConfSchemaOtlpMetrics$outboundSchema: z.ZodType<
 > = z.object({
   resourceAttributePrefixes: z.array(z.string()).optional(),
   dropNonMetricEvents: z.boolean().optional(),
-  otlpVersion: OtlpVersionOptions$outboundSchema.optional(),
+  otlpVersion: FunctionConfSchemaOTLPMetricsOTLPVersion$outboundSchema
+    .optional(),
   batchOTLPMetrics: z.boolean().optional(),
   sendBatchSize: z.number().optional(),
   timeout: z.number().optional(),

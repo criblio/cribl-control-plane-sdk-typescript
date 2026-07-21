@@ -35,9 +35,9 @@ import {
 } from "./keyvaluemetadataconfoutputfilesystem.js";
 import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
-  OtlpVersionOptions131,
-  OtlpVersionOptions131$outboundSchema,
-} from "./otlpversionoptions131.js";
+  OtlpVersionOptions,
+  OtlpVersionOptions$outboundSchema,
+} from "./otlpversionoptions.js";
 import {
   ProtocolOptions,
   ProtocolOptions$outboundSchema,
@@ -107,7 +107,7 @@ export type OutputServiceNow = {
   /**
    * The version of OTLP Protobuf definitions to use when structuring data to send
    */
-  otlpVersion: OtlpVersionOptions131;
+  otlpVersion: OtlpVersionOptions;
   /**
    * Maximum size, in KB, of the request body
    */
@@ -374,7 +374,7 @@ export const OutputServiceNow$outboundSchema: z.ZodType<
   endpoint: z.string(),
   tokenSecret: z.string(),
   authTokenName: z.string().optional(),
-  otlpVersion: OtlpVersionOptions131$outboundSchema,
+  otlpVersion: OtlpVersionOptions$outboundSchema,
   maxPayloadSizeKB: z.number().optional(),
   protocol: ProtocolOptions$outboundSchema,
   compress: CompressionOptionsDeflateGzip$outboundSchema.optional(),

@@ -6,13 +6,18 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import {
-  AddConfFunctionConfSchemaAggregation,
-  AddConfFunctionConfSchemaAggregation$inboundSchema,
-  AddConfFunctionConfSchemaAggregation$Outbound,
-  AddConfFunctionConfSchemaAggregation$outboundSchema,
-} from "./addconffunctionconfschemaaggregation.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+
+export type PipelineFunctionAggregationAdd = {
+  /**
+   * Name of the field to set or add to the event.
+   */
+  name?: string | undefined;
+  /**
+   * JavaScript expression to compute the value (can be constant)
+   */
+  value: string;
+};
 
 /**
  * Configuration specific to the Pipeline Function.
@@ -69,7 +74,7 @@ export type PipelineFunctionAggregationConf = {
   /**
    * Set of key-value pairs to evaluate and add/set
    */
-  add?: Array<AddConfFunctionConfSchemaAggregation> | undefined;
+  add?: Array<PipelineFunctionAggregationAdd> | undefined;
   /**
    * Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
    */
@@ -124,6 +129,50 @@ export type PipelineFunctionAggregation = {
 };
 
 /** @internal */
+export const PipelineFunctionAggregationAdd$inboundSchema: z.ZodType<
+  PipelineFunctionAggregationAdd,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: types.optional(types.string()),
+  value: types.string(),
+});
+/** @internal */
+export type PipelineFunctionAggregationAdd$Outbound = {
+  name?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const PipelineFunctionAggregationAdd$outboundSchema: z.ZodType<
+  PipelineFunctionAggregationAdd$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionAggregationAdd
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+
+export function pipelineFunctionAggregationAddToJSON(
+  pipelineFunctionAggregationAdd: PipelineFunctionAggregationAdd,
+): string {
+  return JSON.stringify(
+    PipelineFunctionAggregationAdd$outboundSchema.parse(
+      pipelineFunctionAggregationAdd,
+    ),
+  );
+}
+export function pipelineFunctionAggregationAddFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionAggregationAdd, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PipelineFunctionAggregationAdd$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionAggregationAdd' from JSON`,
+  );
+}
+
+/** @internal */
 export const PipelineFunctionAggregationConf$inboundSchema: z.ZodType<
   PipelineFunctionAggregationConf,
   z.ZodTypeDef,
@@ -142,7 +191,7 @@ export const PipelineFunctionAggregationConf$inboundSchema: z.ZodType<
   cumulative: types.optional(types.boolean()),
   searchAggMode: types.optional(types.string()),
   add: types.optional(
-    z.array(AddConfFunctionConfSchemaAggregation$inboundSchema),
+    z.array(z.lazy(() => PipelineFunctionAggregationAdd$inboundSchema)),
   ),
   shouldTreatDotsAsLiterals: types.optional(types.boolean()),
   flushOnInputClose: types.optional(types.boolean()),
@@ -164,7 +213,7 @@ export type PipelineFunctionAggregationConf$Outbound = {
   flushMemLimit?: string | undefined;
   cumulative?: boolean | undefined;
   searchAggMode?: string | undefined;
-  add?: Array<AddConfFunctionConfSchemaAggregation$Outbound> | undefined;
+  add?: Array<PipelineFunctionAggregationAdd$Outbound> | undefined;
   shouldTreatDotsAsLiterals?: boolean | undefined;
   flushOnInputClose?: boolean | undefined;
   printUndefineds?: boolean | undefined;
@@ -190,7 +239,8 @@ export const PipelineFunctionAggregationConf$outboundSchema: z.ZodType<
   flushMemLimit: z.string().optional(),
   cumulative: z.boolean().optional(),
   searchAggMode: z.string().optional(),
-  add: z.array(AddConfFunctionConfSchemaAggregation$outboundSchema).optional(),
+  add: z.array(z.lazy(() => PipelineFunctionAggregationAdd$outboundSchema))
+    .optional(),
   shouldTreatDotsAsLiterals: z.boolean().optional(),
   flushOnInputClose: z.boolean().optional(),
   printUndefineds: z.boolean().optional(),

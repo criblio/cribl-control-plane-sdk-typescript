@@ -89,6 +89,7 @@ export const DestinationType = {
   CloudianS3: "cloudian_s3",
   ScalityS3: "scality_s3",
   AlibabaCloudS3: "alibaba_cloud_s3",
+  SnowflakeStreaming: "snowflake_streaming",
   IbmCloudS3: "ibm_cloud_s3",
 } as const;
 export type DestinationType = OpenEnum<typeof DestinationType>;

@@ -821,7 +821,6 @@ const value: operations.CreateInputSystemByPackInputAnthropicCompliance = {
   id: "<id>",
   type: "anthropic_compliance",
   textSecret: "<value>",
-  contentConfig: [],
 };
 ```
 

@@ -174,7 +174,7 @@ export type InputZscalerHecInput = {
    */
   emitTokenMetrics?: boolean | undefined;
   /**
-   * Whether to enable Zscaler HEC acknowledgements
+   * Whether HEC acknowledgements are enabled. Always true for Zscaler sources.
    */
   hecAcks?: boolean | undefined;
   /**

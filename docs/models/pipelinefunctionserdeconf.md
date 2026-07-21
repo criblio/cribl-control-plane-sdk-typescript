@@ -5,6 +5,15 @@ Configuration specific to the Pipeline Function.
 
 ## Supported Types
 
+### `models.SerdeTypeAuto`
+
+```typescript
+const value: models.SerdeTypeAuto = {
+  type: "auto",
+  mode: "reserialize",
+};
+```
+
 ### `models.SerdeTypeKvp`
 
 ```typescript
@@ -48,15 +57,6 @@ const value: models.SerdeTypeRegex = {
   type: "regex",
   regex: "<value>",
   mode: "extract",
-};
-```
-
-### `models.SerdeTypeAuto`
-
-```typescript
-const value: models.SerdeTypeAuto = {
-  type: "auto",
-  mode: "reserialize",
 };
 ```
 

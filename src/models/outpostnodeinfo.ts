@@ -8,6 +8,9 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Node information for the Outpost through which a Worker connects to the Leader.
+ */
 export type OutpostNodeInfo = {
   /**
    * Name of the Outpost Group that contains the Outpost Node.

@@ -54,6 +54,9 @@ export type Git = {
   log?: Array<Commit> | undefined;
 };
 
+/**
+ * Configuration settings and dynamic status for a Worker Group, Outpost Group, or Edge Fleet.
+ */
 export type ConfigGroup = {
   cloud?: ConfigGroupCloud | undefined;
   /**

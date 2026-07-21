@@ -7,20 +7,16 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
 /**
- * OTLP version
+ * The version of OTLP Protobuf definitions to use when structuring data to send
  */
 export const OtlpVersionOptions = {
-  /**
-   * 0.10.0
-   */
-  ZeroDot10Dot0: "0.10.0",
   /**
    * 1.3.1
    */
   OneDot3Dot1: "1.3.1",
 } as const;
 /**
- * OTLP version
+ * The version of OTLP Protobuf definitions to use when structuring data to send
  */
 export type OtlpVersionOptions = OpenEnum<typeof OtlpVersionOptions>;
 

@@ -12,8 +12,8 @@ let value: SnmpTrapSerializeV3UserAuthProtocolNone = {
 
 ## Fields
 
-| Field                   | Type                    | Required                | Description             |
-| ----------------------- | ----------------------- | ----------------------- | ----------------------- |
-| `authProtocol`          | *"none"*                | :heavy_check_mark:      | Authentication protocol |
-| `name`                  | *string*                | :heavy_minus_sign:      | Username                |
-| `privProtocol`          | *string*                | :heavy_minus_sign:      | N/A                     |
+| Field                                        | Type                                         | Required                                     | Description                                  |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| `authProtocol`                               | *"none"*                                     | :heavy_check_mark:                           | Authentication protocol for the SNMPv3 user. |
+| `name`                                       | *string*                                     | :heavy_minus_sign:                           | Username for the SNMPv3 user.                |
+| `privProtocol`                               | *string*                                     | :heavy_minus_sign:                           | Privacy protocol for SNMPv3 encryption.      |

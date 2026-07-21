@@ -9,7 +9,10 @@ let value: CreateOutputSystemByPackRequest = {
   pack: "<value>",
   requestBody: {
     id: "<id>",
-    type: "disk_spool",
+    type: "click_house",
+    url: "https://unhappy-programme.net",
+    database: "<value>",
+    tableName: "<value>",
   },
 };
 ```

@@ -4,14 +4,31 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  OtlpVersionOptions,
-  OtlpVersionOptions$inboundSchema,
-  OtlpVersionOptions$outboundSchema,
-} from "./otlpversionoptions.js";
+
+/**
+ * OpenTelemetry Protocol (OTLP) version to use for trace serialization.
+ */
+export const FunctionConfSchemaOTLPTracesOTLPVersion = {
+  /**
+   * 0.10.0
+   */
+  ZeroDot10Dot0: "0.10.0",
+  /**
+   * 1.3.1
+   */
+  OneDot3Dot1: "1.3.1",
+} as const;
+/**
+ * OpenTelemetry Protocol (OTLP) version to use for trace serialization.
+ */
+export type FunctionConfSchemaOTLPTracesOTLPVersion = OpenEnum<
+  typeof FunctionConfSchemaOTLPTracesOTLPVersion
+>;
 
 export type FunctionConfSchemaOtlpTraces = {
   /**
@@ -19,9 +36,9 @@ export type FunctionConfSchemaOtlpTraces = {
    */
   dropNonTraceEvents?: boolean | undefined;
   /**
-   * OTLP version
+   * OpenTelemetry Protocol (OTLP) version to use for trace serialization.
    */
-  otlpVersion?: OtlpVersionOptions | undefined;
+  otlpVersion?: FunctionConfSchemaOTLPTracesOTLPVersion | undefined;
   /**
    * Batch OTLP traces by shared top-level `resource` attributes
    */
@@ -49,13 +66,28 @@ export type FunctionConfSchemaOtlpTraces = {
 };
 
 /** @internal */
+export const FunctionConfSchemaOTLPTracesOTLPVersion$inboundSchema: z.ZodType<
+  FunctionConfSchemaOTLPTracesOTLPVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(FunctionConfSchemaOTLPTracesOTLPVersion);
+/** @internal */
+export const FunctionConfSchemaOTLPTracesOTLPVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  FunctionConfSchemaOTLPTracesOTLPVersion
+> = openEnums.outboundSchema(FunctionConfSchemaOTLPTracesOTLPVersion);
+
+/** @internal */
 export const FunctionConfSchemaOtlpTraces$inboundSchema: z.ZodType<
   FunctionConfSchemaOtlpTraces,
   z.ZodTypeDef,
   unknown
 > = z.object({
   dropNonTraceEvents: types.optional(types.boolean()),
-  otlpVersion: types.optional(OtlpVersionOptions$inboundSchema),
+  otlpVersion: types.optional(
+    FunctionConfSchemaOTLPTracesOTLPVersion$inboundSchema,
+  ),
   batchOTLPTraces: types.optional(types.boolean()),
   sendBatchSize: types.optional(types.number()),
   timeout: types.optional(types.number()),
@@ -82,7 +114,8 @@ export const FunctionConfSchemaOtlpTraces$outboundSchema: z.ZodType<
   FunctionConfSchemaOtlpTraces
 > = z.object({
   dropNonTraceEvents: z.boolean().optional(),
-  otlpVersion: OtlpVersionOptions$outboundSchema.optional(),
+  otlpVersion: FunctionConfSchemaOTLPTracesOTLPVersion$outboundSchema
+    .optional(),
   batchOTLPTraces: z.boolean().optional(),
   sendBatchSize: z.number().optional(),
   timeout: z.number().optional(),

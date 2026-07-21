@@ -39,6 +39,7 @@ export function versionsCommitsCreate(
 ): APIPromise<
   Result<
     models.CountedGitCommitSummary,
+    | errors.RestApiJsonError
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -65,6 +66,7 @@ async function $do(
   [
     Result<
       models.CountedGitCommitSummary,
+      | errors.RestApiJsonError
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -157,6 +159,7 @@ async function $do(
 
   const [result] = await M.match<
     models.CountedGitCommitSummary,
+    | errors.RestApiJsonError
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -168,6 +171,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, models.CountedGitCommitSummary$inboundSchema),
+    M.jsonErr(400, errors.RestApiJsonError$inboundSchema),
     M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail("4XX"),

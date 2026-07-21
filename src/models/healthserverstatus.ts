@@ -45,6 +45,10 @@ export type HealthServerStatusStatus = OpenEnum<
  * Health status of the Leader or Worker Node.
  */
 export type HealthServerStatus = {
+  /**
+   * Whether this node is currently the captain (job scheduling coordinator) in a Collectors HA deployment.
+   */
+  isCaptain?: boolean | undefined;
   overlay: HealthOverlayStatus;
   /**
    * Leader Node role: <code>primary</code> or <code>standby</code>.
@@ -77,6 +81,7 @@ export const HealthServerStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  isCaptain: types.optional(types.boolean()),
   overlay: HealthOverlayStatus$inboundSchema,
   role: types.optional(Role$inboundSchema),
   startTime: types.number(),

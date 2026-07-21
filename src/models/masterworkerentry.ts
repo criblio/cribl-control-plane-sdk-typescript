@@ -43,6 +43,9 @@ export const MasterWorkerEntryType = {
  */
 export type MasterWorkerEntryType = OpenEnum<typeof MasterWorkerEntryType>;
 
+/**
+ * Worker or Edge Node entry returned by Distributed Management worker and outpost endpoints.
+ */
 export type MasterWorkerEntry = {
   connectionProtocol?: ConnectionProtocol | undefined;
   /**
@@ -77,7 +80,7 @@ export type MasterWorkerEntry = {
   metadata?: HeartbeatMetadata | undefined;
   nodeUpgradeStatus?: NodeUpgradeStatus | undefined;
   /**
-   * Configured ephemeral offline duration, in milliseconds.
+   * Maximum configured ephemeral offline duration, in milliseconds (base + jitter cap).
    */
   offlineDurationMs?: number | undefined;
   /**

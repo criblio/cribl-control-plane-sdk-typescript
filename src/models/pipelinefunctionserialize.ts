@@ -12,7 +12,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type SerializeTypeCsv = {
   /**
-   * Data output format
+   * Data output format.
    */
   type: "csv";
   /**
@@ -43,7 +43,7 @@ export type SerializeTypeCsv = {
 
 export type SerializeTypeDelim = {
   /**
-   * Data output format
+   * Data output format.
    */
   type: "delim";
   /**
@@ -90,7 +90,7 @@ export type SerializeTypeDelim = {
 
 export type SerializeTypeKvp = {
   /**
-   * Data output format
+   * Data output format.
    */
   type: "kvp";
   /**
