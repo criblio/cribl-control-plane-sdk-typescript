@@ -5,7 +5,10 @@
 ```typescript
 import { UpdatePacksRequest } from "cribl-control-plane/models/operations";
 
-// No examples available for this model
+let value: UpdatePacksRequest = {
+  filename: "example.file",
+  requestBody: "<value>",
+};
 ```
 
 ## Fields
@@ -13,4 +16,4 @@ import { UpdatePacksRequest } from "cribl-control-plane/models/operations";
 | Field                                | Type                                 | Required                             | Description                          |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | `filename`                           | *string*                             | :heavy_check_mark:                   | Filename of the Pack file to upload. |
-| `requestBody`                        | *ReadableStream<Uint8Array>*         | :heavy_check_mark:                   | N/A                                  |
+| `requestBody`                        | *string*                             | :heavy_check_mark:                   | N/A                                  |

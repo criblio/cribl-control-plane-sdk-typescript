@@ -4820,6 +4820,91 @@ async function run() {
 
 run();
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="typescript" operationID="createPipelinesByPack" method="post" path="/p/{pack}/pipelines" example="authenticationFailed" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.pipelines.create({
+    pack: "<value>",
+    pipeline: {
+      id: "<id>",
+      conf: {
+        functions: [
+          {
+            id: "mv_pull",
+            conf: {
+              arrayPath: "<value>",
+              relativeKeyPath: "<value>",
+              relativeValuePath: "<value>",
+            },
+          },
+        ],
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsPipelinesCreate } from "cribl-control-plane/funcs/packsPipelinesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsPipelinesCreate(criblControlPlane, {
+    pack: "<value>",
+    pipeline: {
+      id: "<id>",
+      conf: {
+        functions: [
+          {
+            id: "mv_pull",
+            conf: {
+              arrayPath: "<value>",
+              relativeKeyPath: "<value>",
+              relativeValuePath: "<value>",
+            },
+          },
+        ],
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsPipelinesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -14275,6 +14360,85 @@ async function run() {
         groups: {
   
         },
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsPipelinesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesByPackAndId" method="patch" path="/p/{pack}/pipelines/{id}" example="authenticationFailed" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.pipelines.update({
+    id: "<id>",
+    pack: "<value>",
+    pipeline: {
+      id: "<id>",
+      conf: {
+        functions: [
+          {
+            id: "gen_stats",
+            conf: {},
+          },
+        ],
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsPipelinesUpdate } from "cribl-control-plane/funcs/packsPipelinesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsPipelinesUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    pipeline: {
+      id: "<id>",
+      conf: {
+        functions: [
+          {
+            id: "gen_stats",
+            conf: {},
+          },
+        ],
       },
     },
   });

@@ -10,7 +10,7 @@ let value: UpdateDatabaseConnectionConfigByIdRequest = {
   databaseConnectionConfig: {
     authType: "connectionString",
     configObj:
-      "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"trustServerCertificate\":false,\"connectTimeout\":20000}}",
+      "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"connectTimeout\":20000}}",
     connectionString:
       "mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true",
     connectionTimeout: 10000,

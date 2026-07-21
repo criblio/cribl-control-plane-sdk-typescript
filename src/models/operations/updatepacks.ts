@@ -10,13 +10,13 @@ export type UpdatePacksRequest = {
    * Filename of the Pack file to upload.
    */
   filename: string;
-  requestBody: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
+  requestBody: string;
 };
 
 /** @internal */
 export type UpdatePacksRequest$Outbound = {
   filename: string;
-  RequestBody: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
+  RequestBody: string;
 };
 
 /** @internal */
@@ -26,12 +26,7 @@ export const UpdatePacksRequest$outboundSchema: z.ZodType<
   UpdatePacksRequest
 > = z.object({
   filename: z.string(),
-  requestBody: z.union([
-    z.instanceof(ReadableStream<Uint8Array>),
-    z.instanceof(Blob),
-    z.instanceof(ArrayBuffer),
-    z.instanceof(Uint8Array),
-  ]),
+  requestBody: z.string(),
 }).transform((v) => {
   return remap$(v, {
     requestBody: "RequestBody",

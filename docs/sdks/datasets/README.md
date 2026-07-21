@@ -328,6 +328,89 @@ async function run() {
 
 run();
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="typescript" operationID="createCriblLakeDatasetByLakeId" method="post" path="/products/lake/lakes/{lakeId}/datasets" example="authenticationFailed" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.lakes.datasets.create({
+    lakeId: "<id>",
+    criblLakeDataset: {
+      id: "<id>",
+      searchConfig: {
+        metadata: {
+          earliest: "-30d",
+          enableAcceleration: false,
+          fieldList: [
+            "<value 1>",
+            "<value 2>",
+          ],
+          scanMode: "detailed",
+        },
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { lakesDatasetsCreate } from "cribl-control-plane/funcs/lakesDatasetsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await lakesDatasetsCreate(criblControlPlane, {
+    lakeId: "<id>",
+    criblLakeDataset: {
+      id: "<id>",
+      searchConfig: {
+        metadata: {
+          earliest: "-30d",
+          enableAcceleration: false,
+          fieldList: [
+            "<value 1>",
+            "<value 2>",
+          ],
+          scanMode: "detailed",
+        },
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("lakesDatasetsCreate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -561,6 +644,89 @@ async function run() {
     id: "<id>",
     criblLakeDatasetUpdate: {
       retentionPeriodInDays: 180,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("lakesDatasetsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="typescript" operationID="updateCriblLakeDatasetByLakeIdAndId" method="patch" path="/products/lake/lakes/{lakeId}/datasets/{id}" example="authenticationFailed" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.lakes.datasets.update({
+    lakeId: "<id>",
+    id: "<id>",
+    criblLakeDatasetUpdate: {
+      searchConfig: {
+        metadata: {
+          earliest: "-30d",
+          enableAcceleration: false,
+          fieldList: [
+            "<value 1>",
+            "<value 2>",
+          ],
+          scanMode: "quick",
+        },
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { lakesDatasetsUpdate } from "cribl-control-plane/funcs/lakesDatasetsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await lakesDatasetsUpdate(criblControlPlane, {
+    lakeId: "<id>",
+    id: "<id>",
+    criblLakeDatasetUpdate: {
+      searchConfig: {
+        metadata: {
+          earliest: "-30d",
+          enableAcceleration: false,
+          fieldList: [
+            "<value 1>",
+            "<value 2>",
+          ],
+          scanMode: "quick",
+        },
+      },
     },
   });
   if (res.ok) {
