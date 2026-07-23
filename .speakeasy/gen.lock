@@ -37848,6 +37848,22 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
+releaseNotes: |
+  ## TypeScript SDK Changes
+
+  This version of the SDK is generated for Cribl version 4.19.0.
+
+  **IMPORTANT: SDK Transition to Community Support**
+
+  Cribl has stopped active development of the TypeScript SDK for the control plane. The SDK remains an open-source,
+  community resource on the Cribl-Community GitHub organization. You can continue using the TypeScript SDK and build
+  on it, but Cribl support will be limited to critical issues only for the defined transition period.
+  Support will end on October 1, 2026.
+
+  If you prefer to stay on a supported integration, consider migrating to:
+  - Python SDK: https://github.com/criblio/cribl_control_plane_sdk_python
+  - Terraform provider: https://github.com/criblio/terraform-provider-criblio
+  - Direct Cribl API access: https://docs.cribl.io/cribl-as-code/api/
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
