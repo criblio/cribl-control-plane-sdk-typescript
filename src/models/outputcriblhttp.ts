@@ -55,6 +55,9 @@ import {
   UrlConfOutputCriblHttp$outboundSchema,
 } from "./urlconfoutputcriblhttp.js";
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputCriblHttpPqControls = {};
 
 export type OutputCriblHttp = {
@@ -62,6 +65,9 @@ export type OutputCriblHttp = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "cribl_http";
   /**
    * Pipeline to process data before sending out to this output
@@ -76,13 +82,16 @@ export type OutputCriblHttp = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
    * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
    */
   loadBalanced?: boolean | undefined;
+  /**
+   * TLS settings (client side)
+   */
   tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
@@ -159,6 +168,9 @@ export type OutputCriblHttp = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * URL of a Cribl Worker to send events to, such as http://localhost:10200
@@ -172,6 +184,9 @@ export type OutputCriblHttp = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
+  /**
+   * Cribl Worker endpoints
+   */
   urls?: Array<UrlConfOutputCriblHttp> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
@@ -225,6 +240,9 @@ export type OutputCriblHttp = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputCriblHttpPqControls | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

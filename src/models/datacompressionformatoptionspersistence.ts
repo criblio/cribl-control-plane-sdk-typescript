@@ -6,10 +6,16 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
+/**
+ * Data compression format
+ */
 export const DataCompressionFormatOptionsPersistence = {
   None: "none",
   Gzip: "gzip",
 } as const;
+/**
+ * Data compression format
+ */
 export type DataCompressionFormatOptionsPersistence = OpenEnum<
   typeof DataCompressionFormatOptionsPersistence
 >;

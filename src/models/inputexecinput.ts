@@ -34,7 +34,13 @@ export type InputExecInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "exec";
+  /**
+   * Disabled
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -53,7 +59,7 @@ export type InputExecInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -89,6 +95,9 @@ export type InputExecInput = {
    * Fields to add to events from this input
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Interval between command executions in seconds.

@@ -1,11 +1,13 @@
 # UpgradeOptionsSystemSettingsConfSystem
 
+Upgrade permission policy: <code>api</code> to allow upgrades from the UI or API or <code>false</code> to disable.
+
 ## Example Usage
 
 ```typescript
 import { UpgradeOptionsSystemSettingsConfSystem } from "cribl-control-plane/models";
 
-let value: UpgradeOptionsSystemSettingsConfSystem = "api";
+let value: UpgradeOptionsSystemSettingsConfSystem = "false";
 
 // Open enum: unrecognized values are captured as Unrecognized<string>
 ```
@@ -13,5 +15,5 @@ let value: UpgradeOptionsSystemSettingsConfSystem = "api";
 ## Values
 
 ```typescript
-"false" | "api" | Unrecognized<string>
+"api" | "false" | Unrecognized<string>
 ```

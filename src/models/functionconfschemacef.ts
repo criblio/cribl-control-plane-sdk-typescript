@@ -9,6 +9,9 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type Header = {
+  /**
+   * Name
+   */
   name?: string | undefined;
   /**
    * JavaScript expression to compute the value (can be constant)
@@ -17,6 +20,9 @@ export type Header = {
 };
 
 export type Extension = {
+  /**
+   * Name
+   */
   name: string;
   /**
    * JavaScript expression to compute the value (can be constant)

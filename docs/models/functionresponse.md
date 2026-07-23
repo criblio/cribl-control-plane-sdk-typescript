@@ -575,6 +575,24 @@ const value: models.FunctionMask = {
 };
 ```
 
+### `models.FunctionMetricsExport`
+
+```typescript
+const value: models.FunctionMetricsExport = {
+  __filename: "example.file",
+  group: "<value>",
+  id: "metrics_export",
+  loadTime: 8405.15,
+  modTime: 7868.28,
+  name: "<value>",
+  uischema: {
+    "key": "<value>",
+    "key1": "<value>",
+  },
+  version: "<value>",
+};
+```
+
 ### `models.FunctionMvExpand`
 
 ```typescript

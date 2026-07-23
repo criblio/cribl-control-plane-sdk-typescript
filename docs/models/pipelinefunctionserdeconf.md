@@ -1,7 +1,18 @@
 # PipelineFunctionSerdeConf
 
+Configuration specific to the Pipeline Function.
+
 
 ## Supported Types
+
+### `models.SerdeTypeAuto`
+
+```typescript
+const value: models.SerdeTypeAuto = {
+  type: "auto",
+  mode: "reserialize",
+};
+```
 
 ### `models.SerdeTypeKvp`
 

@@ -11,6 +11,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Datasets extends ClientSDK {
   /**
@@ -22,8 +23,13 @@ export class Datasets extends ClientSDK {
   async list(
     request: operations.GetCriblLakeDatasetByLakeIdRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedCriblLakeDataset> {
-    return unwrapAsync(lakesDatasetsList(
+  ): Promise<
+    PageIterator<
+      operations.GetCriblLakeDatasetByLakeIdResponse,
+      { offset: number }
+    >
+  > {
+    return unwrapResultIterator(lakesDatasetsList(
       this,
       request,
       options,

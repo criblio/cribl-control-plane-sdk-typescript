@@ -18,7 +18,13 @@ import {
   MinimumTlsVersionOptionsTls$outboundSchema,
 } from "./minimumtlsversionoptionstls.js";
 
+/**
+ * TLS settings (server side)
+ */
 export type TlsSettingsServerSideType = {
+  /**
+   * If true, TLS is disabled on this connection.
+   */
   disabled?: boolean | undefined;
   /**
    * Require clients to present their certificates. Used to perform client authentication using SSL certs.
@@ -52,7 +58,13 @@ export type TlsSettingsServerSideType = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
+  /**
+   * Minimum TLS version
+   */
   minVersion?: MinimumTlsVersionOptionsTls | undefined;
+  /**
+   * Maximum TLS version
+   */
   maxVersion?: MaximumTlsVersionOptionsTls | undefined;
 };
 

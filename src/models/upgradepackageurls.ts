@@ -9,7 +9,13 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type UpgradePackageUrls = {
+  /**
+   * URL of the hash file used to verify the package download.
+   */
   packageHashUrl?: string | undefined;
+  /**
+   * URL of the upgrade package file.
+   */
   packageUrl: string;
 };
 

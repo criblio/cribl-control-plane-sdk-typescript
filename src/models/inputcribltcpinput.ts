@@ -30,7 +30,13 @@ export type InputCriblTcpInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "cribl_tcp";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -49,7 +55,7 @@ export type InputCriblTcpInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -65,6 +71,9 @@ export type InputCriblTcpInput = {
    * Port to listen on
    */
   port: number;
+  /**
+   * TLS settings (server side)
+   */
   tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
@@ -98,6 +107,9 @@ export type InputCriblTcpInput = {
    * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
    */
   authTokens?: Array<AuthTokenConfInputCriblTcp> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.

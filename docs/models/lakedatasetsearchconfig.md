@@ -8,13 +8,11 @@ import { LakeDatasetSearchConfig } from "cribl-control-plane/models";
 let value: LakeDatasetSearchConfig = {
   metadata: {
     earliest: "-30d",
-    enableAcceleration: true,
+    enableAcceleration: false,
     fieldList: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
-    scanMode: "detailed",
+    scanMode: "quick",
   },
 };
 ```

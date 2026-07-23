@@ -4,47 +4,170 @@
 
 import * as z from "zod/v3";
 import { smartUnion } from "../types/smartUnion.js";
-import {
-  TagsTypePackInstallInfo,
-  TagsTypePackInstallInfo$Outbound,
-  TagsTypePackInstallInfo$outboundSchema,
-} from "./tagstypepackinstallinfo.js";
+
+/**
+ * Categorization tags for the Pack.
+ */
+export type Tags2 = {
+  /**
+   * List of data type tags for the Pack.
+   */
+  dataType?: Array<string> | undefined;
+  /**
+   * List of domain tags for the Pack.
+   */
+  domain?: Array<string> | undefined;
+  /**
+   * List of technology tags for the Pack.
+   */
+  technology?: Array<string> | undefined;
+  /**
+   * List of stream tags for routing and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+};
 
 export type PackRequestBody2 = {
+  /**
+   * Unique identifier for the Pack.
+   */
   id?: string | undefined;
+  /**
+   * Semver range constraint to apply when resolving the Pack version to install.
+   */
   spec?: string | undefined;
+  /**
+   * Version of the Pack, following semantic versioning.
+   */
   version?: string | undefined;
+  /**
+   * Minimum version of Cribl Stream required to run this Pack.
+   */
   minLogStreamVersion?: string | undefined;
+  /**
+   * Human-readable display name for the Pack.
+   */
   displayName?: string | undefined;
+  /**
+   * Name or identifier of the Pack author.
+   */
   author?: string | undefined;
+  /**
+   * Brief description of the Pack and its purpose.
+   */
   description?: string | undefined;
   /**
-   * The source of the pack. If not present, an empty pack will be created
+   * Source of the Pack. Provide a staging source ID from <code>PUT /packs</code>, a direct URL to a <code>.crbl</code> file, or a <code>git+&lt;repo-url&gt;</code> Git repository URL. If omitted, an empty Pack is created.
    */
   source: string;
-  tags?: TagsTypePackInstallInfo | undefined;
+  /**
+   * Categorization tags for the Pack.
+   */
+  tags?: Tags2 | undefined;
+  /**
+   * If <code>true</code> or omitted, allow the Pack to use custom JavaScript functions. If <code>false</code>, reject Packs that use custom JavaScript functions.
+   */
   allowCustomFunctions?: boolean | undefined;
+  /**
+   * If <code>true</code>, overwrite an existing Pack with the same ID. Otherwise, <code>false</code>.
+   */
   force?: boolean | undefined;
 };
 
+/**
+ * Categorization tags for the Pack.
+ */
+export type Tags1 = {
+  /**
+   * List of data type tags for the Pack.
+   */
+  dataType?: Array<string> | undefined;
+  /**
+   * List of domain tags for the Pack.
+   */
+  domain?: Array<string> | undefined;
+  /**
+   * List of technology tags for the Pack.
+   */
+  technology?: Array<string> | undefined;
+  /**
+   * List of stream tags for routing and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+};
+
 export type PackRequestBody1 = {
+  /**
+   * Unique identifier for the Pack.
+   */
   id: string;
+  /**
+   * Semver range constraint to apply when resolving the Pack version to install.
+   */
   spec?: string | undefined;
+  /**
+   * Version of the Pack, following semantic versioning.
+   */
   version?: string | undefined;
+  /**
+   * Minimum version of Cribl Stream required to run this Pack.
+   */
   minLogStreamVersion?: string | undefined;
+  /**
+   * Human-readable display name for the Pack.
+   */
   displayName?: string | undefined;
+  /**
+   * Name or identifier of the Pack author.
+   */
   author?: string | undefined;
+  /**
+   * Brief description of the Pack and its purpose.
+   */
   description?: string | undefined;
   /**
-   * The source of the pack. If not present, an empty pack will be created
+   * Source of the Pack. Provide a staging source ID from <code>PUT /packs</code>, a direct URL to a <code>.crbl</code> file, or a <code>git+&lt;repo-url&gt;</code> Git repository URL. If omitted, an empty Pack is created.
    */
   source?: string | undefined;
-  tags?: TagsTypePackInstallInfo | undefined;
+  /**
+   * Categorization tags for the Pack.
+   */
+  tags?: Tags1 | undefined;
+  /**
+   * If <code>true</code> or omitted, allow the Pack to use custom JavaScript functions. If <code>false</code>, reject Packs that use custom JavaScript functions.
+   */
   allowCustomFunctions?: boolean | undefined;
+  /**
+   * If <code>true</code>, overwrite an existing Pack with the same ID. Otherwise, <code>false</code>.
+   */
   force?: boolean | undefined;
 };
 
 export type PackRequestBodyUnion = PackRequestBody1 | PackRequestBody2;
+
+/** @internal */
+export type Tags2$Outbound = {
+  dataType?: Array<string> | undefined;
+  domain?: Array<string> | undefined;
+  technology?: Array<string> | undefined;
+  streamtags?: Array<string> | undefined;
+};
+
+/** @internal */
+export const Tags2$outboundSchema: z.ZodType<
+  Tags2$Outbound,
+  z.ZodTypeDef,
+  Tags2
+> = z.object({
+  dataType: z.array(z.string()).optional(),
+  domain: z.array(z.string()).optional(),
+  technology: z.array(z.string()).optional(),
+  streamtags: z.array(z.string()).optional(),
+});
+
+export function tags2ToJSON(tags2: Tags2): string {
+  return JSON.stringify(Tags2$outboundSchema.parse(tags2));
+}
 
 /** @internal */
 export type PackRequestBody2$Outbound = {
@@ -56,7 +179,7 @@ export type PackRequestBody2$Outbound = {
   author?: string | undefined;
   description?: string | undefined;
   source: string;
-  tags?: TagsTypePackInstallInfo$Outbound | undefined;
+  tags?: Tags2$Outbound | undefined;
   allowCustomFunctions?: boolean | undefined;
   force?: boolean | undefined;
 };
@@ -75,7 +198,7 @@ export const PackRequestBody2$outboundSchema: z.ZodType<
   author: z.string().optional(),
   description: z.string().optional(),
   source: z.string(),
-  tags: TagsTypePackInstallInfo$outboundSchema.optional(),
+  tags: z.lazy(() => Tags2$outboundSchema).optional(),
   allowCustomFunctions: z.boolean().optional(),
   force: z.boolean().optional(),
 });
@@ -89,6 +212,30 @@ export function packRequestBody2ToJSON(
 }
 
 /** @internal */
+export type Tags1$Outbound = {
+  dataType?: Array<string> | undefined;
+  domain?: Array<string> | undefined;
+  technology?: Array<string> | undefined;
+  streamtags?: Array<string> | undefined;
+};
+
+/** @internal */
+export const Tags1$outboundSchema: z.ZodType<
+  Tags1$Outbound,
+  z.ZodTypeDef,
+  Tags1
+> = z.object({
+  dataType: z.array(z.string()).optional(),
+  domain: z.array(z.string()).optional(),
+  technology: z.array(z.string()).optional(),
+  streamtags: z.array(z.string()).optional(),
+});
+
+export function tags1ToJSON(tags1: Tags1): string {
+  return JSON.stringify(Tags1$outboundSchema.parse(tags1));
+}
+
+/** @internal */
 export type PackRequestBody1$Outbound = {
   id: string;
   spec?: string | undefined;
@@ -98,7 +245,7 @@ export type PackRequestBody1$Outbound = {
   author?: string | undefined;
   description?: string | undefined;
   source?: string | undefined;
-  tags?: TagsTypePackInstallInfo$Outbound | undefined;
+  tags?: Tags1$Outbound | undefined;
   allowCustomFunctions?: boolean | undefined;
   force?: boolean | undefined;
 };
@@ -117,7 +264,7 @@ export const PackRequestBody1$outboundSchema: z.ZodType<
   author: z.string().optional(),
   description: z.string().optional(),
   source: z.string().optional(),
-  tags: TagsTypePackInstallInfo$outboundSchema.optional(),
+  tags: z.lazy(() => Tags1$outboundSchema).optional(),
   allowCustomFunctions: z.boolean().optional(),
   force: z.boolean().optional(),
 });

@@ -6,9 +6,15 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
+/**
+ * Hidden Default Breakers
+ */
 export const HiddenDefaultBreakersOptionsDatabaseCollectorConf = {
   Cribl: "Cribl",
 } as const;
+/**
+ * Hidden Default Breakers
+ */
 export type HiddenDefaultBreakersOptionsDatabaseCollectorConf = OpenEnum<
   typeof HiddenDefaultBreakersOptionsDatabaseCollectorConf
 >;

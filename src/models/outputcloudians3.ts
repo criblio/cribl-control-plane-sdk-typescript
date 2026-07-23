@@ -68,6 +68,9 @@ export type OutputCloudianS3 = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "cloudian_s3";
   /**
    * Pipeline to process data before sending out to this output
@@ -82,7 +85,7 @@ export type OutputCloudianS3 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -194,6 +197,9 @@ export type OutputCloudianS3 = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  /**
+   * Orphan file recovery
+   */
   orphans?: OrphanFileRecoveryType | undefined;
   /**
    * Object ACL to assign to uploaded objects
@@ -213,6 +219,9 @@ export type OutputCloudianS3 = {
    * ID or ARN of the KMS customer-managed key to use for encryption
    */
   kmsKeyId?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key

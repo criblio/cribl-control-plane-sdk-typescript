@@ -15,10 +15,25 @@ import {
 } from "./upgradepackageurls.js";
 
 export type UpgradeSettings = {
+  /**
+   * How frequently to check for available upgrades. Value is a duration string such as <code>24h</code>.
+   */
   automaticUpgradeCheckPeriod?: string | undefined;
+  /**
+   * If <code>true</code>, automatic upgrades are disabled. Otherwise, <code>false</code>.
+   */
   disableAutomaticUpgrade?: boolean | undefined;
+  /**
+   * If <code>true</code>, enable the legacy upgrade flow for Edge Nodes. Otherwise, <code>false</code>.
+   */
   enableLegacyEdgeUpgrade?: boolean | undefined;
+  /**
+   * List of custom package URLs to use for manual upgrades.
+   */
   packageUrls?: Array<UpgradePackageUrls> | undefined;
+  /**
+   * Upgrade source: <code>cribl</code> for official Cribl packages or <code>custom</code> for a custom package URL.
+   */
   upgradeSource?: string | undefined;
 };
 

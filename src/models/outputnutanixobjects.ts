@@ -56,6 +56,9 @@ export type OutputNutanixObjects = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "nutanix_objects";
   /**
    * Pipeline to process data before sending out to this output
@@ -70,7 +73,7 @@ export type OutputNutanixObjects = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -178,11 +181,17 @@ export type OutputNutanixObjects = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  /**
+   * Orphan file recovery
+   */
   orphans?: OrphanFileRecoveryType | undefined;
   /**
    * Nutanix Objects S3-compatible endpoint URL (example: https://objects.nutanix.local)
    */
   endpoint: string;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key

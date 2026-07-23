@@ -30,9 +30,15 @@ import {
   TlsSettingsServerSideType$outboundSchema,
 } from "./tlssettingsserversidetype.js";
 
+/**
+ * Source type identifier.
+ */
 export const InputGrafanaType2 = {
   Grafana: "grafana",
 } as const;
+/**
+ * Source type identifier.
+ */
 export type InputGrafanaType2 = ClosedEnum<typeof InputGrafanaType2>;
 
 export type PrometheusAuth2 = {
@@ -40,7 +46,13 @@ export type PrometheusAuth2 = {
    * Remote Write authentication type
    */
   authType?: AuthenticationTypeOptionsPrometheusAuth | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -61,7 +73,13 @@ export type LokiAuth2 = {
    * Loki logs authentication type
    */
   authType?: AuthenticationTypeOptionsLokiAuth | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -82,7 +100,13 @@ export type InputGrafanaGrafanaInput2 = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Source type identifier.
+   */
   type: InputGrafanaType2;
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -101,7 +125,7 @@ export type InputGrafanaGrafanaInput2 = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -117,6 +141,9 @@ export type InputGrafanaGrafanaInput2 = {
    * Port to listen on
    */
   port: number;
+  /**
+   * TLS settings (server side)
+   */
   tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -176,6 +203,9 @@ export type InputGrafanaGrafanaInput2 = {
    * Fields to add to events from this input
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -203,9 +233,15 @@ export type InputGrafanaGrafanaInput2 = {
   __template_lokiAPI?: string | undefined;
 };
 
+/**
+ * Source type identifier.
+ */
 export const InputGrafanaType1 = {
   Grafana: "grafana",
 } as const;
+/**
+ * Source type identifier.
+ */
 export type InputGrafanaType1 = ClosedEnum<typeof InputGrafanaType1>;
 
 export type PrometheusAuth1 = {
@@ -213,7 +249,13 @@ export type PrometheusAuth1 = {
    * Remote Write authentication type
    */
   authType?: AuthenticationTypeOptionsPrometheusAuth | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -234,7 +276,13 @@ export type LokiAuth1 = {
    * Loki logs authentication type
    */
   authType?: AuthenticationTypeOptionsLokiAuth | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -255,7 +303,13 @@ export type InputGrafanaGrafanaInput1 = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Source type identifier.
+   */
   type: InputGrafanaType1;
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -274,7 +328,7 @@ export type InputGrafanaGrafanaInput1 = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -290,6 +344,9 @@ export type InputGrafanaGrafanaInput1 = {
    * Port to listen on
    */
   port: number;
+  /**
+   * TLS settings (server side)
+   */
   tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -349,6 +406,9 @@ export type InputGrafanaGrafanaInput1 = {
    * Fields to add to events from this input
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.

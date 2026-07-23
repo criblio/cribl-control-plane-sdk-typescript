@@ -16,11 +16,11 @@ export type CountedSystemSettingsConf = {
   /**
    * number of items present in the items array
    */
-  count?: number | undefined;
+  count: number;
   /**
    * List of items in this response.
    */
-  items?: Array<SystemSettingsConf> | undefined;
+  items: Array<SystemSettingsConf>;
 };
 
 /** @internal */
@@ -29,8 +29,8 @@ export const CountedSystemSettingsConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: types.optional(types.number()),
-  items: types.optional(z.array(SystemSettingsConf$inboundSchema)),
+  count: types.number(),
+  items: z.array(SystemSettingsConf$inboundSchema),
 });
 
 export function countedSystemSettingsConfFromJSON(

@@ -32,6 +32,9 @@ import {
  * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
  */
 export type AuthenticationTypeUse = {
+  /**
+   * Disabled
+   */
   disabled: boolean;
   /**
    * Enter password directly, or select a stored secret
@@ -45,11 +48,17 @@ export type AuthenticationTypeUse = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * SASL mechanism
+   */
   mechanism?: SaslMechanismOptionsSaslOauthbearerPlain | undefined;
   /**
    * The username for authentication. For Event Hubs, this should always be $ConnectionString.
    */
   username?: string | undefined;
+  /**
+   * Authentication method
+   */
   clientSecretAuthType?:
     | AuthenticationMethodOptionsSaslCertificateManual
     | undefined;

@@ -198,8 +198,9 @@ async function $do(
     M.json(200, operations.GetProductsWorkersByProductResponse$inboundSchema, {
       key: "Result",
     }),
+    M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([400, 401, 403, "4XX"]),
+    M.fail([400, 403, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {
@@ -234,7 +235,7 @@ async function $do(
     if (!responseData) {
       return { next: () => null };
     }
-    const results = (responseData as { items?: unknown }).items;
+    const results = (responseData as { items: unknown }).items;
     if (!Array.isArray(results) || !results.length) {
       return { next: () => null };
     }

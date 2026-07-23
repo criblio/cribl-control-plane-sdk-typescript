@@ -35,7 +35,13 @@ export type InputWizContentConfig = {
    * The name of the Wiz query
    */
   contentType: string;
+  /**
+   * Description
+   */
   contentDescription?: string | undefined;
+  /**
+   * Enable content
+   */
   enabled?: boolean | undefined;
   /**
    * Track collection progress between consecutive scheduled executions
@@ -85,7 +91,13 @@ export type InputWizInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "wiz";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -104,7 +116,7 @@ export type InputWizInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -128,6 +140,9 @@ export type InputWizInput = {
    * The client ID of the Wiz application
    */
   clientId: string;
+  /**
+   * Content types
+   */
   contentConfig: Array<InputWizContentConfig>;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
@@ -166,6 +181,9 @@ export type InputWizInput = {
    * Enter client secret directly, or select a stored secret
    */
   authType?: AuthenticationMethodOptionsManualSecret | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * The client secret of the Wiz application

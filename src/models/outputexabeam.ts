@@ -35,6 +35,9 @@ export type OutputExabeam = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "exabeam";
   /**
    * Pipeline to process data before sending out to this output
@@ -49,7 +52,7 @@ export type OutputExabeam = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -119,6 +122,9 @@ export type OutputExabeam = {
    */
   onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  /**
+   * Orphan file recovery
+   */
   orphans?: OrphanFileRecoveryType | undefined;
   /**
    * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
@@ -142,6 +148,9 @@ export type OutputExabeam = {
    * Exabeam site ID. If left blank, @{product} will use the value of the Exabeam site name.
    */
   siteId?: string | undefined;
+  /**
+   * Timezone offset
+   */
   timezoneOffset?: string | undefined;
   /**
    * HMAC access key. Can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
@@ -151,6 +160,9 @@ export type OutputExabeam = {
    * HMAC secret. Can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
    */
   awsSecretKey?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * How frequently, in seconds, to clean up empty directories

@@ -9,19 +9,19 @@ let value: GitCommitSummary = {
   branch: "<value>",
   commit: "<value>",
   summary: {
-    changes: 8754.06,
-    deletions: 1841.38,
-    insertions: 7200.89,
+    changes: 73462,
+    deletions: 373781,
+    insertions: 182031,
   },
 };
 ```
 
 ## Fields
 
-| Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                |
-| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| `author`                                                                   | [models.Author](../models/author.md)                                       | :heavy_minus_sign:                                                         | N/A                                                                        |
-| `branch`                                                                   | *string*                                                                   | :heavy_check_mark:                                                         | N/A                                                                        |
-| `commit`                                                                   | *string*                                                                   | :heavy_check_mark:                                                         | N/A                                                                        |
-| `files`                                                                    | [models.FilesTypeGitCommitSummary](../models/filestypegitcommitsummary.md) | :heavy_minus_sign:                                                         | N/A                                                                        |
-| `summary`                                                                  | [models.Summary](../models/summary.md)                                     | :heavy_check_mark:                                                         | N/A                                                                        |
+| Field                                                              | Type                                                               | Required                                                           | Description                                                        |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| `author`                                                           | [models.Author](../models/author.md)                               | :heavy_minus_sign:                                                 | Author of the Git commit, including email and display name.        |
+| `branch`                                                           | *string*                                                           | :heavy_check_mark:                                                 | Name of the Git branch the commit was made on.                     |
+| `commit`                                                           | *string*                                                           | :heavy_check_mark:                                                 | Full SHA-1 hash of the new commit.                                 |
+| `files`                                                            | [models.GitCommitSummaryFiles](../models/gitcommitsummaryfiles.md) | :heavy_minus_sign:                                                 | Files affected by the commit, grouped by change type.              |
+| `summary`                                                          | [models.Summary](../models/summary.md)                             | :heavy_check_mark:                                                 | Summary of line changes in the commit.                             |

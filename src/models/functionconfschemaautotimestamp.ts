@@ -76,6 +76,9 @@ export type FunctionConfSchemaAutoTimestamp = {
    * The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to the Default time.
    */
   latestDateAllowed?: string | undefined;
+  /**
+   * UI layout spacer; no effect on event processing.
+   */
   spacer?: string | undefined;
   /**
    * The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to the Default time.

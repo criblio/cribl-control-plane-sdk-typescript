@@ -14,8 +14,17 @@ import {
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type AuthTypeTemplatemanualApiKeyAuthType = {
+  /**
+   * Authentication Disabled
+   */
   disabled: boolean;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Enter credentials directly, or select a stored secret

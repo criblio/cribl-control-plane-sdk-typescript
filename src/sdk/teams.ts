@@ -16,7 +16,7 @@ export class Teams extends ClientSDK {
    * Get the Access Control List (ACL) for teams that have permissions on a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product.
    */
   async get(
-    request: operations.GetConfigGroupAclTeamsByProductAndIdRequest,
+    request: operations.GetProductsGroupsAclTeamsByProductAndIdRequest,
     options?: RequestOptions,
   ): Promise<models.CountedTeamAccessControlList> {
     return unwrapAsync(groupsAclTeamsGet(

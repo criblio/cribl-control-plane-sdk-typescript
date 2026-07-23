@@ -8,7 +8,7 @@
 ```typescript
 const value: operations.CreateInputSystemByPackInputSyslogSyslog1 = {
   id: "<id>",
-  type: "syslog",
+  type: "<value>",
   host: "likely-adaptation.net",
   udpPort: 6565.43,
 };
@@ -19,7 +19,7 @@ const value: operations.CreateInputSystemByPackInputSyslogSyslog1 = {
 ```typescript
 const value: operations.CreateInputSystemByPackInputSyslogSyslog2 = {
   id: "<id>",
-  type: "syslog",
+  type: "<value>",
   host: "grown-scarification.biz",
   tcpPort: 3586.91,
 };

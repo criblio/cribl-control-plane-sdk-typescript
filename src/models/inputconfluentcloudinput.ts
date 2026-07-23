@@ -35,7 +35,13 @@ export type InputConfluentCloudInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "confluent_cloud";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -54,7 +60,7 @@ export type InputConfluentCloudInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -66,6 +72,9 @@ export type InputConfluentCloudInput = {
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
    */
   brokers: Array<string>;
+  /**
+   * TLS settings (client side)
+   */
   tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
@@ -79,6 +88,9 @@ export type InputConfluentCloudInput = {
    * Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
    */
   fromBeginning?: boolean | undefined;
+  /**
+   * Kafka Schema Registry Authentication
+   */
   kafkaSchemaRegistry?: KafkaSchemaRegistryAuthenticationType | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
@@ -159,6 +171,9 @@ export type InputConfluentCloudInput = {
    * Fields to add to events from this input
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.

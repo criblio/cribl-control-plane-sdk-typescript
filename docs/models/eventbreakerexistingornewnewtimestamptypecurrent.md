@@ -14,6 +14,6 @@ let value: EventBreakerExistingOrNewNewTimestampTypeCurrent = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `type`             | *"current"*        | :heavy_check_mark: | N/A                |
-| `length`           | *number*           | :heavy_minus_sign: | N/A                |
-| `format`           | *string*           | :heavy_minus_sign: | N/A                |
+| `type`             | *"current"*        | :heavy_check_mark: | Timestamp type     |
+| `length`           | *number*           | :heavy_minus_sign: | Length             |
+| `format`           | *string*           | :heavy_minus_sign: | Format             |

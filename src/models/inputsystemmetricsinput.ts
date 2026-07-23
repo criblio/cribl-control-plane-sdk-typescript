@@ -315,6 +315,9 @@ export type InputSystemMetricsContainerMode = OpenEnum<
 >;
 
 export type InputSystemMetricsFilter = {
+  /**
+   * Expression
+   */
   expr: string;
 };
 
@@ -349,6 +352,9 @@ export type InputSystemMetricsContainer = {
   detail?: boolean | undefined;
 };
 
+/**
+ * persistence
+ */
 export type InputSystemMetricsPersistence = {
   /**
    * Spool metrics to disk for Cribl Edge and Search
@@ -366,6 +372,9 @@ export type InputSystemMetricsPersistence = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
+  /**
+   * Data compression format
+   */
   compress?: DataCompressionFormatOptionsPersistence | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_metrics
@@ -378,7 +387,13 @@ export type InputSystemMetricsInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "system_metrics";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -397,7 +412,7 @@ export type InputSystemMetricsInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -417,7 +432,13 @@ export type InputSystemMetricsInput = {
    * Fields to add to events from this input
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * persistence
+   */
   persistence?: InputSystemMetricsPersistence | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.

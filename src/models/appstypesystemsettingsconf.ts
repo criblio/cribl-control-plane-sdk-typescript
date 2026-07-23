@@ -8,7 +8,13 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * App configuration.
+ */
 export type AppsTypeSystemSettingsConf = {
+  /**
+   * If <code>true</code>, enable Apps. Otherwise, <code>false</code>.
+   */
   enabled: boolean;
 };
 

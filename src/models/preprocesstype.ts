@@ -9,6 +9,9 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PreprocessType = {
+  /**
+   * Disabled
+   */
   disabled: boolean;
   /**
    * Command to feed the data through (via stdin) and process its output (stdout)

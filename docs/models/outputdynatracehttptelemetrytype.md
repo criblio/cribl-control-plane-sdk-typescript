@@ -1,5 +1,7 @@
 # OutputDynatraceHttpTelemetryType
 
+Telemetry type
+
 ## Example Usage
 
 ```typescript

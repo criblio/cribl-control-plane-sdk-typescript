@@ -166,9 +166,10 @@ async function $do(
     M.json(200, operations.CreateAuthLoginResponse$inboundSchema, {
       key: "Result",
     }),
+    M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.fail(429),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

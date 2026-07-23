@@ -11,16 +11,16 @@ import {
   ConnectionConfInputCollection$outboundSchema,
 } from "./connectionconfinputcollection.js";
 import {
-  HttpDiscoveryHeaderConfInputPrometheus,
-  HttpDiscoveryHeaderConfInputPrometheus$Outbound,
-  HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
-} from "./httpdiscoveryheaderconfinputprometheus.js";
-import {
   MetadataConfInputCollection,
   MetadataConfInputCollection$Outbound,
   MetadataConfInputCollection$outboundSchema,
 } from "./metadataconfinputcollection.js";
 import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
+import {
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+} from "./refreshrequestparamconfhealthcheckauthenticationoauthsecret.js";
 import {
   RetryRulesType,
   RetryRulesType$Outbound,
@@ -29,6 +29,9 @@ import {
 
 export type InputOpenaiManageState = {};
 
+/**
+ * Pagination type
+ */
 export const InputOpenaiPaginationType = {
   /**
    * None
@@ -47,6 +50,9 @@ export const InputOpenaiPaginationType = {
    */
   ResponseHeaderLink: "response_header_link",
 } as const;
+/**
+ * Pagination type
+ */
 export type InputOpenaiPaginationType = OpenEnum<
   typeof InputOpenaiPaginationType
 >;
@@ -67,6 +73,9 @@ export const InputOpenaiLogLevel = {
 export type InputOpenaiLogLevel = OpenEnum<typeof InputOpenaiLogLevel>;
 
 export type InputOpenaiContentConfig = {
+  /**
+   * Enabled
+   */
   disabled?: boolean | undefined;
   /**
    * Track collection progress between consecutive scheduled executions.
@@ -84,9 +93,20 @@ export type InputOpenaiContentConfig = {
   /**
    * Query-string parameters to send with this endpoint
    */
-  requestParams: Array<HttpDiscoveryHeaderConfInputPrometheus>;
+  requestParams: Array<
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret
+  >;
+  /**
+   * Pagination type
+   */
   paginationType: InputOpenaiPaginationType;
+  /**
+   * Pagination attributes
+   */
   paginationAttribute?: Array<string> | undefined;
+  /**
+   * Last page expression
+   */
   paginationLastPageExpr?: string | undefined;
   /**
    * Maximum number of pages to retrieve per collection task. Set to 0 only when unlimited pagination is required.
@@ -131,7 +151,13 @@ export type InputOpenaiInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "openai";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -150,7 +176,7 @@ export type InputOpenaiInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -166,11 +192,17 @@ export type InputOpenaiInput = {
    * Optional `OpenAI-Project` request header value, typically `proj_xxxxxxxxxxxxxxxxxxxxxxxx`
    */
   openaiProject?: string | undefined;
+  /**
+   * Content Types
+   */
   contentConfig: Array<InputOpenaiContentConfig>;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
    */
   requestTimeout?: number | undefined;
+  /**
+   * API key
+   */
   apiKey?: string | undefined;
   /**
    * Select or create a stored API key. Visit [OpenAI's organization admin keys page](https://platform.openai.com/settings/organization/admin-keys) to create an organization admin key.
@@ -197,6 +229,9 @@ export type InputOpenaiInput = {
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
   retryRules?: RetryRulesType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -255,7 +290,9 @@ export type InputOpenaiContentConfig$Outbound = {
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
   manageState?: InputOpenaiManageState$Outbound | undefined;
-  requestParams: Array<HttpDiscoveryHeaderConfInputPrometheus$Outbound>;
+  requestParams: Array<
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+  >;
   paginationType: string;
   paginationAttribute?: Array<string> | undefined;
   paginationLastPageExpr?: string | undefined;
@@ -281,7 +318,9 @@ export const InputOpenaiContentConfig$outboundSchema: z.ZodType<
   stateUpdateExpression: z.string().optional(),
   stateMergeExpression: z.string().optional(),
   manageState: z.lazy(() => InputOpenaiManageState$outboundSchema).optional(),
-  requestParams: z.array(HttpDiscoveryHeaderConfInputPrometheus$outboundSchema),
+  requestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+  ),
   paginationType: InputOpenaiPaginationType$outboundSchema,
   paginationAttribute: z.array(z.string()).optional(),
   paginationLastPageExpr: z.string().optional(),

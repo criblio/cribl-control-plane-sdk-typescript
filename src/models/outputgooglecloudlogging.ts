@@ -28,6 +28,9 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 
+/**
+ * Log location type
+ */
 export const OutputGoogleCloudLoggingLogLocationType = {
   /**
    * Project
@@ -46,6 +49,9 @@ export const OutputGoogleCloudLoggingLogLocationType = {
    */
   Folder: "folder",
 } as const;
+/**
+ * Log location type
+ */
 export type OutputGoogleCloudLoggingLogLocationType = OpenEnum<
   typeof OutputGoogleCloudLoggingLogLocationType
 >;
@@ -70,6 +76,9 @@ export type OutputGoogleCloudLoggingPayloadFormat = OpenEnum<
   typeof OutputGoogleCloudLoggingPayloadFormat
 >;
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputGoogleCloudLoggingPqControls = {};
 
 export type OutputGoogleCloudLogging = {
@@ -77,6 +86,9 @@ export type OutputGoogleCloudLogging = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "google_cloud_logging";
   /**
    * Pipeline to process data before sending out to this output
@@ -91,14 +103,20 @@ export type OutputGoogleCloudLogging = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Log location type
+   */
   logLocationType: OutputGoogleCloudLoggingLogLocationType;
   /**
    * JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
    */
   logNameExpression: string;
+  /**
+   * Validate and correct log name
+   */
   sanitizeLogNames?: boolean | undefined;
   /**
    * Format to use when sending payload. Defaults to Text.
@@ -284,6 +302,9 @@ export type OutputGoogleCloudLogging = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
@@ -337,6 +358,9 @@ export type OutputGoogleCloudLogging = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputGoogleCloudLoggingPqControls | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

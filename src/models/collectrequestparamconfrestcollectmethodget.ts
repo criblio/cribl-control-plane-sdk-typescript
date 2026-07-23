@@ -9,6 +9,9 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type CollectRequestParamConfRestCollectMethodGet = {
+  /**
+   * Name
+   */
   name: string;
   /**
    * JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.

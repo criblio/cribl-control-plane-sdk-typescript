@@ -8,9 +8,9 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  HealthStringType,
-  HealthStringType$inboundSchema,
-} from "./healthstringtype.js";
+  HealthOptionsStatus,
+  HealthOptionsStatus$inboundSchema,
+} from "./healthoptionsstatus.js";
 import { StatusError, StatusError$inboundSchema } from "./statuserror.js";
 import {
   WorkerPQStatus,
@@ -22,7 +22,10 @@ import {
  */
 export type StatusType = {
   error?: StatusError | undefined;
-  health?: HealthStringType | undefined;
+  /**
+   * Overall health status of the Source or Destination.
+   */
+  health?: HealthOptionsStatus | undefined;
   /**
    * Metrics data for the Source or Destination.
    */
@@ -45,7 +48,7 @@ export const StatusType$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   error: types.optional(StatusError$inboundSchema),
-  health: types.optional(HealthStringType$inboundSchema),
+  health: types.optional(HealthOptionsStatus$inboundSchema),
   metrics: types.optional(z.record(z.any())),
   pq: types.optional(WorkerPQStatus$inboundSchema),
   timestamp: types.optional(types.number()),

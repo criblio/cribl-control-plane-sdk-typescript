@@ -7,6 +7,9 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * An object that must not contain any properties.
+ */
 export type EmptyObject = {};
 
 /** @internal */

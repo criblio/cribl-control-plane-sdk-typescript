@@ -1,5 +1,7 @@
 # CreateOutputPqControlsGoogleChronicle
 
+Persistent queue controls.
+
 ## Example Usage
 
 ```typescript

@@ -16,6 +16,10 @@ import { HBLeaderInfo, HBLeaderInfo$inboundSchema } from "./hbleaderinfo.js";
  */
 export type Config = {
   /**
+   * Current API credentials revision string. Only used in leader <> leader universal subscription.
+   */
+  apiCredentialsRev?: string | undefined;
+  /**
    * Feature flags or feature revision string for the bundle.
    */
   featuresRev?: string | undefined;
@@ -31,6 +35,10 @@ export type Config = {
    * Current policies revision string.
    */
   policyRev?: string | undefined;
+  /**
+   * Current teams revision string. Only used in leader <> leader universal subscription.
+   */
+  teamsRev?: string | undefined;
   /**
    * Current users revision string. Only used in leader <> leader universal subscription.
    */
@@ -99,6 +107,9 @@ export type HBCriblInfo = {
    * Connection parameters for the Leader Node, as reported in a Worker heartbeat.
    */
   master?: HBLeaderInfo | undefined;
+  /**
+   * Currently active overlay identifier on the node. Omitted if no overlay is active.
+   */
   overlayId?: string | undefined;
   /**
    * The process ID.
@@ -125,10 +136,12 @@ export type HBCriblInfo = {
 /** @internal */
 export const Config$inboundSchema: z.ZodType<Config, z.ZodTypeDef, unknown> = z
   .object({
+    apiCredentialsRev: types.optional(types.string()),
     featuresRev: types.optional(types.string()),
     hbPeriodSeconds: types.optional(types.number()),
     logStreamEnv: types.optional(types.string()),
     policyRev: types.optional(types.string()),
+    teamsRev: types.optional(types.string()),
     usersRev: types.optional(types.string()),
     version: types.optional(types.string()),
   });

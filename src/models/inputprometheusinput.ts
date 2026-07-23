@@ -15,11 +15,6 @@ import {
   ConnectionConfInputCollection$outboundSchema,
 } from "./connectionconfinputcollection.js";
 import {
-  HttpDiscoveryHeaderConfInputPrometheus,
-  HttpDiscoveryHeaderConfInputPrometheus$Outbound,
-  HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
-} from "./httpdiscoveryheaderconfinputprometheus.js";
-import {
   LogLevelOptions,
   LogLevelOptions$outboundSchema,
 } from "./logleveloptions.js";
@@ -33,6 +28,11 @@ import {
   RecordTypeOptions,
   RecordTypeOptions$outboundSchema,
 } from "./recordtypeoptions.js";
+import {
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+} from "./refreshrequestparamconfhealthcheckauthenticationoauthsecret.js";
 import {
   SearchFilterConfInputPrometheus,
   SearchFilterConfInputPrometheus$Outbound,
@@ -86,7 +86,13 @@ export type InputPrometheusInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "prometheus";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -105,7 +111,7 @@ export type InputPrometheusInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -169,6 +175,9 @@ export type InputPrometheusInput = {
    * Enter credentials directly, or select a stored secret
    */
   authType?: AuthenticationMethodOptionsSasl | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
@@ -198,6 +207,9 @@ export type InputPrometheusInput = {
    * AWS authentication method. Choose Auto to use IAM roles.
    */
   awsAuthenticationMethod?: string | undefined;
+  /**
+   * Access key
+   */
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -211,6 +223,9 @@ export type InputPrometheusInput = {
    * Filter to apply when searching for EC2 instances
    */
   searchFilter?: Array<SearchFilterConfInputPrometheus> | undefined;
+  /**
+   * Secret key
+   */
   awsSecretKey?: string | undefined;
   /**
    * Region where the EC2 is located
@@ -248,7 +263,7 @@ export type InputPrometheusInput = {
    * Extra headers to send with the discovery request
    */
   httpDiscoveryHeaders?:
-    | Array<HttpDiscoveryHeaderConfInputPrometheus>
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
     | undefined;
   /**
    * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
@@ -394,7 +409,9 @@ export type InputPrometheusInput$Outbound = {
   durationSeconds?: number | undefined;
   httpDiscoveryUrl?: string | undefined;
   httpDiscoveryHeaders?:
-    | Array<HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | Array<
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
     | undefined;
   httpDiscoveryRejectUnauthorized?: boolean | undefined;
   maxResponseBodySize?: string | undefined;
@@ -471,7 +488,7 @@ export const InputPrometheusInput$outboundSchema: z.ZodType<
   durationSeconds: z.number().optional(),
   httpDiscoveryUrl: z.string().optional(),
   httpDiscoveryHeaders: z.array(
-    HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
   ).optional(),
   httpDiscoveryRejectUnauthorized: z.boolean().optional(),
   maxResponseBodySize: z.string().optional(),

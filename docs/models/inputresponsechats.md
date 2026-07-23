@@ -1,0 +1,25 @@
+# InputResponseChats
+
+Chats
+
+## Example Usage
+
+```typescript
+import { InputResponseChats } from "cribl-control-plane/models";
+
+let value: InputResponseChats = {};
+```
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `enabled`                                                                                      | *boolean*                                                                                      | :heavy_minus_sign:                                                                             | Enabled                                                                                        |
+| `cronSchedule`                                                                                 | *string*                                                                                       | :heavy_minus_sign:                                                                             | Schedule on which to run this collection job                                                   |
+| `earliest`                                                                                     | *string*                                                                                       | :heavy_minus_sign:                                                                             | Earliest time for data collection, relative to now                                             |
+| `latest`                                                                                       | *string*                                                                                       | :heavy_minus_sign:                                                                             | Latest time for data collection, relative to now                                               |
+| `jobTimeout`                                                                                   | *string*                                                                                       | :heavy_minus_sign:                                                                             | Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.   |
+| `stateTracking`                                                                                | *boolean*                                                                                      | :heavy_minus_sign:                                                                             | Track collection progress between consecutive scheduled executions                             |
+| `stateUpdateExpression`                                                                        | *string*                                                                                       | :heavy_minus_sign:                                                                             | JavaScript expression that defines how to update the state from an event                       |
+| `stateMergeExpression`                                                                         | *string*                                                                                       | :heavy_minus_sign:                                                                             | JavaScript expression that defines which state to keep when merging task state                 |
+| `manageState`                                                                                  | [models.ChatsManageStateAnthropicCompliance](../models/chatsmanagestateanthropiccompliance.md) | :heavy_minus_sign:                                                                             | N/A                                                                                            |

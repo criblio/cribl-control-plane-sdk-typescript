@@ -13,7 +13,7 @@ let value: PackUninstallInfo = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `id`               | *string*           | :heavy_check_mark: | N/A                |
-| `source`           | *string*           | :heavy_check_mark: | N/A                |
+| Field                                                | Type                                                 | Required                                             | Description                                          |
+| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| `id`                                                 | *string*                                             | :heavy_check_mark:                                   | Unique identifier for the Pack.                      |
+| `source`                                             | *string*                                             | :heavy_check_mark:                                   | Source from which the Pack was originally installed. |

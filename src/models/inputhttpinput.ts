@@ -30,7 +30,13 @@ export type InputHttpInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Source type identifier.
+   */
   type: "http";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -49,7 +55,7 @@ export type InputHttpInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -69,6 +75,9 @@ export type InputHttpInput = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
+  /**
+   * TLS settings (server side)
+   */
   tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -126,6 +135,9 @@ export type InputHttpInput = {
    * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
    */
   splunkHecAPI?: string | undefined;
+  /**
+   * Enable Splunk HEC acknowledgements
+   */
   splunkHecAcks?: boolean | undefined;
   /**
    * Fields to add to events from this input
@@ -135,6 +147,9 @@ export type InputHttpInput = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokensExt?: Array<AuthTokensExtConfInputHttp> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.

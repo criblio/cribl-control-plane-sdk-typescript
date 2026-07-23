@@ -6,7 +6,7 @@ import * as z from "zod/v3";
 
 export type GetPacksByIdRequest = {
   /**
-   * The <code>id</code> of the Pack to get.
+   * The <code>id</code> of the Pack to get. Use the <code>id</code> field from the list response.
    */
   id: string;
 };

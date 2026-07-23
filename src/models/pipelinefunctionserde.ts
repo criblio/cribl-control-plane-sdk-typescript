@@ -50,15 +50,6 @@ export type SerdeTypeGrok = {
    */
   type: "grok";
   /**
-   * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-   */
-  pattern: string;
-  patternList?: Array<PatternListConfSerdeTypeGrok> | undefined;
-  /**
-   * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
-   */
-  mode: SerdeTypeGrokOperationMode;
-  /**
    * Field containing text to be parsed
    */
   srcField?: string | undefined;
@@ -66,6 +57,22 @@ export type SerdeTypeGrok = {
    * Name of the field to add fields to. Extract mode only.
    */
   dstField?: string | undefined;
+  /**
+   * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
+   */
+  pattern: string;
+  /**
+   * Additional Grok patterns to apply to the source field.
+   */
+  patternList?: Array<PatternListConfSerdeTypeGrok> | undefined;
+  /**
+   * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+   */
+  mode: SerdeTypeGrokOperationMode;
+  /**
+   * Keep the detected datatype field and set isParsed to true on each event. Enable this when events are bound for downstream Cribl Search processing.
+   */
+  tagDatatype?: boolean | undefined;
   /**
    * List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
    */
@@ -94,6 +101,9 @@ export type SerdeTypeGrok = {
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
   regex?: string | undefined;
+  /**
+   * Additional regex patterns to apply for field extraction.
+   */
   regexList?: Array<RegexListConfSerdeTypeRegex> | undefined;
   /**
    * The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
@@ -135,9 +145,20 @@ export type SerdeTypeRegex = {
    */
   type: "regex";
   /**
+   * Field containing text to be parsed
+   */
+  srcField?: string | undefined;
+  /**
+   * Name of the field to add fields to. Extract mode only.
+   */
+  dstField?: string | undefined;
+  /**
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
   regex: string;
+  /**
+   * Additional regex patterns to apply for field extraction.
+   */
   regexList?: Array<RegexListConfSerdeTypeRegex> | undefined;
   /**
    * The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
@@ -156,13 +177,9 @@ export type SerdeTypeRegex = {
    */
   mode: SerdeTypeRegexOperationMode;
   /**
-   * Field containing text to be parsed
+   * Keep the detected datatype field and set isParsed to true on each event. Enable this when events are bound for downstream Cribl Search processing.
    */
-  srcField?: string | undefined;
-  /**
-   * Name of the field to add fields to. Extract mode only.
-   */
-  dstField?: string | undefined;
+  tagDatatype?: boolean | undefined;
   /**
    * List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
    */
@@ -191,6 +208,9 @@ export type SerdeTypeRegex = {
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
   pattern?: string | undefined;
+  /**
+   * Additional Grok patterns to apply to the source field.
+   */
   patternList?: Array<PatternListConfSerdeTypeGrok> | undefined;
 };
 
@@ -220,6 +240,14 @@ export type SerdeTypeJson = {
    */
   type: "json";
   /**
+   * Field containing text to be parsed
+   */
+  srcField?: string | undefined;
+  /**
+   * Name of the field to add fields to. Extract mode only.
+   */
+  dstField?: string | undefined;
+  /**
    * List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
    */
   keep?: Array<string> | undefined;
@@ -236,13 +264,9 @@ export type SerdeTypeJson = {
    */
   mode: SerdeTypeJsonOperationMode;
   /**
-   * Field containing text to be parsed
+   * Keep the detected datatype field and set isParsed to true on each event. Enable this when events are bound for downstream Cribl Search processing.
    */
-  srcField?: string | undefined;
-  /**
-   * Name of the field to add fields to. Extract mode only.
-   */
-  dstField?: string | undefined;
+  tagDatatype?: boolean | undefined;
   /**
    * A list of characters that may be present in a key name, even though they are normally separator or control characters
    */
@@ -259,6 +283,9 @@ export type SerdeTypeJson = {
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
   regex?: string | undefined;
+  /**
+   * Additional regex patterns to apply for field extraction.
+   */
   regexList?: Array<RegexListConfSerdeTypeRegex> | undefined;
   /**
    * The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
@@ -276,6 +303,9 @@ export type SerdeTypeJson = {
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
   pattern?: string | undefined;
+  /**
+   * Additional Grok patterns to apply to the source field.
+   */
   patternList?: Array<PatternListConfSerdeTypeGrok> | undefined;
 };
 
@@ -305,6 +335,14 @@ export type SerdeTypeCsv = {
    */
   type: "csv";
   /**
+   * Field containing text to be parsed
+   */
+  srcField?: string | undefined;
+  /**
+   * Name of the field to add fields to. Extract mode only.
+   */
+  dstField?: string | undefined;
+  /**
    * The fields to be extracted, listed in order. Will auto-generate if empty.
    */
   fields?: Array<string> | undefined;
@@ -325,13 +363,9 @@ export type SerdeTypeCsv = {
    */
   mode: SerdeTypeCsvOperationMode;
   /**
-   * Field containing text to be parsed
+   * Keep the detected datatype field and set isParsed to true on each event. Enable this when events are bound for downstream Cribl Search processing.
    */
-  srcField?: string | undefined;
-  /**
-   * Name of the field to add fields to. Extract mode only.
-   */
-  dstField?: string | undefined;
+  tagDatatype?: boolean | undefined;
   /**
    * A list of characters that may be present in a key name, even though they are normally separator or control characters
    */
@@ -344,6 +378,9 @@ export type SerdeTypeCsv = {
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
   regex?: string | undefined;
+  /**
+   * Additional regex patterns to apply for field extraction.
+   */
   regexList?: Array<RegexListConfSerdeTypeRegex> | undefined;
   /**
    * The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
@@ -361,6 +398,9 @@ export type SerdeTypeCsv = {
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
   pattern?: string | undefined;
+  /**
+   * Additional Grok patterns to apply to the source field.
+   */
   patternList?: Array<PatternListConfSerdeTypeGrok> | undefined;
 };
 
@@ -389,6 +429,14 @@ export type SerdeTypeDelim = {
    * Parser or formatter type to use
    */
   type: "delim";
+  /**
+   * Field containing text to be parsed
+   */
+  srcField?: string | undefined;
+  /**
+   * Name of the field to add fields to. Extract mode only.
+   */
+  dstField?: string | undefined;
   /**
    * The fields to be extracted, listed in order. Will auto-generate if empty.
    */
@@ -426,13 +474,9 @@ export type SerdeTypeDelim = {
    */
   mode: SerdeTypeDelimOperationMode;
   /**
-   * Field containing text to be parsed
+   * Keep the detected datatype field and set isParsed to true on each event. Enable this when events are bound for downstream Cribl Search processing.
    */
-  srcField?: string | undefined;
-  /**
-   * Name of the field to add fields to. Extract mode only.
-   */
-  dstField?: string | undefined;
+  tagDatatype?: boolean | undefined;
   /**
    * A list of characters that may be present in a key name, even though they are normally separator or control characters
    */
@@ -445,6 +489,9 @@ export type SerdeTypeDelim = {
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
   regex?: string | undefined;
+  /**
+   * Additional regex patterns to apply for field extraction.
+   */
   regexList?: Array<RegexListConfSerdeTypeRegex> | undefined;
   /**
    * The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
@@ -462,6 +509,9 @@ export type SerdeTypeDelim = {
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
   pattern?: string | undefined;
+  /**
+   * Additional Grok patterns to apply to the source field.
+   */
   patternList?: Array<PatternListConfSerdeTypeGrok> | undefined;
 };
 
@@ -491,6 +541,14 @@ export type SerdeTypeKvp = {
    */
   type: "kvp";
   /**
+   * Field containing text to be parsed
+   */
+  srcField?: string | undefined;
+  /**
+   * Name of the field to add fields to. Extract mode only.
+   */
+  dstField?: string | undefined;
+  /**
    * List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
    */
   keep?: Array<string> | undefined;
@@ -519,13 +577,9 @@ export type SerdeTypeKvp = {
    */
   mode: SerdeTypeKvpOperationMode;
   /**
-   * Field containing text to be parsed
+   * Keep the detected datatype field and set isParsed to true on each event. Enable this when events are bound for downstream Cribl Search processing.
    */
-  srcField?: string | undefined;
-  /**
-   * Name of the field to add fields to. Extract mode only.
-   */
-  dstField?: string | undefined;
+  tagDatatype?: boolean | undefined;
   /**
    * The fields to be extracted, listed in order. Will auto-generate if empty.
    */
@@ -534,6 +588,9 @@ export type SerdeTypeKvp = {
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
   regex?: string | undefined;
+  /**
+   * Additional regex patterns to apply for field extraction.
+   */
   regexList?: Array<RegexListConfSerdeTypeRegex> | undefined;
   /**
    * The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
@@ -551,10 +608,104 @@ export type SerdeTypeKvp = {
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
   pattern?: string | undefined;
+  /**
+   * Additional Grok patterns to apply to the source field.
+   */
   patternList?: Array<PatternListConfSerdeTypeGrok> | undefined;
 };
 
+/**
+ * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+ */
+export const SerdeTypeAutoOperationMode = {
+  /**
+   * Extract
+   */
+  Extract: "extract",
+  /**
+   * Reserialize
+   */
+  Reserialize: "reserialize",
+} as const;
+/**
+ * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+ */
+export type SerdeTypeAutoOperationMode = OpenEnum<
+  typeof SerdeTypeAutoOperationMode
+>;
+
+export type SerdeTypeAuto = {
+  /**
+   * Parser or formatter type to use
+   */
+  type: "auto";
+  /**
+   * Keep the detected datatype field and set isParsed to true on each event. Enable this when events are bound for downstream Cribl Search processing.
+   */
+  tagDatatype?: boolean | undefined;
+  /**
+   * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+   */
+  mode: SerdeTypeAutoOperationMode;
+  /**
+   * List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
+   */
+  keep?: Array<string> | undefined;
+  /**
+   * List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
+   */
+  remove?: Array<string> | undefined;
+  /**
+   * Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
+   */
+  fieldFilterExpr?: string | undefined;
+  /**
+   * A list of characters that may be present in a key name, even though they are normally separator or control characters
+   */
+  allowedKeyChars?: Array<string> | undefined;
+  /**
+   * A list of characters that may be present in a value, even though they are normally separator or control characters
+   */
+  allowedValueChars?: Array<string> | undefined;
+  /**
+   * The fields to be extracted, listed in order. Will auto-generate if empty.
+   */
+  fields?: Array<string> | undefined;
+  /**
+   * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
+   */
+  regex?: string | undefined;
+  /**
+   * Additional regex patterns to apply for field extraction.
+   */
+  regexList?: Array<RegexListConfSerdeTypeRegex> | undefined;
+  /**
+   * The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
+   */
+  iterations?: number | undefined;
+  /**
+   * JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
+   */
+  fieldNameExpression?: string | undefined;
+  /**
+   * Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
+   */
+  overwrite?: boolean | undefined;
+  /**
+   * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
+   */
+  pattern?: string | undefined;
+  /**
+   * Additional Grok patterns to apply to the source field.
+   */
+  patternList?: Array<PatternListConfSerdeTypeGrok> | undefined;
+};
+
+/**
+ * Configuration specific to the Pipeline Function.
+ */
 export type PipelineFunctionSerdeConf =
+  | SerdeTypeAuto
   | SerdeTypeKvp
   | SerdeTypeDelim
   | SerdeTypeCsv
@@ -565,26 +716,30 @@ export type PipelineFunctionSerdeConf =
 
 export type PipelineFunctionSerde = {
   /**
-   * Filter that selects data to be fed through this Function
+   * JavaScript expression that selects data to pass through the Function.
    */
   filter?: string | undefined;
   /**
-   * Function ID
+   * Identifier of the Function. Always <code>serde</code>
    */
   id: "serde";
   /**
-   * Simple description of this step
+   * Brief description of the Pipeline function.
    */
   description?: string | undefined;
   /**
-   * If true, data will not be pushed through this function
+   * If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
    */
   disabled?: boolean | undefined;
   /**
-   * If enabled, stops the results of this Function from being passed to the downstream Functions
+   * If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
    */
   final?: boolean | undefined;
+  /**
+   * Configuration specific to the Pipeline Function.
+   */
   conf:
+    | SerdeTypeAuto
     | SerdeTypeKvp
     | SerdeTypeDelim
     | SerdeTypeCsv
@@ -593,7 +748,7 @@ export type PipelineFunctionSerde = {
     | SerdeTypeGrok
     | discriminatedUnionTypes.Unknown<"type">;
   /**
-   * Group ID
+   * Unique identifier of the group that contains the Pipeline Function.
    */
   groupId?: string | undefined;
 };
@@ -618,13 +773,14 @@ export const SerdeTypeGrok$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   type: types.literal("grok"),
+  srcField: types.optional(types.string()),
+  dstField: types.optional(types.string()),
   pattern: types.string(),
   patternList: types.optional(
     z.array(PatternListConfSerdeTypeGrok$inboundSchema),
   ),
   mode: SerdeTypeGrokOperationMode$inboundSchema,
-  srcField: types.optional(types.string()),
-  dstField: types.optional(types.string()),
+  tagDatatype: types.optional(types.boolean()),
   keep: types.optional(z.array(types.string())),
   remove: types.optional(z.array(types.string())),
   fieldFilterExpr: types.optional(types.string()),
@@ -640,11 +796,12 @@ export const SerdeTypeGrok$inboundSchema: z.ZodType<
 /** @internal */
 export type SerdeTypeGrok$Outbound = {
   type: "grok";
+  srcField?: string | undefined;
+  dstField?: string | undefined;
   pattern: string;
   patternList?: Array<PatternListConfSerdeTypeGrok$Outbound> | undefined;
   mode: string;
-  srcField?: string | undefined;
-  dstField?: string | undefined;
+  tagDatatype?: boolean | undefined;
   keep?: Array<string> | undefined;
   remove?: Array<string> | undefined;
   fieldFilterExpr?: string | undefined;
@@ -665,11 +822,12 @@ export const SerdeTypeGrok$outboundSchema: z.ZodType<
   SerdeTypeGrok
 > = z.object({
   type: z.literal("grok"),
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
   pattern: z.string(),
   patternList: z.array(PatternListConfSerdeTypeGrok$outboundSchema).optional(),
   mode: SerdeTypeGrokOperationMode$outboundSchema,
-  srcField: z.string().optional(),
-  dstField: z.string().optional(),
+  tagDatatype: z.boolean().optional(),
   keep: z.array(z.string()).optional(),
   remove: z.array(z.string()).optional(),
   fieldFilterExpr: z.string().optional(),
@@ -716,14 +874,15 @@ export const SerdeTypeRegex$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   type: types.literal("regex"),
+  srcField: types.optional(types.string()),
+  dstField: types.optional(types.string()),
   regex: types.string(),
   regexList: types.optional(z.array(RegexListConfSerdeTypeRegex$inboundSchema)),
   iterations: types.optional(types.number()),
   fieldNameExpression: types.optional(types.string()),
   overwrite: types.optional(types.boolean()),
   mode: SerdeTypeRegexOperationMode$inboundSchema,
-  srcField: types.optional(types.string()),
-  dstField: types.optional(types.string()),
+  tagDatatype: types.optional(types.boolean()),
   keep: types.optional(z.array(types.string())),
   remove: types.optional(z.array(types.string())),
   fieldFilterExpr: types.optional(types.string()),
@@ -738,14 +897,15 @@ export const SerdeTypeRegex$inboundSchema: z.ZodType<
 /** @internal */
 export type SerdeTypeRegex$Outbound = {
   type: "regex";
+  srcField?: string | undefined;
+  dstField?: string | undefined;
   regex: string;
   regexList?: Array<RegexListConfSerdeTypeRegex$Outbound> | undefined;
   iterations?: number | undefined;
   fieldNameExpression?: string | undefined;
   overwrite?: boolean | undefined;
   mode: string;
-  srcField?: string | undefined;
-  dstField?: string | undefined;
+  tagDatatype?: boolean | undefined;
   keep?: Array<string> | undefined;
   remove?: Array<string> | undefined;
   fieldFilterExpr?: string | undefined;
@@ -763,14 +923,15 @@ export const SerdeTypeRegex$outboundSchema: z.ZodType<
   SerdeTypeRegex
 > = z.object({
   type: z.literal("regex"),
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
   regex: z.string(),
   regexList: z.array(RegexListConfSerdeTypeRegex$outboundSchema).optional(),
   iterations: z.number().optional(),
   fieldNameExpression: z.string().optional(),
   overwrite: z.boolean().optional(),
   mode: SerdeTypeRegexOperationMode$outboundSchema,
-  srcField: z.string().optional(),
-  dstField: z.string().optional(),
+  tagDatatype: z.boolean().optional(),
   keep: z.array(z.string()).optional(),
   remove: z.array(z.string()).optional(),
   fieldFilterExpr: z.string().optional(),
@@ -814,12 +975,13 @@ export const SerdeTypeJson$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   type: types.literal("json"),
+  srcField: types.optional(types.string()),
+  dstField: types.optional(types.string()),
   keep: types.optional(z.array(types.string())),
   remove: types.optional(z.array(types.string())),
   fieldFilterExpr: types.optional(types.string()),
   mode: SerdeTypeJsonOperationMode$inboundSchema,
-  srcField: types.optional(types.string()),
-  dstField: types.optional(types.string()),
+  tagDatatype: types.optional(types.boolean()),
   allowedKeyChars: types.optional(z.array(types.string())),
   allowedValueChars: types.optional(z.array(types.string())),
   fields: types.optional(z.array(types.string())),
@@ -836,12 +998,13 @@ export const SerdeTypeJson$inboundSchema: z.ZodType<
 /** @internal */
 export type SerdeTypeJson$Outbound = {
   type: "json";
+  srcField?: string | undefined;
+  dstField?: string | undefined;
   keep?: Array<string> | undefined;
   remove?: Array<string> | undefined;
   fieldFilterExpr?: string | undefined;
   mode: string;
-  srcField?: string | undefined;
-  dstField?: string | undefined;
+  tagDatatype?: boolean | undefined;
   allowedKeyChars?: Array<string> | undefined;
   allowedValueChars?: Array<string> | undefined;
   fields?: Array<string> | undefined;
@@ -861,12 +1024,13 @@ export const SerdeTypeJson$outboundSchema: z.ZodType<
   SerdeTypeJson
 > = z.object({
   type: z.literal("json"),
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
   keep: z.array(z.string()).optional(),
   remove: z.array(z.string()).optional(),
   fieldFilterExpr: z.string().optional(),
   mode: SerdeTypeJsonOperationMode$outboundSchema,
-  srcField: z.string().optional(),
-  dstField: z.string().optional(),
+  tagDatatype: z.boolean().optional(),
   allowedKeyChars: z.array(z.string()).optional(),
   allowedValueChars: z.array(z.string()).optional(),
   fields: z.array(z.string()).optional(),
@@ -912,13 +1076,14 @@ export const SerdeTypeCsv$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   type: types.literal("csv"),
+  srcField: types.optional(types.string()),
+  dstField: types.optional(types.string()),
   fields: types.optional(z.array(types.string())),
   keep: types.optional(z.array(types.string())),
   remove: types.optional(z.array(types.string())),
   fieldFilterExpr: types.optional(types.string()),
   mode: SerdeTypeCsvOperationMode$inboundSchema,
-  srcField: types.optional(types.string()),
-  dstField: types.optional(types.string()),
+  tagDatatype: types.optional(types.boolean()),
   allowedKeyChars: types.optional(z.array(types.string())),
   allowedValueChars: types.optional(z.array(types.string())),
   regex: types.optional(types.string()),
@@ -934,13 +1099,14 @@ export const SerdeTypeCsv$inboundSchema: z.ZodType<
 /** @internal */
 export type SerdeTypeCsv$Outbound = {
   type: "csv";
+  srcField?: string | undefined;
+  dstField?: string | undefined;
   fields?: Array<string> | undefined;
   keep?: Array<string> | undefined;
   remove?: Array<string> | undefined;
   fieldFilterExpr?: string | undefined;
   mode: string;
-  srcField?: string | undefined;
-  dstField?: string | undefined;
+  tagDatatype?: boolean | undefined;
   allowedKeyChars?: Array<string> | undefined;
   allowedValueChars?: Array<string> | undefined;
   regex?: string | undefined;
@@ -959,13 +1125,14 @@ export const SerdeTypeCsv$outboundSchema: z.ZodType<
   SerdeTypeCsv
 > = z.object({
   type: z.literal("csv"),
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
   fields: z.array(z.string()).optional(),
   keep: z.array(z.string()).optional(),
   remove: z.array(z.string()).optional(),
   fieldFilterExpr: z.string().optional(),
   mode: SerdeTypeCsvOperationMode$outboundSchema,
-  srcField: z.string().optional(),
-  dstField: z.string().optional(),
+  tagDatatype: z.boolean().optional(),
   allowedKeyChars: z.array(z.string()).optional(),
   allowedValueChars: z.array(z.string()).optional(),
   regex: z.string().optional(),
@@ -1010,6 +1177,8 @@ export const SerdeTypeDelim$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   type: types.literal("delim"),
+  srcField: types.optional(types.string()),
+  dstField: types.optional(types.string()),
   fields: types.optional(z.array(types.string())),
   keep: types.optional(z.array(types.string())),
   remove: types.optional(z.array(types.string())),
@@ -1019,8 +1188,7 @@ export const SerdeTypeDelim$inboundSchema: z.ZodType<
   escapeChar: types.optional(types.string()),
   nullValue: types.optional(types.string()),
   mode: SerdeTypeDelimOperationMode$inboundSchema,
-  srcField: types.optional(types.string()),
-  dstField: types.optional(types.string()),
+  tagDatatype: types.optional(types.boolean()),
   allowedKeyChars: types.optional(z.array(types.string())),
   allowedValueChars: types.optional(z.array(types.string())),
   regex: types.optional(types.string()),
@@ -1036,6 +1204,8 @@ export const SerdeTypeDelim$inboundSchema: z.ZodType<
 /** @internal */
 export type SerdeTypeDelim$Outbound = {
   type: "delim";
+  srcField?: string | undefined;
+  dstField?: string | undefined;
   fields?: Array<string> | undefined;
   keep?: Array<string> | undefined;
   remove?: Array<string> | undefined;
@@ -1045,8 +1215,7 @@ export type SerdeTypeDelim$Outbound = {
   escapeChar?: string | undefined;
   nullValue?: string | undefined;
   mode: string;
-  srcField?: string | undefined;
-  dstField?: string | undefined;
+  tagDatatype?: boolean | undefined;
   allowedKeyChars?: Array<string> | undefined;
   allowedValueChars?: Array<string> | undefined;
   regex?: string | undefined;
@@ -1065,6 +1234,8 @@ export const SerdeTypeDelim$outboundSchema: z.ZodType<
   SerdeTypeDelim
 > = z.object({
   type: z.literal("delim"),
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
   fields: z.array(z.string()).optional(),
   keep: z.array(z.string()).optional(),
   remove: z.array(z.string()).optional(),
@@ -1074,8 +1245,7 @@ export const SerdeTypeDelim$outboundSchema: z.ZodType<
   escapeChar: z.string().optional(),
   nullValue: z.string().optional(),
   mode: SerdeTypeDelimOperationMode$outboundSchema,
-  srcField: z.string().optional(),
-  dstField: z.string().optional(),
+  tagDatatype: z.boolean().optional(),
   allowedKeyChars: z.array(z.string()).optional(),
   allowedValueChars: z.array(z.string()).optional(),
   regex: z.string().optional(),
@@ -1120,6 +1290,8 @@ export const SerdeTypeKvp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   type: types.literal("kvp"),
+  srcField: types.optional(types.string()),
+  dstField: types.optional(types.string()),
   keep: types.optional(z.array(types.string())),
   remove: types.optional(z.array(types.string())),
   fieldFilterExpr: types.optional(types.string()),
@@ -1127,8 +1299,7 @@ export const SerdeTypeKvp$inboundSchema: z.ZodType<
   allowedKeyChars: types.optional(z.array(types.string())),
   allowedValueChars: types.optional(z.array(types.string())),
   mode: SerdeTypeKvpOperationMode$inboundSchema,
-  srcField: types.optional(types.string()),
-  dstField: types.optional(types.string()),
+  tagDatatype: types.optional(types.boolean()),
   fields: types.optional(z.array(types.string())),
   regex: types.optional(types.string()),
   regexList: types.optional(z.array(RegexListConfSerdeTypeRegex$inboundSchema)),
@@ -1143,6 +1314,8 @@ export const SerdeTypeKvp$inboundSchema: z.ZodType<
 /** @internal */
 export type SerdeTypeKvp$Outbound = {
   type: "kvp";
+  srcField?: string | undefined;
+  dstField?: string | undefined;
   keep?: Array<string> | undefined;
   remove?: Array<string> | undefined;
   fieldFilterExpr?: string | undefined;
@@ -1150,8 +1323,7 @@ export type SerdeTypeKvp$Outbound = {
   allowedKeyChars?: Array<string> | undefined;
   allowedValueChars?: Array<string> | undefined;
   mode: string;
-  srcField?: string | undefined;
-  dstField?: string | undefined;
+  tagDatatype?: boolean | undefined;
   fields?: Array<string> | undefined;
   regex?: string | undefined;
   regexList?: Array<RegexListConfSerdeTypeRegex$Outbound> | undefined;
@@ -1169,6 +1341,8 @@ export const SerdeTypeKvp$outboundSchema: z.ZodType<
   SerdeTypeKvp
 > = z.object({
   type: z.literal("kvp"),
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
   keep: z.array(z.string()).optional(),
   remove: z.array(z.string()).optional(),
   fieldFilterExpr: z.string().optional(),
@@ -1176,8 +1350,7 @@ export const SerdeTypeKvp$outboundSchema: z.ZodType<
   allowedKeyChars: z.array(z.string()).optional(),
   allowedValueChars: z.array(z.string()).optional(),
   mode: SerdeTypeKvpOperationMode$outboundSchema,
-  srcField: z.string().optional(),
-  dstField: z.string().optional(),
+  tagDatatype: z.boolean().optional(),
   fields: z.array(z.string()).optional(),
   regex: z.string().optional(),
   regexList: z.array(RegexListConfSerdeTypeRegex$outboundSchema).optional(),
@@ -1202,11 +1375,107 @@ export function serdeTypeKvpFromJSON(
 }
 
 /** @internal */
+export const SerdeTypeAutoOperationMode$inboundSchema: z.ZodType<
+  SerdeTypeAutoOperationMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(SerdeTypeAutoOperationMode);
+/** @internal */
+export const SerdeTypeAutoOperationMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SerdeTypeAutoOperationMode
+> = openEnums.outboundSchema(SerdeTypeAutoOperationMode);
+
+/** @internal */
+export const SerdeTypeAuto$inboundSchema: z.ZodType<
+  SerdeTypeAuto,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: types.literal("auto"),
+  tagDatatype: types.optional(types.boolean()),
+  mode: SerdeTypeAutoOperationMode$inboundSchema,
+  keep: types.optional(z.array(types.string())),
+  remove: types.optional(z.array(types.string())),
+  fieldFilterExpr: types.optional(types.string()),
+  allowedKeyChars: types.optional(z.array(types.string())),
+  allowedValueChars: types.optional(z.array(types.string())),
+  fields: types.optional(z.array(types.string())),
+  regex: types.optional(types.string()),
+  regexList: types.optional(z.array(RegexListConfSerdeTypeRegex$inboundSchema)),
+  iterations: types.optional(types.number()),
+  fieldNameExpression: types.optional(types.string()),
+  overwrite: types.optional(types.boolean()),
+  pattern: types.optional(types.string()),
+  patternList: types.optional(
+    z.array(PatternListConfSerdeTypeGrok$inboundSchema),
+  ),
+});
+/** @internal */
+export type SerdeTypeAuto$Outbound = {
+  type: "auto";
+  tagDatatype?: boolean | undefined;
+  mode: string;
+  keep?: Array<string> | undefined;
+  remove?: Array<string> | undefined;
+  fieldFilterExpr?: string | undefined;
+  allowedKeyChars?: Array<string> | undefined;
+  allowedValueChars?: Array<string> | undefined;
+  fields?: Array<string> | undefined;
+  regex?: string | undefined;
+  regexList?: Array<RegexListConfSerdeTypeRegex$Outbound> | undefined;
+  iterations?: number | undefined;
+  fieldNameExpression?: string | undefined;
+  overwrite?: boolean | undefined;
+  pattern?: string | undefined;
+  patternList?: Array<PatternListConfSerdeTypeGrok$Outbound> | undefined;
+};
+
+/** @internal */
+export const SerdeTypeAuto$outboundSchema: z.ZodType<
+  SerdeTypeAuto$Outbound,
+  z.ZodTypeDef,
+  SerdeTypeAuto
+> = z.object({
+  type: z.literal("auto"),
+  tagDatatype: z.boolean().optional(),
+  mode: SerdeTypeAutoOperationMode$outboundSchema,
+  keep: z.array(z.string()).optional(),
+  remove: z.array(z.string()).optional(),
+  fieldFilterExpr: z.string().optional(),
+  allowedKeyChars: z.array(z.string()).optional(),
+  allowedValueChars: z.array(z.string()).optional(),
+  fields: z.array(z.string()).optional(),
+  regex: z.string().optional(),
+  regexList: z.array(RegexListConfSerdeTypeRegex$outboundSchema).optional(),
+  iterations: z.number().optional(),
+  fieldNameExpression: z.string().optional(),
+  overwrite: z.boolean().optional(),
+  pattern: z.string().optional(),
+  patternList: z.array(PatternListConfSerdeTypeGrok$outboundSchema).optional(),
+});
+
+export function serdeTypeAutoToJSON(serdeTypeAuto: SerdeTypeAuto): string {
+  return JSON.stringify(SerdeTypeAuto$outboundSchema.parse(serdeTypeAuto));
+}
+export function serdeTypeAutoFromJSON(
+  jsonString: string,
+): SafeParseResult<SerdeTypeAuto, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SerdeTypeAuto$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SerdeTypeAuto' from JSON`,
+  );
+}
+
+/** @internal */
 export const PipelineFunctionSerdeConf$inboundSchema: z.ZodType<
   PipelineFunctionSerdeConf,
   z.ZodTypeDef,
   unknown
 > = discriminatedUnion("type", {
+  auto: z.lazy(() => SerdeTypeAuto$inboundSchema),
   kvp: z.lazy(() => SerdeTypeKvp$inboundSchema),
   delim: z.lazy(() => SerdeTypeDelim$inboundSchema),
   csv: z.lazy(() => SerdeTypeCsv$inboundSchema),
@@ -1216,6 +1485,7 @@ export const PipelineFunctionSerdeConf$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionSerdeConf$Outbound =
+  | SerdeTypeAuto$Outbound
   | SerdeTypeKvp$Outbound
   | SerdeTypeDelim$Outbound
   | SerdeTypeCsv$Outbound
@@ -1229,6 +1499,7 @@ export const PipelineFunctionSerdeConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionSerdeConf
 > = z.union([
+  z.lazy(() => SerdeTypeAuto$outboundSchema),
   z.lazy(() => SerdeTypeKvp$outboundSchema),
   z.lazy(() => SerdeTypeDelim$outboundSchema),
   z.lazy(() => SerdeTypeCsv$outboundSchema),
@@ -1266,6 +1537,7 @@ export const PipelineFunctionSerde$inboundSchema: z.ZodType<
   disabled: types.optional(types.boolean()),
   final: types.optional(types.boolean()),
   conf: discriminatedUnion("type", {
+    auto: z.lazy(() => SerdeTypeAuto$inboundSchema),
     kvp: z.lazy(() => SerdeTypeKvp$inboundSchema),
     delim: z.lazy(() => SerdeTypeDelim$inboundSchema),
     csv: z.lazy(() => SerdeTypeCsv$inboundSchema),
@@ -1283,6 +1555,7 @@ export type PipelineFunctionSerde$Outbound = {
   disabled?: boolean | undefined;
   final?: boolean | undefined;
   conf:
+    | SerdeTypeAuto$Outbound
     | SerdeTypeKvp$Outbound
     | SerdeTypeDelim$Outbound
     | SerdeTypeCsv$Outbound
@@ -1304,6 +1577,7 @@ export const PipelineFunctionSerde$outboundSchema: z.ZodType<
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
   conf: z.union([
+    z.lazy(() => SerdeTypeAuto$outboundSchema),
     z.lazy(() => SerdeTypeKvp$outboundSchema),
     z.lazy(() => SerdeTypeDelim$outboundSchema),
     z.lazy(() => SerdeTypeCsv$outboundSchema),

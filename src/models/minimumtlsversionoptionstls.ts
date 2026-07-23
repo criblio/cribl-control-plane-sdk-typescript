@@ -6,12 +6,18 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
+/**
+ * Minimum TLS version
+ */
 export const MinimumTlsVersionOptionsTls = {
   TLSv1: "TLSv1",
   TLSv11: "TLSv1.1",
   TLSv12: "TLSv1.2",
   TLSv13: "TLSv1.3",
 } as const;
+/**
+ * Minimum TLS version
+ */
 export type MinimumTlsVersionOptionsTls = OpenEnum<
   typeof MinimumTlsVersionOptionsTls
 >;

@@ -14,4 +14,4 @@ let value: CreateInputHostInfo = {};
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `enable`           | *boolean*          | :heavy_minus_sign: | N/A                |
+| `enable`           | *boolean*          | :heavy_minus_sign: | Enabled            |

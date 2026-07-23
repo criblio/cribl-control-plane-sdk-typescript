@@ -90,7 +90,13 @@ export type InputKinesisInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "kinesis";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -109,7 +115,7 @@ export type InputKinesisInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -153,6 +159,9 @@ export type InputKinesisInput = {
    * AWS authentication method. Choose Auto to use IAM roles.
    */
   awsAuthenticationMethod?: string | undefined;
+  /**
+   * Secret key
+   */
   awsSecretKey?: string | undefined;
   /**
    * Region where the Kinesis stream is located
@@ -198,7 +207,13 @@ export type InputKinesisInput = {
    * Fields to add to events from this input
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Access key
+   */
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key

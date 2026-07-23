@@ -6,6 +6,9 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
+/**
+ * Authentication type
+ */
 export const AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret = {
   /**
    * None
@@ -28,6 +31,9 @@ export const AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret = {
    */
   CredentialsSecret: "credentialsSecret",
 } as const;
+/**
+ * Authentication type
+ */
 export type AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret =
   OpenEnum<
     typeof AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret

@@ -1,5 +1,7 @@
 # AppsTypeSystemSettingsConf
 
+App configuration.
+
 ## Example Usage
 
 ```typescript
@@ -12,6 +14,6 @@ let value: AppsTypeSystemSettingsConf = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `enabled`          | *boolean*          | :heavy_check_mark: | N/A                |
+| Field                                                             | Type                                                              | Required                                                          | Description                                                       |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `enabled`                                                         | *boolean*                                                         | :heavy_check_mark:                                                | If <code>true</code>, enable Apps. Otherwise, <code>false</code>. |

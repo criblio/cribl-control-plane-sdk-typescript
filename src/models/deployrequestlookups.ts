@@ -5,12 +5,24 @@
 import * as z from "zod/v3";
 
 export type DeployRequestLookupsLookup = {
+  /**
+   * Unique identifier (file name) of the lookup to deploy.
+   */
   file: string;
+  /**
+   * Version of the lookup file to deploy.
+   */
   version: string;
 };
 
 export type DeployRequestLookups = {
+  /**
+   * Lookup context to deploy. Use <code>cribl</code> for the default context or a Pack <code>id</code> for Pack lookups.
+   */
   context: string;
+  /**
+   * List of lookup files to deploy in this context.
+   */
   lookups: Array<DeployRequestLookupsLookup>;
 };
 

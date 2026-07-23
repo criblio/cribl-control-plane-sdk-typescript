@@ -42,6 +42,9 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 
+/**
+ * Authentication type
+ */
 export const OutputDynatraceHttpAuthenticationType = {
   /**
    * Auth token
@@ -52,6 +55,9 @@ export const OutputDynatraceHttpAuthenticationType = {
    */
   TextSecret: "textSecret",
 } as const;
+/**
+ * Authentication type
+ */
 export type OutputDynatraceHttpAuthenticationType = OpenEnum<
   typeof OutputDynatraceHttpAuthenticationType
 >;
@@ -76,6 +82,9 @@ export type OutputDynatraceHttpFormat = OpenEnum<
   typeof OutputDynatraceHttpFormat
 >;
 
+/**
+ * Endpoint
+ */
 export const OutputDynatraceHttpEndpoint = {
   /**
    * Cloud
@@ -90,10 +99,16 @@ export const OutputDynatraceHttpEndpoint = {
    */
   Manual: "manual",
 } as const;
+/**
+ * Endpoint
+ */
 export type OutputDynatraceHttpEndpoint = OpenEnum<
   typeof OutputDynatraceHttpEndpoint
 >;
 
+/**
+ * Telemetry type
+ */
 export const OutputDynatraceHttpTelemetryType = {
   /**
    * Logs
@@ -104,10 +119,16 @@ export const OutputDynatraceHttpTelemetryType = {
    */
   Metrics: "metrics",
 } as const;
+/**
+ * Telemetry type
+ */
 export type OutputDynatraceHttpTelemetryType = OpenEnum<
   typeof OutputDynatraceHttpTelemetryType
 >;
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputDynatraceHttpPqControls = {};
 
 export type OutputDynatraceHttp = {
@@ -115,6 +136,9 @@ export type OutputDynatraceHttp = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "dynatrace_http";
   /**
    * Pipeline to process data before sending out to this output
@@ -129,7 +153,7 @@ export type OutputDynatraceHttp = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -203,17 +227,29 @@ export type OutputDynatraceHttp = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Authentication type
+   */
   authType?: OutputDynatraceHttpAuthenticationType | undefined;
   /**
    * How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
    */
   format: OutputDynatraceHttpFormat;
+  /**
+   * Endpoint
+   */
   endpoint: OutputDynatraceHttpEndpoint;
+  /**
+   * Telemetry type
+   */
   telemetryType: OutputDynatraceHttpTelemetryType;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -259,6 +295,9 @@ export type OutputDynatraceHttp = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputDynatraceHttpPqControls | undefined;
   /**
    * Bearer token to include in the authorization header

@@ -9,7 +9,13 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OauthParamConfInputKafka = {
+  /**
+   * Parameter Name
+   */
   name: string;
+  /**
+   * Parameter Value
+   */
   value: string;
 };
 

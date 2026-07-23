@@ -15,6 +15,6 @@ let value: EventBreakerExistingOrNewNewTimestampTypeAuto = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `type`             | *"auto"*           | :heavy_check_mark: | N/A                |
-| `length`           | *number*           | :heavy_check_mark: | N/A                |
-| `format`           | *string*           | :heavy_minus_sign: | N/A                |
+| `type`             | *"auto"*           | :heavy_check_mark: | Timestamp type     |
+| `length`           | *number*           | :heavy_check_mark: | Length             |
+| `format`           | *string*           | :heavy_minus_sign: | Format             |
