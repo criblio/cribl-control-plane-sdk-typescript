@@ -6,11 +6,6 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import {
-  CacheConnectionBackfillStatus,
-  CacheConnectionBackfillStatus$inboundSchema,
-  CacheConnectionBackfillStatus$outboundSchema,
-} from "./cacheconnectionbackfillstatus.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   LakehouseConnectionType,
@@ -23,7 +18,6 @@ export type CacheConnection = {
    * Accelerated fields (materialized columns) for the cache connection.
    */
   acceleratedFields?: Array<string> | undefined;
-  backfillStatus?: CacheConnectionBackfillStatus | undefined;
   /**
    * Unique identifier for the Lakehouse cache referenced by the Dataset.
    */
@@ -50,7 +44,6 @@ export const CacheConnection$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   acceleratedFields: types.optional(z.array(types.string())),
-  backfillStatus: types.optional(CacheConnectionBackfillStatus$inboundSchema),
   cacheRef: types.string(),
   createdAt: types.number(),
   lakehouseConnectionType: types.optional(
@@ -62,7 +55,6 @@ export const CacheConnection$inboundSchema: z.ZodType<
 /** @internal */
 export type CacheConnection$Outbound = {
   acceleratedFields?: Array<string> | undefined;
-  backfillStatus?: string | undefined;
   cacheRef: string;
   createdAt: number;
   lakehouseConnectionType?: string | undefined;
@@ -77,7 +69,6 @@ export const CacheConnection$outboundSchema: z.ZodType<
   CacheConnection
 > = z.object({
   acceleratedFields: z.array(z.string()).optional(),
-  backfillStatus: CacheConnectionBackfillStatus$outboundSchema.optional(),
   cacheRef: z.string(),
   createdAt: z.number(),
   lakehouseConnectionType: LakehouseConnectionType$outboundSchema.optional(),

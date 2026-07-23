@@ -6,12 +6,24 @@
 import { GetOutputStatusSystemOutputsByPackResponse } from "cribl-control-plane/models/operations";
 
 let value: GetOutputStatusSystemOutputsByPackResponse = {
-  result: {},
+  result: {
+    items: [
+      {
+        id: "<id>",
+        status: {
+          health: "Unknown",
+          healthCounts: {},
+          timestamp: 940749,
+        },
+      },
+    ],
+    count: 562266,
+  },
 };
 ```
 
 ## Fields
 
-| Field                                                             | Type                                                              | Required                                                          | Description                                                       |
-| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
-| `result`                                                          | [models.CountedOutputStatus](../../models/countedoutputstatus.md) | :heavy_check_mark:                                                | N/A                                                               |
+| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `result`                                                              | [models.PaginatedOutputStatus](../../models/paginatedoutputstatus.md) | :heavy_check_mark:                                                    | N/A                                                                   |

@@ -23,6 +23,9 @@ import { PqType, PqType$Outbound, PqType$outboundSchema } from "./pqtype.js";
  * Creates events based on entries collected from the hosts file
  */
 export type InputSystemStateHostsFile = {
+  /**
+   * Enabled
+   */
   enable?: boolean | undefined;
 };
 
@@ -30,6 +33,9 @@ export type InputSystemStateHostsFile = {
  * Creates events for each of the host’s network interfaces
  */
 export type InputSystemStateInterfaces = {
+  /**
+   * Enabled
+   */
   enable?: boolean | undefined;
 };
 
@@ -37,6 +43,9 @@ export type InputSystemStateInterfaces = {
  * Creates events for physical disks, partitions, and file systems
  */
 export type InputSystemStateDisksAndFileSystems = {
+  /**
+   * Enabled
+   */
   enable?: boolean | undefined;
 };
 
@@ -44,6 +53,9 @@ export type InputSystemStateDisksAndFileSystems = {
  * Creates events based on the host system’s current state
  */
 export type InputSystemStateHostInfo = {
+  /**
+   * Enabled
+   */
   enable?: boolean | undefined;
 };
 
@@ -51,6 +63,9 @@ export type InputSystemStateHostInfo = {
  * Creates events based on entries collected from the host’s network routes
  */
 export type InputSystemStateRoutes = {
+  /**
+   * Enabled
+   */
   enable?: boolean | undefined;
 };
 
@@ -58,6 +73,9 @@ export type InputSystemStateRoutes = {
  * Creates events for DNS resolvers and search entries
  */
 export type InputSystemStateDNS = {
+  /**
+   * Enabled
+   */
   enable?: boolean | undefined;
 };
 
@@ -65,6 +83,9 @@ export type InputSystemStateDNS = {
  * Creates events for local users and groups
  */
 export type InputSystemStateUsersAndGroups = {
+  /**
+   * Enabled
+   */
   enable?: boolean | undefined;
 };
 
@@ -72,6 +93,9 @@ export type InputSystemStateUsersAndGroups = {
  * Creates events for Firewall rules entries
  */
 export type InputSystemStateFirewall = {
+  /**
+   * Enabled
+   */
   enable?: boolean | undefined;
 };
 
@@ -79,6 +103,9 @@ export type InputSystemStateFirewall = {
  * Creates events from the list of services
  */
 export type InputSystemStateServices = {
+  /**
+   * Enabled
+   */
   enable?: boolean | undefined;
 };
 
@@ -86,6 +113,9 @@ export type InputSystemStateServices = {
  * Creates events from list of listening ports
  */
 export type InputSystemStateListeningPorts = {
+  /**
+   * Enabled
+   */
   enable?: boolean | undefined;
 };
 
@@ -93,6 +123,9 @@ export type InputSystemStateListeningPorts = {
  * Creates events from list of logged-in users
  */
 export type InputSystemStateLoggedInUsers = {
+  /**
+   * Enabled
+   */
   enable?: boolean | undefined;
 };
 
@@ -160,6 +193,9 @@ export type InputSystemStatePersistence = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
+  /**
+   * Data compression format
+   */
   compress?: DataCompressionFormatOptionsPersistence | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state
@@ -172,7 +208,13 @@ export type InputSystemStateInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "system_state";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -191,7 +233,7 @@ export type InputSystemStateInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -217,6 +259,9 @@ export type InputSystemStateInput = {
    * Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
    */
   disableNativeLastLogModule?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.

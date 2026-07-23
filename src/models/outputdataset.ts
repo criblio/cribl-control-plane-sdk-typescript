@@ -104,6 +104,9 @@ export type OutputDatasetDataSetSite = OpenEnum<
   typeof OutputDatasetDataSetSite
 >;
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputDatasetPqControls = {};
 
 export type OutputDataset = {
@@ -111,6 +114,9 @@ export type OutputDataset = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "dataset";
   /**
    * Pipeline to process data before sending out to this output
@@ -125,7 +131,7 @@ export type OutputDataset = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -223,6 +229,9 @@ export type OutputDataset = {
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
@@ -269,6 +278,9 @@ export type OutputDataset = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputDatasetPqControls | undefined;
   /**
    * A 'Log Write Access' API key for the DataSet account

@@ -94,6 +94,9 @@ export type InputOpenTelemetryAuthenticationType = OpenEnum<
   typeof InputOpenTelemetryAuthenticationType
 >;
 
+/**
+ * Authentication type
+ */
 export const InputOpenTelemetryAuthMethodsExtAuthenticationType = {
   /**
    * Token
@@ -112,27 +115,45 @@ export const InputOpenTelemetryAuthMethodsExtAuthenticationType = {
    */
   BasicSecret: "basicSecret",
 } as const;
+/**
+ * Authentication type
+ */
 export type InputOpenTelemetryAuthMethodsExtAuthenticationType = OpenEnum<
   typeof InputOpenTelemetryAuthMethodsExtAuthenticationType
 >;
 
 export type InputOpenTelemetryAuthMethodsExt = {
+  /**
+   * Authentication type
+   */
   authType: InputOpenTelemetryAuthMethodsExtAuthenticationType;
   /**
    * Bearer token for Authorization header
    */
   token?: string | undefined;
+  /**
+   * Description
+   */
   description?: string | undefined;
   /**
    * Fields to add to events referencing this auth method
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Enable
+   */
   enabled?: boolean | undefined;
   /**
    * Select or create a stored text secret
    */
   tokenSecret?: string | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Select or create a secret that references your credentials
@@ -145,7 +166,13 @@ export type InputOpenTelemetryInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Source type identifier.
+   */
   type: "open_telemetry";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -164,7 +191,7 @@ export type InputOpenTelemetryInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -180,6 +207,9 @@ export type InputOpenTelemetryInput = {
    * Port to listen on
    */
   port: number;
+  /**
+   * TLS settings (server side)
+   */
   tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -245,8 +275,17 @@ export type InputOpenTelemetryInput = {
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
   maxActiveCxn?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Bearer token to include in the authorization header

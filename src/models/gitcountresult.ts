@@ -9,6 +9,9 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type GitCountResult = {
+  /**
+   * Number of files that changed since the specified commit.
+   */
   count: number;
 };
 

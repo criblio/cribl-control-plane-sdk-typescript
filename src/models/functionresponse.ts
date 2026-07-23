@@ -112,6 +112,10 @@ import {
 } from "./functionlookup.js";
 import { FunctionMask, FunctionMask$inboundSchema } from "./functionmask.js";
 import {
+  FunctionMetricsExport,
+  FunctionMetricsExport$inboundSchema,
+} from "./functionmetricsexport.js";
+import {
   FunctionMvExpand,
   FunctionMvExpand$inboundSchema,
 } from "./functionmvexpand.js";
@@ -260,6 +264,7 @@ export type FunctionResponse =
   | FunctionLocalSearchTransformer
   | FunctionLookup
   | FunctionMask
+  | FunctionMetricsExport
   | FunctionMvExpand
   | FunctionMvPull
   | FunctionNotificationPolicies
@@ -338,6 +343,7 @@ export const FunctionResponse$inboundSchema: z.ZodType<
   local_search_transformer: FunctionLocalSearchTransformer$inboundSchema,
   lookup: FunctionLookup$inboundSchema,
   mask: FunctionMask$inboundSchema,
+  metrics_export: FunctionMetricsExport$inboundSchema,
   mv_expand: FunctionMvExpand$inboundSchema,
   mv_pull: FunctionMvPull$inboundSchema,
   notification_policies: FunctionNotificationPolicies$inboundSchema,

@@ -1,26 +1,32 @@
 # WorkersTypeSystemSettingsConf
 
+Worker Process configuration.
+
 ## Example Usage
 
 ```typescript
 import { WorkersTypeSystemSettingsConf } from "cribl-control-plane/models";
 
 let value: WorkersTypeSystemSettingsConf = {
-  count: 7178.32,
-  memory: 6551.28,
-  minimum: 9602.87,
+  count: 717832,
+  memory: 655128,
+  minimum: 960287,
 };
 ```
 
 ## Fields
 
-| Field                    | Type                     | Required                 | Description              |
-| ------------------------ | ------------------------ | ------------------------ | ------------------------ |
-| `count`                  | *number*                 | :heavy_check_mark:       | N/A                      |
-| `enableHeapSnapshots`    | *boolean*                | :heavy_minus_sign:       | N/A                      |
-| `loadThrottlePerc`       | *number*                 | :heavy_minus_sign:       | N/A                      |
-| `memory`                 | *number*                 | :heavy_check_mark:       | N/A                      |
-| `minimum`                | *number*                 | :heavy_check_mark:       | N/A                      |
-| `startupMaxConns`        | *number*                 | :heavy_minus_sign:       | N/A                      |
-| `startupThrottleTimeout` | *number*                 | :heavy_minus_sign:       | N/A                      |
-| `v8SingleThread`         | *boolean*                | :heavy_minus_sign:       | N/A                      |
+| Field                                                                                                                 | Type                                                                                                                  | Required                                                                                                              | Description                                                                                                           |
+| --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `count`                                                                                                               | *number*                                                                                                              | :heavy_check_mark:                                                                                                    | Number of Worker Processes to spawn. Set to <code>0</code> to use the number of available CPU cores.                  |
+| `enableHeapSnapshots`                                                                                                 | *boolean*                                                                                                             | :heavy_minus_sign:                                                                                                    | If <code>true</code>, enable V8 heap snapshot generation on out-of-memory errors. Otherwise, <code>false</code>.      |
+| `loadThrottlePerc`                                                                                                    | *number*                                                                                                              | :heavy_minus_sign:                                                                                                    | CPU load percentage threshold above which new connections are throttled.                                              |
+| `memory`                                                                                                              | *number*                                                                                                              | :heavy_check_mark:                                                                                                    | Maximum memory (in MB) per Worker Process. Set to <code>0</code> for no limit.                                        |
+| `minimum`                                                                                                             | *number*                                                                                                              | :heavy_check_mark:                                                                                                    | Minimum number of Worker Processes to keep running.                                                                   |
+| `restartUnresponsiveProcesses`                                                                                        | *boolean*                                                                                                             | :heavy_minus_sign:                                                                                                    | If <code>true</code>, automatically restart Worker Processes that become unresponsive. Otherwise, <code>false</code>. |
+| `startupMaxConns`                                                                                                     | *number*                                                                                                              | :heavy_minus_sign:                                                                                                    | Maximum number of connections to accept during Worker Process startup before throttling begins.                       |
+| `startupThrottleTimeout`                                                                                              | *number*                                                                                                              | :heavy_minus_sign:                                                                                                    | Timeout in milliseconds to wait for Worker Processes to reach idle before ending the startup throttle period.         |
+| `v8SingleThread`                                                                                                      | *boolean*                                                                                                             | :heavy_minus_sign:                                                                                                    | If <code>true</code>, run all worker threads in a single V8 isolate. Otherwise, <code>false</code>.                   |
+| `workerProcessConfigUpdateConcurrency`                                                                                | *number*                                                                                                              | :heavy_minus_sign:                                                                                                    | Maximum number of Worker Processes that can reload configuration concurrently.                                        |
+| `workerProcessReloadTimeout`                                                                                          | *number*                                                                                                              | :heavy_minus_sign:                                                                                                    | Timeout in milliseconds to wait for a Worker Process to reload configuration before treating the reload as failed.    |
+| `workerThreadPoolSize`                                                                                                | *number*                                                                                                              | :heavy_minus_sign:                                                                                                    | Size of the Worker thread pool used for CPU-bound tasks.                                                              |

@@ -9,7 +9,13 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ExtraHttpHeaderConfInputElastic = {
+  /**
+   * Field Name
+   */
   name?: string | undefined;
+  /**
+   * Field Value
+   */
   value: string;
 };
 

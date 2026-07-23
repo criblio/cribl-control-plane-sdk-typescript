@@ -12,6 +12,8 @@ let value: GetPipelinesByPackRequest = {
 
 ## Fields
 
-| Field                            | Type                             | Required                         | Description                      |
-| -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- |
-| `pack`                           | *string*                         | :heavy_check_mark:               | The <code>id</code> of the Pack. |
+| Field                             | Type                              | Required                          | Description                       |
+| --------------------------------- | --------------------------------- | --------------------------------- | --------------------------------- |
+| `offset`                          | *number*                          | :heavy_minus_sign:                | Pagination offset                 |
+| `limit`                           | *number*                          | :heavy_minus_sign:                | Maximum number of items to return |
+| `pack`                            | *string*                          | :heavy_check_mark:                | The <code>id</code> of the Pack.  |

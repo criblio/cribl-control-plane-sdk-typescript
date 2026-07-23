@@ -12,7 +12,7 @@ Get the status of the current working tree of the Git repository used for Cribl 
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getVersionStatus" method="get" path="/version/status" -->
+<!-- UsageSnippet language="typescript" operationID="getVersionStatus" method="get" path="/version/status" example="VersionStatusResponseExamplesWorkingTreeStatus" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -78,5 +78,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

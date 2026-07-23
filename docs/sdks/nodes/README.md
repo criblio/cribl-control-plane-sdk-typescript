@@ -15,7 +15,7 @@ Get a count of all Worker, Edge, or Outpost Nodes for the specified Cribl produc
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getProductsSummaryWorkersByProduct" method="get" path="/products/{product}/summary/workers" -->
+<!-- UsageSnippet language="typescript" operationID="getProductsSummaryWorkersByProduct" method="get" path="/products/{product}/summary/workers" example="ProductWorkersCountResponseExamplesCountedWorkerNodes" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -28,7 +28,8 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.nodes.count({
-    product: "edge",
+    product: "outpost",
+    filterExp: "group==\"default\"",
   });
 
   console.log(result);
@@ -56,7 +57,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await nodesCount(criblControlPlane, {
-    product: "edge",
+    product: "outpost",
+    filterExp: "group==\"default\"",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -86,6 +88,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -95,7 +98,7 @@ Get detailed metadata for Worker, Edge, or Outpost Nodes for the specified Cribl
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getProductsWorkersByProduct" method="get" path="/products/{product}/workers" -->
+<!-- UsageSnippet language="typescript" operationID="getProductsWorkersByProduct" method="get" path="/products/{product}/workers" example="WorkersListResponseExamplesWorkerNode" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -109,6 +112,8 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.nodes.list({
     product: "stream",
+    filterExp: "group==\"default\"",
+    filter: "%7B%22field%22%3A%22group%22%2C%22op%22%3A%22is%22%2C%22value%22%3A%22default%22%7D",
   });
 
   for await (const page of result) {
@@ -139,6 +144,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await nodesList(criblControlPlane, {
     product: "stream",
+    filterExp: "group==\"default\"",
+    filter: "%7B%22field%22%3A%22group%22%2C%22op%22%3A%22is%22%2C%22value%22%3A%22default%22%7D",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -170,6 +177,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -179,7 +187,7 @@ Get detailed metadata for the specified Worker, Edge, or Outpost Node for the sp
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getProductsWorkersByProductAndId" method="get" path="/products/{product}/workers/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="getProductsWorkersByProductAndId" method="get" path="/products/{product}/workers/{id}" example="GetProductWorkerByIdResponseExamplesOneWorker" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -192,7 +200,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.nodes.get({
-    product: "stream",
+    product: "edge",
     id: "<id>",
   });
 
@@ -221,7 +229,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await nodesGet(criblControlPlane, {
-    product: "stream",
+    product: "edge",
     id: "<id>",
   });
   if (res.ok) {
@@ -252,6 +260,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -259,7 +268,137 @@ run();
 
 Restart all Worker, Edge, or Outpost Nodes for the specified Cribl product.
 
-### Example Usage
+### Example Usage: RestartProductWorkersResponseExamplesRestartingWorkers
+
+<!-- UsageSnippet language="typescript" operationID="updateProductsWorkersRestartByProduct" method="patch" path="/products/{product}/workers/restart" example="RestartProductWorkersResponseExamplesRestartingWorkers" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.nodes.restart({
+    product: "outpost",
+    restartRequest: {
+      guids: [
+        "<value 1>",
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { nodesRestart } from "cribl-control-plane/funcs/nodesRestart.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await nodesRestart(criblControlPlane, {
+    product: "outpost",
+    restartRequest: {
+      guids: [
+        "<value 1>",
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("nodesRestart failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: RestartProductWorkersResponseExamplesRestartingWorkersWithError
+
+<!-- UsageSnippet language="typescript" operationID="updateProductsWorkersRestartByProduct" method="patch" path="/products/{product}/workers/restart" example="RestartProductWorkersResponseExamplesRestartingWorkersWithError" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.nodes.restart({
+    product: "outpost",
+    restartRequest: {
+      guids: [
+        "<value 1>",
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { nodesRestart } from "cribl-control-plane/funcs/nodesRestart.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await nodesRestart(criblControlPlane, {
+    product: "outpost",
+    restartRequest: {
+      guids: [
+        "<value 1>",
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("nodesRestart failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: RestartWorkersExamplesRestartWorkers
 
 <!-- UsageSnippet language="typescript" operationID="updateProductsWorkersRestartByProduct" method="patch" path="/products/{product}/workers/restart" example="RestartWorkersExamplesRestartWorkers" -->
 ```typescript
@@ -346,5 +485,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

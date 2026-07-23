@@ -8,11 +8,29 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * TLS configuration for the API server.
+ */
 export type SslTypeSystemSettingsConfApi = {
+  /**
+   * Filesystem path to the PEM-encoded Certificate Authority (CA) certificate for client authentication.
+   */
   caPath?: string | undefined;
+  /**
+   * Filesystem path to the PEM-encoded TLS certificate.
+   */
   certPath: string;
+  /**
+   * If <code>true</code>, TLS is disabled for the API server. Otherwise, <code>false</code>.
+   */
   disabled: boolean;
+  /**
+   * Passphrase to decrypt the TLS private key, if encrypted.
+   */
   passphrase: string;
+  /**
+   * Filesystem path to the PEM-encoded TLS private key.
+   */
   privKeyPath: string;
 };
 

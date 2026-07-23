@@ -13,7 +13,7 @@ Get a list of all branches in the Git repository used for Cribl configuration.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getVersionBranch" method="get" path="/version/branch" -->
+<!-- UsageSnippet language="typescript" operationID="getVersionBranch" method="get" path="/version/branch" example="VersionBranchResponseExamplesListBranches" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -79,6 +79,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -88,7 +89,7 @@ Get the name of the Git branch that the Cribl configuration is checked out to. U
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getVersionCurrentBranch" method="get" path="/version/current-branch" -->
+<!-- UsageSnippet language="typescript" operationID="getVersionCurrentBranch" method="get" path="/version/current-branch" example="VersionCurrentBranchResponseExamplesCurrentBranch" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -154,5 +155,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

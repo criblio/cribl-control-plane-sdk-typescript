@@ -13,6 +13,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 import { Files } from "./files.js";
 
 export class Commits extends ClientSDK {
@@ -25,13 +26,13 @@ export class Commits extends ClientSDK {
    * List the commit history
    *
    * @remarks
-   * List the commit history.</br></br> Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
+   * List the commit history.<br/><br/>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
    */
   async list(
     request?: operations.GetVersionRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.CountedGitLogResult> {
-    return unwrapAsync(versionsCommitsList(
+  ): Promise<PageIterator<operations.GetVersionResponse, { offset: number }>> {
+    return unwrapResultIterator(versionsCommitsList(
       this,
       request,
       options,
@@ -42,7 +43,7 @@ export class Commits extends ClientSDK {
    * Create a new commit for pending changes to the Cribl configuration
    *
    * @remarks
-   * Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br> To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
+   * Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.<br/><br/>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
    */
   async create(
     request: models.GitCommitBody,
@@ -76,7 +77,7 @@ export class Commits extends ClientSDK {
    * Push local commits to the remote repository
    *
    * @remarks
-   * Push all local commits from the local repository to the remote repository.
+   * Push all local commits from the local repository to the remote repository.<br/><br/>Requires at least one local commit that has not been pushed. Returns an error if the remote repository cannot be reached or the push is rejected.
    */
   async push(
     options?: RequestOptions,
@@ -91,7 +92,7 @@ export class Commits extends ClientSDK {
    * Revert a commit in the local repository
    *
    * @remarks
-   * Revert a commit in the local repository.
+   * Revert a commit in the local repository by creating a new commit that undoes the changes introduced by the specified commit.<br/><br/>Use the <code>force</code> field to proceed even when the working directory is not clean.
    */
   async revert(
     request: models.GitRevertParams,
@@ -125,7 +126,7 @@ export class Commits extends ClientSDK {
    * Discard uncommitted (staged) changes
    *
    * @remarks
-   * Discard all uncommitted (staged) configuration changes, resetting the working directory to the last committed state. Use only if you are certain that you do not need to preserve your local changes.
+   * Discard all uncommitted (staged) configuration changes, resetting the working directory to the last committed state. Use only if you are certain that you do not need to preserve your local changes.<br/><br/>When applied globally (no group), triggers a Cribl restart to reload the reverted configuration. Returns <code>false</code> if the working directory is already clean.
    */
   async undo(
     options?: RequestOptions,

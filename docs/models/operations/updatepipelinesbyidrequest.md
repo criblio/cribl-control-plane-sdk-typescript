@@ -9,7 +9,14 @@ let value: UpdatePipelinesByIdRequest = {
   id: "<id>",
   pipeline: {
     id: "<id>",
-    conf: {},
+    conf: {
+      functions: [
+        {
+          id: "otlp_traces",
+          conf: {},
+        },
+      ],
+    },
   },
 };
 ```

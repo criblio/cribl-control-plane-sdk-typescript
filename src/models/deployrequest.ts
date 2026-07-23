@@ -10,7 +10,13 @@ import {
 } from "./deployrequestlookups.js";
 
 export type DeployRequest = {
+  /**
+   * Optional list of lookup file deployments to include with the commit deployment.
+   */
   lookups?: Array<DeployRequestLookups> | undefined;
+  /**
+   * Commit hash to deploy to the Worker Group, Outpost Group, or Edge Fleet.
+   */
   version: string;
 };
 

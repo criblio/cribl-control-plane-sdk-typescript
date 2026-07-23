@@ -1,5 +1,7 @@
 # CreateOutputSystemByPackPqControlsAzureLogs
 
+Persistent queue controls.
+
 ## Example Usage
 
 ```typescript

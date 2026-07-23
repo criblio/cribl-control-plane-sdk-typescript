@@ -1,5 +1,7 @@
 # CreateOutputPqControlsChronicle
 
+Persistent queue controls.
+
 ## Example Usage
 
 ```typescript

@@ -3,8 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import {
   AuthenticationTypeOptions,
   AuthenticationTypeOptions$outboundSchema,
@@ -13,6 +11,11 @@ import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
+import {
+  ColumnMappingConfOutputClickHouse,
+  ColumnMappingConfOutputClickHouse$Outbound,
+  ColumnMappingConfOutputClickHouse$outboundSchema,
+} from "./columnmappingconfoutputclickhouse.js";
 import {
   CompressionOptionsPq,
   CompressionOptionsPq$outboundSchema,
@@ -26,6 +29,14 @@ import {
   FailedRequestLoggingModeOptions,
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
+import {
+  FormatOptions,
+  FormatOptions$outboundSchema,
+} from "./formatoptions.js";
+import {
+  MappingTypeOptions,
+  MappingTypeOptions$outboundSchema,
+} from "./mappingtypeoptions.js";
 import { ModeOptions, ModeOptions$outboundSchema } from "./modeoptions.js";
 import {
   QueueFullBehaviorOptions,
@@ -48,58 +59,8 @@ import {
 } from "./tlssettingsclientsidetypecapathcertpathextended.js";
 
 /**
- * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+ * Persistent queue controls.
  */
-export const OutputClickHouseFormat = {
-  /**
-   * JSONCompactEachRowWithNames
-   */
-  JsonCompactEachRowWithNames: "json-compact-each-row-with-names",
-  /**
-   * JSONEachRow
-   */
-  JsonEachRow: "json-each-row",
-} as const;
-/**
- * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
- */
-export type OutputClickHouseFormat = OpenEnum<typeof OutputClickHouseFormat>;
-
-/**
- * How event fields are mapped to ClickHouse columns
- */
-export const OutputClickHouseMappingType = {
-  /**
-   * Automatic
-   */
-  Automatic: "automatic",
-  /**
-   * Custom
-   */
-  Custom: "custom",
-} as const;
-/**
- * How event fields are mapped to ClickHouse columns
- */
-export type OutputClickHouseMappingType = OpenEnum<
-  typeof OutputClickHouseMappingType
->;
-
-export type OutputClickHouseColumnMapping = {
-  /**
-   * Name of the column in ClickHouse that will store field value
-   */
-  columnName: string;
-  /**
-   * Type of the column in the ClickHouse database
-   */
-  columnType?: string | undefined;
-  /**
-   * JavaScript expression to compute value to be inserted into ClickHouse table
-   */
-  columnValueExpression: string;
-};
-
 export type OutputClickHousePqControls = {};
 
 export type OutputClickHouse = {
@@ -107,6 +68,9 @@ export type OutputClickHouse = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "click_house";
   /**
    * Pipeline to process data before sending out to this output
@@ -121,14 +85,20 @@ export type OutputClickHouse = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
    * URL of the ClickHouse instance. Example: http://localhost:8123/
    */
   url: string;
+  /**
+   * Authentication type
+   */
   authType?: AuthenticationTypeOptions | undefined;
+  /**
+   * ClickHouse database
+   */
   database: string;
   /**
    * Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
@@ -137,15 +107,18 @@ export type OutputClickHouse = {
   /**
    * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
    */
-  format?: OutputClickHouseFormat | undefined;
+  format?: FormatOptions | undefined;
   /**
    * How event fields are mapped to ClickHouse columns
    */
-  mappingType?: OutputClickHouseMappingType | undefined;
+  mappingType?: MappingTypeOptions | undefined;
   /**
    * Collect data into batches for later processing on the ClickHouse server. Disable to write to a ClickHouse table immediately. Cribl sends the configured value with every insert (<code>async_insert=1</code> or <code>async_insert=0</code>) so behavior is consistent across ClickHouse versions, including 26.3 LTS and later, where async inserts are enabled by default on the server.
    */
   asyncInserts?: boolean | undefined;
+  /**
+   * TLS settings (client side)
+   */
   tls?: TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum number of ongoing requests before blocking
@@ -218,8 +191,17 @@ export type OutputClickHouse = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Select or create a secret that references your credentials
@@ -241,7 +223,10 @@ export type OutputClickHouse = {
    * Retrieves the table schema from ClickHouse and populates the Column Mapping table
    */
   describeTable?: string | undefined;
-  columnMappings?: Array<OutputClickHouseColumnMapping> | undefined;
+  /**
+   * Column Mapping
+   */
+  columnMappings?: Array<ColumnMappingConfOutputClickHouse> | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -286,6 +271,9 @@ export type OutputClickHouse = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputClickHousePqControls | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -312,48 +300,6 @@ export type OutputClickHouse = {
    */
   __template_onBackpressure?: string | undefined;
 };
-
-/** @internal */
-export const OutputClickHouseFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputClickHouseFormat
-> = openEnums.outboundSchema(OutputClickHouseFormat);
-
-/** @internal */
-export const OutputClickHouseMappingType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputClickHouseMappingType
-> = openEnums.outboundSchema(OutputClickHouseMappingType);
-
-/** @internal */
-export type OutputClickHouseColumnMapping$Outbound = {
-  columnName: string;
-  columnType?: string | undefined;
-  columnValueExpression: string;
-};
-
-/** @internal */
-export const OutputClickHouseColumnMapping$outboundSchema: z.ZodType<
-  OutputClickHouseColumnMapping$Outbound,
-  z.ZodTypeDef,
-  OutputClickHouseColumnMapping
-> = z.object({
-  columnName: z.string(),
-  columnType: z.string().optional(),
-  columnValueExpression: z.string(),
-});
-
-export function outputClickHouseColumnMappingToJSON(
-  outputClickHouseColumnMapping: OutputClickHouseColumnMapping,
-): string {
-  return JSON.stringify(
-    OutputClickHouseColumnMapping$outboundSchema.parse(
-      outputClickHouseColumnMapping,
-    ),
-  );
-}
 
 /** @internal */
 export type OutputClickHousePqControls$Outbound = {};
@@ -418,7 +364,9 @@ export type OutputClickHouse$Outbound = {
   waitForAsyncInserts?: boolean | undefined;
   excludeMappingFields?: Array<string> | undefined;
   describeTable?: string | undefined;
-  columnMappings?: Array<OutputClickHouseColumnMapping$Outbound> | undefined;
+  columnMappings?:
+    | Array<ColumnMappingConfOutputClickHouse$Outbound>
+    | undefined;
   pqStrictOrdering?: boolean | undefined;
   pqRatePerSec?: number | undefined;
   pqMode?: string | undefined;
@@ -455,8 +403,8 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   authType: AuthenticationTypeOptions$outboundSchema.optional(),
   database: z.string(),
   tableName: z.string(),
-  format: OutputClickHouseFormat$outboundSchema.optional(),
-  mappingType: OutputClickHouseMappingType$outboundSchema.optional(),
+  format: FormatOptions$outboundSchema.optional(),
+  mappingType: MappingTypeOptions$outboundSchema.optional(),
   asyncInserts: z.boolean().optional(),
   tls: TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema
     .optional(),
@@ -489,9 +437,8 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   waitForAsyncInserts: z.boolean().optional(),
   excludeMappingFields: z.array(z.string()).optional(),
   describeTable: z.string().optional(),
-  columnMappings: z.array(
-    z.lazy(() => OutputClickHouseColumnMapping$outboundSchema),
-  ).optional(),
+  columnMappings: z.array(ColumnMappingConfOutputClickHouse$outboundSchema)
+    .optional(),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),
   pqMode: ModeOptions$outboundSchema.optional(),

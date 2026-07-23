@@ -9,7 +9,8 @@ let value: UpdateOutputSystemByPackAndIdRequest = {
   id: "<id>",
   pack: "<value>",
   output: {
-    type: "xsiam",
+    type: "signalfx",
+    realm: "<value>",
   },
 };
 ```

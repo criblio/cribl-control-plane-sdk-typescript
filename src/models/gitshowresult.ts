@@ -10,6 +10,9 @@ import { DiffFiles, DiffFiles$inboundSchema } from "./difffiles.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type GitShowResult = {
+  /**
+   * Full commit message of the specified commit.
+   */
   commitMessage: string;
   diffJson: Array<DiffFiles>;
 };

@@ -16,11 +16,11 @@ export type CountedInputSplunkHec = {
   /**
    * number of items present in the items array
    */
-  count?: number | undefined;
+  count: number;
   /**
    * List of items in this response.
    */
-  items?: Array<InputSplunkHec> | undefined;
+  items: Array<InputSplunkHec>;
 };
 
 /** @internal */
@@ -29,8 +29,8 @@ export const CountedInputSplunkHec$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: types.optional(types.number()),
-  items: types.optional(z.array(InputSplunkHec$inboundSchema)),
+  count: types.number(),
+  items: z.array(InputSplunkHec$inboundSchema),
 });
 
 export function countedInputSplunkHecFromJSON(

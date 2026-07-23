@@ -20,8 +20,14 @@ import {
   TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpath.js";
 
+/**
+ * Kafka Schema Registry Authentication
+ */
 export type KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth =
   {
+    /**
+     * Disabled
+     */
     disabled: boolean;
     /**
      * URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
@@ -43,6 +49,9 @@ export type KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth =
      * Credentials to use when authenticating with the schema registry
      */
     auth?: AuthType | undefined;
+    /**
+     * TLS settings (client side)
+     */
     tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
     /**
      * Used when __keySchemaIdOut is not present, to transform key values, leave blank if key transformation is not required by default.

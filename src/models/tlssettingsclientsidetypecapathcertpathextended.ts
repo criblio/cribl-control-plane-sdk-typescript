@@ -18,7 +18,13 @@ import {
   MinimumTlsVersionOptionsTls$outboundSchema,
 } from "./minimumtlsversionoptionstls.js";
 
+/**
+ * TLS settings (client side)
+ */
 export type TlsSettingsClientSideTypeCaPathCertPathExtended = {
+  /**
+   * Disabled
+   */
   disabled?: boolean | undefined;
   /**
    * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
@@ -44,7 +50,13 @@ export type TlsSettingsClientSideTypeCaPathCertPathExtended = {
    * Passphrase to use to decrypt private key
    */
   passphrase?: string | undefined;
+  /**
+   * Minimum TLS version
+   */
   minVersion?: MinimumTlsVersionOptionsTls | undefined;
+  /**
+   * Maximum TLS version
+   */
   maxVersion?: MaximumTlsVersionOptionsTls | undefined;
 };
 

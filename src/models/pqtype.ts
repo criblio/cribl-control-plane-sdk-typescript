@@ -17,12 +17,20 @@ import {
   ModeOptionsPq$inboundSchema,
   ModeOptionsPq$outboundSchema,
 } from "./modeoptionspq.js";
+import {
+  QueueFullBehaviorOptionsPq,
+  QueueFullBehaviorOptionsPq$inboundSchema,
+  QueueFullBehaviorOptionsPq$outboundSchema,
+} from "./queuefullbehavioroptionspq.js";
 
+/**
+ * Management controls for the persistent queue.
+ */
 export type PqTypePqControls = {};
 
 export type PqType = {
   /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   * With Smart mode (deprecated), PQ will write events to the filesystem only when it detects backpressure from the processing engine. Smart mode will have no new development starting July 2026, followed by End of Support and feature removal (auto-migrating to Always On) in January 2027. We recommend using Always On mode instead. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
    */
   mode?: ModeOptionsPq | undefined;
   /**
@@ -53,6 +61,13 @@ export type PqType = {
    * Codec to use to compress the persisted data
    */
   compress?: CompressionOptionsPq | undefined;
+  /**
+   * Whether to block or drop events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: QueueFullBehaviorOptionsPq | undefined;
+  /**
+   * Management controls for the persistent queue.
+   */
   pqControls?: PqTypePqControls | undefined;
 };
 
@@ -100,6 +115,7 @@ export const PqType$inboundSchema: z.ZodType<PqType, z.ZodTypeDef, unknown> = z
     maxSize: types.optional(types.string()),
     path: types.optional(types.string()),
     compress: types.optional(CompressionOptionsPq$inboundSchema),
+    onBackpressure: types.optional(QueueFullBehaviorOptionsPq$inboundSchema),
     pqControls: types.optional(z.lazy(() => PqTypePqControls$inboundSchema)),
   });
 /** @internal */
@@ -112,6 +128,7 @@ export type PqType$Outbound = {
   maxSize?: string | undefined;
   path?: string | undefined;
   compress?: string | undefined;
+  onBackpressure?: string | undefined;
   pqControls?: PqTypePqControls$Outbound | undefined;
 };
 
@@ -129,6 +146,7 @@ export const PqType$outboundSchema: z.ZodType<
   maxSize: z.string().optional(),
   path: z.string().optional(),
   compress: CompressionOptionsPq$outboundSchema.optional(),
+  onBackpressure: QueueFullBehaviorOptionsPq$outboundSchema.optional(),
   pqControls: z.lazy(() => PqTypePqControls$outboundSchema).optional(),
 });
 

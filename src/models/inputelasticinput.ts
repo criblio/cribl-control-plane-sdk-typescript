@@ -27,6 +27,9 @@ import {
   TlsSettingsServerSideType$outboundSchema,
 } from "./tlssettingsserversidetype.js";
 
+/**
+ * Authentication type
+ */
 export const InputElasticAuthenticationType = {
   /**
    * None
@@ -45,6 +48,9 @@ export const InputElasticAuthenticationType = {
    */
   AuthTokens: "authTokens",
 } as const;
+/**
+ * Authentication type
+ */
 export type InputElasticAuthenticationType = OpenEnum<
   typeof InputElasticAuthenticationType
 >;
@@ -95,7 +101,13 @@ export type InputElasticProxyMode = {
    * Enter credentials directly, or select a stored secret
    */
   authType?: InputElasticAuthenticationMethod | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Select or create a secret that references your credentials
@@ -128,7 +140,13 @@ export type InputElasticInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Source type identifier.
+   */
   type: "elastic";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -147,7 +165,7 @@ export type InputElasticInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -163,6 +181,9 @@ export type InputElasticInput = {
    * Port to listen on
    */
   port: number;
+  /**
+   * TLS settings (server side)
+   */
   tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -212,6 +233,9 @@ export type InputElasticInput = {
    * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
    */
   elasticAPI: string;
+  /**
+   * Authentication type
+   */
   authType?: InputElasticAuthenticationType | undefined;
   /**
    * The API version to use for communicating with the server
@@ -226,8 +250,17 @@ export type InputElasticInput = {
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
   proxyMode?: InputElasticProxyMode | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Select or create a secret that references your credentials

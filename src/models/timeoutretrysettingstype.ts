@@ -9,6 +9,9 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type TimeoutRetrySettingsType = {
+  /**
+   * Retry timed-out HTTP requests
+   */
   timeoutRetry: boolean;
   /**
    * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).

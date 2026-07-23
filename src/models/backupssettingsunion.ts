@@ -16,7 +16,13 @@ import {
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type BackupsSettings = {
+  /**
+   * How long to retain backups. Value is a duration string such as <code>24h</code>.
+   */
   backupPersistence: string;
+  /**
+   * Filesystem path where configuration backups are stored.
+   */
   backupsDirectory: string;
 };
 

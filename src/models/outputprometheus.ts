@@ -3,10 +3,12 @@
  */
 
 import * as z from "zod/v3";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import {
-  AuthenticationTypeOptionsPrometheusAuth,
-  AuthenticationTypeOptionsPrometheusAuth$outboundSchema,
-} from "./authenticationtypeoptionsprometheusauth.js";
+  AuthenticationMethodOptionsAutoSecret,
+  AuthenticationMethodOptionsAutoSecret$outboundSchema,
+} from "./authenticationmethodoptionsautosecret.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$outboundSchema,
@@ -40,6 +42,45 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 
+/**
+ * Remote Write authentication type
+ */
+export const OutputPrometheusAuthenticationType = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Token
+   */
+  Token: "token",
+  /**
+   * Token (text secret)
+   */
+  TextSecret: "textSecret",
+  /**
+   * AWS Signature v4
+   */
+  AwsSigv4: "aws_sigv4",
+} as const;
+/**
+ * Remote Write authentication type
+ */
+export type OutputPrometheusAuthenticationType = OpenEnum<
+  typeof OutputPrometheusAuthenticationType
+>;
+
+/**
+ * Persistent queue controls.
+ */
 export type OutputPrometheusPqControls = {};
 
 export type OutputPrometheus = {
@@ -47,6 +88,9 @@ export type OutputPrometheus = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "prometheus";
   /**
    * Pipeline to process data before sending out to this output
@@ -61,7 +105,7 @@ export type OutputPrometheus = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -142,7 +186,10 @@ export type OutputPrometheus = {
   /**
    * Remote Write authentication type
    */
-  authType?: AuthenticationTypeOptionsPrometheusAuth | undefined;
+  authType?: OutputPrometheusAuthenticationType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * How frequently metrics metadata is sent out. Value cannot be smaller than the base Flush period set above.
@@ -192,8 +239,17 @@ export type OutputPrometheus = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputPrometheusPqControls | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -207,6 +263,38 @@ export type OutputPrometheus = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AuthenticationMethodOptionsAutoSecret | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * AWS region used to sign Remote Write requests
+   */
+  region?: string | undefined;
+  /**
+   * ID used to sign Remote Write requests (for example, `aps` for Amazon Managed Service for Prometheus)
+   */
+  awsService?: string | undefined;
+  /**
+   * Use Assume Role credentials to access Prometheus
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -223,7 +311,30 @@ export type OutputPrometheus = {
    * Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
    */
   __template_onBackpressure?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'awsService' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsService' at runtime.
+   */
+  __template_awsService?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
 };
+
+/** @internal */
+export const OutputPrometheusAuthenticationType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputPrometheusAuthenticationType
+> = openEnums.outboundSchema(OutputPrometheusAuthenticationType);
 
 /** @internal */
 export type OutputPrometheusPqControls$Outbound = {};
@@ -293,10 +404,22 @@ export type OutputPrometheus$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecret?: string | undefined;
+  region?: string | undefined;
+  awsService?: string | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
   __template_streamtags?: string | undefined;
   __template_url?: string | undefined;
   __template_failedRequestLoggingMode?: string | undefined;
   __template_onBackpressure?: string | undefined;
+  __template_region?: string | undefined;
+  __template_awsService?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /** @internal */
@@ -333,7 +456,7 @@ export const OutputPrometheus$outboundSchema: z.ZodType<
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: AuthenticationTypeOptionsPrometheusAuth$outboundSchema.optional(),
+  authType: OutputPrometheusAuthenticationType$outboundSchema.optional(),
   description: z.string().optional(),
   metricsFlushPeriodSec: z.number().optional(),
   pqStrictOrdering: z.boolean().optional(),
@@ -354,10 +477,23 @@ export const OutputPrometheus$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  awsAuthenticationMethod: AuthenticationMethodOptionsAutoSecret$outboundSchema
+    .optional(),
+  awsSecret: z.string().optional(),
+  region: z.string().optional(),
+  awsService: z.string().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
   __template_streamtags: z.string().optional(),
   __template_url: z.string().optional(),
   __template_failedRequestLoggingMode: z.string().optional(),
   __template_onBackpressure: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_awsService: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
 });
 
 export function outputPrometheusToJSON(

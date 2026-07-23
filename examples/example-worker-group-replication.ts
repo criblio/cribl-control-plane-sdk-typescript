@@ -35,16 +35,19 @@ async function main() {
     // Get the first available Worker Group
     const workerGroups = await criblClient.groups.list({ product: 'stream' });
     
-    if (workerGroups.items && workerGroups.items.length > 0) {
-      const firstWorkerGroup = workerGroups.items[0];
-      console.log(`Replicating Worker Group: ${firstWorkerGroup.id}`);
-      
-      // Replicate the first Worker Group
-      await replicateWorkerGroup(criblClient, firstWorkerGroup.id);
-    } else {
-      console.log('No Worker Groups found. Please create at least one Worker Group first.');
-      process.exit(1);
+    for await (const page of workerGroups) {
+      if (page.result.items?.length) {
+        const firstWorkerGroup = page.result.items[0];
+        console.log(`Replicating Worker Group: ${firstWorkerGroup.id}`);
+        
+        // Replicate the first Worker Group
+        await replicateWorkerGroup(criblClient, firstWorkerGroup.id);
+        return;
+      }
     }
+    
+    console.log('No Worker Groups found. Please create at least one Worker Group first.');
+    process.exit(1);
 
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : String(error);

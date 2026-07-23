@@ -10,14 +10,6 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ActiveHealthOverlayStatus = {
   /**
-   * Binary version targeted by the active overlay.
-   */
-  binaryVersion: string;
-  /**
-   * Active overlay identifier.
-   */
-  overlayId: string;
-  /**
    * Current overlay state.
    */
   state: "active";
@@ -29,8 +21,6 @@ export const ActiveHealthOverlayStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  binaryVersion: types.string(),
-  overlayId: types.string(),
   state: types.literal("active"),
 });
 

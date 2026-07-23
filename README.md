@@ -203,15 +203,15 @@ This SDK supports the following security schemes globally:
 
 To configure authentication on Cribl.Cloud and in hybrid deployments, use the `clientOauth` security scheme. The SDK uses the OAuth credentials that you provide to obtain a Bearer token and refresh the token within its expiration window using the standard OAuth2 flow.
 
-In on-prem deployments, use the `bearerAuth` security scheme. The SDK uses the username/password credentials that you provide to obtain a Bearer token. Automatically refreshing the Bearer token within its expiration window requires a callback function as shown in the [On-Prem Authentication Example](https://github.com/criblio/cribl-control-plane-sdk-typescript/blob/main/examples/example-onprem-auth.ts).
+In on-prem deployments, use the `bearerAuth` security scheme. The SDK uses the username/password credentials that you provide to obtain a Bearer token. Automatically refreshing the Bearer token within its expiration window requires a callback function as shown in the [On-Prem Authentication Example](https://github.com/Cribl-Community/cribl-control-plane-sdk-typescript/blob/main/examples/example-onprem-auth.ts).
 
 Set the security scheme through the `security` optional parameter when initializing the SDK client instance. The SDK uses the selected scheme by default to authenticate with the API for all operations that support it.
 
 ### Authentication Examples
 
-The [Cribl.Cloud and Hybrid Authentication Example](https://github.com/criblio/cribl-control-plane-sdk-typescript/blob/main/examples/example-cloud-auth.ts) demonstrates how to configure authentication on Cribl.Cloud and in hybrid deployments. To obtain the Client ID and Client Secret you'll need to initialize using the `clientOauth` security schema, follow the [instructions for creating an API Credential](https://docs.cribl.io/cribl-as-code/sdks-auth/#sdks-auth-cloud) in the Cribl as Code documentation.
+The [Cribl.Cloud and Hybrid Authentication Example](https://github.com/Cribl-Community/cribl-control-plane-sdk-typescript/blob/main/examples/example-cloud-auth.ts) demonstrates how to configure authentication on Cribl.Cloud and in hybrid deployments. To obtain the Client ID and Client Secret you'll need to initialize using the `clientOauth` security schema, follow the [instructions for creating an API Credential](https://docs.cribl.io/cribl-as-code/sdks-auth/#sdks-auth-cloud) in the Cribl as Code documentation.
 
-The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-plane-sdk-typescript/blob/main/examples/example-onprem-auth.ts) demonstrates how to configure authentication in on-prem deployments using your username and password.
+The [On-Prem Authentication Example](https://github.com/Cribl-Community/cribl-control-plane-sdk-typescript/blob/main/examples/example-onprem-auth.ts) demonstrates how to configure authentication in on-prem deployments using your username and password.
 
 <!-- No Authentication [security] -->
 
@@ -235,8 +235,8 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [DatabaseConnections](docs/sdks/databaseconnections/README.md)
 
-* [list](docs/sdks/databaseconnections/README.md#list) - List Database Connections
-* [create](docs/sdks/databaseconnections/README.md#create) - Create Database Connection
+* [list](docs/sdks/databaseconnections/README.md#list) - List all Database Connections
+* [create](docs/sdks/databaseconnections/README.md#create) - Create a Database Connection
 * [get](docs/sdks/databaseconnections/README.md#get) - Get a Database Connection
 * [update](docs/sdks/databaseconnections/README.md#update) - Update a Database Connection
 * [delete](docs/sdks/databaseconnections/README.md#delete) - Delete a Database Connection
@@ -271,8 +271,8 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Groups](docs/sdks/groups/README.md)
 
-* [list](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
-* [create](docs/sdks/groups/README.md#create) - Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
+* [list](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets
+* [create](docs/sdks/groups/README.md#create) - Create a Worker Group, Outpost Group, or Edge Fleet
 * [get](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
 * [update](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
 * [delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
@@ -311,7 +311,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 
-* [get](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a specific product.
+* [get](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a Cribl product
 
 ### [Packs](docs/sdks/packs/README.md)
 
@@ -357,7 +357,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [list](docs/sdks/packsroutes/README.md#list) - List all Routes within a Pack
 * [get](docs/sdks/packsroutes/README.md#get) - Get a Routing table within a Pack
-* [update](docs/sdks/packsroutes/README.md#update) - Update a Route within a Pack
+* [update](docs/sdks/packsroutes/README.md#update) - Update a Routing table within a Pack
 * [append](docs/sdks/packsroutes/README.md#append) - Add a Route to the end of the Routing table within a Pack
 
 #### [Packs.Sources](docs/sdks/packssources/README.md)
@@ -395,7 +395,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [list](docs/sdks/routes/README.md#list) - List all Routes
 * [get](docs/sdks/routes/README.md#get) - Get a Routing table
-* [update](docs/sdks/routes/README.md#update) - Update a Route
+* [update](docs/sdks/routes/README.md#update) - Update a Routing table
 * [append](docs/sdks/routes/README.md#append) - Add a Route to the end of the Routing table
 
 ### [Sources](docs/sdks/sources/README.md)
@@ -486,10 +486,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`collectorsGet`](docs/sdks/collectors/README.md#get) - Get a Collector
 - [`collectorsList`](docs/sdks/collectors/README.md#list) - List all Collectors
 - [`collectorsUpdate`](docs/sdks/collectors/README.md#update) - Update a Collector
-- [`databaseConnectionsCreate`](docs/sdks/databaseconnections/README.md#create) - Create Database Connection
+- [`databaseConnectionsCreate`](docs/sdks/databaseconnections/README.md#create) - Create a Database Connection
 - [`databaseConnectionsDelete`](docs/sdks/databaseconnections/README.md#delete) - Delete a Database Connection
 - [`databaseConnectionsGet`](docs/sdks/databaseconnections/README.md#get) - Get a Database Connection
-- [`databaseConnectionsList`](docs/sdks/databaseconnections/README.md#list) - List Database Connections
+- [`databaseConnectionsList`](docs/sdks/databaseconnections/README.md#list) - List all Database Connections
 - [`databaseConnectionsUpdate`](docs/sdks/databaseconnections/README.md#update) - Update a Database Connection
 - [`destinationsCreate`](docs/sdks/destinations/README.md#create) - Create a Destination
 - [`destinationsDelete`](docs/sdks/destinations/README.md#delete) - Delete a Destination
@@ -507,11 +507,11 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`groupsAclGet`](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group, Outpost Group, or Edge Fleet
 - [`groupsAclTeamsGet`](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
 - [`groupsConfigsVersionsGet`](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
-- [`groupsCreate`](docs/sdks/groups/README.md#create) - Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
+- [`groupsCreate`](docs/sdks/groups/README.md#create) - Create a Worker Group, Outpost Group, or Edge Fleet
 - [`groupsDelete`](docs/sdks/groups/README.md#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
 - [`groupsDeploy`](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group, Outpost Group, or Edge Fleet
 - [`groupsGet`](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
-- [`groupsList`](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
+- [`groupsList`](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets
 - [`groupsUpdate`](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
 - [`healthGet`](docs/sdks/health/README.md#get) - Get the health status of the server
 - [`lakesDatasetsCreate`](docs/sdks/datasets/README.md#create) - Create a Lake Dataset (Cribl.Cloud only)
@@ -523,7 +523,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`nodesGet`](docs/sdks/nodes/README.md#get) - Get detailed metadata for a Worker, Edge, or Outpost Node
 - [`nodesList`](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker, Edge, or Outpost Nodes
 - [`nodesRestart`](docs/sdks/nodes/README.md#restart) - Restart Worker, Edge, or Outpost Nodes
-- [`nodesSummariesGet`](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a specific product.
+- [`nodesSummariesGet`](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a Cribl product
 - [`packsDelete`](docs/sdks/packs/README.md#delete) - Uninstall a Pack
 - [`packsDestinationsCreate`](docs/sdks/packsdestinations/README.md#create) - Create a Destination within a Pack
 - [`packsDestinationsDelete`](docs/sdks/packsdestinations/README.md#delete) - Delete a Destination within a Pack
@@ -547,7 +547,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`packsRoutesAppend`](docs/sdks/packsroutes/README.md#append) - Add a Route to the end of the Routing table within a Pack
 - [`packsRoutesGet`](docs/sdks/packsroutes/README.md#get) - Get a Routing table within a Pack
 - [`packsRoutesList`](docs/sdks/packsroutes/README.md#list) - List all Routes within a Pack
-- [`packsRoutesUpdate`](docs/sdks/packsroutes/README.md#update) - Update a Route within a Pack
+- [`packsRoutesUpdate`](docs/sdks/packsroutes/README.md#update) - Update a Routing table within a Pack
 - [`packsSourcesCreate`](docs/sdks/packssources/README.md#create) - Create a Source within a Pack
 - [`packsSourcesDelete`](docs/sdks/packssources/README.md#delete) - Delete a Source within a Pack
 - [`packsSourcesGet`](docs/sdks/packssources/README.md#get) - Get a Source within a Pack
@@ -569,7 +569,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`routesAppend`](docs/sdks/routes/README.md#append) - Add a Route to the end of the Routing table
 - [`routesGet`](docs/sdks/routes/README.md#get) - Get a Routing table
 - [`routesList`](docs/sdks/routes/README.md#list) - List all Routes
-- [`routesUpdate`](docs/sdks/routes/README.md#update) - Update a Route
+- [`routesUpdate`](docs/sdks/routes/README.md#update) - Update a Routing table
 - [`sourcesCreate`](docs/sdks/sources/README.md#create) - Create a Source
 - [`sourcesDelete`](docs/sdks/sources/README.md#delete) - Delete a Source
 - [`sourcesGet`](docs/sdks/sources/README.md#get) - Get a Source
@@ -665,9 +665,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.packs.sources.statuses.list({
-    pack: "<value>",
-  });
+  const result = await criblControlPlane.functions.list();
 
   for await (const page of result) {
     console.log(page);

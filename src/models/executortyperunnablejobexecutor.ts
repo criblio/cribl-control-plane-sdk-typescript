@@ -23,6 +23,9 @@ export type ExecutorTypeRunnableJobExecutor = {
    * Determines whether or not to write task results to disk
    */
   storeTaskResults?: boolean | undefined;
+  /**
+   * Executor-specific settings
+   */
   conf?: ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor | undefined;
 };
 

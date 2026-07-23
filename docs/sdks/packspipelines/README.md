@@ -14,9 +14,9 @@
 
 Get a list of all Pipelines within the specified Pack.
 
-### Example Usage
+### Example Usage: PipelineResponseExamplesEmptyPipeline
 
-<!-- UsageSnippet language="typescript" operationID="getPipelinesByPack" method="get" path="/p/{pack}/pipelines" -->
+<!-- UsageSnippet language="typescript" operationID="getPipelinesByPack" method="get" path="/p/{pack}/pipelines" example="PipelineResponseExamplesEmptyPipeline" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -32,7 +32,9 @@ async function run() {
     pack: "<value>",
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -61,7 +63,68 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
+  } else {
+    console.log("packsPipelinesList failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="typescript" operationID="getPipelinesByPack" method="get" path="/p/{pack}/pipelines" example="PipelineResponseExamplesEvalPipeline" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.pipelines.list({
+    pack: "<value>",
+  });
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsPipelinesList } from "cribl-control-plane/funcs/packsPipelinesList.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsPipelinesList(criblControlPlane, {
+    pack: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("packsPipelinesList failed:", res.error);
   }
@@ -81,12 +144,13 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedPipeline](../../models/countedpipeline.md)\>**
+**Promise\<[operations.GetPipelinesByPackResponse](../../models/operations/getpipelinesbypackresponse.md)\>**
 
 ### Errors
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -3097,6 +3161,7 @@ async function run() {
             id: "serde",
             conf: {
               type: "kvp",
+              srcField: "_raw",
               keep: [
                 "a",
                 "b",
@@ -3107,7 +3172,6 @@ async function run() {
               ],
               cleanFields: false,
               mode: "extract",
-              srcField: "_raw",
             },
           },
         ],
@@ -3157,6 +3221,7 @@ async function run() {
             id: "serde",
             conf: {
               type: "kvp",
+              srcField: "_raw",
               keep: [
                 "a",
                 "b",
@@ -3167,7 +3232,6 @@ async function run() {
               ],
               cleanFields: false,
               mode: "extract",
-              srcField: "_raw",
             },
           },
         ],
@@ -4586,6 +4650,176 @@ async function run() {
 
 run();
 ```
+### Example Usage: PipelineResponseExamplesEmptyPipeline
+
+<!-- UsageSnippet language="typescript" operationID="createPipelinesByPack" method="post" path="/p/{pack}/pipelines" example="PipelineResponseExamplesEmptyPipeline" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.pipelines.create({
+    pack: "<value>",
+    pipeline: {
+      id: "<id>",
+      conf: {
+        functions: [
+          {
+            id: "mv_pull",
+            conf: {
+              arrayPath: "<value>",
+              relativeKeyPath: "<value>",
+              relativeValuePath: "<value>",
+            },
+          },
+        ],
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsPipelinesCreate } from "cribl-control-plane/funcs/packsPipelinesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsPipelinesCreate(criblControlPlane, {
+    pack: "<value>",
+    pipeline: {
+      id: "<id>",
+      conf: {
+        functions: [
+          {
+            id: "mv_pull",
+            conf: {
+              arrayPath: "<value>",
+              relativeKeyPath: "<value>",
+              relativeValuePath: "<value>",
+            },
+          },
+        ],
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsPipelinesCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="typescript" operationID="createPipelinesByPack" method="post" path="/p/{pack}/pipelines" example="PipelineResponseExamplesEvalPipeline" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.pipelines.create({
+    pack: "<value>",
+    pipeline: {
+      id: "<id>",
+      conf: {
+        functions: [
+          {
+            id: "mv_pull",
+            conf: {
+              arrayPath: "<value>",
+              relativeKeyPath: "<value>",
+              relativeValuePath: "<value>",
+            },
+          },
+        ],
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsPipelinesCreate } from "cribl-control-plane/funcs/packsPipelinesCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsPipelinesCreate(criblControlPlane, {
+    pack: "<value>",
+    pipeline: {
+      id: "<id>",
+      conf: {
+        functions: [
+          {
+            id: "mv_pull",
+            conf: {
+              arrayPath: "<value>",
+              relativeKeyPath: "<value>",
+              relativeValuePath: "<value>",
+            },
+          },
+        ],
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsPipelinesCreate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -4604,6 +4838,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -4611,9 +4846,66 @@ run();
 
 Get the specified Pipeline within the specified Pack.
 
-### Example Usage
+### Example Usage: PipelineResponseExamplesEmptyPipeline
 
-<!-- UsageSnippet language="typescript" operationID="getPipelinesByPackAndId" method="get" path="/p/{pack}/pipelines/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="getPipelinesByPackAndId" method="get" path="/p/{pack}/pipelines/{id}" example="PipelineResponseExamplesEmptyPipeline" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.pipelines.get({
+    id: "<id>",
+    pack: "<value>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsPipelinesGet } from "cribl-control-plane/funcs/packsPipelinesGet.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsPipelinesGet(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsPipelinesGet failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="typescript" operationID="getPipelinesByPackAndId" method="get" path="/p/{pack}/pipelines/{id}" example="PipelineResponseExamplesEvalPipeline" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -4686,12 +4978,13 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
 ## update
 
-Update the specified Pipeline within the specified Pack.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
+Update the specified Pipeline within the specified Pack.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body.<br/><br/>This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request.<br/><br/>If the configuration is incorrect, the updated Pipeline might not function as expected.
 
 ### Example Usage: PipelineExamplesAggregateMetrics
 
@@ -7749,6 +8042,7 @@ async function run() {
             id: "serde",
             conf: {
               type: "kvp",
+              srcField: "_raw",
               keep: [
                 "a",
                 "b",
@@ -7759,7 +8053,6 @@ async function run() {
               ],
               cleanFields: false,
               mode: "extract",
-              srcField: "_raw",
             },
           },
         ],
@@ -7810,6 +8103,7 @@ async function run() {
             id: "serde",
             conf: {
               type: "kvp",
+              srcField: "_raw",
               keep: [
                 "a",
                 "b",
@@ -7820,7 +8114,6 @@ async function run() {
               ],
               cleanFields: false,
               mode: "extract",
-              srcField: "_raw",
             },
           },
         ],
@@ -9252,6 +9545,164 @@ async function run() {
         groups: {
   
         },
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsPipelinesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: PipelineResponseExamplesEmptyPipeline
+
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesByPackAndId" method="patch" path="/p/{pack}/pipelines/{id}" example="PipelineResponseExamplesEmptyPipeline" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.pipelines.update({
+    id: "<id>",
+    pack: "<value>",
+    pipeline: {
+      id: "<id>",
+      conf: {
+        functions: [
+          {
+            id: "gen_stats",
+            conf: {},
+          },
+        ],
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsPipelinesUpdate } from "cribl-control-plane/funcs/packsPipelinesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsPipelinesUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    pipeline: {
+      id: "<id>",
+      conf: {
+        functions: [
+          {
+            id: "gen_stats",
+            conf: {},
+          },
+        ],
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsPipelinesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesByPackAndId" method="patch" path="/p/{pack}/pipelines/{id}" example="PipelineResponseExamplesEvalPipeline" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.pipelines.update({
+    id: "<id>",
+    pack: "<value>",
+    pipeline: {
+      id: "<id>",
+      conf: {
+        functions: [
+          {
+            id: "gen_stats",
+            conf: {},
+          },
+        ],
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsPipelinesUpdate } from "cribl-control-plane/funcs/packsPipelinesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsPipelinesUpdate(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+    pipeline: {
+      id: "<id>",
+      conf: {
+        functions: [
+          {
+            id: "gen_stats",
+            conf: {},
+          },
+        ],
       },
     },
   });
@@ -12321,6 +12772,7 @@ async function run() {
             id: "serde",
             conf: {
               type: "kvp",
+              srcField: "_raw",
               keep: [
                 "a",
                 "b",
@@ -12331,7 +12783,6 @@ async function run() {
               ],
               cleanFields: false,
               mode: "extract",
-              srcField: "_raw",
             },
           },
         ],
@@ -12382,6 +12833,7 @@ async function run() {
             id: "serde",
             conf: {
               type: "kvp",
+              srcField: "_raw",
               keep: [
                 "a",
                 "b",
@@ -12392,7 +12844,6 @@ async function run() {
               ],
               cleanFields: false,
               mode: "extract",
-              srcField: "_raw",
             },
           },
         ],
@@ -13855,6 +14306,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -13862,9 +14314,66 @@ run();
 
 Delete the specified Pipeline within the specified Pack.
 
-### Example Usage
+### Example Usage: PipelineResponseExamplesEmptyPipeline
 
-<!-- UsageSnippet language="typescript" operationID="deletePipelinesByPackAndId" method="delete" path="/p/{pack}/pipelines/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="deletePipelinesByPackAndId" method="delete" path="/p/{pack}/pipelines/{id}" example="PipelineResponseExamplesEmptyPipeline" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.pipelines.delete({
+    id: "<id>",
+    pack: "<value>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsPipelinesDelete } from "cribl-control-plane/funcs/packsPipelinesDelete.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsPipelinesDelete(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsPipelinesDelete failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="typescript" operationID="deletePipelinesByPackAndId" method="delete" path="/p/{pack}/pipelines/{id}" example="PipelineResponseExamplesEvalPipeline" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -13937,5 +14446,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

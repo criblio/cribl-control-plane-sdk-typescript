@@ -14,6 +14,11 @@ import {
   OutputAlphasocS3$outboundSchema,
 } from "./outputalphasocs3.js";
 import {
+  OutputAmazonManagedPrometheus,
+  OutputAmazonManagedPrometheus$Outbound,
+  OutputAmazonManagedPrometheus$outboundSchema,
+} from "./outputamazonmanagedprometheus.js";
+import {
   OutputAzureBlob,
   OutputAzureBlob$Outbound,
   OutputAzureBlob$outboundSchema,
@@ -89,6 +94,11 @@ import {
   OutputCrowdstrikeNextGenSiem$outboundSchema,
 } from "./outputcrowdstrikenextgensiem.js";
 import {
+  OutputCustomerMetricsStorage,
+  OutputCustomerMetricsStorage$Outbound,
+  OutputCustomerMetricsStorage$outboundSchema,
+} from "./outputcustomermetricsstorage.js";
+import {
   OutputDatabricks,
   OutputDatabricks$Outbound,
   OutputDatabricks$outboundSchema,
@@ -159,6 +169,11 @@ import {
   OutputFilesystem$outboundSchema,
 } from "./outputfilesystem.js";
 import {
+  OutputGoogleBigquery,
+  OutputGoogleBigquery$Outbound,
+  OutputGoogleBigquery$outboundSchema,
+} from "./outputgooglebigquery.js";
+import {
   OutputGoogleChronicle,
   OutputGoogleChronicle$Outbound,
   OutputGoogleChronicle$outboundSchema,
@@ -203,6 +218,11 @@ import {
   OutputHumioHec$Outbound,
   OutputHumioHec$outboundSchema,
 } from "./outputhumiohec.js";
+import {
+  OutputIbmCloudS3,
+  OutputIbmCloudS3$Outbound,
+  OutputIbmCloudS3$outboundSchema,
+} from "./outputibmclouds3.js";
 import {
   OutputInfluxdb,
   OutputInfluxdb$Outbound,
@@ -324,6 +344,11 @@ import {
   OutputSnmp$outboundSchema,
 } from "./outputsnmp.js";
 import {
+  OutputSnowflakeStreaming,
+  OutputSnowflakeStreaming$Outbound,
+  OutputSnowflakeStreaming$outboundSchema,
+} from "./outputsnowflakestreaming.js";
+import {
   OutputSns,
   OutputSns$Outbound,
   OutputSns$outboundSchema,
@@ -420,6 +445,7 @@ export type Output =
   | OutputKinesis
   | OutputHoneycomb
   | OutputAzureEventhub
+  | OutputGoogleBigquery
   | OutputGoogleChronicle
   | OutputGoogleCloudStorage
   | OutputGoogleCloudLogging
@@ -447,6 +473,7 @@ export type Output =
   | OutputDatadog
   | (OutputGrafanaCloud & { type: "grafana_cloud" })
   | OutputLoki
+  | OutputAmazonManagedPrometheus
   | OutputPrometheus
   | OutputRing
   | OutputOpenTelemetry
@@ -462,6 +489,7 @@ export type Output =
   | OutputCriblLake
   | OutputDiskSpool
   | OutputClickHouse
+  | OutputCustomerMetricsStorage
   | OutputLocalSearchStorage
   | OutputXsiam
   | OutputNetflow
@@ -470,6 +498,7 @@ export type Output =
   | OutputSentinelOneAiSiem
   | OutputChronicle
   | OutputDatabricks
+  | OutputSnowflakeStreaming
   | OutputMicrosoftFabric
   | OutputCloudflareR2
   | OutputNutanixObjects
@@ -478,7 +507,8 @@ export type Output =
   | OutputDellS3
   | OutputCloudianS3
   | OutputScalityS3
-  | OutputAlibabaCloudS3;
+  | OutputAlibabaCloudS3
+  | OutputIbmCloudS3;
 
 /** @internal */
 export type Output$Outbound =
@@ -502,6 +532,7 @@ export type Output$Outbound =
   | OutputKinesis$Outbound
   | OutputHoneycomb$Outbound
   | OutputAzureEventhub$Outbound
+  | OutputGoogleBigquery$Outbound
   | OutputGoogleChronicle$Outbound
   | OutputGoogleCloudStorage$Outbound
   | OutputGoogleCloudLogging$Outbound
@@ -529,6 +560,7 @@ export type Output$Outbound =
   | OutputDatadog$Outbound
   | (OutputGrafanaCloud$Outbound & { type: "grafana_cloud" })
   | OutputLoki$Outbound
+  | OutputAmazonManagedPrometheus$Outbound
   | OutputPrometheus$Outbound
   | OutputRing$Outbound
   | OutputOpenTelemetry$Outbound
@@ -544,6 +576,7 @@ export type Output$Outbound =
   | OutputCriblLake$Outbound
   | OutputDiskSpool$Outbound
   | OutputClickHouse$Outbound
+  | OutputCustomerMetricsStorage$Outbound
   | OutputLocalSearchStorage$Outbound
   | OutputXsiam$Outbound
   | OutputNetflow$Outbound
@@ -552,6 +585,7 @@ export type Output$Outbound =
   | OutputSentinelOneAiSiem$Outbound
   | OutputChronicle$Outbound
   | OutputDatabricks$Outbound
+  | OutputSnowflakeStreaming$Outbound
   | OutputMicrosoftFabric$Outbound
   | OutputCloudflareR2$Outbound
   | OutputNutanixObjects$Outbound
@@ -560,7 +594,8 @@ export type Output$Outbound =
   | OutputDellS3$Outbound
   | OutputCloudianS3$Outbound
   | OutputScalityS3$Outbound
-  | OutputAlibabaCloudS3$Outbound;
+  | OutputAlibabaCloudS3$Outbound
+  | OutputIbmCloudS3$Outbound;
 
 /** @internal */
 export const Output$outboundSchema: z.ZodType<
@@ -588,6 +623,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputKinesis$outboundSchema,
   OutputHoneycomb$outboundSchema,
   OutputAzureEventhub$outboundSchema,
+  OutputGoogleBigquery$outboundSchema,
   OutputGoogleChronicle$outboundSchema,
   OutputGoogleCloudStorage$outboundSchema,
   OutputGoogleCloudLogging$outboundSchema,
@@ -617,6 +653,7 @@ export const Output$outboundSchema: z.ZodType<
     z.object({ type: z.literal("grafana_cloud") }),
   ),
   OutputLoki$outboundSchema,
+  OutputAmazonManagedPrometheus$outboundSchema,
   OutputPrometheus$outboundSchema,
   OutputRing$outboundSchema,
   OutputOpenTelemetry$outboundSchema,
@@ -632,6 +669,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputCriblLake$outboundSchema,
   OutputDiskSpool$outboundSchema,
   OutputClickHouse$outboundSchema,
+  OutputCustomerMetricsStorage$outboundSchema,
   OutputLocalSearchStorage$outboundSchema,
   OutputXsiam$outboundSchema,
   OutputNetflow$outboundSchema,
@@ -640,6 +678,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputSentinelOneAiSiem$outboundSchema,
   OutputChronicle$outboundSchema,
   OutputDatabricks$outboundSchema,
+  OutputSnowflakeStreaming$outboundSchema,
   OutputMicrosoftFabric$outboundSchema,
   OutputCloudflareR2$outboundSchema,
   OutputNutanixObjects$outboundSchema,
@@ -649,6 +688,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputCloudianS3$outboundSchema,
   OutputScalityS3$outboundSchema,
   OutputAlibabaCloudS3$outboundSchema,
+  OutputIbmCloudS3$outboundSchema,
 ]);
 
 export function outputToJSON(output: Output): string {

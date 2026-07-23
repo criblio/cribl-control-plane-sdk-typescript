@@ -210,6 +210,18 @@ const value: models.OutputAzureEventhub = {
 };
 ```
 
+### `models.OutputGoogleBigquery`
+
+```typescript
+const value: models.OutputGoogleBigquery = {
+  type: "google_bigquery",
+  projectId: "<id>",
+  datasetId: "<id>",
+  tableId: "<id>",
+  googleAuthMethod: "secret",
+};
+```
+
 ### `models.OutputGoogleChronicle`
 
 ```typescript
@@ -486,6 +498,17 @@ const value: models.OutputLoki = {
 };
 ```
 
+### `models.OutputAmazonManagedPrometheus`
+
+```typescript
+const value: models.OutputAmazonManagedPrometheus = {
+  type: "amazon_managed_prometheus",
+  url: "https://rusty-hovel.org/",
+  awsAuthenticationMethod: "secret",
+  region: "<value>",
+};
+```
+
 ### `models.OutputPrometheus`
 
 ```typescript
@@ -627,6 +650,17 @@ const value: models.OutputClickHouse = {
 };
 ```
 
+### `models.OutputCustomerMetricsStorage`
+
+```typescript
+const value: models.OutputCustomerMetricsStorage = {
+  type: "customer_metrics_storage",
+  url: "https://broken-goodwill.com",
+  database: "<value>",
+  tableName: "<value>",
+};
+```
+
 ### `models.OutputLocalSearchStorage`
 
 ```typescript
@@ -718,6 +752,22 @@ const value: models.OutputDatabricks = {
   schema: "<value>",
   eventsVolumeName: "<value>",
   clientTextSecret: "<value>",
+};
+```
+
+### `models.OutputSnowflakeStreaming`
+
+```typescript
+const value: models.OutputSnowflakeStreaming = {
+  type: "snowflake_streaming",
+  accountIdentifier: "<value>",
+  user: "Claire_McLaughlin",
+  pem: {
+    keyName: "<value>",
+  },
+  database: "<value>",
+  schema: "<value>",
+  table: "<value>",
 };
 ```
 
@@ -815,6 +865,17 @@ const value: models.OutputAlibabaCloudS3 = {
   bucket: "<value>",
   stagePath: "<value>",
   endpoint: "<value>",
+};
+```
+
+### `models.OutputIbmCloudS3`
+
+```typescript
+const value: models.OutputIbmCloudS3 = {
+  type: "ibm_cloud_s3",
+  endpoint: "<value>",
+  bucket: "<value>",
+  stagePath: "<value>",
 };
 ```
 

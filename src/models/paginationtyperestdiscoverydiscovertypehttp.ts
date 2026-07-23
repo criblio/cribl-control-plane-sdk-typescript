@@ -12,6 +12,9 @@ import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type RestDiscoveryDiscoverTypeHttpPaginationTypeRequestPage = {
+  /**
+   * Pagination
+   */
   type: "request_page";
   /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
@@ -76,6 +79,9 @@ export type RestDiscoveryDiscoverTypeHttpPaginationTypeRequestPage = {
 };
 
 export type RestDiscoveryDiscoverTypeHttpPaginationTypeRequestOffset = {
+  /**
+   * Pagination
+   */
   type: "request_offset";
   /**
    * Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
@@ -140,6 +146,9 @@ export type RestDiscoveryDiscoverTypeHttpPaginationTypeRequestOffset = {
 };
 
 export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderLink = {
+  /**
+   * Pagination
+   */
   type: "response_header_link";
   /**
    * Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
@@ -211,6 +220,9 @@ export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeaderResponseAtt
   | string;
 
 export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseHeader = {
+  /**
+   * Pagination
+   */
   type: "response_header";
   /**
    * Names of attributes within the response that contain next-page information
@@ -286,6 +298,9 @@ export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBodyResponseAttri
   | string;
 
 export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBody = {
+  /**
+   * Pagination
+   */
   type: "response_body";
   /**
    * Names of attributes within the response that contain next-page information
@@ -354,6 +369,9 @@ export type RestDiscoveryDiscoverTypeHttpPaginationTypeResponseBody = {
 };
 
 export type RestDiscoveryDiscoverTypeHttpPaginationTypeNone = {
+  /**
+   * Pagination
+   */
   type: "none";
   /**
    * Maximum number of pages to retrieve for the discover task. Defaults to 50 pages. Set to 0 to retrieve all pages.

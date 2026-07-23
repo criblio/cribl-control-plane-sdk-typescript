@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { ClosedEnum } from "../types/enums.js";
 import { smartUnion } from "../types/smartUnion.js";
 import {
   ConnectionConfInputCollection,
@@ -22,17 +21,18 @@ import {
   TlsSettingsServerSideType$outboundSchema,
 } from "./tlssettingsserversidetype.js";
 
-export const InputSyslogType2 = {
-  Syslog: "syslog",
-} as const;
-export type InputSyslogType2 = ClosedEnum<typeof InputSyslogType2>;
-
 export type InputSyslogSyslogInput2 = {
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSyslogType2;
+  /**
+   * Connector type identifier.
+   */
+  type: string;
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -51,7 +51,7 @@ export type InputSyslogSyslogInput2 = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -127,6 +127,9 @@ export type InputSyslogSyslogInput2 = {
    * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
    */
   socketMaxLifespan?: number | undefined;
+  /**
+   * TLS settings (server side)
+   */
   tls?: TlsSettingsServerSideType | undefined;
   /**
    * Fields to add to events from this input
@@ -140,6 +143,9 @@ export type InputSyslogSyslogInput2 = {
    * Load balance traffic across all Worker Processes
    */
   enableLoadBalancing?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
@@ -171,17 +177,18 @@ export type InputSyslogSyslogInput2 = {
   __template_timestampTimezone?: string | undefined;
 };
 
-export const InputSyslogType1 = {
-  Syslog: "syslog",
-} as const;
-export type InputSyslogType1 = ClosedEnum<typeof InputSyslogType1>;
-
 export type InputSyslogSyslogInput1 = {
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSyslogType1;
+  /**
+   * Connector type identifier.
+   */
+  type: string;
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -200,7 +207,7 @@ export type InputSyslogSyslogInput1 = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -276,6 +283,9 @@ export type InputSyslogSyslogInput1 = {
    * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
    */
   socketMaxLifespan?: number | undefined;
+  /**
+   * TLS settings (server side)
+   */
   tls?: TlsSettingsServerSideType | undefined;
   /**
    * Fields to add to events from this input
@@ -289,6 +299,9 @@ export type InputSyslogSyslogInput1 = {
    * Load balance traffic across all Worker Processes
    */
   enableLoadBalancing?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
@@ -323,11 +336,6 @@ export type InputSyslogSyslogInput1 = {
 export type InputSyslogInputUnion =
   | InputSyslogSyslogInput1
   | InputSyslogSyslogInput2;
-
-/** @internal */
-export const InputSyslogType2$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogType2
-> = z.nativeEnum(InputSyslogType2);
 
 /** @internal */
 export type InputSyslogSyslogInput2$Outbound = {
@@ -379,7 +387,7 @@ export const InputSyslogSyslogInput2$outboundSchema: z.ZodType<
   InputSyslogSyslogInput2
 > = z.object({
   id: z.string().optional(),
-  type: InputSyslogType2$outboundSchema,
+  type: z.string(),
   disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().optional(),
@@ -426,11 +434,6 @@ export function inputSyslogSyslogInput2ToJSON(
     InputSyslogSyslogInput2$outboundSchema.parse(inputSyslogSyslogInput2),
   );
 }
-
-/** @internal */
-export const InputSyslogType1$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogType1
-> = z.nativeEnum(InputSyslogType1);
 
 /** @internal */
 export type InputSyslogSyslogInput1$Outbound = {
@@ -482,7 +485,7 @@ export const InputSyslogSyslogInput1$outboundSchema: z.ZodType<
   InputSyslogSyslogInput1
 > = z.object({
   id: z.string().optional(),
-  type: InputSyslogType1$outboundSchema,
+  type: z.string(),
   disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().optional(),

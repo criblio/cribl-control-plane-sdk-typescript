@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  * Create a new commit for pending changes to the Cribl configuration
  *
  * @remarks
- * Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br> To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
+ * Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.<br/><br/>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
  */
 export function versionsCommitsCreate(
   client: CriblControlPlaneCore,
@@ -39,6 +39,7 @@ export function versionsCommitsCreate(
 ): APIPromise<
   Result<
     models.CountedGitCommitSummary,
+    | errors.RestApiJsonError
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -65,6 +66,7 @@ async function $do(
   [
     Result<
       models.CountedGitCommitSummary,
+      | errors.RestApiJsonError
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -157,6 +159,7 @@ async function $do(
 
   const [result] = await M.match<
     models.CountedGitCommitSummary,
+    | errors.RestApiJsonError
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -168,8 +171,10 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, models.CountedGitCommitSummary$inboundSchema),
+    M.jsonErr(400, errors.RestApiJsonError$inboundSchema),
+    M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

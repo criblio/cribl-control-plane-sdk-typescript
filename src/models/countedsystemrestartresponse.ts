@@ -16,11 +16,11 @@ export type CountedSystemRestartResponse = {
   /**
    * number of items present in the items array
    */
-  count?: number | undefined;
+  count: number;
   /**
    * List of items in this response.
    */
-  items?: Array<SystemRestartResponse> | undefined;
+  items: Array<SystemRestartResponse>;
 };
 
 /** @internal */
@@ -29,8 +29,8 @@ export const CountedSystemRestartResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: types.optional(types.number()),
-  items: types.optional(z.array(SystemRestartResponse$inboundSchema)),
+  count: types.number(),
+  items: z.array(SystemRestartResponse$inboundSchema),
 });
 
 export function countedSystemRestartResponseFromJSON(

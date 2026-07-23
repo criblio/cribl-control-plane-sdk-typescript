@@ -16,11 +16,11 @@ export type CountedOutputSamplesResponse = {
   /**
    * number of items present in the items array
    */
-  count?: number | undefined;
+  count: number;
   /**
    * List of items in this response.
    */
-  items?: Array<OutputSamplesResponse> | undefined;
+  items: Array<OutputSamplesResponse>;
 };
 
 /** @internal */
@@ -29,8 +29,8 @@ export const CountedOutputSamplesResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: types.optional(types.number()),
-  items: types.optional(z.array(OutputSamplesResponse$inboundSchema)),
+  count: types.number(),
+  items: z.array(OutputSamplesResponse$inboundSchema),
 });
 
 export function countedOutputSamplesResponseFromJSON(

@@ -45,6 +45,9 @@ export type InputWefAuthenticationMethod = OpenEnum<
   typeof InputWefAuthenticationMethod
 >;
 
+/**
+ * mTLS settings
+ */
 export type InputWefMTLSSettings = {
   /**
    * Enable TLS
@@ -82,7 +85,13 @@ export type InputWefMTLSSettings = {
    * Regex matching allowable common names in peer certificates' subject attribute
    */
   commonNameRegex?: string | undefined;
+  /**
+   * Minimum TLS version
+   */
   minVersion?: MinimumTlsVersionOptionsTls | undefined;
+  /**
+   * Maximum TLS version
+   */
   maxVersion?: MaximumTlsVersionOptionsTls | undefined;
   /**
    * Enable OCSP check of certificate
@@ -106,10 +115,16 @@ export const InputWefFormat = {
  */
 export type InputWefFormat = OpenEnum<typeof InputWefFormat>;
 
+/**
+ * Query builder mode
+ */
 export const InputWefQueryBuilderMode = {
   Simple: "simple",
   Xml: "xml",
 } as const;
+/**
+ * Query builder mode
+ */
 export type InputWefQueryBuilderMode = OpenEnum<
   typeof InputWefQueryBuilderMode
 >;
@@ -126,6 +141,9 @@ export type InputWefQuery = {
 };
 
 export type InputWefSubscription = {
+  /**
+   * Subscription name
+   */
   subscriptionName: string;
   /**
    * Version UUID for this subscription. If any subscription parameters are modified, this value will change.
@@ -163,11 +181,17 @@ export type InputWefSubscription = {
    * The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
    */
   locale?: string | undefined;
+  /**
+   * Query builder mode
+   */
   querySelector?: InputWefQueryBuilderMode | undefined;
   /**
    * Fields to add to events ingested under this subscription
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Queries
+   */
   queries?: Array<InputWefQuery> | undefined;
   /**
    * The XPath query to use for selecting events
@@ -180,7 +204,13 @@ export type InputWefInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "wef";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -199,7 +229,7 @@ export type InputWefInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -219,6 +249,9 @@ export type InputWefInput = {
    * How to authenticate incoming client connections
    */
   authMethod?: InputWefAuthenticationMethod | undefined;
+  /**
+   * mTLS settings
+   */
   tls?: InputWefMTLSSettings | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -280,6 +313,9 @@ export type InputWefInput = {
    * Fields to add to events from this input
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.

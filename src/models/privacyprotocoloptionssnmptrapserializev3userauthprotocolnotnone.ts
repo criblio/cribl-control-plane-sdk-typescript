@@ -6,6 +6,9 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
+/**
+ * Privacy protocol
+ */
 export const PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone =
   {
     /**
@@ -29,6 +32,9 @@ export const PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone =
      */
     Aes256r: "aes256r",
   } as const;
+/**
+ * Privacy protocol
+ */
 export type PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone =
   OpenEnum<
     typeof PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone

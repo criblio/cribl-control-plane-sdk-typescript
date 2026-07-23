@@ -8,9 +8,12 @@ import { UpdateInputByIdRequest } from "cribl-control-plane/models/operations";
 let value: UpdateInputByIdRequest = {
   id: "<id>",
   input: {
-    type: "netflow",
-    host: "fake-promise.name",
-    port: 8170.81,
+    type: "servicenow_table",
+    instance: "<value>",
+    tableName: "<value>",
+    cronSchedule: "<value>",
+    earliest: "<value>",
+    latest: "<value>",
   },
 };
 ```

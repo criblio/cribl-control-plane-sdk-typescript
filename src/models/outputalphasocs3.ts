@@ -56,6 +56,9 @@ export type OutputAlphasocS3 = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "alphasoc_s3";
   /**
    * Pipeline to process data before sending out to this output
@@ -70,7 +73,7 @@ export type OutputAlphasocS3 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -174,11 +177,17 @@ export type OutputAlphasocS3 = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  /**
+   * Orphan file recovery
+   */
   orphans?: OrphanFileRecoveryType | undefined;
   /**
    * AlphaSOC S3-compatible endpoint URL (example: https://s3.alphasoc.net)
    */
   endpoint?: string | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key

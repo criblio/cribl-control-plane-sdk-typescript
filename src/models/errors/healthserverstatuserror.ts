@@ -11,6 +11,10 @@ import { CriblControlPlaneError } from "./criblcontrolplaneerror.js";
  * Health status of the Leader or Worker Node.
  */
 export type HealthServerStatusErrorData = {
+  /**
+   * Whether this node is currently the captain (job scheduling coordinator) in a Collectors HA deployment.
+   */
+  isCaptain?: boolean | undefined;
   overlay: models.HealthOverlayStatus;
   /**
    * Leader Node role: <code>primary</code> or <code>standby</code>.
@@ -30,6 +34,10 @@ export type HealthServerStatusErrorData = {
  * Health status of the Leader or Worker Node.
  */
 export class HealthServerStatusError extends CriblControlPlaneError {
+  /**
+   * Whether this node is currently the captain (job scheduling coordinator) in a Collectors HA deployment.
+   */
+  isCaptain?: boolean | undefined;
   overlay: models.HealthOverlayStatus;
   /**
    * Leader Node role: <code>primary</code> or <code>standby</code>.
@@ -56,6 +64,7 @@ export class HealthServerStatusError extends CriblControlPlaneError {
       : `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.isCaptain != null) this.isCaptain = err.isCaptain;
     this.overlay = err.overlay;
     if (err.role != null) this.role = err.role;
     this.startTime = err.startTime;
@@ -71,6 +80,7 @@ export const HealthServerStatusError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  isCaptain: types.optional(types.boolean()),
   overlay: models.HealthOverlayStatus$inboundSchema,
   role: types.optional(models.Role$inboundSchema),
   startTime: types.number(),

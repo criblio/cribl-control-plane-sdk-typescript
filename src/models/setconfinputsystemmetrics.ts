@@ -9,8 +9,17 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type SetConfInputSystemMetrics = {
+  /**
+   * Set Name
+   */
   name: string;
+  /**
+   * Filter Expression
+   */
   filter: string;
+  /**
+   * Include Child Processes
+   */
   includeChildren?: boolean | undefined;
 };
 

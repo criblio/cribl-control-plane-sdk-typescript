@@ -35,7 +35,7 @@ import { Result } from "../types/fp.js";
  */
 export function groupsDeploy(
   client: CriblControlPlaneCore,
-  request: operations.UpdateConfigGroupDeployByProductAndIdRequest,
+  request: operations.UpdateProductsGroupsDeployByProductAndIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -60,7 +60,7 @@ export function groupsDeploy(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.UpdateConfigGroupDeployByProductAndIdRequest,
+  request: operations.UpdateProductsGroupsDeployByProductAndIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -82,7 +82,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.UpdateConfigGroupDeployByProductAndIdRequest$outboundSchema
+      operations.UpdateProductsGroupsDeployByProductAndIdRequest$outboundSchema
         .parse(value),
     "Input validation failed",
   );
@@ -115,7 +115,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "updateConfigGroupDeployByProductAndId",
+    operationID: "updateProductsGroupsDeployByProductAndId",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -181,8 +181,9 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, models.CountedConfigGroup$inboundSchema),
+    M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

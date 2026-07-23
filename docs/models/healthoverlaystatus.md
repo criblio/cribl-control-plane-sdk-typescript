@@ -7,8 +7,6 @@
 
 ```typescript
 const value: models.ActiveHealthOverlayStatus = {
-  binaryVersion: "4.12.0",
-  overlayId: "patch.0",
   state: "active",
 };
 ```

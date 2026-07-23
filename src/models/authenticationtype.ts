@@ -34,8 +34,17 @@ import {
  * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
  */
 export type AuthenticationType = {
+  /**
+   * Disabled
+   */
   disabled: boolean;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Enter credentials directly, or select a stored secret
@@ -45,6 +54,9 @@ export type AuthenticationType = {
    * Select or create a secret that references your credentials
    */
   credentialsSecret?: string | undefined;
+  /**
+   * SASL mechanism
+   */
   mechanism?: SaslMechanismOptionsSasl | undefined;
   /**
    * Location of keytab file for authentication principal

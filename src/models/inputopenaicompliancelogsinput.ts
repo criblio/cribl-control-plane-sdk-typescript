@@ -26,6 +26,9 @@ import {
   RetryRulesType$outboundSchema,
 } from "./retryrulestype.js";
 
+/**
+ * Account type
+ */
 export const InputOpenaiComplianceLogsAccountType = {
   /**
    * Workspace
@@ -36,6 +39,9 @@ export const InputOpenaiComplianceLogsAccountType = {
    */
   Organization: "organization",
 } as const;
+/**
+ * Account type
+ */
 export type InputOpenaiComplianceLogsAccountType = OpenEnum<
   typeof InputOpenaiComplianceLogsAccountType
 >;
@@ -47,7 +53,13 @@ export type InputOpenaiComplianceLogsInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "openai_compliance_logs";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -66,7 +78,7 @@ export type InputOpenaiComplianceLogsInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -74,12 +86,21 @@ export type InputOpenaiComplianceLogsInput = {
    */
   connections?: Array<ConnectionConfInputCollection> | undefined;
   pq?: PqType | undefined;
+  /**
+   * API key
+   */
   apiKey?: string | undefined;
   /**
    * Select or create a stored text secret
    */
   textSecret: string;
+  /**
+   * Account type
+   */
   accountType: InputOpenaiComplianceLogsAccountType;
+  /**
+   * Cron schedule
+   */
   cronSchedule: string;
   /**
    * Relative to the current time. Format: [+|-]<time_integer><time_unit>
@@ -138,6 +159,9 @@ export type InputOpenaiComplianceLogsInput = {
    */
   staleChannelFlushMs?: number | undefined;
   retryRules?: RetryRulesType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * The ID of the ChatGPT workspace to collect logs from (UUID format)

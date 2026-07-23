@@ -33,7 +33,7 @@ export type GetInputStatusSystemInputsByPackRequest = {
 };
 
 export type GetInputStatusSystemInputsByPackResponse = {
-  result: models.CountedInputStatus;
+  result: models.PaginatedInputStatus;
 };
 
 /** @internal */
@@ -75,7 +75,7 @@ export const GetInputStatusSystemInputsByPackResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Result: models.CountedInputStatus$inboundSchema,
+  Result: models.PaginatedInputStatus$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
     "Result": "result",

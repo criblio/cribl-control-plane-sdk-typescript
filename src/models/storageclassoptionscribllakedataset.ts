@@ -10,9 +10,14 @@ import { OpenEnum } from "../types/enums.js";
  * Storage class used for objects written to the Dataset.
  */
 export const StorageClassOptionsCriblLakeDataset = {
+  Archive: "Archive",
+  Cold: "Cold",
+  Cool: "Cool",
   DeepArchive: "DEEP_ARCHIVE",
   Glacier: "GLACIER",
   GlacierIr: "GLACIER_IR",
+  Hot: "Hot",
+  Inferred: "Inferred",
   IntelligentTiering: "INTELLIGENT_TIERING",
   OnezoneIa: "ONEZONE_IA",
   Standard: "STANDARD",

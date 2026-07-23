@@ -1,5 +1,7 @@
 # PipelineFunctionGeoipConf
 
+Configuration specific to the Pipeline Function.
+
 ## Example Usage
 
 ```typescript
@@ -17,5 +19,5 @@ let value: PipelineFunctionGeoipConf = {
 | `file`                                                                                          | *string*                                                                                        | :heavy_check_mark:                                                                              | Select an uploaded Maxmind database, or specify path to a Maxmind database with .mmdb extension |
 | `inField`                                                                                       | *string*                                                                                        | :heavy_minus_sign:                                                                              | Field name in which to find an IP to look up. Can be nested.                                    |
 | `outField`                                                                                      | *string*                                                                                        | :heavy_minus_sign:                                                                              | Field name in which to store the GeoIP lookup results                                           |
-| `additionalFields`                                                                              | [models.AdditionalField](../models/additionalfield.md)[]                                        | :heavy_minus_sign:                                                                              | N/A                                                                                             |
+| `additionalFields`                                                                              | [models.AdditionalField](../models/additionalfield.md)[]                                        | :heavy_minus_sign:                                                                              | Additional IP fields on which to perform GeoIP lookups.                                         |
 | `outFieldMappings`                                                                              | [models.OutputFieldMappings](../models/outputfieldmappings.md)                                  | :heavy_minus_sign:                                                                              | Search-specific mappings for granular control over event enrichment                             |

@@ -9,16 +9,49 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type AzureTypeHeartbeatMetadata = {
+  /**
+   * If <code>true</code>, the Azure metadata collector is enabled on the node. Otherwise, <code>false</code>.
+   */
   enabled: boolean;
+  /**
+   * Azure VM hostname.
+   */
   hostname?: string | undefined;
+  /**
+   * Azure instance ID.
+   */
   instanceId?: string | undefined;
+  /**
+   * Azure VM name.
+   */
   name?: string | undefined;
+  /**
+   * Azure location or region.
+   */
   region?: string | undefined;
+  /**
+   * Azure resource group name.
+   */
   resourceGroup?: string | undefined;
+  /**
+   * Azure subscription ID.
+   */
   subscriptionId?: string | undefined;
+  /**
+   * String-keyed tag map. Each property name is a tag key and the corresponding value is the tag's string value.
+   */
   tags?: { [k: string]: string } | undefined;
+  /**
+   * Azure VM size or instance type.
+   */
   type?: string | undefined;
+  /**
+   * Azure VM ID.
+   */
   vmId?: string | undefined;
+  /**
+   * Azure availability zone.
+   */
   zone?: string | undefined;
 };
 

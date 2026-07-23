@@ -493,7 +493,7 @@ const value: models.InputSqsInput = {
 
 ```typescript
 const value: models.InputSyslogInputUnion = {
-  type: "syslog",
+  type: "<value>",
   host: "variable-tackle.net",
   tcpPort: 3569.95,
 };
@@ -645,6 +645,15 @@ const value: models.InputSecurityLakeInput = {
 };
 ```
 
+### `models.InputBedrockS3Input`
+
+```typescript
+const value: models.InputBedrockS3Input = {
+  type: "bedrock_s3",
+  queueName: "<value>",
+};
+```
+
 ### `models.InputServicenowTableInput`
 
 ```typescript
@@ -680,6 +689,28 @@ const value: models.InputCloudflareHecInput = {
 };
 ```
 
+### `models.InputSysdigHecInput`
+
+```typescript
+const value: models.InputSysdigHecInput = {
+  type: "sysdig_hec",
+  host: "rusty-nucleotidase.com",
+  port: 6154.42,
+  hecAPI: "<value>",
+};
+```
+
+### `models.InputUpwindHecInput`
+
+```typescript
+const value: models.InputUpwindHecInput = {
+  type: "upwind_hec",
+  host: "shiny-ceramic.info",
+  port: 718.92,
+  hecAPI: "<value>",
+};
+```
+
 ### `models.InputOpenaiComplianceLogsInput`
 
 ```typescript
@@ -697,14 +728,6 @@ const value: models.InputOpenaiComplianceLogsInput = {
 const value: models.InputAnthropicComplianceInput = {
   type: "anthropic_compliance",
   textSecret: "<value>",
-  contentConfig: [
-    {
-      contentType: "<value>",
-      cronSchedule: "<value>",
-      earliest: "<value>",
-      latest: "<value>",
-    },
-  ],
 };
 ```
 

@@ -8,12 +8,6 @@ import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 import {
-  CreateInputAuth,
-  CreateInputAuth$Outbound,
-  CreateInputAuth$outboundSchema,
-  CreateInputAzureBlobStorage,
-  CreateInputAzureBlobStorage$Outbound,
-  CreateInputAzureBlobStorage$outboundSchema,
   CreateInputInputAnthropicCompliance,
   CreateInputInputAnthropicCompliance$Outbound,
   CreateInputInputAnthropicCompliance$outboundSchema,
@@ -23,24 +17,18 @@ import {
   CreateInputInputAppscope,
   CreateInputInputAppscope$Outbound,
   CreateInputInputAppscope$outboundSchema,
+  CreateInputInputBedrockS3,
+  CreateInputInputBedrockS3$Outbound,
+  CreateInputInputBedrockS3$outboundSchema,
   CreateInputInputCloudflareHec,
   CreateInputInputCloudflareHec$Outbound,
   CreateInputInputCloudflareHec$outboundSchema,
-  CreateInputInputCribl,
-  CreateInputInputCribl$Outbound,
-  CreateInputInputCribl$outboundSchema,
-  CreateInputInputCriblHttp,
-  CreateInputInputCriblHttp$Outbound,
-  CreateInputInputCriblHttp$outboundSchema,
   CreateInputInputCriblLakeHttp,
   CreateInputInputCriblLakeHttp$Outbound,
   CreateInputInputCriblLakeHttp$outboundSchema,
   CreateInputInputCriblmetrics,
   CreateInputInputCriblmetrics$Outbound,
   CreateInputInputCriblmetrics$outboundSchema,
-  CreateInputInputCriblTcp,
-  CreateInputInputCriblTcp$Outbound,
-  CreateInputInputCriblTcp$outboundSchema,
   CreateInputInputCrowdstrike,
   CreateInputInputCrowdstrike$Outbound,
   CreateInputInputCrowdstrike$outboundSchema,
@@ -50,18 +38,9 @@ import {
   CreateInputInputDatagen,
   CreateInputInputDatagen$Outbound,
   CreateInputInputDatagen$outboundSchema,
-  CreateInputInputExec,
-  CreateInputInputExec$Outbound,
-  CreateInputInputExec$outboundSchema,
   CreateInputInputFile,
   CreateInputInputFile$Outbound,
   CreateInputInputFile$outboundSchema,
-  CreateInputInputFirehose,
-  CreateInputInputFirehose$Outbound,
-  CreateInputInputFirehose$outboundSchema,
-  CreateInputInputGooglePubsub,
-  CreateInputInputGooglePubsub$Outbound,
-  CreateInputInputGooglePubsub$outboundSchema,
   CreateInputInputHttpRaw,
   CreateInputInputHttpRaw$Outbound,
   CreateInputInputHttpRaw$outboundSchema,
@@ -122,6 +101,9 @@ import {
   CreateInputInputSqs,
   CreateInputInputSqs$Outbound,
   CreateInputInputSqs$outboundSchema,
+  CreateInputInputSysdigHec,
+  CreateInputInputSysdigHec$Outbound,
+  CreateInputInputSysdigHec$outboundSchema,
   CreateInputInputSyslogUnion,
   CreateInputInputSyslogUnion$Outbound,
   CreateInputInputSyslogUnion$outboundSchema,
@@ -137,6 +119,9 @@ import {
   CreateInputInputTcpjson,
   CreateInputInputTcpjson$Outbound,
   CreateInputInputTcpjson$outboundSchema,
+  CreateInputInputUpwindHec,
+  CreateInputInputUpwindHec$Outbound,
+  CreateInputInputUpwindHec$outboundSchema,
   CreateInputInputWef,
   CreateInputInputWef$Outbound,
   CreateInputInputWef$outboundSchema,
@@ -155,18 +140,20 @@ import {
   CreateInputInputZscalerHec,
   CreateInputInputZscalerHec$Outbound,
   CreateInputInputZscalerHec$outboundSchema,
-} from "./createinputazureblobstorage.js";
+} from "./createinputinputcribllakehttp.js";
 
-export type CreateInputCheckpointing = {
-  blobStore: CreateInputAzureBlobStorage;
-};
-
-export type CreateInputInputEventhubAmqp = {
+export type CreateInputInputCriblHttp = {
   /**
    * Unique ID for this input
    */
   id: string;
-  type: "eventhub_amqp";
+  /**
+   * Source type identifier.
+   */
+  type: "cribl_http";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -185,7 +172,816 @@ export type CreateInputInputEventhubAmqp = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
+   */
+  authTokens?: Array<models.AuthTokenConfInputCriblTcp> | undefined;
+  /**
+   * TLS settings (server side)
+   */
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+};
+
+export type CreateInputInputCriblTcp = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  /**
+   * Connector type identifier.
+   */
+  type: "cribl_tcp";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * TLS settings (server side)
+   */
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Load balance traffic across all Worker Processes
+   */
+  enableLoadBalancing?: boolean | undefined;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
+   */
+  authTokens?: Array<models.AuthTokenConfInputCriblTcp> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+};
+
+export type CreateInputInputCribl = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  /**
+   * Connector type identifier.
+   */
+  type: "cribl";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
+  filter?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+};
+
+export type CreateInputInputGooglePubsub = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  /**
+   * Connector type identifier.
+   */
+  type: "google_pubsub";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
+   */
+  topicName: string;
+  /**
+   * ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
+   */
+  subscriptionName: string;
+  /**
+   * Use when the subscription is not created by this Source and topic is not known
+   */
+  monitorSubscription?: boolean | undefined;
+  /**
+   * Create topic if it does not exist
+   */
+  createTopic?: boolean | undefined;
+  /**
+   * Create subscription if it does not exist
+   */
+  createSubscription?: boolean | undefined;
+  /**
+   * Region to retrieve messages from. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
+   */
+  region?: string | undefined;
+  /**
+   * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+   */
+  googleAuthMethod?: models.GoogleAuthenticationMethodOptions | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  secret?: string | undefined;
+  /**
+   * If Destination exerts backpressure, this setting limits how many inbound events Stream will queue for processing before it stops retrieving events
+   */
+  maxBacklog?: number | undefined;
+  /**
+   * How many streams to pull messages from at one time. Doubling the value doubles the number of messages this Source pulls from the topic (if available), while consuming more CPU and memory. Defaults to 5.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Pull request timeout, in milliseconds
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
+   */
+  orderedDelivery?: boolean | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
+   */
+  __template_topicName?: string | undefined;
+  /**
+   * Binds 'subscriptionName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subscriptionName' at runtime.
+   */
+  __template_subscriptionName?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+};
+
+export type CreateInputInputFirehose = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  /**
+   * Source type identifier.
+   */
+  type: "firehose";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  /**
+   * TLS settings (server side)
+   */
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
+   */
+  __template_authTokens?: string | undefined;
+};
+
+/**
+ * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+ */
+export const CreateInputScheduleType = {
+  Interval: "interval",
+  CronSchedule: "cronSchedule",
+} as const;
+/**
+ * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+ */
+export type CreateInputScheduleType = OpenEnum<typeof CreateInputScheduleType>;
+
+export type CreateInputInputExec = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  /**
+   * Connector type identifier.
+   */
+  type: "exec";
+  /**
+   * Disabled
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ConnectionConfInputCollection> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Command to execute; supports Bourne shell (or CMD on Windows) syntax
+   */
+  command: string;
+  /**
+   * Optional script content to pipe into the command's stdin. The stdin stream is closed after the script is written.
+   */
+  script?: string | undefined;
+  /**
+   * Maximum number of retry attempts in the event that the command fails
+   */
+  retries?: number | undefined;
+  /**
+   * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+   */
+  scheduleType?: CreateInputScheduleType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
+  description?: string | undefined;
+  /**
+   * Interval between command executions in seconds.
+   */
+  interval?: number | undefined;
+  /**
+   * Cron schedule to execute the command on.
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+   */
+  __template_environment?: string | undefined;
+  /**
+   * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+   */
+  __template_streamtags?: string | undefined;
+};
+
+/**
+ * Authentication mechanism
+ */
+export const CreateInputAuthenticationMechanism = {
+  /**
+   * Connection String
+   */
+  ConnectionString: "connection-string",
+  /**
+   * OAuth Bearer
+   */
+  OauthBearer: "oauth-bearer",
+} as const;
+/**
+ * Authentication mechanism
+ */
+export type CreateInputAuthenticationMechanism = OpenEnum<
+  typeof CreateInputAuthenticationMechanism
+>;
+
+export type CreateInputCertificate = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName: string;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+};
+
+export type CreateInputAuth = {
+  /**
+   * Authentication mechanism
+   */
+  mechanism: CreateInputAuthenticationMechanism;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Authentication method
+   */
+  clientSecretAuthType?: models.AuthenticationMethodOptionsAuth | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: CreateInputCertificate | undefined;
+  /**
+   * Endpoint used to acquire authentication tokens from Azure
+   */
+  oauthEndpoint?:
+    | models.MicrosoftEntraIdAuthenticationEndpointOptionsSasl
+    | undefined;
+  /**
+   * client_id to pass in the OAuth request parameter
+   */
+  clientId?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory
+   */
+  tenantId?: string | undefined;
+  /**
+   * The fully qualified Event Hubs namespace that the consumer is associated with. This is likely to be similar to {yournamespace}.servicebus.windows.net.
+   */
+  fullyQualifiedNamespace?: string | undefined;
+  /**
+   * Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+   */
+  __template_oauthEndpoint?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'fullyQualifiedNamespace' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fullyQualifiedNamespace' at runtime.
+   */
+  __template_fullyQualifiedNamespace?: string | undefined;
+};
+
+/**
+ * Authentication method
+ */
+export const CreateInputBlobStoreAuthenticationMethod = {
+  Secret: "secret",
+  ClientSecret: "clientSecret",
+  ClientCert: "clientCert",
+  ClientAssertion: "clientAssertion",
+  ClientAssertionRpc: "clientAssertion_rpc",
+} as const;
+/**
+ * Authentication method
+ */
+export type CreateInputBlobStoreAuthenticationMethod = OpenEnum<
+  typeof CreateInputBlobStoreAuthenticationMethod
+>;
+
+/**
+ * Azure Blob Storage
+ */
+export type CreateInputAzureBlobStorage = {
+  /**
+   * Azure Blob Storage container used to store checkpoints. Must be 3–63 lowercase alphanumeric characters or hyphens.
+   */
+  containerName: string;
+  /**
+   * Authentication method
+   */
+  authType?: CreateInputBlobStoreAuthenticationMethod | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  /**
+   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: models.CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  /**
+   * Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+   */
+  __template_storageAccountName?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+   */
+  __template_azureCloud?: string | undefined;
+};
+
+export type CreateInputCheckpointing = {
+  /**
+   * Azure Blob Storage
+   */
+  blobStore: CreateInputAzureBlobStorage;
+};
+
+export type CreateInputInputEventhubAmqp = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  /**
+   * Connector type identifier.
+   */
+  type: "eventhub_amqp";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -251,6 +1047,9 @@ export type CreateInputInputEventhubAmqp = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -267,7 +1066,13 @@ export type CreateInputInputEventhub = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Connector type identifier.
+   */
   type: "eventhub";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -286,7 +1091,7 @@ export type CreateInputInputEventhub = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -346,6 +1151,9 @@ export type CreateInputInputEventhub = {
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
   sasl?: models.AuthenticationTypeUse | undefined;
+  /**
+   * TLS settings (client side)
+   */
   tls?: models.TlsSettingsClientSideType | undefined;
   /**
    * @remarks
@@ -390,6 +1198,9 @@ export type CreateInputInputEventhub = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -465,7 +1276,13 @@ export type CreateInputInputMicrosoftGraph = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Connector type identifier.
+   */
   type: "microsoft_graph";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -484,7 +1301,7 @@ export type CreateInputInputMicrosoftGraph = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -561,6 +1378,17 @@ export type CreateInputInputMicrosoftGraph = {
    */
   logLevel?: models.LogLevelOptionsDebugError | undefined;
   retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * client_secret to pass in the OAuth request parameter.
@@ -639,7 +1467,13 @@ export type CreateInputInputOffice365MsgTrace = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Connector type identifier.
+   */
   type: "office365_msg_trace";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -658,7 +1492,7 @@ export type CreateInputInputOffice365MsgTrace = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -731,6 +1565,9 @@ export type CreateInputInputOffice365MsgTrace = {
    */
   logLevel?: models.LogLevelOptionsDebugError | undefined;
   retryRules?: models.RetryRulesTypeCodesEnableHeader | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Username to run Message Trace API call.
@@ -808,11 +1645,17 @@ export type CreateInputContentConfigOffice365Service = {
    * If interval type is minutes the value entered must evenly divisible by 60 or save will fail
    */
   description?: string | undefined;
+  /**
+   * Interval
+   */
   interval?: number | undefined;
   /**
    * Collector runtime Log Level
    */
   logLevel?: models.LogLevelOptionsContentConfigItems | undefined;
+  /**
+   * Enabled
+   */
   enabled?: boolean | undefined;
 };
 
@@ -821,7 +1664,13 @@ export type CreateInputInputOffice365Service = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Connector type identifier.
+   */
   type: "office365_service";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -840,7 +1689,7 @@ export type CreateInputInputOffice365Service = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -897,6 +1746,9 @@ export type CreateInputInputOffice365Service = {
    * Enter client secret directly, or select a stored secret
    */
   authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Microsoft 365 Azure client secret
@@ -941,11 +1793,17 @@ export type CreateInputContentConfigOffice365Mgmt = {
    * If interval type is minutes the value entered must evenly divisible by 60 or save will fail
    */
   description?: string | undefined;
+  /**
+   * Interval
+   */
   interval?: number | undefined;
   /**
    * Collector runtime Log Level
    */
   logLevel?: models.LogLevelOptionsContentConfigItems | undefined;
+  /**
+   * Enabled
+   */
   enabled?: boolean | undefined;
 };
 
@@ -954,7 +1812,13 @@ export type CreateInputInputOffice365Mgmt = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Connector type identifier.
+   */
   type: "office365_mgmt";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -973,7 +1837,7 @@ export type CreateInputInputOffice365Mgmt = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1038,6 +1902,9 @@ export type CreateInputInputOffice365Mgmt = {
    * Enter client secret directly, or select a stored secret
    */
   authType?: models.AuthenticationMethodOptionsManualSecret | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Microsoft 365 Azure client secret
@@ -1167,7 +2034,13 @@ export type CreateInputInputEdgePrometheus = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Connector type identifier.
+   */
   type: "edge_prometheus";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1186,7 +2059,7 @@ export type CreateInputInputEdgePrometheus = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1214,6 +2087,9 @@ export type CreateInputInputEdgePrometheus = {
    * Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
    */
   timeout?: number | undefined;
+  /**
+   * Disk Spooling
+   */
   persistence?: models.DiskSpoolingType | undefined;
   /**
    * Fields to add to events from this input
@@ -1223,7 +2099,13 @@ export type CreateInputInputEdgePrometheus = {
    * Enter credentials directly, or select a stored secret
    */
   authType?: CreateInputAuthenticationMethodEdgePrometheus | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Targets
+   */
   targets?: Array<CreateInputTarget> | undefined;
   /**
    * DNS record type to resolve
@@ -1249,6 +2131,9 @@ export type CreateInputInputEdgePrometheus = {
    * AWS authentication method. Choose Auto to use IAM roles.
    */
   awsAuthenticationMethod?: string | undefined;
+  /**
+   * Access key
+   */
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -1262,6 +2147,9 @@ export type CreateInputInputEdgePrometheus = {
    * Filter to apply when searching for EC2 instances
    */
   searchFilter?: Array<models.SearchFilterConfInputPrometheus> | undefined;
+  /**
+   * Secret key
+   */
   awsSecretKey?: string | undefined;
   /**
    * Region where the EC2 is located
@@ -1326,7 +2214,7 @@ export type CreateInputInputEdgePrometheus = {
    * Extra headers to send with the discovery request
    */
   httpDiscoveryHeaders?:
-    | Array<models.HttpDiscoveryHeaderConfInputPrometheus>
+    | Array<models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
     | undefined;
   /**
    * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
@@ -1437,7 +2325,13 @@ export type CreateInputInputPrometheus = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Connector type identifier.
+   */
   type: "prometheus";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1456,7 +2350,7 @@ export type CreateInputInputPrometheus = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1520,6 +2414,9 @@ export type CreateInputInputPrometheus = {
    * Enter credentials directly, or select a stored secret
    */
   authType?: models.AuthenticationMethodOptionsSasl | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
@@ -1549,6 +2446,9 @@ export type CreateInputInputPrometheus = {
    * AWS authentication method. Choose Auto to use IAM roles.
    */
   awsAuthenticationMethod?: string | undefined;
+  /**
+   * Access key
+   */
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -1562,6 +2462,9 @@ export type CreateInputInputPrometheus = {
    * Filter to apply when searching for EC2 instances
    */
   searchFilter?: Array<models.SearchFilterConfInputPrometheus> | undefined;
+  /**
+   * Secret key
+   */
   awsSecretKey?: string | undefined;
   /**
    * Region where the EC2 is located
@@ -1599,7 +2502,7 @@ export type CreateInputInputPrometheus = {
    * Extra headers to send with the discovery request
    */
   httpDiscoveryHeaders?:
-    | Array<models.HttpDiscoveryHeaderConfInputPrometheus>
+    | Array<models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
     | undefined;
   /**
    * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
@@ -1688,7 +2591,13 @@ export type CreateInputInputPrometheusRw = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "prometheus_rw";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1707,7 +2616,7 @@ export type CreateInputInputPrometheusRw = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1723,6 +2632,9 @@ export type CreateInputInputPrometheusRw = {
    * Port to listen on
    */
   port: number;
+  /**
+   * TLS settings (server side)
+   */
   tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -1780,8 +2692,17 @@ export type CreateInputInputPrometheusRw = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -1826,7 +2747,13 @@ export type CreateInputInputLoki = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "loki";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1845,7 +2772,7 @@ export type CreateInputInputLoki = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -1861,6 +2788,9 @@ export type CreateInputInputLoki = {
    * Port to listen on
    */
   port: number;
+  /**
+   * TLS settings (server side)
+   */
   tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -1918,8 +2848,17 @@ export type CreateInputInputLoki = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -1955,9 +2894,15 @@ export type CreateInputInputLoki = {
   __template_lokiAPI?: string | undefined;
 };
 
+/**
+ * Source type identifier.
+ */
 export const CreateInputInputGrafanaType2 = {
   Grafana: "grafana",
 } as const;
+/**
+ * Source type identifier.
+ */
 export type CreateInputInputGrafanaType2 = ClosedEnum<
   typeof CreateInputInputGrafanaType2
 >;
@@ -1967,7 +2912,13 @@ export type CreateInputPrometheusAuth2 = {
    * Remote Write authentication type
    */
   authType?: models.AuthenticationTypeOptionsPrometheusAuth | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -1988,7 +2939,13 @@ export type CreateInputLokiAuth2 = {
    * Loki logs authentication type
    */
   authType?: models.AuthenticationTypeOptionsLokiAuth | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -2009,7 +2966,13 @@ export type CreateInputInputGrafanaGrafana2 = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: CreateInputInputGrafanaType2;
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2028,7 +2991,7 @@ export type CreateInputInputGrafanaGrafana2 = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2044,6 +3007,9 @@ export type CreateInputInputGrafanaGrafana2 = {
    * Port to listen on
    */
   port: number;
+  /**
+   * TLS settings (server side)
+   */
   tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -2103,6 +3069,9 @@ export type CreateInputInputGrafanaGrafana2 = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2130,9 +3099,15 @@ export type CreateInputInputGrafanaGrafana2 = {
   __template_lokiAPI?: string | undefined;
 };
 
+/**
+ * Source type identifier.
+ */
 export const CreateInputInputGrafanaType1 = {
   Grafana: "grafana",
 } as const;
+/**
+ * Source type identifier.
+ */
 export type CreateInputInputGrafanaType1 = ClosedEnum<
   typeof CreateInputInputGrafanaType1
 >;
@@ -2142,7 +3117,13 @@ export type CreateInputPrometheusAuth1 = {
    * Remote Write authentication type
    */
   authType?: models.AuthenticationTypeOptionsPrometheusAuth | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -2163,7 +3144,13 @@ export type CreateInputLokiAuth1 = {
    * Loki logs authentication type
    */
   authType?: models.AuthenticationTypeOptionsLokiAuth | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -2184,7 +3171,13 @@ export type CreateInputInputGrafanaGrafana1 = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: CreateInputInputGrafanaType1;
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2203,7 +3196,7 @@ export type CreateInputInputGrafanaGrafana1 = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2219,6 +3212,9 @@ export type CreateInputInputGrafanaGrafana1 = {
    * Port to listen on
    */
   port: number;
+  /**
+   * TLS settings (server side)
+   */
   tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -2278,6 +3274,9 @@ export type CreateInputInputGrafanaGrafana1 = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2314,7 +3313,13 @@ export type CreateInputInputConfluentCloud = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Connector type identifier.
+   */
   type: "confluent_cloud";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2333,7 +3338,7 @@ export type CreateInputInputConfluentCloud = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2345,6 +3350,9 @@ export type CreateInputInputConfluentCloud = {
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
    */
   brokers: Array<string>;
+  /**
+   * TLS settings (client side)
+   */
   tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
@@ -2358,6 +3366,9 @@ export type CreateInputInputConfluentCloud = {
    * Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
    */
   fromBeginning?: boolean | undefined;
+  /**
+   * Kafka Schema Registry Authentication
+   */
   kafkaSchemaRegistry?:
     | models.KafkaSchemaRegistryAuthenticationType
     | undefined;
@@ -2440,6 +3451,9 @@ export type CreateInputInputConfluentCloud = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2463,6 +3477,9 @@ export type CreateInputInputConfluentCloud = {
   __template_groupId?: string | undefined;
 };
 
+/**
+ * Authentication type
+ */
 export const CreateInputAuthenticationTypeElastic = {
   /**
    * None
@@ -2481,6 +3498,9 @@ export const CreateInputAuthenticationTypeElastic = {
    */
   AuthTokens: "authTokens",
 } as const;
+/**
+ * Authentication type
+ */
 export type CreateInputAuthenticationTypeElastic = OpenEnum<
   typeof CreateInputAuthenticationTypeElastic
 >;
@@ -2531,7 +3551,13 @@ export type CreateInputProxyModeElastic = {
    * Enter credentials directly, or select a stored secret
    */
   authType?: CreateInputProxyModeAuthenticationMethod | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Select or create a secret that references your credentials
@@ -2564,7 +3590,13 @@ export type CreateInputInputElastic = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "elastic";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2583,7 +3615,7 @@ export type CreateInputInputElastic = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2599,6 +3631,9 @@ export type CreateInputInputElastic = {
    * Port to listen on
    */
   port: number;
+  /**
+   * TLS settings (server side)
+   */
   tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -2648,6 +3683,9 @@ export type CreateInputInputElastic = {
    * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
    */
   elasticAPI: string;
+  /**
+   * Authentication type
+   */
   authType?: CreateInputAuthenticationTypeElastic | undefined;
   /**
    * The API version to use for communicating with the server
@@ -2662,8 +3700,17 @@ export type CreateInputInputElastic = {
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
   proxyMode?: CreateInputProxyModeElastic | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Select or create a secret that references your credentials
@@ -2708,7 +3755,13 @@ export type CreateInputInputAzureBlob = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Connector type identifier.
+   */
   type: "azure_blob";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2727,7 +3780,7 @@ export type CreateInputInputAzureBlob = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2783,7 +3836,13 @@ export type CreateInputInputAzureBlob = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Authentication method
+   */
   authType?: models.AuthenticationMethodOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -2865,6 +3924,9 @@ export type CreateInputAuthTokenSplunkHec = {
    * Shared secret to be provided by any client (Authorization: <token>)
    */
   token: string;
+  /**
+   * If true, the token is active and can be used for authentication.
+   */
   enabled?: boolean | undefined;
   /**
    * Optional token description
@@ -2885,7 +3947,13 @@ export type CreateInputInputSplunkHec = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "splunk_hec";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -2904,7 +3972,7 @@ export type CreateInputInputSplunkHec = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -2924,6 +3992,9 @@ export type CreateInputInputSplunkHec = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<CreateInputAuthTokenSplunkHec> | undefined;
+  /**
+   * TLS settings (server side)
+   */
   tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -3013,6 +4084,9 @@ export type CreateInputInputSplunkHec = {
    * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
    */
   emitTokenMetrics?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -3037,6 +4111,9 @@ export type CreateInputInputSplunkHec = {
 };
 
 export type CreateInputEndpointParam = {
+  /**
+   * Parameter Name
+   */
   name: string;
   /**
    * JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
@@ -3045,6 +4122,9 @@ export type CreateInputEndpointParam = {
 };
 
 export type CreateInputEndpointHeader = {
+  /**
+   * Header Name
+   */
   name: string;
   /**
    * JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
@@ -3105,7 +4185,13 @@ export type CreateInputInputSplunkSearch = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Connector type identifier.
+   */
   type: "splunk_search";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3124,7 +4210,7 @@ export type CreateInputInputSplunkSearch = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3225,8 +4311,17 @@ export type CreateInputInputSplunkSearch = {
    * Splunk Search authentication type
    */
   authType: CreateInputAuthenticationTypeSplunkSearch;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -3279,6 +4374,9 @@ export type CreateInputAuthTokenSplunk = {
    * Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
    */
   token: string;
+  /**
+   * Description
+   */
   description?: string | undefined;
 };
 
@@ -3329,7 +4427,13 @@ export type CreateInputInputSplunk = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Connector type identifier.
+   */
   type: "splunk";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3348,7 +4452,7 @@ export type CreateInputInputSplunk = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3364,6 +4468,9 @@ export type CreateInputInputSplunk = {
    * Port to listen on
    */
   port: number;
+  /**
+   * TLS settings (server side)
+   */
   tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Regex matching IP addresses that are allowed to establish a connection
@@ -3409,6 +4516,9 @@ export type CreateInputInputSplunk = {
    * The highest S2S protocol version to advertise during handshake
    */
   maxS2Sversion?: CreateInputMaxS2SVersion | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
@@ -3457,7 +4567,13 @@ export type CreateInputInputHttp = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Source type identifier.
+   */
   type: "http";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3476,7 +4592,7 @@ export type CreateInputInputHttp = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3496,6 +4612,9 @@ export type CreateInputInputHttp = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
+  /**
+   * TLS settings (server side)
+   */
   tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -3553,6 +4672,9 @@ export type CreateInputInputHttp = {
    * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
    */
   splunkHecAPI?: string | undefined;
+  /**
+   * Enable Splunk HEC acknowledgements
+   */
   splunkHecAcks?: boolean | undefined;
   /**
    * Fields to add to events from this input
@@ -3562,6 +4684,9 @@ export type CreateInputInputHttp = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokensExt?: Array<models.AuthTokensExtConfInputHttp> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -3602,7 +4727,13 @@ export type CreateInputInputMsk = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Connector type identifier.
+   */
   type: "msk";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3621,7 +4752,7 @@ export type CreateInputInputMsk = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3668,6 +4799,9 @@ export type CreateInputInputMsk = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Kafka Schema Registry Authentication
+   */
   kafkaSchemaRegistry?:
     | models.KafkaSchemaRegistryAuthenticationType
     | undefined;
@@ -3707,6 +4841,9 @@ export type CreateInputInputMsk = {
    * AWS authentication method. Choose Auto to use IAM roles.
    */
   awsAuthenticationMethod: string;
+  /**
+   * Secret key
+   */
   awsSecretKey?: string | undefined;
   /**
    * Region where the MSK cluster is located
@@ -3740,6 +4877,9 @@ export type CreateInputInputMsk = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
+  /**
+   * TLS settings (client side)
+   */
   tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
@@ -3761,7 +4901,13 @@ export type CreateInputInputMsk = {
    * Maximum number of network errors before the consumer re-creates a socket
    */
   maxSocketErrors?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Access key
+   */
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -3818,7 +4964,13 @@ export type CreateInputInputKafka = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Connector type identifier.
+   */
   type: "kafka";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -3837,7 +4989,7 @@ export type CreateInputInputKafka = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -3861,6 +5013,9 @@ export type CreateInputInputKafka = {
    * Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
    */
   fromBeginning?: boolean | undefined;
+  /**
+   * Kafka Schema Registry Authentication
+   */
   kafkaSchemaRegistry?:
     | models.KafkaSchemaRegistryAuthenticationType
     | undefined;
@@ -3900,6 +5055,9 @@ export type CreateInputInputKafka = {
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
   sasl?: models.AuthenticationType | undefined;
+  /**
+   * TLS settings (client side)
+   */
   tls?: models.TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * @remarks
@@ -3944,6 +5102,9 @@ export type CreateInputInputKafka = {
    * Fields to add to events from this input
    */
   metadata?: Array<models.MetadataConfInputCollection> | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -3972,7 +5133,13 @@ export type CreateInputInputCollection = {
    * Unique ID for this input
    */
   id: string;
+  /**
+   * Connector type identifier.
+   */
   type: "collection";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process results
@@ -3991,7 +5158,7 @@ export type CreateInputInputCollection = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -4099,12 +5266,625 @@ export type CreateInputRequest =
   | CreateInputInputWizWebhook
   | CreateInputInputNetflow
   | CreateInputInputSecurityLake
+  | CreateInputInputBedrockS3
   | CreateInputInputServicenowTable
   | CreateInputInputZscalerHec
   | CreateInputInputCloudflareHec
+  | CreateInputInputSysdigHec
+  | CreateInputInputUpwindHec
   | CreateInputInputOpenaiComplianceLogs
   | CreateInputInputAnthropicCompliance
   | CreateInputInputOkta;
+
+/** @internal */
+export type CreateInputInputCriblHttp$Outbound = {
+  id: string;
+  type: "cribl_http";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<models.AuthTokenConfInputCriblTcp$Outbound> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputCriblHttp$outboundSchema: z.ZodType<
+  CreateInputInputCriblHttp$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputCriblHttp
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl_http"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(models.AuthTokenConfInputCriblTcp$outboundSchema)
+    .optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+});
+
+export function createInputInputCriblHttpToJSON(
+  createInputInputCriblHttp: CreateInputInputCriblHttp,
+): string {
+  return JSON.stringify(
+    CreateInputInputCriblHttp$outboundSchema.parse(createInputInputCriblHttp),
+  );
+}
+
+/** @internal */
+export type CreateInputInputCriblTcp$Outbound = {
+  id: string;
+  type: "cribl_tcp";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  enableLoadBalancing?: boolean | undefined;
+  authTokens?: Array<models.AuthTokenConfInputCriblTcp$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputCriblTcp$outboundSchema: z.ZodType<
+  CreateInputInputCriblTcp$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputCriblTcp
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl_tcp"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  enableLoadBalancing: z.boolean().optional(),
+  authTokens: z.array(models.AuthTokenConfInputCriblTcp$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+});
+
+export function createInputInputCriblTcpToJSON(
+  createInputInputCriblTcp: CreateInputInputCriblTcp,
+): string {
+  return JSON.stringify(
+    CreateInputInputCriblTcp$outboundSchema.parse(createInputInputCriblTcp),
+  );
+}
+
+/** @internal */
+export type CreateInputInputCribl$Outbound = {
+  id: string;
+  type: "cribl";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  filter?: string | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputCribl$outboundSchema: z.ZodType<
+  CreateInputInputCribl$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputCribl
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  filter: z.string().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
+
+export function createInputInputCriblToJSON(
+  createInputInputCribl: CreateInputInputCribl,
+): string {
+  return JSON.stringify(
+    CreateInputInputCribl$outboundSchema.parse(createInputInputCribl),
+  );
+}
+
+/** @internal */
+export type CreateInputInputGooglePubsub$Outbound = {
+  id: string;
+  type: "google_pubsub";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  topicName: string;
+  subscriptionName: string;
+  monitorSubscription?: boolean | undefined;
+  createTopic?: boolean | undefined;
+  createSubscription?: boolean | undefined;
+  region?: string | undefined;
+  googleAuthMethod?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  secret?: string | undefined;
+  maxBacklog?: number | undefined;
+  concurrency?: number | undefined;
+  requestTimeout?: number | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  orderedDelivery?: boolean | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_topicName?: string | undefined;
+  __template_subscriptionName?: string | undefined;
+  __template_region?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputGooglePubsub$outboundSchema: z.ZodType<
+  CreateInputInputGooglePubsub$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputGooglePubsub
+> = z.object({
+  id: z.string(),
+  type: z.literal("google_pubsub"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  topicName: z.string(),
+  subscriptionName: z.string(),
+  monitorSubscription: z.boolean().optional(),
+  createTopic: z.boolean().optional(),
+  createSubscription: z.boolean().optional(),
+  region: z.string().optional(),
+  googleAuthMethod: models.GoogleAuthenticationMethodOptions$outboundSchema
+    .optional(),
+  serviceAccountCredentials: z.string().optional(),
+  secret: z.string().optional(),
+  maxBacklog: z.number().optional(),
+  concurrency: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  orderedDelivery: z.boolean().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_topicName: z.string().optional(),
+  __template_subscriptionName: z.string().optional(),
+  __template_region: z.string().optional(),
+});
+
+export function createInputInputGooglePubsubToJSON(
+  createInputInputGooglePubsub: CreateInputInputGooglePubsub,
+): string {
+  return JSON.stringify(
+    CreateInputInputGooglePubsub$outboundSchema.parse(
+      createInputInputGooglePubsub,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputFirehose$Outbound = {
+  id: string;
+  type: "firehose";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_authTokens?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputFirehose$outboundSchema: z.ZodType<
+  CreateInputInputFirehose$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputFirehose
+> = z.object({
+  id: z.string(),
+  type: z.literal("firehose"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_authTokens: z.string().optional(),
+});
+
+export function createInputInputFirehoseToJSON(
+  createInputInputFirehose: CreateInputInputFirehose,
+): string {
+  return JSON.stringify(
+    CreateInputInputFirehose$outboundSchema.parse(createInputInputFirehose),
+  );
+}
+
+/** @internal */
+export const CreateInputScheduleType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputScheduleType
+> = openEnums.outboundSchema(CreateInputScheduleType);
+
+/** @internal */
+export type CreateInputInputExec$Outbound = {
+  id: string;
+  type: "exec";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?:
+    | Array<models.ConnectionConfInputCollection$Outbound>
+    | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  command: string;
+  script?: string | undefined;
+  retries?: number | undefined;
+  scheduleType?: string | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  metadata?: Array<models.MetadataConfInputCollection$Outbound> | undefined;
+  description?: string | undefined;
+  interval?: number | undefined;
+  cronSchedule?: string | undefined;
+  __template_environment?: string | undefined;
+  __template_streamtags?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputExec$outboundSchema: z.ZodType<
+  CreateInputInputExec$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputExec
+> = z.object({
+  id: z.string(),
+  type: z.literal("exec"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ConnectionConfInputCollection$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  command: z.string(),
+  script: z.string().optional(),
+  retries: z.number().optional(),
+  scheduleType: CreateInputScheduleType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  metadata: z.array(models.MetadataConfInputCollection$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  interval: z.number().optional(),
+  cronSchedule: z.string().optional(),
+  __template_environment: z.string().optional(),
+  __template_streamtags: z.string().optional(),
+});
+
+export function createInputInputExecToJSON(
+  createInputInputExec: CreateInputInputExec,
+): string {
+  return JSON.stringify(
+    CreateInputInputExec$outboundSchema.parse(createInputInputExec),
+  );
+}
+
+/** @internal */
+export const CreateInputAuthenticationMechanism$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputAuthenticationMechanism
+> = openEnums.outboundSchema(CreateInputAuthenticationMechanism);
+
+/** @internal */
+export type CreateInputCertificate$Outbound = {
+  certificateName: string;
+  certPath: string;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputCertificate$outboundSchema: z.ZodType<
+  CreateInputCertificate$Outbound,
+  z.ZodTypeDef,
+  CreateInputCertificate
+> = z.object({
+  certificateName: z.string(),
+  certPath: z.string(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+});
+
+export function createInputCertificateToJSON(
+  createInputCertificate: CreateInputCertificate,
+): string {
+  return JSON.stringify(
+    CreateInputCertificate$outboundSchema.parse(createInputCertificate),
+  );
+}
+
+/** @internal */
+export type CreateInputAuth$Outbound = {
+  mechanism: string;
+  textSecret?: string | undefined;
+  clientSecretAuthType?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?: CreateInputCertificate$Outbound | undefined;
+  oauthEndpoint?: string | undefined;
+  clientId?: string | undefined;
+  tenantId?: string | undefined;
+  fullyQualifiedNamespace?: string | undefined;
+  __template_oauthEndpoint?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_fullyQualifiedNamespace?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputAuth$outboundSchema: z.ZodType<
+  CreateInputAuth$Outbound,
+  z.ZodTypeDef,
+  CreateInputAuth
+> = z.object({
+  mechanism: CreateInputAuthenticationMechanism$outboundSchema,
+  textSecret: z.string().optional(),
+  clientSecretAuthType: models.AuthenticationMethodOptionsAuth$outboundSchema
+    .optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: z.lazy(() => CreateInputCertificate$outboundSchema).optional(),
+  oauthEndpoint: models
+    .MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema
+    .optional(),
+  clientId: z.string().optional(),
+  tenantId: z.string().optional(),
+  fullyQualifiedNamespace: z.string().optional(),
+  __template_oauthEndpoint: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_fullyQualifiedNamespace: z.string().optional(),
+});
+
+export function createInputAuthToJSON(
+  createInputAuth: CreateInputAuth,
+): string {
+  return JSON.stringify(CreateInputAuth$outboundSchema.parse(createInputAuth));
+}
+
+/** @internal */
+export const CreateInputBlobStoreAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputBlobStoreAuthenticationMethod
+> = openEnums.outboundSchema(CreateInputBlobStoreAuthenticationMethod);
+
+/** @internal */
+export type CreateInputAzureBlobStorage$Outbound = {
+  containerName: string;
+  authType?: string | undefined;
+  textSecret?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  azureCloud?: string | undefined;
+  endpointSuffix?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?:
+    | models.CertificateTypeAzureBlobAuthTypeClientCert$Outbound
+    | undefined;
+  __template_storageAccountName?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_azureCloud?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputAzureBlobStorage$outboundSchema: z.ZodType<
+  CreateInputAzureBlobStorage$Outbound,
+  z.ZodTypeDef,
+  CreateInputAzureBlobStorage
+> = z.object({
+  containerName: z.string(),
+  authType: CreateInputBlobStoreAuthenticationMethod$outboundSchema.optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: models.CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
+    .optional(),
+  __template_storageAccountName: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_azureCloud: z.string().optional(),
+});
+
+export function createInputAzureBlobStorageToJSON(
+  createInputAzureBlobStorage: CreateInputAzureBlobStorage,
+): string {
+  return JSON.stringify(
+    CreateInputAzureBlobStorage$outboundSchema.parse(
+      createInputAzureBlobStorage,
+    ),
+  );
+}
 
 /** @internal */
 export type CreateInputCheckpointing$Outbound = {
@@ -4117,7 +5897,7 @@ export const CreateInputCheckpointing$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateInputCheckpointing
 > = z.object({
-  blobStore: CreateInputAzureBlobStorage$outboundSchema,
+  blobStore: z.lazy(() => CreateInputAzureBlobStorage$outboundSchema),
 });
 
 export function createInputCheckpointingToJSON(
@@ -4182,7 +5962,7 @@ export const CreateInputInputEventhubAmqp$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   eventHubName: z.string().optional(),
   consumerGroup: z.string(),
-  auth: CreateInputAuth$outboundSchema.optional(),
+  auth: z.lazy(() => CreateInputAuth$outboundSchema).optional(),
   checkpointing: z.lazy(() => CreateInputCheckpointing$outboundSchema),
   fromBeginning: z.boolean().optional(),
   maxBatchSize: z.number().int().optional(),
@@ -4363,6 +6143,8 @@ export type CreateInputInputMicrosoftGraph$Outbound = {
   maxTaskReschedule?: number | undefined;
   logLevel?: string | undefined;
   retryRules?: models.RetryRulesTypeCodesEnableHeader$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
   tenantId?: string | undefined;
@@ -4417,6 +6199,8 @@ export const CreateInputInputMicrosoftGraph$outboundSchema: z.ZodType<
   maxTaskReschedule: z.number().optional(),
   logLevel: models.LogLevelOptionsDebugError$outboundSchema.optional(),
   retryRules: models.RetryRulesTypeCodesEnableHeader$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   tenantId: z.string().optional(),
@@ -4951,7 +6735,9 @@ export type CreateInputInputEdgePrometheus$Outbound = {
   podFilter?: Array<CreateInputPodFilter$Outbound> | undefined;
   httpDiscoveryUrl?: string | undefined;
   httpDiscoveryHeaders?:
-    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | Array<
+      models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
     | undefined;
   httpDiscoveryRejectUnauthorized?: boolean | undefined;
   maxResponseBodySize?: string | undefined;
@@ -5027,7 +6813,8 @@ export const CreateInputInputEdgePrometheus$outboundSchema: z.ZodType<
     .optional(),
   httpDiscoveryUrl: z.string().optional(),
   httpDiscoveryHeaders: z.array(
-    models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+    models
+      .RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
   ).optional(),
   httpDiscoveryRejectUnauthorized: z.boolean().optional(),
   maxResponseBodySize: z.string().optional(),
@@ -5122,7 +6909,9 @@ export type CreateInputInputPrometheus$Outbound = {
   durationSeconds?: number | undefined;
   httpDiscoveryUrl?: string | undefined;
   httpDiscoveryHeaders?:
-    | Array<models.HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | Array<
+      models.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
     | undefined;
   httpDiscoveryRejectUnauthorized?: boolean | undefined;
   maxResponseBodySize?: string | undefined;
@@ -5201,7 +6990,8 @@ export const CreateInputInputPrometheus$outboundSchema: z.ZodType<
   durationSeconds: z.number().optional(),
   httpDiscoveryUrl: z.string().optional(),
   httpDiscoveryHeaders: z.array(
-    models.HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+    models
+      .RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
   ).optional(),
   httpDiscoveryRejectUnauthorized: z.boolean().optional(),
   maxResponseBodySize: z.string().optional(),
@@ -7141,9 +8931,12 @@ export type CreateInputRequest$Outbound =
   | CreateInputInputWizWebhook$Outbound
   | CreateInputInputNetflow$Outbound
   | CreateInputInputSecurityLake$Outbound
+  | CreateInputInputBedrockS3$Outbound
   | CreateInputInputServicenowTable$Outbound
   | CreateInputInputZscalerHec$Outbound
   | CreateInputInputCloudflareHec$Outbound
+  | CreateInputInputSysdigHec$Outbound
+  | CreateInputInputUpwindHec$Outbound
   | CreateInputInputOpenaiComplianceLogs$Outbound
   | CreateInputInputAnthropicCompliance$Outbound
   | CreateInputInputOkta$Outbound;
@@ -7178,12 +8971,12 @@ export const CreateInputRequest$outboundSchema: z.ZodType<
   z.lazy(() => CreateInputInputMicrosoftGraph$outboundSchema),
   z.lazy(() => CreateInputInputEventhub$outboundSchema),
   z.lazy(() => CreateInputInputEventhubAmqp$outboundSchema),
-  CreateInputInputExec$outboundSchema,
-  CreateInputInputFirehose$outboundSchema,
-  CreateInputInputGooglePubsub$outboundSchema,
-  CreateInputInputCribl$outboundSchema,
-  CreateInputInputCriblTcp$outboundSchema,
-  CreateInputInputCriblHttp$outboundSchema,
+  z.lazy(() => CreateInputInputExec$outboundSchema),
+  z.lazy(() => CreateInputInputFirehose$outboundSchema),
+  z.lazy(() => CreateInputInputGooglePubsub$outboundSchema),
+  z.lazy(() => CreateInputInputCribl$outboundSchema),
+  z.lazy(() => CreateInputInputCriblTcp$outboundSchema),
+  z.lazy(() => CreateInputInputCriblHttp$outboundSchema),
   CreateInputInputCriblLakeHttp$outboundSchema,
   CreateInputInputTcpjson$outboundSchema,
   CreateInputInputSystemMetrics$outboundSchema,
@@ -7221,9 +9014,12 @@ export const CreateInputRequest$outboundSchema: z.ZodType<
   CreateInputInputWizWebhook$outboundSchema,
   CreateInputInputNetflow$outboundSchema,
   CreateInputInputSecurityLake$outboundSchema,
+  CreateInputInputBedrockS3$outboundSchema,
   CreateInputInputServicenowTable$outboundSchema,
   CreateInputInputZscalerHec$outboundSchema,
   CreateInputInputCloudflareHec$outboundSchema,
+  CreateInputInputSysdigHec$outboundSchema,
+  CreateInputInputUpwindHec$outboundSchema,
   CreateInputInputOpenaiComplianceLogs$outboundSchema,
   CreateInputInputAnthropicCompliance$outboundSchema,
   CreateInputInputOkta$outboundSchema,

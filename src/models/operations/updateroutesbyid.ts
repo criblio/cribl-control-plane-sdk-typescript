@@ -8,7 +8,7 @@ import * as models from "../index.js";
 
 export type UpdateRoutesByIdRequest = {
   /**
-   * The <code>id</code> of the Routing table that contains the Route to update. The supported value is <code>default</code>.
+   * The <code>id</code> of the Routing table to update. The supported value is <code>default</code>.
    */
   id: string;
   /**
