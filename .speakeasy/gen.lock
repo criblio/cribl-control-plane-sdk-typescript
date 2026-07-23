@@ -5,15 +5,15 @@ management:
   docVersion: 4.19.0-0fbd6d34
   speakeasyVersion: 1.789.2
   generationVersion: 2.916.4
-  releaseVersion: 0.10.0-rc.4
-  configChecksum: c57158ae29a66ad8ac95a7d32cdb0471
+  releaseVersion: 0.10.0
+  configChecksum: 4714a005a64d310dd681b29a9d99be77
   repoURL: https://github.com/Cribl-Community/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/Cribl-Community/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 10111771-e682-4b1c-802f-5e7aab3cf656
-  pristine_commit_hash: 1e15a807b5be0a43f4061036977537212e8dd042
-  pristine_tree_hash: 145915283719a2ffa26fe3a4cf41059cc5558151
+  generation_id: 8af631c2-6508-428f-87b2-cae2082e3561
+  pristine_commit_hash: 910e50bc25a8e010dbf0ba26ea8bc0b5a7a5a69a
+  pristine_tree_hash: b1c38a7a5d68eaa5dfdd85fb5b239d073302b2b9
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -13934,12 +13934,12 @@ trackedFiles:
     pristine_git_object: 6d909ea963cb3a30467bc9f1eba8a0aa81c6240b
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:e9fa33ad431a9e1f82e79116257b4ecd18505b9b
-    pristine_git_object: 23e56edd9f95e019253865497153bf7901619574
+    last_write_checksum: sha1:286cec491ba9f24db5c41741669c4ffc0b8f6bcd
+    pristine_git_object: 8b12839a7e00d9d7d406b7c37dd67f38fd8e2b6a
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:0e834c3b2980eb814f54fc4463bcb104a81cc404
-    pristine_git_object: 17d2e02d27a3203bde0d21d3e2dc1896ff9eff90
+    last_write_checksum: sha1:f203d6242f7752bd604045e6ae24d63ea7eb0ff3
+    pristine_git_object: 97ed2328cb338f311c0e4a861f908cc3f5da61a8
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -14442,8 +14442,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:ce2963f70897b9cd3bc64eec072b3df751b51b30
-    pristine_git_object: 4086d5e98a12c3f125bfebd596bb84e2faa0512f
+    last_write_checksum: sha1:f1daa2488627d7a450e33c3861b6eaa8a0f3a0dc
+    pristine_git_object: 5f5de386cc2e82e713a575d6cf5b0bbc91ab44da
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:50d9b187dcfc3cca8d3bbd9fe074f865d715d2b0
@@ -37848,6 +37848,22 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
+releaseNotes: |
+  ## TypeScript SDK Changes
+
+  This version of the SDK is generated for Cribl version 4.19.0.
+
+  **IMPORTANT: SDK Transition to Community Support**
+
+  Cribl has stopped active development of the TypeScript SDK for the control plane. The SDK remains an open-source,
+  community resource on the Cribl-Community GitHub organization. You can continue using the TypeScript SDK and build
+  on it, but Cribl support will be limited to critical issues only for the defined transition period.
+  Support will end on October 1, 2026.
+
+  If you prefer to stay on a supported integration, consider migrating to:
+  - Python SDK: https://github.com/criblio/cribl_control_plane_sdk_python
+  - Terraform provider: https://github.com/criblio/terraform-provider-criblio
+  - Direct Cribl API access: https://docs.cribl.io/cribl-as-code/api/
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
