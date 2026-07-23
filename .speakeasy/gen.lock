@@ -7,8 +7,8 @@ management:
   generationVersion: 2.912.1
   releaseVersion: 0.9.0
   configChecksum: 8908349f264be72f8b51f093eec7f62c
-  repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
-  installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
+  repoURL: https://github.com/Cribl-Community/cribl-control-plane-sdk-typescript.git
+  installationURL: https://github.com/Cribl-Community/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
   generation_id: b88a5ca6-f876-4233-bbc9-81a79a43ba9e

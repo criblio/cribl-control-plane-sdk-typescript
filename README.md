@@ -203,15 +203,15 @@ This SDK supports the following security schemes globally:
 
 To configure authentication on Cribl.Cloud and in hybrid deployments, use the `clientOauth` security scheme. The SDK uses the OAuth credentials that you provide to obtain a Bearer token and refresh the token within its expiration window using the standard OAuth2 flow.
 
-In on-prem deployments, use the `bearerAuth` security scheme. The SDK uses the username/password credentials that you provide to obtain a Bearer token. Automatically refreshing the Bearer token within its expiration window requires a callback function as shown in the [On-Prem Authentication Example](https://github.com/criblio/cribl-control-plane-sdk-typescript/blob/main/examples/example-onprem-auth.ts).
+In on-prem deployments, use the `bearerAuth` security scheme. The SDK uses the username/password credentials that you provide to obtain a Bearer token. Automatically refreshing the Bearer token within its expiration window requires a callback function as shown in the [On-Prem Authentication Example](https://github.com/Cribl-Community/cribl-control-plane-sdk-typescript/blob/main/examples/example-onprem-auth.ts).
 
 Set the security scheme through the `security` optional parameter when initializing the SDK client instance. The SDK uses the selected scheme by default to authenticate with the API for all operations that support it.
 
 ### Authentication Examples
 
-The [Cribl.Cloud and Hybrid Authentication Example](https://github.com/criblio/cribl-control-plane-sdk-typescript/blob/main/examples/example-cloud-auth.ts) demonstrates how to configure authentication on Cribl.Cloud and in hybrid deployments. To obtain the Client ID and Client Secret you'll need to initialize using the `clientOauth` security schema, follow the [instructions for creating an API Credential](https://docs.cribl.io/cribl-as-code/sdks-auth/#sdks-auth-cloud) in the Cribl as Code documentation.
+The [Cribl.Cloud and Hybrid Authentication Example](https://github.com/Cribl-Community/cribl-control-plane-sdk-typescript/blob/main/examples/example-cloud-auth.ts) demonstrates how to configure authentication on Cribl.Cloud and in hybrid deployments. To obtain the Client ID and Client Secret you'll need to initialize using the `clientOauth` security schema, follow the [instructions for creating an API Credential](https://docs.cribl.io/cribl-as-code/sdks-auth/#sdks-auth-cloud) in the Cribl as Code documentation.
 
-The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-plane-sdk-typescript/blob/main/examples/example-onprem-auth.ts) demonstrates how to configure authentication in on-prem deployments using your username and password.
+The [On-Prem Authentication Example](https://github.com/Cribl-Community/cribl-control-plane-sdk-typescript/blob/main/examples/example-onprem-auth.ts) demonstrates how to configure authentication in on-prem deployments using your username and password.
 
 <!-- No Authentication [security] -->
 
