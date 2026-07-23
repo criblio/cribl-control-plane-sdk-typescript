@@ -27,6 +27,9 @@ export type InputSplunkAuthToken = {
    * Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
    */
   token: string;
+  /**
+   * Description
+   */
   description?: string | undefined;
 };
 
@@ -77,7 +80,13 @@ export type InputSplunkInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "splunk";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -96,7 +105,7 @@ export type InputSplunkInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -112,6 +121,9 @@ export type InputSplunkInput = {
    * Port to listen on
    */
   port: number;
+  /**
+   * TLS settings (server side)
+   */
   tls?: TlsSettingsServerSideType | undefined;
   /**
    * Regex matching IP addresses that are allowed to establish a connection
@@ -157,6 +169,9 @@ export type InputSplunkInput = {
    * The highest S2S protocol version to advertise during handshake
    */
   maxS2Sversion?: InputSplunkMaxS2SVersion | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event

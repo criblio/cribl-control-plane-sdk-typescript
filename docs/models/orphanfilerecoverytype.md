@@ -1,5 +1,7 @@
 # OrphanFileRecoveryType
 
+Orphan file recovery
+
 ## Example Usage
 
 ```typescript

@@ -46,7 +46,13 @@ import {
  * Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
  */
 export type OutputMicrosoftFabricAuthentication = {
+  /**
+   * Disabled
+   */
   disabled: boolean;
+  /**
+   * SASL mechanism
+   */
   mechanism?: SaslMechanismOptionsSaslOauthbearerPlain | undefined;
   /**
    * The username for authentication. This should always be $ConnectionString.
@@ -56,6 +62,9 @@ export type OutputMicrosoftFabricAuthentication = {
    * Select or create a stored text secret corresponding to the SASL JASS Password Primary or Password Secondary
    */
   textSecret?: string | undefined;
+  /**
+   * Authentication method
+   */
   clientSecretAuthType?: AuthenticationMethodOptionsAuth | undefined;
   /**
    * Select or create a stored text secret
@@ -106,6 +115,9 @@ export type OutputMicrosoftFabricAuthentication = {
   __template_scope?: string | undefined;
 };
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputMicrosoftFabricPqControls = {};
 
 export type OutputMicrosoftFabric = {
@@ -113,6 +125,9 @@ export type OutputMicrosoftFabric = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "microsoft_fabric";
   /**
    * Pipeline to process data before sending out to this output
@@ -127,7 +142,7 @@ export type OutputMicrosoftFabric = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -190,6 +205,9 @@ export type OutputMicrosoftFabric = {
    * Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
    */
   sasl?: OutputMicrosoftFabricAuthentication | undefined;
+  /**
+   * TLS settings (client side)
+   */
   tls?: TlsSettingsClientSideType | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
@@ -199,6 +217,9 @@ export type OutputMicrosoftFabric = {
    * Bootstrap server from Fabric Eventstream's endpoint
    */
   bootstrap_server: string;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -244,6 +265,9 @@ export type OutputMicrosoftFabric = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputMicrosoftFabricPqControls | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

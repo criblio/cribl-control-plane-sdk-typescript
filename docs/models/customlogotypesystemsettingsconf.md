@@ -1,5 +1,7 @@
 # CustomLogoTypeSystemSettingsConf
 
+Custom logo configuration for the Cribl UI login page and navigation bar.
+
 ## Example Usage
 
 ```typescript
@@ -12,8 +14,8 @@ let value: CustomLogoTypeSystemSettingsConf = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `enabled`          | *boolean*          | :heavy_check_mark: | N/A                |
-| `logoDescription`  | *string*           | :heavy_minus_sign: | N/A                |
-| `logoImage`        | *string*           | :heavy_minus_sign: | N/A                |
+| Field                                                                                   | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `enabled`                                                                               | *boolean*                                                                               | :heavy_check_mark:                                                                      | If <code>true</code>, display the custom logo in the UI. Otherwise, <code>false</code>. |
+| `logoDescription`                                                                       | *string*                                                                                | :heavy_minus_sign:                                                                      | Description text displayed alongside the custom logo.                                   |
+| `logoImage`                                                                             | *string*                                                                                | :heavy_minus_sign:                                                                      | Custom logo image as a base64-encoded data URI (PNG or JPEG, maximum 2 MB).             |

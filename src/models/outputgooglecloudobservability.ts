@@ -33,16 +33,28 @@ import {
   TlsSettingsClientSideTypeExtended$outboundSchema,
 } from "./tlssettingsclientsidetypeextended.js";
 
+/**
+ * Discriminator value.
+ */
 export const OutputGoogleCloudObservabilityProtocol = {
   Grpc: "grpc",
 } as const;
+/**
+ * Discriminator value.
+ */
 export type OutputGoogleCloudObservabilityProtocol = OpenEnum<
   typeof OutputGoogleCloudObservabilityProtocol
 >;
 
+/**
+ * Discriminator value.
+ */
 export const OutputGoogleCloudObservabilityOtlpVersion = {
   OneDot3Dot1: "1.3.1",
 } as const;
+/**
+ * Discriminator value.
+ */
 export type OutputGoogleCloudObservabilityOtlpVersion = OpenEnum<
   typeof OutputGoogleCloudObservabilityOtlpVersion
 >;
@@ -80,6 +92,9 @@ export type OutputGoogleCloudObservabilityGoogleAuthenticationMethod = OpenEnum<
   typeof OutputGoogleCloudObservabilityGoogleAuthenticationMethod
 >;
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputGoogleCloudObservabilityPqControls = {};
 
 export type OutputGoogleCloudObservability = {
@@ -87,6 +102,9 @@ export type OutputGoogleCloudObservability = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "google_cloud_observability";
   /**
    * Pipeline to process data before sending out to this output
@@ -101,10 +119,16 @@ export type OutputGoogleCloudObservability = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
+  /**
+   * Discriminator value.
+   */
   protocol?: OutputGoogleCloudObservabilityProtocol | undefined;
+  /**
+   * Discriminator value.
+   */
   otlpVersion?: OutputGoogleCloudObservabilityOtlpVersion | undefined;
   /**
    * Fixed Google Cloud Observability gRPC endpoint. All three signals share this transport; the OTLP service path determines whether the call lands on traces, metrics, or logs.
@@ -154,6 +178,9 @@ export type OutputGoogleCloudObservability = {
    * How often the sender should ping the peer to keep the connection open
    */
   keepAliveTime?: number | undefined;
+  /**
+   * TLS settings (client side)
+   */
   tls?: TlsSettingsClientSideTypeExtended | undefined;
   /**
    * Max number of events to include in the request body. Default is 0 (unlimited). Use to keep outgoing data points within GCO request limits. For metrics, combine with the OTLP Metrics function batchSize.
@@ -163,6 +190,9 @@ export type OutputGoogleCloudObservability = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Select or create a stored text secret
@@ -212,6 +242,9 @@ export type OutputGoogleCloudObservability = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputGoogleCloudObservabilityPqControls | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

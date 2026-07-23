@@ -15,6 +15,6 @@ let value: EventBreakerExistingOrNewNewTimestampTypeFormat = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `type`             | *"format"*         | :heavy_check_mark: | N/A                |
-| `format`           | *string*           | :heavy_check_mark: | N/A                |
-| `length`           | *number*           | :heavy_minus_sign: | N/A                |
+| `type`             | *"format"*         | :heavy_check_mark: | Timestamp type     |
+| `format`           | *string*           | :heavy_check_mark: | Format             |
+| `length`           | *number*           | :heavy_minus_sign: | Length             |

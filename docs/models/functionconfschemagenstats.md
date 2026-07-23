@@ -10,6 +10,6 @@ let value: FunctionConfSchemaGenStats = {};
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `fields`           | *string*[]         | :heavy_minus_sign: | N/A                |
+| Field                                                  | Type                                                   | Required                                               | Description                                            |
+| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
+| `fields`                                               | *string*[]                                             | :heavy_minus_sign:                                     | List of field names from which to generate statistics. |

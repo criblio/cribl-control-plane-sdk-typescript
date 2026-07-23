@@ -14,11 +14,23 @@ import {
   FeatureFlagOverrideConfSystemSettingsConf$outboundSchema,
 } from "./featureflagoverrideconfsystemsettingsconf.js";
 
+/**
+ * Support and diagnostics settings.
+ */
 export type SupportTypeSystemSettingsConf = {
+  /**
+   * List of feature flag overrides applied to this Cribl instance.
+   */
   featureFlagOverrides?:
     | Array<FeatureFlagOverrideConfSystemSettingsConf>
     | undefined;
+  /**
+   * Maximum number of log files to retain before rotating.
+   */
   logFileMaxFiles?: number | undefined;
+  /**
+   * Maximum size of each log file. Value is a numeral and unit such as <code>10 MB</code>.
+   */
   logFileMaxSize?: string | undefined;
 };
 
@@ -52,7 +64,7 @@ export const SupportTypeSystemSettingsConf$outboundSchema: z.ZodType<
   featureFlagOverrides: z.array(
     FeatureFlagOverrideConfSystemSettingsConf$outboundSchema,
   ).optional(),
-  logFileMaxFiles: z.number().optional(),
+  logFileMaxFiles: z.number().int().optional(),
   logFileMaxSize: z.string().optional(),
 });
 

@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  * Install a Pack
  *
  * @remarks
- * Install a Pack.<br><br> To install an uploaded Pack, provide the <code>source</code> value from the <code>PUT /packs</code> response as the <code>source</code> parameter in the request body.<br><br> To install a Pack by importing from a URL, provide the direct URL location of the <code>.crbl</code> file for the Pack as the <code>source</code> parameter in the request body.<br><br> To install a Pack by importing from a Git repository, provide <code>git+<repo-url></code> as the <code>source</code> parameter in the request body.<br><br> If you do not include the <code>source</code> parameter in the request body, an empty Pack is created.
+ * Install a Pack.<br/><br/>To install an uploaded Pack, provide the <code>source</code> value from the <code>PUT /packs</code> response as the <code>source</code> parameter in the request body.<br/><br/>To install a Pack by importing from a URL, provide the direct URL location of the <code>.crbl</code> file for the Pack as the <code>source</code> parameter in the request body.<br/><br/>To install a Pack by importing from a Git repository, provide <code>git+&lt;repo-url&gt;</code> as the <code>source</code> parameter in the request body.<br/><br/>If you do not include the <code>source</code> parameter in the request body, an empty Pack is created.
  */
 export function packsInstall(
   client: CriblControlPlaneCore,
@@ -168,8 +168,9 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, models.CountedPackInstallInfo$inboundSchema),
+    M.jsonErr(401, errors.ErrorT$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

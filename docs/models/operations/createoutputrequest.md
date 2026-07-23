@@ -224,6 +224,19 @@ const value: operations.CreateOutputOutputAzureEventhub = {
 };
 ```
 
+### `operations.CreateOutputOutputGoogleBigquery`
+
+```typescript
+const value: operations.CreateOutputOutputGoogleBigquery = {
+  id: "<id>",
+  type: "google_bigquery",
+  projectId: "<id>",
+  datasetId: "<id>",
+  tableId: "<id>",
+  googleAuthMethod: "auto",
+};
+```
+
 ### `operations.CreateOutputOutputGoogleChronicle`
 
 ```typescript
@@ -527,6 +540,18 @@ const value: operations.CreateOutputOutputLoki = {
 };
 ```
 
+### `operations.CreateOutputOutputAmazonManagedPrometheus`
+
+```typescript
+const value: operations.CreateOutputOutputAmazonManagedPrometheus = {
+  id: "<id>",
+  type: "amazon_managed_prometheus",
+  url: "https://timely-character.net/",
+  awsAuthenticationMethod: "auto",
+  region: "<value>",
+};
+```
+
 ### `operations.CreateOutputOutputPrometheus`
 
 ```typescript
@@ -683,6 +708,18 @@ const value: operations.CreateOutputOutputClickHouse = {
 };
 ```
 
+### `operations.CreateOutputOutputCustomerMetricsStorage`
+
+```typescript
+const value: operations.CreateOutputOutputCustomerMetricsStorage = {
+  id: "<id>",
+  type: "customer_metrics_storage",
+  url: "https://enlightened-march.com",
+  database: "<value>",
+  tableName: "<value>",
+};
+```
+
 ### `operations.CreateOutputOutputLocalSearchStorage`
 
 ```typescript
@@ -782,6 +819,23 @@ const value: operations.CreateOutputOutputDatabricks = {
   schema: "<value>",
   eventsVolumeName: "<value>",
   clientTextSecret: "<value>",
+};
+```
+
+### `operations.CreateOutputOutputSnowflakeStreaming`
+
+```typescript
+const value: operations.CreateOutputOutputSnowflakeStreaming = {
+  id: "<id>",
+  type: "snowflake_streaming",
+  accountIdentifier: "<value>",
+  user: "Vern38",
+  pem: {
+    keyName: "<value>",
+  },
+  database: "<value>",
+  schema: "<value>",
+  table: "<value>",
 };
 ```
 
@@ -888,6 +942,18 @@ const value: operations.CreateOutputOutputAlibabaCloudS3 = {
   bucket: "<value>",
   stagePath: "<value>",
   endpoint: "<value>",
+};
+```
+
+### `operations.CreateOutputOutputIbmCloudS3`
+
+```typescript
+const value: operations.CreateOutputOutputIbmCloudS3 = {
+  id: "<id>",
+  type: "ibm_cloud_s3",
+  endpoint: "<value>",
+  bucket: "<value>",
+  stagePath: "<value>",
 };
 ```
 

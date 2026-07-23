@@ -16,6 +16,10 @@ import {
 import { Collector, Collector$inboundSchema } from "./collector.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  InputTypeRunnableJobCollection,
+  InputTypeRunnableJobCollection$inboundSchema,
+} from "./inputtyperunnablejobcollection.js";
+import {
   JobTypeOptionsRunnableJobCollection,
   JobTypeOptionsRunnableJobCollection$inboundSchema,
 } from "./jobtypeoptionsrunnablejobcollection.js";
@@ -23,10 +27,6 @@ import {
   LogLevelOptionsRunnableJobCollectionScheduleRun,
   LogLevelOptionsRunnableJobCollectionScheduleRun$inboundSchema,
 } from "./logleveloptionsrunnablejobcollectionschedulerun.js";
-import {
-  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint,
-  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
-} from "./runnablejobcollectiontypecollectionwithbreakerrulesetsconstraint.js";
 import {
   ScheduleTypeRunnableJobCollection,
   ScheduleTypeRunnableJobCollection$inboundSchema,
@@ -47,10 +47,16 @@ export type RunnableJobCollectionMode = OpenEnum<
   typeof RunnableJobCollectionMode
 >;
 
+/**
+ * Time range
+ */
 export const TimeRange = {
   Absolute: "absolute",
   Relative: "relative",
 } as const;
+/**
+ * Time range
+ */
 export type TimeRange = OpenEnum<typeof TimeRange>;
 
 /**
@@ -63,6 +69,9 @@ export type RunnableJobCollectionEarliest = number | string;
  */
 export type RunnableJobCollectionLatest = number | string;
 
+/**
+ * Where to capture
+ */
 export const WhereToCapture = {
   /**
    * 1. Before pre-processing Pipeline
@@ -81,8 +90,14 @@ export const WhereToCapture = {
    */
   BeforeTheDestination: 3,
 } as const;
+/**
+ * Where to capture
+ */
 export type WhereToCapture = OpenEnum<typeof WhereToCapture>;
 
+/**
+ * Capture Settings
+ */
 export type CaptureSettings = {
   /**
    * Amount of time to keep capture open, in seconds
@@ -92,6 +107,9 @@ export type CaptureSettings = {
    * Maximum number of events to capture
    */
   maxEvents?: number | undefined;
+  /**
+   * Where to capture
+   */
   level?: WhereToCapture | undefined;
 };
 
@@ -116,6 +134,9 @@ export type RunnableJobCollectionRun = {
    * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
    */
   mode: RunnableJobCollectionMode;
+  /**
+   * Time range
+   */
   timeRangeType?: TimeRange | undefined;
   /**
    * Earliest time to collect data for the selected timezone
@@ -154,6 +175,9 @@ export type RunnableJobCollectionRun = {
    * Send discover results to Routes
    */
   discoverToRoutes?: boolean | undefined;
+  /**
+   * Capture Settings
+   */
   capture?: CaptureSettings | undefined;
 };
 
@@ -162,7 +186,13 @@ export type RunnableJobCollection = {
    * Unique ID for this Job
    */
   id?: string | undefined;
+  /**
+   * Description
+   */
   description?: string | undefined;
+  /**
+   * Job type
+   */
   type?: JobTypeOptionsRunnableJobCollection | undefined;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
@@ -189,7 +219,7 @@ export type RunnableJobCollection = {
    */
   schedule?: ScheduleTypeRunnableJobCollection | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -200,9 +230,7 @@ export type RunnableJobCollection = {
    * Collector configuration
    */
   collector: Collector;
-  input?:
-    | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint
-    | undefined;
+  input?: InputTypeRunnableJobCollection | undefined;
   run: RunnableJobCollectionRun;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -339,9 +367,7 @@ export const RunnableJobCollection$inboundSchema: z.ZodType<
   streamtags: types.optional(z.array(types.string())),
   workerAffinity: types.optional(types.boolean()),
   collector: Collector$inboundSchema,
-  input: types.optional(
-    RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
-  ),
+  input: types.optional(InputTypeRunnableJobCollection$inboundSchema),
   run: z.lazy(() => RunnableJobCollectionRun$inboundSchema),
   __template_streamtags: types.optional(types.string()),
 });

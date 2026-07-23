@@ -9,7 +9,14 @@ let value: CreatePipelinesByPackRequest = {
   pack: "<value>",
   pipeline: {
     id: "<id>",
-    conf: {},
+    conf: {
+      functions: [
+        {
+          id: "otlp_traces",
+          conf: {},
+        },
+      ],
+    },
   },
 };
 ```

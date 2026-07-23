@@ -30,7 +30,13 @@ export type InputMskInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "msk";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -49,7 +55,7 @@ export type InputMskInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -96,6 +102,9 @@ export type InputMskInput = {
    * Fields to add to events from this input
    */
   metadata?: Array<MetadataConfInputCollection> | undefined;
+  /**
+   * Kafka Schema Registry Authentication
+   */
   kafkaSchemaRegistry?: KafkaSchemaRegistryAuthenticationType | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
@@ -133,6 +142,9 @@ export type InputMskInput = {
    * AWS authentication method. Choose Auto to use IAM roles.
    */
   awsAuthenticationMethod: string;
+  /**
+   * Secret key
+   */
   awsSecretKey?: string | undefined;
   /**
    * Region where the MSK cluster is located
@@ -166,6 +178,9 @@ export type InputMskInput = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
+  /**
+   * TLS settings (client side)
+   */
   tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
@@ -187,7 +202,13 @@ export type InputMskInput = {
    * Maximum number of network errors before the consumer re-creates a socket
    */
   maxSocketErrors?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Access key
+   */
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key

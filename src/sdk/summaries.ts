@@ -4,22 +4,26 @@
 
 import { nodesSummariesGet } from "../funcs/nodesSummariesGet.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Summaries extends ClientSDK {
   /**
-   * Get a summary of the deployment for a specific product.
+   * Get a summary of the deployment for a Cribl product
    *
    * @remarks
-   * Get a summary of the deployment for the specified Cribl product (Stream or Edge).<br/><br/>The summary includes a count of Worker Groups or Edge Fleets and resources  such as Pipelines, Routes, Sources, and Destinations. For Distributed deployments,  it also includes a count and statistics for Worker or Edge Nodes.
+   * Get a summary of the deployment for the specified Cribl product (Stream or Edge).<br/><br/>The summary includes a count of Worker Groups or Edge Fleets and resources such as Pipelines, Routes, Sources, and Destinations. For Distributed deployments, the summary also includes a count and statistics for Worker or Edge Nodes.
    */
   async get(
     request: operations.GetProductsSummaryByProductRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedDistributedSummary> {
-    return unwrapAsync(nodesSummariesGet(
+  ): Promise<
+    PageIterator<
+      operations.GetProductsSummaryByProductResponse,
+      { offset: number }
+    >
+  > {
+    return unwrapResultIterator(nodesSummariesGet(
       this,
       request,
       options,

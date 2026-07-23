@@ -16,11 +16,6 @@ import {
   DiskSpoolingType$outboundSchema,
 } from "./diskspoolingtype.js";
 import {
-  HttpDiscoveryHeaderConfInputPrometheus,
-  HttpDiscoveryHeaderConfInputPrometheus$Outbound,
-  HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
-} from "./httpdiscoveryheaderconfinputprometheus.js";
-import {
   MetadataConfInputCollection,
   MetadataConfInputCollection$Outbound,
   MetadataConfInputCollection$outboundSchema,
@@ -34,6 +29,11 @@ import {
   RecordTypeOptions,
   RecordTypeOptions$outboundSchema,
 } from "./recordtypeoptions.js";
+import {
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+} from "./refreshrequestparamconfhealthcheckauthenticationoauthsecret.js";
 import {
   SearchFilterConfInputPrometheus,
   SearchFilterConfInputPrometheus$Outbound,
@@ -130,7 +130,13 @@ export type InputEdgePrometheusInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "edge_prometheus";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -149,7 +155,7 @@ export type InputEdgePrometheusInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -177,6 +183,9 @@ export type InputEdgePrometheusInput = {
    * Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
    */
   timeout?: number | undefined;
+  /**
+   * Disk Spooling
+   */
   persistence?: DiskSpoolingType | undefined;
   /**
    * Fields to add to events from this input
@@ -186,7 +195,13 @@ export type InputEdgePrometheusInput = {
    * Enter credentials directly, or select a stored secret
    */
   authType?: InputEdgePrometheusAuthenticationMethod | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Targets
+   */
   targets?: Array<InputEdgePrometheusTarget> | undefined;
   /**
    * DNS record type to resolve
@@ -212,6 +227,9 @@ export type InputEdgePrometheusInput = {
    * AWS authentication method. Choose Auto to use IAM roles.
    */
   awsAuthenticationMethod?: string | undefined;
+  /**
+   * Access key
+   */
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -225,6 +243,9 @@ export type InputEdgePrometheusInput = {
    * Filter to apply when searching for EC2 instances
    */
   searchFilter?: Array<SearchFilterConfInputPrometheus> | undefined;
+  /**
+   * Secret key
+   */
   awsSecretKey?: string | undefined;
   /**
    * Region where the EC2 is located
@@ -289,7 +310,7 @@ export type InputEdgePrometheusInput = {
    * Extra headers to send with the discovery request
    */
   httpDiscoveryHeaders?:
-    | Array<HttpDiscoveryHeaderConfInputPrometheus>
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
     | undefined;
   /**
    * Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
@@ -469,7 +490,9 @@ export type InputEdgePrometheusInput$Outbound = {
   podFilter?: Array<InputEdgePrometheusPodFilter$Outbound> | undefined;
   httpDiscoveryUrl?: string | undefined;
   httpDiscoveryHeaders?:
-    | Array<HttpDiscoveryHeaderConfInputPrometheus$Outbound>
+    | Array<
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
     | undefined;
   httpDiscoveryRejectUnauthorized?: boolean | undefined;
   maxResponseBodySize?: string | undefined;
@@ -543,7 +566,7 @@ export const InputEdgePrometheusInput$outboundSchema: z.ZodType<
     .optional(),
   httpDiscoveryUrl: z.string().optional(),
   httpDiscoveryHeaders: z.array(
-    HttpDiscoveryHeaderConfInputPrometheus$outboundSchema,
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
   ).optional(),
   httpDiscoveryRejectUnauthorized: z.boolean().optional(),
   maxResponseBodySize: z.string().optional(),

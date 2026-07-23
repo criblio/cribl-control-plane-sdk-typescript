@@ -83,7 +83,13 @@ export type InputMicrosoftGraphInput = {
    * Unique ID for this input
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "microsoft_graph";
+  /**
+   * If true, the Source is disabled and will not collect data.
+   */
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -102,7 +108,7 @@ export type InputMicrosoftGraphInput = {
    */
   pqEnabled?: boolean | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -179,6 +185,17 @@ export type InputMicrosoftGraphInput = {
    */
   logLevel?: LogLevelOptionsDebugError | undefined;
   retryRules?: RetryRulesTypeCodesEnableHeader | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * client_secret to pass in the OAuth request parameter.
@@ -279,6 +296,8 @@ export type InputMicrosoftGraphInput$Outbound = {
   maxTaskReschedule?: number | undefined;
   logLevel?: string | undefined;
   retryRules?: RetryRulesTypeCodesEnableHeader$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
   tenantId?: string | undefined;
@@ -330,6 +349,8 @@ export const InputMicrosoftGraphInput$outboundSchema: z.ZodType<
   maxTaskReschedule: z.number().optional(),
   logLevel: LogLevelOptionsDebugError$outboundSchema.optional(),
   retryRules: RetryRulesTypeCodesEnableHeader$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   tenantId: z.string().optional(),

@@ -8,6 +8,9 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Orphan file recovery
+ */
 export type OrphanFileRecoveryType = {
   /**
    * Periodically scan the staging directory for files not tracked by any Worker manifest to recover them

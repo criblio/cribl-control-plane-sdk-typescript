@@ -6,6 +6,9 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
+/**
+ * Authentication type
+ */
 export const AuthenticationTypeOptions = {
   /**
    * None
@@ -24,6 +27,9 @@ export const AuthenticationTypeOptions = {
    */
   SslUserCertificate: "sslUserCertificate",
 } as const;
+/**
+ * Authentication type
+ */
 export type AuthenticationTypeOptions = OpenEnum<
   typeof AuthenticationTypeOptions
 >;

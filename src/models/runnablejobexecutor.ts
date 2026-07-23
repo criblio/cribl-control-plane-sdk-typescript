@@ -48,7 +48,13 @@ export type RunnableJobExecutor = {
    * Unique ID for this Job
    */
   id?: string | undefined;
+  /**
+   * Description
+   */
   description?: string | undefined;
+  /**
+   * Job type
+   */
   type?: JobTypeOptionsRunnableJobCollection | undefined;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
@@ -75,7 +81,7 @@ export type RunnableJobExecutor = {
    */
   schedule?: ScheduleTypeRunnableJobCollection | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   executor: ExecutorTypeRunnableJobExecutor;

@@ -18,6 +18,10 @@ import {
   ExecutorTypeRunnableJobExecutor$inboundSchema,
 } from "./executortyperunnablejobexecutor.js";
 import {
+  InputTypeRunnableJobCollection,
+  InputTypeRunnableJobCollection$inboundSchema,
+} from "./inputtyperunnablejobcollection.js";
+import {
   JobTypeOptionsRunnableJobCollection,
   JobTypeOptionsRunnableJobCollection$inboundSchema,
 } from "./jobtypeoptionsrunnablejobcollection.js";
@@ -25,10 +29,6 @@ import {
   NotificationUnion,
   NotificationUnion$inboundSchema,
 } from "./notificationunion.js";
-import {
-  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint,
-  RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
-} from "./runnablejobcollectiontypecollectionwithbreakerrulesetsconstraint.js";
 import {
   ScheduleTypeSavedJobResponseCollection,
   ScheduleTypeSavedJobResponseCollection$inboundSchema,
@@ -39,7 +39,13 @@ export type SavedJobResponseScheduledSearch = {
    * Unique ID for this Job
    */
   id?: string | undefined;
+  /**
+   * Description
+   */
   description?: string | undefined;
+  /**
+   * Job type
+   */
   type: JobTypeOptionsRunnableJobCollection;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
@@ -66,7 +72,7 @@ export type SavedJobResponseScheduledSearch = {
    */
   schedule?: ScheduleTypeSavedJobResponseCollection | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -94,7 +100,13 @@ export type SavedJobResponseExecutor = {
    * Unique ID for this Job
    */
   id?: string | undefined;
+  /**
+   * Description
+   */
   description?: string | undefined;
+  /**
+   * Job type
+   */
   type: JobTypeOptionsRunnableJobCollection;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
@@ -121,7 +133,7 @@ export type SavedJobResponseExecutor = {
    */
   schedule?: ScheduleTypeSavedJobResponseCollection | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   executor: ExecutorTypeRunnableJobExecutor;
@@ -146,7 +158,13 @@ export type SavedJobResponseCollection = {
    * Unique ID for this Job
    */
   id?: string | undefined;
+  /**
+   * Description
+   */
   description?: string | undefined;
+  /**
+   * Job type
+   */
   type: JobTypeOptionsRunnableJobCollection;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
@@ -173,7 +191,7 @@ export type SavedJobResponseCollection = {
    */
   schedule?: ScheduleTypeSavedJobResponseCollection | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -184,9 +202,7 @@ export type SavedJobResponseCollection = {
    * Collector configuration
    */
   collector: Collector;
-  input?:
-    | RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint
-    | undefined;
+  input?: InputTypeRunnableJobCollection | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
    */
@@ -300,9 +316,7 @@ export const SavedJobResponseCollection$inboundSchema: z.ZodType<
   streamtags: types.optional(z.array(types.string())),
   workerAffinity: types.optional(types.boolean()),
   collector: Collector$inboundSchema,
-  input: types.optional(
-    RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
-  ),
+  input: types.optional(InputTypeRunnableJobCollection$inboundSchema),
   __template_streamtags: types.optional(types.string()),
   savedState: types.optional(
     z.record(AdditionalPropertiesTypeEnrichedFieldsSavedState$inboundSchema),

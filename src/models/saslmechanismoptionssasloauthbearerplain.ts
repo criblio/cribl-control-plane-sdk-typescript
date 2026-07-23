@@ -6,6 +6,9 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
+/**
+ * SASL mechanism
+ */
 export const SaslMechanismOptionsSaslOauthbearerPlain = {
   /**
    * PLAIN
@@ -16,6 +19,9 @@ export const SaslMechanismOptionsSaslOauthbearerPlain = {
    */
   Oauthbearer: "oauthbearer",
 } as const;
+/**
+ * SASL mechanism
+ */
 export type SaslMechanismOptionsSaslOauthbearerPlain = OpenEnum<
   typeof SaslMechanismOptionsSaslOauthbearerPlain
 >;

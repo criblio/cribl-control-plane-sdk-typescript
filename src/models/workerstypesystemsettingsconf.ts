@@ -8,15 +8,58 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * Worker Process configuration.
+ */
 export type WorkersTypeSystemSettingsConf = {
+  /**
+   * Number of Worker Processes to spawn. Set to <code>0</code> to use the number of available CPU cores.
+   */
   count: number;
+  /**
+   * If <code>true</code>, enable V8 heap snapshot generation on out-of-memory errors. Otherwise, <code>false</code>.
+   */
   enableHeapSnapshots?: boolean | undefined;
+  /**
+   * CPU load percentage threshold above which new connections are throttled.
+   */
   loadThrottlePerc?: number | undefined;
+  /**
+   * Maximum memory (in MB) per Worker Process. Set to <code>0</code> for no limit.
+   */
   memory: number;
+  /**
+   * Minimum number of Worker Processes to keep running.
+   */
   minimum: number;
+  /**
+   * If <code>true</code>, automatically restart Worker Processes that become unresponsive. Otherwise, <code>false</code>.
+   */
+  restartUnresponsiveProcesses?: boolean | undefined;
+  /**
+   * Maximum number of connections to accept during Worker Process startup before throttling begins.
+   */
   startupMaxConns?: number | undefined;
+  /**
+   * Timeout in milliseconds to wait for Worker Processes to reach idle before ending the startup throttle period.
+   */
   startupThrottleTimeout?: number | undefined;
+  /**
+   * If <code>true</code>, run all worker threads in a single V8 isolate. Otherwise, <code>false</code>.
+   */
   v8SingleThread?: boolean | undefined;
+  /**
+   * Maximum number of Worker Processes that can reload configuration concurrently.
+   */
+  workerProcessConfigUpdateConcurrency?: number | undefined;
+  /**
+   * Timeout in milliseconds to wait for a Worker Process to reload configuration before treating the reload as failed.
+   */
+  workerProcessReloadTimeout?: number | undefined;
+  /**
+   * Size of the Worker thread pool used for CPU-bound tasks.
+   */
+  workerThreadPoolSize?: number | undefined;
 };
 
 /** @internal */
@@ -30,9 +73,13 @@ export const WorkersTypeSystemSettingsConf$inboundSchema: z.ZodType<
   loadThrottlePerc: types.optional(types.number()),
   memory: types.number(),
   minimum: types.number(),
+  restartUnresponsiveProcesses: types.optional(types.boolean()),
   startupMaxConns: types.optional(types.number()),
   startupThrottleTimeout: types.optional(types.number()),
   v8SingleThread: types.optional(types.boolean()),
+  workerProcessConfigUpdateConcurrency: types.optional(types.number()),
+  workerProcessReloadTimeout: types.optional(types.number()),
+  workerThreadPoolSize: types.optional(types.number()),
 });
 /** @internal */
 export type WorkersTypeSystemSettingsConf$Outbound = {
@@ -41,9 +88,13 @@ export type WorkersTypeSystemSettingsConf$Outbound = {
   loadThrottlePerc?: number | undefined;
   memory: number;
   minimum: number;
+  restartUnresponsiveProcesses?: boolean | undefined;
   startupMaxConns?: number | undefined;
   startupThrottleTimeout?: number | undefined;
   v8SingleThread?: boolean | undefined;
+  workerProcessConfigUpdateConcurrency?: number | undefined;
+  workerProcessReloadTimeout?: number | undefined;
+  workerThreadPoolSize?: number | undefined;
 };
 
 /** @internal */
@@ -52,14 +103,18 @@ export const WorkersTypeSystemSettingsConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   WorkersTypeSystemSettingsConf
 > = z.object({
-  count: z.number(),
+  count: z.number().int(),
   enableHeapSnapshots: z.boolean().optional(),
-  loadThrottlePerc: z.number().optional(),
-  memory: z.number(),
-  minimum: z.number(),
-  startupMaxConns: z.number().optional(),
-  startupThrottleTimeout: z.number().optional(),
+  loadThrottlePerc: z.number().int().optional(),
+  memory: z.number().int(),
+  minimum: z.number().int(),
+  restartUnresponsiveProcesses: z.boolean().optional(),
+  startupMaxConns: z.number().int().optional(),
+  startupThrottleTimeout: z.number().int().optional(),
   v8SingleThread: z.boolean().optional(),
+  workerProcessConfigUpdateConcurrency: z.number().int().optional(),
+  workerProcessReloadTimeout: z.number().int().optional(),
+  workerThreadPoolSize: z.number().int().optional(),
 });
 
 export function workersTypeSystemSettingsConfToJSON(

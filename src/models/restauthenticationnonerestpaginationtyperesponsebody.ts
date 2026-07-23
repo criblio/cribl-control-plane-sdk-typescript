@@ -25,6 +25,12 @@ import {
   PaginationTypeRestDiscoveryDiscoverTypeHttp$outboundSchema,
 } from "./paginationtyperestdiscoverydiscovertypehttp.js";
 import {
+  RefreshRequestParamConfHealthCheckAuthenticationOauth,
+  RefreshRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
+  RefreshRequestParamConfHealthCheckAuthenticationOauth$Outbound,
+  RefreshRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+} from "./refreshrequestparamconfhealthcheckauthenticationoauth.js";
+import {
   RestAuthenticationOauthCollectMethod,
   RestAuthenticationOauthCollectMethod$inboundSchema,
   RestAuthenticationOauthCollectMethod$outboundSchema,
@@ -112,8 +118,29 @@ export type RestAuthenticationOauth = {
   authRequestParams?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
+  /**
+   * Authentication headers
+   */
   authRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
+    | undefined;
+  /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth>
     | undefined;
   /**
    * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
@@ -123,12 +150,22 @@ export type RestAuthenticationOauth = {
    * Binds 'clientSecretParamValue' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecretParamValue' at runtime.
    */
   __template_clientSecretParamValue?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
   discovery?: RestAuthenticationOauthDiscovery | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
    */
   collectUrl: string;
+  /**
+   * Collect method
+   */
   collectMethod: RestAuthenticationOauthCollectMethod;
+  /**
+   * Collect headers
+   */
   collectRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -180,11 +217,17 @@ export type RestAuthenticationOauth = {
    */
   microsoftGraphDelta?: RestAuthenticationOauthMicrosoftGraphDelta | undefined;
   __scheduling?: RestAuthenticationOauthScheduling | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
   /**
    * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
    */
   __template_username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
@@ -249,7 +292,13 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone = {
    * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
    */
   __template_discoverUrl?: string | undefined;
+  /**
+   * Discover method
+   */
   discoverMethod?: string | undefined;
+  /**
+   * Discover headers
+   */
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -262,6 +311,9 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone = {
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
+  /**
+   * Format discover result with custom code
+   */
   enableDiscoverCode?: boolean | undefined;
   /**
    * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
@@ -290,7 +342,13 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList = {
    * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
    */
   __template_discoverUrl?: string | undefined;
+  /**
+   * Discover method
+   */
   discoverMethod?: string | undefined;
+  /**
+   * Discover headers
+   */
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -303,6 +361,9 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList = {
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
+  /**
+   * Format discover result with custom code
+   */
   enableDiscoverCode?: boolean | undefined;
   /**
    * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
@@ -331,7 +392,13 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJson = {
    * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
    */
   __template_discoverUrl?: string | undefined;
+  /**
+   * Discover method
+   */
   discoverMethod?: string | undefined;
+  /**
+   * Discover headers
+   */
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -340,6 +407,9 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJson = {
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
+  /**
+   * Format discover result with custom code
+   */
   enableDiscoverCode?: boolean | undefined;
   /**
    * Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -367,6 +437,9 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
 
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "other";
     /**
      * Custom HTTP method to use for the Discover operation
@@ -376,6 +449,9 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Template for body to send with the discover request
      */
     discoverBody?: string | undefined;
+    /**
+     * Discover parameters
+     */
     discoverRequestParams?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -388,6 +464,9 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -404,6 +483,9 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -443,6 +525,9 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
 
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "post_with_body";
     /**
      * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
@@ -457,6 +542,9 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -473,6 +561,9 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -512,7 +603,13 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
 
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "post";
+    /**
+     * Discover parameters
+     */
     discoverRequestParams?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -525,6 +622,9 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -541,6 +641,9 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -580,7 +683,13 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
 
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "get";
+    /**
+     * Discover parameters
+     */
     discoverRequestParams?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -593,6 +702,9 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -609,6 +721,9 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -650,6 +765,9 @@ export type RestAuthenticationLoginSecretDiscovery =
   | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone
   | discriminatedUnionTypes.Unknown<"discoverType">;
 
+/**
+ * Collect method
+ */
 export const RestAuthenticationLoginSecretCollectMethod = {
   /**
    * GET
@@ -668,11 +786,17 @@ export const RestAuthenticationLoginSecretCollectMethod = {
    */
   Other: "other",
 } as const;
+/**
+ * Collect method
+ */
 export type RestAuthenticationLoginSecretCollectMethod = OpenEnum<
   typeof RestAuthenticationLoginSecretCollectMethod
 >;
 
 export type RestAuthenticationLoginSecretRestPaginationTypeRequestPage = {
+  /**
+   * Pagination
+   */
   type: "request_page";
   /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
@@ -737,6 +861,9 @@ export type RestAuthenticationLoginSecretRestPaginationTypeRequestPage = {
 };
 
 export type RestAuthenticationLoginSecretRestPaginationTypeRequestOffset = {
+  /**
+   * Pagination
+   */
   type: "request_offset";
   /**
    * Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
@@ -802,6 +929,9 @@ export type RestAuthenticationLoginSecretRestPaginationTypeRequestOffset = {
 
 export type RestAuthenticationLoginSecretRestPaginationTypeResponseHeaderLink =
   {
+    /**
+     * Pagination
+     */
     type: "response_header_link";
     /**
      * Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
@@ -873,6 +1003,9 @@ export type RestAuthenticationLoginSecretRestPaginationTypeResponseHeaderRespons
   | string;
 
 export type RestAuthenticationLoginSecretRestPaginationTypeResponseHeader = {
+  /**
+   * Pagination
+   */
   type: "response_header";
   /**
    * Names of attributes within the response that contain next-page information
@@ -948,6 +1081,9 @@ export type RestAuthenticationLoginSecretRestPaginationTypeResponseBodyResponseA
   | string;
 
 export type RestAuthenticationLoginSecretRestPaginationTypeResponseBody = {
+  /**
+   * Pagination
+   */
   type: "response_body";
   /**
    * Names of attributes within the response that contain next-page information
@@ -1016,6 +1152,9 @@ export type RestAuthenticationLoginSecretRestPaginationTypeResponseBody = {
 };
 
 export type RestAuthenticationLoginSecretRestPaginationTypeNone = {
+  /**
+   * Pagination
+   */
   type: "none";
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
@@ -1105,6 +1244,9 @@ export type RestAuthenticationLoginSecretRestRetryRulesTypeBackoff = {
    * Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
    */
   multiplier?: number | undefined;
+  /**
+   * Longest interval between retries (ms)
+   */
   maxIntervalMs?: number | undefined;
   /**
    * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
@@ -1122,6 +1264,9 @@ export type RestAuthenticationLoginSecretRestRetryRulesTypeBackoff = {
    * Retry request when a connection reset (ECONNRESET) error occurs
    */
   retryConnectReset?: boolean | undefined;
+  /**
+   * Retry-After header name
+   */
   retryHeaderName?: string | undefined;
 };
 
@@ -1154,6 +1299,9 @@ export type RestAuthenticationLoginSecretRestRetryRulesTypeStatic = {
    * Retry request when a connection reset (ECONNRESET) error occurs
    */
   retryConnectReset?: boolean | undefined;
+  /**
+   * Retry-After header name
+   */
   retryHeaderName?: string | undefined;
 };
 
@@ -1220,6 +1368,9 @@ export type RestAuthenticationLoginSecret = {
    * JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
    */
   authHeaderExpr: string;
+  /**
+   * Authentication headers
+   */
   authRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -1246,7 +1397,13 @@ export type RestAuthenticationLoginSecret = {
    * URL (constant or JavaScript expression) to use for the Collect operation
    */
   collectUrl: string;
+  /**
+   * Collect method
+   */
   collectMethod: RestAuthenticationLoginSecretCollectMethod;
+  /**
+   * Collect headers
+   */
   collectRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -1308,11 +1465,17 @@ export type RestAuthenticationLoginSecret = {
     | RestAuthenticationLoginSecretMicrosoftGraphDelta
     | undefined;
   __scheduling?: RestAuthenticationLoginSecretScheduling | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
   /**
    * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
    */
   __template_username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
@@ -1339,6 +1502,28 @@ export type RestAuthenticationLoginSecret = {
    */
   authRequestParams?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
+    | undefined;
+  /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth>
     | undefined;
   /**
    * Select or create a text secret that contains the client secret's value
@@ -1387,7 +1572,13 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeNone = {
    * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
    */
   __template_discoverUrl?: string | undefined;
+  /**
+   * Discover method
+   */
   discoverMethod?: string | undefined;
+  /**
+   * Discover headers
+   */
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -1400,6 +1591,9 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeNone = {
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
+  /**
+   * Format discover result with custom code
+   */
   enableDiscoverCode?: boolean | undefined;
   /**
    * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
@@ -1428,7 +1622,13 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeList = {
    * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
    */
   __template_discoverUrl?: string | undefined;
+  /**
+   * Discover method
+   */
   discoverMethod?: string | undefined;
+  /**
+   * Discover headers
+   */
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -1441,6 +1641,9 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeList = {
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
+  /**
+   * Format discover result with custom code
+   */
   enableDiscoverCode?: boolean | undefined;
   /**
    * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
@@ -1469,7 +1672,13 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeJson = {
    * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
    */
   __template_discoverUrl?: string | undefined;
+  /**
+   * Discover method
+   */
   discoverMethod?: string | undefined;
+  /**
+   * Discover headers
+   */
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -1478,6 +1687,9 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeJson = {
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
+  /**
+   * Format discover result with custom code
+   */
   enableDiscoverCode?: boolean | undefined;
   /**
    * Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -1505,6 +1717,9 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
 
 export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "other";
     /**
      * Custom HTTP method to use for the Discover operation
@@ -1514,6 +1729,9 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
      * Template for body to send with the discover request
      */
     discoverBody?: string | undefined;
+    /**
+     * Discover parameters
+     */
     discoverRequestParams?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -1526,6 +1744,9 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -1542,6 +1763,9 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -1581,6 +1805,9 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
 
 export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "post_with_body";
     /**
      * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
@@ -1595,6 +1822,9 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -1611,6 +1841,9 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -1650,7 +1883,13 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
 
 export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "post";
+    /**
+     * Discover parameters
+     */
     discoverRequestParams?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -1663,6 +1902,9 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -1679,6 +1921,9 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -1718,7 +1963,13 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
 
 export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "get";
+    /**
+     * Discover parameters
+     */
     discoverRequestParams?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -1731,6 +1982,9 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -1747,6 +2001,9 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -1788,6 +2045,9 @@ export type RestAuthenticationLoginDiscovery =
   | RestAuthenticationLoginRestDiscoveryDiscoverTypeNone
   | discriminatedUnionTypes.Unknown<"discoverType">;
 
+/**
+ * Collect method
+ */
 export const RestAuthenticationLoginCollectMethod = {
   /**
    * GET
@@ -1806,11 +2066,17 @@ export const RestAuthenticationLoginCollectMethod = {
    */
   Other: "other",
 } as const;
+/**
+ * Collect method
+ */
 export type RestAuthenticationLoginCollectMethod = OpenEnum<
   typeof RestAuthenticationLoginCollectMethod
 >;
 
 export type RestAuthenticationLoginRestPaginationTypeRequestPage = {
+  /**
+   * Pagination
+   */
   type: "request_page";
   /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
@@ -1875,6 +2141,9 @@ export type RestAuthenticationLoginRestPaginationTypeRequestPage = {
 };
 
 export type RestAuthenticationLoginRestPaginationTypeRequestOffset = {
+  /**
+   * Pagination
+   */
   type: "request_offset";
   /**
    * Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
@@ -1939,6 +2208,9 @@ export type RestAuthenticationLoginRestPaginationTypeRequestOffset = {
 };
 
 export type RestAuthenticationLoginRestPaginationTypeResponseHeaderLink = {
+  /**
+   * Pagination
+   */
   type: "response_header_link";
   /**
    * Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
@@ -2010,6 +2282,9 @@ export type RestAuthenticationLoginRestPaginationTypeResponseHeaderResponseAttri
   | string;
 
 export type RestAuthenticationLoginRestPaginationTypeResponseHeader = {
+  /**
+   * Pagination
+   */
   type: "response_header";
   /**
    * Names of attributes within the response that contain next-page information
@@ -2085,6 +2360,9 @@ export type RestAuthenticationLoginRestPaginationTypeResponseBodyResponseAttribu
   | string;
 
 export type RestAuthenticationLoginRestPaginationTypeResponseBody = {
+  /**
+   * Pagination
+   */
   type: "response_body";
   /**
    * Names of attributes within the response that contain next-page information
@@ -2153,6 +2431,9 @@ export type RestAuthenticationLoginRestPaginationTypeResponseBody = {
 };
 
 export type RestAuthenticationLoginRestPaginationTypeNone = {
+  /**
+   * Pagination
+   */
   type: "none";
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
@@ -2242,6 +2523,9 @@ export type RestAuthenticationLoginRestRetryRulesTypeBackoff = {
    * Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
    */
   multiplier?: number | undefined;
+  /**
+   * Longest interval between retries (ms)
+   */
   maxIntervalMs?: number | undefined;
   /**
    * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
@@ -2259,6 +2543,9 @@ export type RestAuthenticationLoginRestRetryRulesTypeBackoff = {
    * Retry request when a connection reset (ECONNRESET) error occurs
    */
   retryConnectReset?: boolean | undefined;
+  /**
+   * Retry-After header name
+   */
   retryHeaderName?: string | undefined;
 };
 
@@ -2291,6 +2578,9 @@ export type RestAuthenticationLoginRestRetryRulesTypeStatic = {
    * Retry request when a connection reset (ECONNRESET) error occurs
    */
   retryConnectReset?: boolean | undefined;
+  /**
+   * Retry-After header name
+   */
   retryHeaderName?: string | undefined;
 };
 
@@ -2337,7 +2627,13 @@ export type RestAuthenticationLogin = {
    * URL to use for login API call. This call is expected to be a POST.
    */
   loginUrl: string;
+  /**
+   * Username
+   */
   username: string;
+  /**
+   * Password
+   */
   password: string;
   /**
    * Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
@@ -2355,6 +2651,9 @@ export type RestAuthenticationLogin = {
    * JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
    */
   authHeaderExpr: string;
+  /**
+   * Authentication headers
+   */
   authRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -2393,7 +2692,13 @@ export type RestAuthenticationLogin = {
    * URL (constant or JavaScript expression) to use for the Collect operation
    */
   collectUrl: string;
+  /**
+   * Collect method
+   */
   collectMethod: RestAuthenticationLoginCollectMethod;
+  /**
+   * Collect headers
+   */
   collectRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -2476,6 +2781,28 @@ export type RestAuthenticationLogin = {
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
   /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth>
+    | undefined;
+  /**
    * Select or create a text secret that contains the client secret's value
    */
   textSecret?: string | undefined;
@@ -2522,7 +2849,13 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone = {
    * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
    */
   __template_discoverUrl?: string | undefined;
+  /**
+   * Discover method
+   */
   discoverMethod?: string | undefined;
+  /**
+   * Discover headers
+   */
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -2535,6 +2868,9 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone = {
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
+  /**
+   * Format discover result with custom code
+   */
   enableDiscoverCode?: boolean | undefined;
   /**
    * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
@@ -2563,7 +2899,13 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList = {
    * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
    */
   __template_discoverUrl?: string | undefined;
+  /**
+   * Discover method
+   */
   discoverMethod?: string | undefined;
+  /**
+   * Discover headers
+   */
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -2576,6 +2918,9 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList = {
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
+  /**
+   * Format discover result with custom code
+   */
   enableDiscoverCode?: boolean | undefined;
   /**
    * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
@@ -2604,7 +2949,13 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJson = {
    * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
    */
   __template_discoverUrl?: string | undefined;
+  /**
+   * Discover method
+   */
   discoverMethod?: string | undefined;
+  /**
+   * Discover headers
+   */
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -2613,6 +2964,9 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJson = {
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
+  /**
+   * Format discover result with custom code
+   */
   enableDiscoverCode?: boolean | undefined;
   /**
    * Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -2640,6 +2994,9 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
 
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "other";
     /**
      * Custom HTTP method to use for the Discover operation
@@ -2649,6 +3006,9 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Template for body to send with the discover request
      */
     discoverBody?: string | undefined;
+    /**
+     * Discover parameters
+     */
     discoverRequestParams?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -2661,6 +3021,9 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -2677,6 +3040,9 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -2716,6 +3082,9 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
 
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "post_with_body";
     /**
      * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
@@ -2730,6 +3099,9 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -2746,6 +3118,9 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -2785,7 +3160,13 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
 
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "post";
+    /**
+     * Discover parameters
+     */
     discoverRequestParams?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -2798,6 +3179,9 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -2814,6 +3198,9 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -2853,7 +3240,13 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
 
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "get";
+    /**
+     * Discover parameters
+     */
     discoverRequestParams?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -2866,6 +3259,9 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -2882,6 +3278,9 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -2923,6 +3322,9 @@ export type RestAuthenticationBasicSecretDiscovery =
   | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone
   | discriminatedUnionTypes.Unknown<"discoverType">;
 
+/**
+ * Collect method
+ */
 export const RestAuthenticationBasicSecretCollectMethod = {
   /**
    * GET
@@ -2941,11 +3343,17 @@ export const RestAuthenticationBasicSecretCollectMethod = {
    */
   Other: "other",
 } as const;
+/**
+ * Collect method
+ */
 export type RestAuthenticationBasicSecretCollectMethod = OpenEnum<
   typeof RestAuthenticationBasicSecretCollectMethod
 >;
 
 export type RestAuthenticationBasicSecretRestPaginationTypeRequestPage = {
+  /**
+   * Pagination
+   */
   type: "request_page";
   /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
@@ -3010,6 +3418,9 @@ export type RestAuthenticationBasicSecretRestPaginationTypeRequestPage = {
 };
 
 export type RestAuthenticationBasicSecretRestPaginationTypeRequestOffset = {
+  /**
+   * Pagination
+   */
   type: "request_offset";
   /**
    * Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
@@ -3075,6 +3486,9 @@ export type RestAuthenticationBasicSecretRestPaginationTypeRequestOffset = {
 
 export type RestAuthenticationBasicSecretRestPaginationTypeResponseHeaderLink =
   {
+    /**
+     * Pagination
+     */
     type: "response_header_link";
     /**
      * Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
@@ -3146,6 +3560,9 @@ export type RestAuthenticationBasicSecretRestPaginationTypeResponseHeaderRespons
   | string;
 
 export type RestAuthenticationBasicSecretRestPaginationTypeResponseHeader = {
+  /**
+   * Pagination
+   */
   type: "response_header";
   /**
    * Names of attributes within the response that contain next-page information
@@ -3221,6 +3638,9 @@ export type RestAuthenticationBasicSecretRestPaginationTypeResponseBodyResponseA
   | string;
 
 export type RestAuthenticationBasicSecretRestPaginationTypeResponseBody = {
+  /**
+   * Pagination
+   */
   type: "response_body";
   /**
    * Names of attributes within the response that contain next-page information
@@ -3289,6 +3709,9 @@ export type RestAuthenticationBasicSecretRestPaginationTypeResponseBody = {
 };
 
 export type RestAuthenticationBasicSecretRestPaginationTypeNone = {
+  /**
+   * Pagination
+   */
   type: "none";
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
@@ -3378,6 +3801,9 @@ export type RestAuthenticationBasicSecretRestRetryRulesTypeBackoff = {
    * Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
    */
   multiplier?: number | undefined;
+  /**
+   * Longest interval between retries (ms)
+   */
   maxIntervalMs?: number | undefined;
   /**
    * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
@@ -3395,6 +3821,9 @@ export type RestAuthenticationBasicSecretRestRetryRulesTypeBackoff = {
    * Retry request when a connection reset (ECONNRESET) error occurs
    */
   retryConnectReset?: boolean | undefined;
+  /**
+   * Retry-After header name
+   */
   retryHeaderName?: string | undefined;
 };
 
@@ -3427,6 +3856,9 @@ export type RestAuthenticationBasicSecretRestRetryRulesTypeStatic = {
    * Retry request when a connection reset (ECONNRESET) error occurs
    */
   retryConnectReset?: boolean | undefined;
+  /**
+   * Retry-After header name
+   */
   retryHeaderName?: string | undefined;
 };
 
@@ -3492,7 +3924,13 @@ export type RestAuthenticationBasicSecret = {
    * URL (constant or JavaScript expression) to use for the Collect operation
    */
   collectUrl: string;
+  /**
+   * Collect method
+   */
   collectMethod: RestAuthenticationBasicSecretCollectMethod;
+  /**
+   * Collect headers
+   */
   collectRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -3554,11 +3992,17 @@ export type RestAuthenticationBasicSecret = {
     | RestAuthenticationBasicSecretMicrosoftGraphDelta
     | undefined;
   __scheduling?: RestAuthenticationBasicSecretScheduling | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
   /**
    * Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
    */
   __template_username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
@@ -3588,6 +4032,9 @@ export type RestAuthenticationBasicSecret = {
    * JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
    */
   authHeaderExpr?: string | undefined;
+  /**
+   * Authentication headers
+   */
   authRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -3612,6 +4059,28 @@ export type RestAuthenticationBasicSecret = {
    */
   authRequestParams?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
+    | undefined;
+  /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth>
     | undefined;
   /**
    * Select or create a text secret that contains the client secret's value
@@ -3660,7 +4129,13 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeNone = {
    * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
    */
   __template_discoverUrl?: string | undefined;
+  /**
+   * Discover method
+   */
   discoverMethod?: string | undefined;
+  /**
+   * Discover headers
+   */
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -3673,6 +4148,9 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeNone = {
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
+  /**
+   * Format discover result with custom code
+   */
   enableDiscoverCode?: boolean | undefined;
   /**
    * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
@@ -3701,7 +4179,13 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeList = {
    * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
    */
   __template_discoverUrl?: string | undefined;
+  /**
+   * Discover method
+   */
   discoverMethod?: string | undefined;
+  /**
+   * Discover headers
+   */
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -3714,6 +4198,9 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeList = {
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
+  /**
+   * Format discover result with custom code
+   */
   enableDiscoverCode?: boolean | undefined;
   /**
    * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
@@ -3742,7 +4229,13 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeJson = {
    * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
    */
   __template_discoverUrl?: string | undefined;
+  /**
+   * Discover method
+   */
   discoverMethod?: string | undefined;
+  /**
+   * Discover headers
+   */
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -3751,6 +4244,9 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeJson = {
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
+  /**
+   * Format discover result with custom code
+   */
   enableDiscoverCode?: boolean | undefined;
   /**
    * Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -3778,6 +4274,9 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
 
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "other";
     /**
      * Custom HTTP method to use for the Discover operation
@@ -3787,6 +4286,9 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
      * Template for body to send with the discover request
      */
     discoverBody?: string | undefined;
+    /**
+     * Discover parameters
+     */
     discoverRequestParams?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -3799,6 +4301,9 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -3815,6 +4320,9 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -3854,6 +4362,9 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
 
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "post_with_body";
     /**
      * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
@@ -3868,6 +4379,9 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -3884,6 +4398,9 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -3923,7 +4440,13 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
 
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "post";
+    /**
+     * Discover parameters
+     */
     discoverRequestParams?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -3936,6 +4459,9 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -3952,6 +4478,9 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -3991,7 +4520,13 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
 
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "get";
+    /**
+     * Discover parameters
+     */
     discoverRequestParams?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -4004,6 +4539,9 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -4020,6 +4558,9 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -4061,6 +4602,9 @@ export type RestAuthenticationBasicDiscovery =
   | RestAuthenticationBasicRestDiscoveryDiscoverTypeNone
   | discriminatedUnionTypes.Unknown<"discoverType">;
 
+/**
+ * Collect method
+ */
 export const RestAuthenticationBasicCollectMethod = {
   /**
    * GET
@@ -4079,11 +4623,17 @@ export const RestAuthenticationBasicCollectMethod = {
    */
   Other: "other",
 } as const;
+/**
+ * Collect method
+ */
 export type RestAuthenticationBasicCollectMethod = OpenEnum<
   typeof RestAuthenticationBasicCollectMethod
 >;
 
 export type RestAuthenticationBasicRestPaginationTypeRequestPage = {
+  /**
+   * Pagination
+   */
   type: "request_page";
   /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
@@ -4148,6 +4698,9 @@ export type RestAuthenticationBasicRestPaginationTypeRequestPage = {
 };
 
 export type RestAuthenticationBasicRestPaginationTypeRequestOffset = {
+  /**
+   * Pagination
+   */
   type: "request_offset";
   /**
    * Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
@@ -4212,6 +4765,9 @@ export type RestAuthenticationBasicRestPaginationTypeRequestOffset = {
 };
 
 export type RestAuthenticationBasicRestPaginationTypeResponseHeaderLink = {
+  /**
+   * Pagination
+   */
   type: "response_header_link";
   /**
    * Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
@@ -4283,6 +4839,9 @@ export type RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttri
   | string;
 
 export type RestAuthenticationBasicRestPaginationTypeResponseHeader = {
+  /**
+   * Pagination
+   */
   type: "response_header";
   /**
    * Names of attributes within the response that contain next-page information
@@ -4358,6 +4917,9 @@ export type RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttribu
   | string;
 
 export type RestAuthenticationBasicRestPaginationTypeResponseBody = {
+  /**
+   * Pagination
+   */
   type: "response_body";
   /**
    * Names of attributes within the response that contain next-page information
@@ -4426,6 +4988,9 @@ export type RestAuthenticationBasicRestPaginationTypeResponseBody = {
 };
 
 export type RestAuthenticationBasicRestPaginationTypeNone = {
+  /**
+   * Pagination
+   */
   type: "none";
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
@@ -4515,6 +5080,9 @@ export type RestAuthenticationBasicRestRetryRulesTypeBackoff = {
    * Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
    */
   multiplier?: number | undefined;
+  /**
+   * Longest interval between retries (ms)
+   */
   maxIntervalMs?: number | undefined;
   /**
    * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
@@ -4532,6 +5100,9 @@ export type RestAuthenticationBasicRestRetryRulesTypeBackoff = {
    * Retry request when a connection reset (ECONNRESET) error occurs
    */
   retryConnectReset?: boolean | undefined;
+  /**
+   * Retry-After header name
+   */
   retryHeaderName?: string | undefined;
 };
 
@@ -4564,6 +5135,9 @@ export type RestAuthenticationBasicRestRetryRulesTypeStatic = {
    * Retry request when a connection reset (ECONNRESET) error occurs
    */
   retryConnectReset?: boolean | undefined;
+  /**
+   * Retry-After header name
+   */
   retryHeaderName?: string | undefined;
 };
 
@@ -4606,7 +5180,13 @@ export type RestAuthenticationBasic = {
    * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
    */
   authentication: "basic";
+  /**
+   * Username
+   */
   username: string;
+  /**
+   * Password
+   */
   password: string;
   discovery?:
     | (
@@ -4627,7 +5207,13 @@ export type RestAuthenticationBasic = {
    * URL (constant or JavaScript expression) to use for the Collect operation
    */
   collectUrl: string;
+  /**
+   * Collect method
+   */
   collectMethod: RestAuthenticationBasicCollectMethod;
+  /**
+   * Collect headers
+   */
   collectRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -4723,6 +5309,9 @@ export type RestAuthenticationBasic = {
    * JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
    */
   authHeaderExpr?: string | undefined;
+  /**
+   * Authentication headers
+   */
   authRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -4747,6 +5336,28 @@ export type RestAuthenticationBasic = {
    */
   authRequestParams?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
+    | undefined;
+  /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth>
     | undefined;
   /**
    * Select or create a text secret that contains the client secret's value
@@ -4795,7 +5406,13 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeNone = {
    * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
    */
   __template_discoverUrl?: string | undefined;
+  /**
+   * Discover method
+   */
   discoverMethod?: string | undefined;
+  /**
+   * Discover headers
+   */
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -4808,6 +5425,9 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeNone = {
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
+  /**
+   * Format discover result with custom code
+   */
   enableDiscoverCode?: boolean | undefined;
   /**
    * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
@@ -4836,7 +5456,13 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeList = {
    * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
    */
   __template_discoverUrl?: string | undefined;
+  /**
+   * Discover method
+   */
   discoverMethod?: string | undefined;
+  /**
+   * Discover headers
+   */
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -4849,6 +5475,9 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeList = {
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
+  /**
+   * Format discover result with custom code
+   */
   enableDiscoverCode?: boolean | undefined;
   /**
    * Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
@@ -4877,7 +5506,13 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeJson = {
    * Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
    */
   __template_discoverUrl?: string | undefined;
+  /**
+   * Discover method
+   */
   discoverMethod?: string | undefined;
+  /**
+   * Discover headers
+   */
   discoverRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet>
     | undefined;
@@ -4886,6 +5521,9 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeJson = {
    * Explicitly set the discover response format. When disabled, best effort parsing is used.
    */
   enableStrictDiscoverParsing?: boolean | undefined;
+  /**
+   * Format discover result with custom code
+   */
   enableDiscoverCode?: boolean | undefined;
   /**
    * Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -4913,6 +5551,9 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
 
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "other";
     /**
      * Custom HTTP method to use for the Discover operation
@@ -4922,6 +5563,9 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
      * Template for body to send with the discover request
      */
     discoverBody?: string | undefined;
+    /**
+     * Discover parameters
+     */
     discoverRequestParams?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -4934,6 +5578,9 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -4950,6 +5597,9 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -4989,6 +5639,9 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
 
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "post_with_body";
     /**
      * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
@@ -5003,6 +5656,9 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -5019,6 +5675,9 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -5058,7 +5717,13 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
 
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "post";
+    /**
+     * Discover parameters
+     */
     discoverRequestParams?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -5071,6 +5736,9 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -5087,6 +5755,9 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -5126,7 +5797,13 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
 
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
+    /**
+     * Discover method
+     */
     discoverMethod: "get";
+    /**
+     * Discover parameters
+     */
     discoverRequestParams?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -5139,6 +5816,9 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
+    /**
+     * Discover headers
+     */
     discoverRequestHeaders?:
       | Array<CollectRequestParamConfRestCollectMethodGet>
       | undefined;
@@ -5155,6 +5835,9 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
      * If 'Strict discover response parsing' parsing is enabled, provide the response format
      */
     discoverResponseFormat?: string | undefined;
+    /**
+     * Format discover result with custom code
+     */
     enableDiscoverCode?: boolean | undefined;
     /**
      * Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
@@ -5196,6 +5879,9 @@ export type RestAuthenticationNoneDiscovery =
   | RestAuthenticationNoneRestDiscoveryDiscoverTypeNone
   | discriminatedUnionTypes.Unknown<"discoverType">;
 
+/**
+ * Collect method
+ */
 export const RestAuthenticationNoneCollectMethod = {
   /**
    * GET
@@ -5214,11 +5900,17 @@ export const RestAuthenticationNoneCollectMethod = {
    */
   Other: "other",
 } as const;
+/**
+ * Collect method
+ */
 export type RestAuthenticationNoneCollectMethod = OpenEnum<
   typeof RestAuthenticationNoneCollectMethod
 >;
 
 export type RestAuthenticationNoneRestPaginationTypeRequestPage = {
+  /**
+   * Pagination
+   */
   type: "request_page";
   /**
    * Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
@@ -5283,6 +5975,9 @@ export type RestAuthenticationNoneRestPaginationTypeRequestPage = {
 };
 
 export type RestAuthenticationNoneRestPaginationTypeRequestOffset = {
+  /**
+   * Pagination
+   */
   type: "request_offset";
   /**
    * Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
@@ -5347,6 +6042,9 @@ export type RestAuthenticationNoneRestPaginationTypeRequestOffset = {
 };
 
 export type RestAuthenticationNoneRestPaginationTypeResponseHeaderLink = {
+  /**
+   * Pagination
+   */
   type: "response_header_link";
   /**
    * Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
@@ -5418,6 +6116,9 @@ export type RestAuthenticationNoneRestPaginationTypeResponseHeaderResponseAttrib
   | string;
 
 export type RestAuthenticationNoneRestPaginationTypeResponseHeader = {
+  /**
+   * Pagination
+   */
   type: "response_header";
   /**
    * Names of attributes within the response that contain next-page information
@@ -5493,6 +6194,9 @@ export type RestAuthenticationNoneRestPaginationTypeResponseBodyResponseAttribut
   | string;
 
 export type RestAuthenticationNoneRestPaginationTypeResponseBody = {
+  /**
+   * Pagination
+   */
   type: "response_body";
   /**
    * Names of attributes within the response that contain next-page information
@@ -5759,8 +6463,17 @@ export const RestAuthenticationOauth$inboundSchema: z.ZodType<
   authRequestHeaders: types.optional(
     z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
   ),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
+    ),
+  ),
   __template_loginUrl: types.optional(types.string()),
   __template_clientSecretParamValue: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
   discovery: types.optional(RestAuthenticationOauthDiscovery$inboundSchema),
   collectUrl: types.string(),
   collectMethod: RestAuthenticationOauthCollectMethod$inboundSchema,
@@ -5819,8 +6532,15 @@ export type RestAuthenticationOauth$Outbound = {
   authRequestHeaders?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
     | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth$Outbound>
+    | undefined;
   __template_loginUrl?: string | undefined;
   __template_clientSecretParamValue?: string | undefined;
+  __template_refreshUrl?: string | undefined;
   discovery?: RestAuthenticationOauthDiscovery$Outbound | undefined;
   collectUrl: string;
   collectMethod: string;
@@ -5882,8 +6602,15 @@ export const RestAuthenticationOauth$outboundSchema: z.ZodType<
   authRequestHeaders: z.array(
     CollectRequestParamConfRestCollectMethodGet$outboundSchema,
   ).optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
+  ).optional(),
   __template_loginUrl: z.string().optional(),
   __template_clientSecretParamValue: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
   discovery: RestAuthenticationOauthDiscovery$outboundSchema.optional(),
   collectUrl: z.string(),
   collectMethod: RestAuthenticationOauthCollectMethod$outboundSchema,
@@ -8170,6 +8897,15 @@ export const RestAuthenticationLoginSecret$inboundSchema: z.ZodType<
   authRequestParams: types.optional(
     z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
   ),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
+    ),
+  ),
   textSecret: types.optional(types.string()),
   scopes: types.optional(z.array(types.string())),
   serviceAccountCredentials: types.optional(types.string()),
@@ -8245,6 +8981,13 @@ export type RestAuthenticationLoginSecret$Outbound = {
   __template_clientSecretParamValue?: string | undefined;
   authRequestParams?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
+    | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  __template_refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth$Outbound>
     | undefined;
   textSecret?: string | undefined;
   scopes?: Array<string> | undefined;
@@ -8359,6 +9102,13 @@ export const RestAuthenticationLoginSecret$outboundSchema: z.ZodType<
   __template_clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
     CollectRequestParamConfRestCollectMethodGet$outboundSchema,
+  ).optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
   ).optional(),
   textSecret: z.string().optional(),
   scopes: z.array(z.string()).optional(),
@@ -10577,6 +11327,15 @@ export const RestAuthenticationLogin$inboundSchema: z.ZodType<
   authRequestParams: types.optional(
     z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
   ),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
+    ),
+  ),
   textSecret: types.optional(types.string()),
   scopes: types.optional(z.array(types.string())),
   serviceAccountCredentials: types.optional(types.string()),
@@ -10652,6 +11411,13 @@ export type RestAuthenticationLogin$Outbound = {
   __template_clientSecretParamValue?: string | undefined;
   authRequestParams?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
+    | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  __template_refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth$Outbound>
     | undefined;
   textSecret?: string | undefined;
   scopes?: Array<string> | undefined;
@@ -10761,6 +11527,13 @@ export const RestAuthenticationLogin$outboundSchema: z.ZodType<
   __template_clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
     CollectRequestParamConfRestCollectMethodGet$outboundSchema,
+  ).optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
   ).optional(),
   textSecret: z.string().optional(),
   scopes: z.array(z.string()).optional(),
@@ -13015,6 +13788,15 @@ export const RestAuthenticationBasicSecret$inboundSchema: z.ZodType<
   authRequestParams: types.optional(
     z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
   ),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
+    ),
+  ),
   textSecret: types.optional(types.string()),
   scopes: types.optional(z.array(types.string())),
   serviceAccountCredentials: types.optional(types.string()),
@@ -13090,6 +13872,13 @@ export type RestAuthenticationBasicSecret$Outbound = {
   __template_clientSecretParamValue?: string | undefined;
   authRequestParams?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
+    | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  __template_refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth$Outbound>
     | undefined;
   textSecret?: string | undefined;
   scopes?: Array<string> | undefined;
@@ -13204,6 +13993,13 @@ export const RestAuthenticationBasicSecret$outboundSchema: z.ZodType<
   __template_clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
     CollectRequestParamConfRestCollectMethodGet$outboundSchema,
+  ).optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
   ).optional(),
   textSecret: z.string().optional(),
   scopes: z.array(z.string()).optional(),
@@ -15422,6 +16218,15 @@ export const RestAuthenticationBasic$inboundSchema: z.ZodType<
   authRequestParams: types.optional(
     z.array(CollectRequestParamConfRestCollectMethodGet$inboundSchema),
   ),
+  refreshTokenField: types.optional(types.string()),
+  rotateRefreshToken: types.optional(types.boolean()),
+  refreshUrl: types.optional(types.string()),
+  __template_refreshUrl: types.optional(types.string()),
+  refreshRequestParams: types.optional(
+    z.array(
+      RefreshRequestParamConfHealthCheckAuthenticationOauth$inboundSchema,
+    ),
+  ),
   textSecret: types.optional(types.string()),
   scopes: types.optional(z.array(types.string())),
   serviceAccountCredentials: types.optional(types.string()),
@@ -15497,6 +16302,13 @@ export type RestAuthenticationBasic$Outbound = {
   __template_clientSecretParamValue?: string | undefined;
   authRequestParams?:
     | Array<CollectRequestParamConfRestCollectMethodGet$Outbound>
+    | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  __template_refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauth$Outbound>
     | undefined;
   textSecret?: string | undefined;
   scopes?: Array<string> | undefined;
@@ -15606,6 +16418,13 @@ export const RestAuthenticationBasic$outboundSchema: z.ZodType<
   __template_clientSecretParamValue: z.string().optional(),
   authRequestParams: z.array(
     CollectRequestParamConfRestCollectMethodGet$outboundSchema,
+  ).optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauth$outboundSchema,
   ).optional(),
   textSecret: z.string().optional(),
   scopes: z.array(z.string()).optional(),

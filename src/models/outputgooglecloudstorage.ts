@@ -57,6 +57,9 @@ import {
   StorageClassOptionsArchiveColdline$outboundSchema,
 } from "./storageclassoptionsarchivecoldline.js";
 
+/**
+ * Authentication method
+ */
 export const OutputGoogleCloudStorageAuthenticationMethod = {
   /**
    * auto
@@ -71,6 +74,9 @@ export const OutputGoogleCloudStorageAuthenticationMethod = {
    */
   Secret: "secret",
 } as const;
+/**
+ * Authentication method
+ */
 export type OutputGoogleCloudStorageAuthenticationMethod = OpenEnum<
   typeof OutputGoogleCloudStorageAuthenticationMethod
 >;
@@ -80,6 +86,9 @@ export type OutputGoogleCloudStorage = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "google_cloud_storage";
   /**
    * Pipeline to process data before sending out to this output
@@ -94,7 +103,7 @@ export type OutputGoogleCloudStorage = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -109,6 +118,9 @@ export type OutputGoogleCloudStorage = {
    * Google Cloud Storage service endpoint
    */
   endpoint: string;
+  /**
+   * Authentication method
+   */
   awsAuthenticationMethod?:
     | OutputGoogleCloudStorageAuthenticationMethod
     | undefined;
@@ -207,7 +219,13 @@ export type OutputGoogleCloudStorage = {
    */
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  /**
+   * Orphan file recovery
+   */
   orphans?: OrphanFileRecoveryType | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered

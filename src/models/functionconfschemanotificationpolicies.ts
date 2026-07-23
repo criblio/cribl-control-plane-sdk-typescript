@@ -213,7 +213,7 @@ export const Policy$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string(),
   disabled: z.boolean().optional(),
-  waitToGroup: z.number().optional(),
+  waitToGroup: z.number().int().optional(),
   groupByLabels: z.array(z.string()).optional(),
   conditions: z.array(z.array(z.lazy(() => Condition$outboundSchema)))
     .optional(),
@@ -221,7 +221,7 @@ export const Policy$outboundSchema: z.ZodType<
     TemplateTargetPairConfFunctionConfSchemaNotificationPolicies$outboundSchema,
   ),
   final: z.boolean().optional(),
-  order: z.number(),
+  order: z.number().int(),
 });
 
 export function policyToJSON(policy: Policy): string {

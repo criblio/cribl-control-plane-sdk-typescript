@@ -52,6 +52,9 @@ export type OutputAzureLogsAuthenticationMethod = OpenEnum<
   typeof OutputAzureLogsAuthenticationMethod
 >;
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputAzureLogsPqControls = {};
 
 export type OutputAzureLogs = {
@@ -59,6 +62,9 @@ export type OutputAzureLogs = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "azure_logs";
   /**
    * Pipeline to process data before sending out to this output
@@ -73,7 +79,7 @@ export type OutputAzureLogs = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -152,6 +158,9 @@ export type OutputAzureLogs = {
    * Enter workspace ID and workspace key directly, or select a stored secret
    */
   authType?: OutputAzureLogsAuthenticationMethod | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -197,6 +206,9 @@ export type OutputAzureLogs = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputAzureLogsPqControls | undefined;
   /**
    * Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.

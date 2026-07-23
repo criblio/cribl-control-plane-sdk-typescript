@@ -30,48 +30,102 @@ import {
   KubeTypeHeartbeatMetadata,
   KubeTypeHeartbeatMetadata$inboundSchema,
 } from "./kubetypeheartbeatmetadata.js";
+import { NodeOsInfo, NodeOsInfo$inboundSchema } from "./nodeosinfo.js";
+import {
+  OsTypeHeartbeatMetadata,
+  OsTypeHeartbeatMetadata$inboundSchema,
+} from "./ostypeheartbeatmetadata.js";
 import {
   OutpostNodeInfo,
   OutpostNodeInfo$inboundSchema,
 } from "./outpostnodeinfo.js";
 
-export type Os = {
-  addresses: Array<string>;
-};
-
-export type OsUnion = HostOsTypeHeartbeatMetadata | Os;
+/**
+ * Operating system metadata collected from the node.
+ */
+export type Os = OsTypeHeartbeatMetadata | NodeOsInfo;
 
 export type NodeProvidedInfo = {
+  /**
+   * API port exposed by the node.
+   */
   apiPort?: number | undefined;
   apiScheme?: ApiScheme | undefined;
+  /**
+   * CPU architecture.
+   */
   architecture: string;
   aws?: AwsTypeHeartbeatMetadata | undefined;
   azure?: AzureTypeHeartbeatMetadata | undefined;
+  /**
+   * Remote <code>ip:port</code> for the worker socket.
+   */
   conn_ip?: string | undefined;
+  /**
+   * Number of CPU cores available on the node.
+   */
   cpus: number;
   cribl: HBCriblInfo;
+  /**
+   * Environment variables reported by the node.
+   */
   env: { [k: string]: string };
+  /**
+   * Free disk space on the node, in bytes.
+   */
   freeDiskSpace?: number | undefined;
   hostOs?: HostOsTypeHeartbeatMetadata | undefined;
+  /**
+   * Hostname reported by the node.
+   */
   hostname: string;
+  /**
+   * If <code>true</code>, the node considers itself the elected captain for its group. Otherwise, <code>false</code>.
+   */
   isCaptain?: boolean | undefined;
+  /**
+   * If <code>true</code>, the node runs in Cribl.Cloud. Otherwise, <code>false</code>.
+   */
   isSaasWorker?: boolean | undefined;
   kube?: KubeTypeHeartbeatMetadata | undefined;
+  /**
+   * Local timestamp (in Unix time) on the node, in milliseconds.
+   */
   localTime?: number | undefined;
   metadata?: HeartbeatMetadata | undefined;
+  /**
+   * Node.js runtime version running on the node.
+   */
   node: string;
-  os?: HostOsTypeHeartbeatMetadata | Os | undefined;
+  /**
+   * Operating system metadata collected from the node.
+   */
+  os?: OsTypeHeartbeatMetadata | NodeOsInfo | undefined;
+  /**
+   * Node information for the Outpost through which a Worker connects to the Leader.
+   */
   outpost?: OutpostNodeInfo | undefined;
+  /**
+   * Operating system platform.
+   */
   platform: string;
+  /**
+   * Operating system kernel release.
+   */
   release: string;
+  /**
+   * Total disk space on the node, in bytes.
+   */
   totalDiskSpace?: number | undefined;
+  /**
+   * Total memory on the node, in bytes.
+   */
   totalmem: number;
 };
 
 /** @internal */
-export const Os$inboundSchema: z.ZodType<Os, z.ZodTypeDef, unknown> = z.object({
-  addresses: z.array(types.string()),
-});
+export const Os$inboundSchema: z.ZodType<Os, z.ZodTypeDef, unknown> =
+  smartUnion([OsTypeHeartbeatMetadata$inboundSchema, NodeOsInfo$inboundSchema]);
 
 export function osFromJSON(
   jsonString: string,
@@ -80,23 +134,6 @@ export function osFromJSON(
     jsonString,
     (x) => Os$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'Os' from JSON`,
-  );
-}
-
-/** @internal */
-export const OsUnion$inboundSchema: z.ZodType<OsUnion, z.ZodTypeDef, unknown> =
-  smartUnion([
-    HostOsTypeHeartbeatMetadata$inboundSchema,
-    z.lazy(() => Os$inboundSchema),
-  ]);
-
-export function osUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<OsUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OsUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OsUnion' from JSON`,
   );
 }
 
@@ -126,8 +163,8 @@ export const NodeProvidedInfo$inboundSchema: z.ZodType<
   node: types.string(),
   os: types.optional(
     smartUnion([
-      HostOsTypeHeartbeatMetadata$inboundSchema,
-      z.lazy(() => Os$inboundSchema),
+      OsTypeHeartbeatMetadata$inboundSchema,
+      NodeOsInfo$inboundSchema,
     ]),
   ),
   outpost: types.optional(OutpostNodeInfo$inboundSchema),

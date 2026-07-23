@@ -9,7 +9,13 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type SaslExtensionConfInputKafka = {
+  /**
+   * Field Name
+   */
   name: string;
+  /**
+   * Field Value
+   */
   value: string;
 };
 

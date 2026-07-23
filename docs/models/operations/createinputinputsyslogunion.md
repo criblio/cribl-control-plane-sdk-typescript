@@ -8,7 +8,7 @@
 ```typescript
 const value: operations.CreateInputInputSyslogSyslog1 = {
   id: "<id>",
-  type: "syslog",
+  type: "<value>",
   host: "good-natured-curl.name",
   udpPort: 3082.47,
 };
@@ -19,7 +19,7 @@ const value: operations.CreateInputInputSyslogSyslog1 = {
 ```typescript
 const value: operations.CreateInputInputSyslogSyslog2 = {
   id: "<id>",
-  type: "syslog",
+  type: "<value>",
   host: "short-plumber.name",
   tcpPort: 921.22,
 };

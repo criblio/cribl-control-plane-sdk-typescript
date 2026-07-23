@@ -18,6 +18,10 @@ import {
   HeartbeatMetadata$inboundSchema,
 } from "./heartbeatmetadata.js";
 import {
+  MasterWorkerProcesses,
+  MasterWorkerProcesses$inboundSchema,
+} from "./masterworkerprocesses.js";
+import {
   NodeProvidedInfo,
   NodeProvidedInfo$inboundSchema,
 } from "./nodeprovidedinfo.js";
@@ -26,34 +30,76 @@ import {
   NodeUpgradeStatus$inboundSchema,
 } from "./nodeupgradestatus.js";
 
+/**
+ * RPC message type reported by the node.
+ */
 export const MasterWorkerEntryType = {
   Info: "info",
   Req: "req",
   Resp: "resp",
 } as const;
+/**
+ * RPC message type reported by the node.
+ */
 export type MasterWorkerEntryType = OpenEnum<typeof MasterWorkerEntryType>;
 
-export type MasterWorkerEntryWorkers = {
-  count: number;
-};
-
+/**
+ * Worker or Edge Node entry returned by Distributed Management worker and outpost endpoints.
+ */
 export type MasterWorkerEntry = {
   connectionProtocol?: ConnectionProtocol | undefined;
+  /**
+   * If <code>true</code>, the node can receive configuration deployments. Otherwise, <code>false</code>.
+   */
   deployable?: boolean | undefined;
+  /**
+   * If <code>true</code>, the node is disconnected from the Leader. Otherwise, <code>false</code>.
+   */
   disconnected?: boolean | undefined;
+  /**
+   * Timestamp (in Unix time) when the Leader first received a message from the node.
+   */
   firstMsgTime: number;
+  /**
+   * The <code>id</code> of the Worker Group, Edge Fleet, or Outpost Group that contains the node.
+   */
   group: string;
+  /**
+   * Unique identifier for the node.
+   */
   id: string;
   info: NodeProvidedInfo;
+  /**
+   * Latest total, input, and destination metrics cached for UI display.
+   */
   lastMetrics?: { [k: string]: any } | undefined;
+  /**
+   * Timestamp (in Unix time) when the Leader last received a message from the node.
+   */
   lastMsgTime: number;
   metadata?: HeartbeatMetadata | undefined;
   nodeUpgradeStatus?: NodeUpgradeStatus | undefined;
+  /**
+   * Maximum configured ephemeral offline duration, in milliseconds (base + jitter cap).
+   */
+  offlineDurationMs?: number | undefined;
+  /**
+   * The <code>id</code> of the provisioning token used to authenticate the node, if used.
+   */
   provisioningTokenId?: string | undefined;
+  /**
+   * Health status reported for the node.
+   */
   status?: string | undefined;
+  /**
+   * RPC message type reported by the node.
+   */
   type?: MasterWorkerEntryType | undefined;
+  /**
+   * Number of Worker Processes running on the node.
+   */
   workerProcesses: number;
-  workers?: MasterWorkerEntryWorkers | undefined;
+  workers?: MasterWorkerProcesses | undefined;
 };
 
 /** @internal */
@@ -62,25 +108,6 @@ export const MasterWorkerEntryType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(MasterWorkerEntryType);
-
-/** @internal */
-export const MasterWorkerEntryWorkers$inboundSchema: z.ZodType<
-  MasterWorkerEntryWorkers,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: types.number(),
-});
-
-export function masterWorkerEntryWorkersFromJSON(
-  jsonString: string,
-): SafeParseResult<MasterWorkerEntryWorkers, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MasterWorkerEntryWorkers$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MasterWorkerEntryWorkers' from JSON`,
-  );
-}
 
 /** @internal */
 export const MasterWorkerEntry$inboundSchema: z.ZodType<
@@ -99,11 +126,12 @@ export const MasterWorkerEntry$inboundSchema: z.ZodType<
   lastMsgTime: types.number(),
   metadata: types.optional(HeartbeatMetadata$inboundSchema),
   nodeUpgradeStatus: types.optional(NodeUpgradeStatus$inboundSchema),
+  offlineDurationMs: types.optional(types.number()),
   provisioningTokenId: types.optional(types.string()),
   status: types.optional(types.string()),
   type: types.optional(MasterWorkerEntryType$inboundSchema),
   workerProcesses: types.number(),
-  workers: types.optional(z.lazy(() => MasterWorkerEntryWorkers$inboundSchema)),
+  workers: types.optional(MasterWorkerProcesses$inboundSchema),
 });
 
 export function masterWorkerEntryFromJSON(

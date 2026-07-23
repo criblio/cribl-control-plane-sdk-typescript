@@ -203,6 +203,18 @@ const value: models.OutputResponseOutputAzureEventhub = {
 };
 ```
 
+### `models.OutputResponseOutputGoogleBigquery`
+
+```typescript
+const value: models.OutputResponseOutputGoogleBigquery = {
+  type: "google_bigquery",
+  projectId: "<id>",
+  datasetId: "<id>",
+  tableId: "<id>",
+  googleAuthMethod: "secret",
+};
+```
+
 ### `models.OutputResponseOutputGoogleChronicle`
 
 ```typescript
@@ -490,6 +502,17 @@ const value: models.OutputResponseOutputLoki = {
 };
 ```
 
+### `models.OutputResponseOutputAmazonManagedPrometheus`
+
+```typescript
+const value: models.OutputResponseOutputAmazonManagedPrometheus = {
+  type: "amazon_managed_prometheus",
+  url: "https://pure-cappelletti.info/",
+  awsAuthenticationMethod: "secret",
+  region: "<value>",
+};
+```
+
 ### `models.OutputResponseOutputPrometheus`
 
 ```typescript
@@ -631,6 +654,17 @@ const value: models.OutputResponseOutputClickHouse = {
 };
 ```
 
+### `models.OutputResponseOutputCustomerMetricsStorage`
+
+```typescript
+const value: models.OutputResponseOutputCustomerMetricsStorage = {
+  type: "customer_metrics_storage",
+  url: "https://favorable-singing.biz/",
+  database: "<value>",
+  tableName: "<value>",
+};
+```
+
 ### `models.OutputResponseOutputLocalSearchStorage`
 
 ```typescript
@@ -722,6 +756,22 @@ const value: models.OutputResponseOutputDatabricks = {
   schema: "<value>",
   eventsVolumeName: "<value>",
   clientTextSecret: "<value>",
+};
+```
+
+### `models.OutputResponseOutputSnowflakeStreaming`
+
+```typescript
+const value: models.OutputResponseOutputSnowflakeStreaming = {
+  type: "snowflake_streaming",
+  accountIdentifier: "<value>",
+  user: "Joel.Kiehn14",
+  pem: {
+    keyName: "<value>",
+  },
+  database: "<value>",
+  schema: "<value>",
+  table: "<value>",
 };
 ```
 
@@ -819,6 +869,17 @@ const value: models.OutputResponseOutputAlibabaCloudS3 = {
   bucket: "<value>",
   stagePath: "<value>",
   endpoint: "<value>",
+};
+```
+
+### `models.OutputResponseOutputIbmCloudS3`
+
+```typescript
+const value: models.OutputResponseOutputIbmCloudS3 = {
+  type: "ibm_cloud_s3",
+  endpoint: "<value>",
+  bucket: "<value>",
+  stagePath: "<value>",
 };
 ```
 

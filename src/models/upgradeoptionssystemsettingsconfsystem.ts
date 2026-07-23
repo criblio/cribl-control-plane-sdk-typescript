@@ -6,10 +6,16 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
+/**
+ * Upgrade permission policy: <code>api</code> to allow upgrades from the UI or API or <code>false</code> to disable.
+ */
 export const UpgradeOptionsSystemSettingsConfSystem = {
-  False: "false",
   Api: "api",
+  False: "false",
 } as const;
+/**
+ * Upgrade permission policy: <code>api</code> to allow upgrades from the UI or API or <code>false</code> to disable.
+ */
 export type UpgradeOptionsSystemSettingsConfSystem = OpenEnum<
   typeof UpgradeOptionsSystemSettingsConfSystem
 >;

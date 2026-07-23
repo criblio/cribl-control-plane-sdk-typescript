@@ -72,6 +72,9 @@ import {
   TimeoutRetrySettingsType$outboundSchema,
 } from "./timeoutretrysettingstype.js";
 
+/**
+ * Ingestion mode
+ */
 export const OutputAzureDataExplorerIngestionMode = {
   /**
    * Batching
@@ -82,6 +85,9 @@ export const OutputAzureDataExplorerIngestionMode = {
    */
   Streaming: "streaming",
 } as const;
+/**
+ * Ingestion mode
+ */
 export type OutputAzureDataExplorerIngestionMode = OpenEnum<
   typeof OutputAzureDataExplorerIngestionMode
 >;
@@ -117,6 +123,9 @@ export type OutputAzureDataExplorerCertificate = {
   certificateName?: string | undefined;
 };
 
+/**
+ * Prefix (optional)
+ */
 export const OutputAzureDataExplorerPrefixOptional = {
   /**
    * drop-by
@@ -127,16 +136,28 @@ export const OutputAzureDataExplorerPrefixOptional = {
    */
   IngestBy: "ingestBy",
 } as const;
+/**
+ * Prefix (optional)
+ */
 export type OutputAzureDataExplorerPrefixOptional = OpenEnum<
   typeof OutputAzureDataExplorerPrefixOptional
 >;
 
 export type OutputAzureDataExplorerExtentTag = {
+  /**
+   * Prefix (optional)
+   */
   prefix?: OutputAzureDataExplorerPrefixOptional | undefined;
+  /**
+   * Value
+   */
   value: string;
 };
 
 export type OutputAzureDataExplorerIngestIfNotExist = {
+  /**
+   * Value
+   */
   value: string;
 };
 
@@ -189,10 +210,19 @@ export type OutputAzureDataExplorerReportMethod = OpenEnum<
 >;
 
 export type OutputAzureDataExplorerAdditionalProperty = {
+  /**
+   * Key
+   */
   key: string;
+  /**
+   * Value
+   */
   value: string;
 };
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputAzureDataExplorerPqControls = {};
 
 export type OutputAzureDataExplorer = {
@@ -200,6 +230,9 @@ export type OutputAzureDataExplorer = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "azure_data_explorer";
   /**
    * Pipeline to process data before sending out to this output
@@ -214,7 +247,7 @@ export type OutputAzureDataExplorer = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -233,6 +266,9 @@ export type OutputAzureDataExplorer = {
    * When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
    */
   validateDatabaseSettings?: boolean | undefined;
+  /**
+   * Ingestion mode
+   */
   ingestMode?: OutputAzureDataExplorerIngestionMode | undefined;
   /**
    * Endpoint used to acquire authentication tokens from Azure
@@ -254,6 +290,9 @@ export type OutputAzureDataExplorer = {
    * The type of OAuth 2.0 client credentials grant flow to use
    */
   oauthType: OutputAzureDataExplorerAuthenticationMethod;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * The client secret that you generated for your app in the Azure portal
@@ -401,6 +440,9 @@ export type OutputAzureDataExplorer = {
    */
   addIdToStagePath?: boolean | undefined;
   retrySettings?: RetrySettingsType | undefined;
+  /**
+   * Orphan file recovery
+   */
   orphans?: OrphanFileRecoveryType | undefined;
   /**
    * Amount of time, in seconds, to wait for a request to complete before canceling it
@@ -525,6 +567,9 @@ export type OutputAzureDataExplorer = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputAzureDataExplorerPqControls | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

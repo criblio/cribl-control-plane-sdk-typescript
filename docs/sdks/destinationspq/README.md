@@ -13,7 +13,7 @@ Clear the persistent queue (PQ) for the specified Destination.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="deleteOutputPqById" method="delete" path="/system/outputs/{id}/pq" -->
+<!-- UsageSnippet language="typescript" operationID="deleteOutputPqById" method="delete" path="/system/outputs/{id}/pq" example="OutputClearPQResponseExamplesClearPQJobId" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -84,6 +84,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -164,5 +165,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

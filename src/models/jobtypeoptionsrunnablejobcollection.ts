@@ -6,11 +6,17 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
+/**
+ * Job type
+ */
 export const JobTypeOptionsRunnableJobCollection = {
   Collection: "collection",
   Executor: "executor",
   ScheduledSearch: "scheduledSearch",
 } as const;
+/**
+ * Job type
+ */
 export type JobTypeOptionsRunnableJobCollection = OpenEnum<
   typeof JobTypeOptionsRunnableJobCollection
 >;

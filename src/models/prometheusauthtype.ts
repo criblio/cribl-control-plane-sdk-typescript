@@ -14,6 +14,9 @@ import {
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PrometheusAuthType = {
+  /**
+   * Authentication type
+   */
   authType?:
     | AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret
     | undefined;

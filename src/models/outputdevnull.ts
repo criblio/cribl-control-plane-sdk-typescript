@@ -9,6 +9,9 @@ export type OutputDevnull = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "devnull";
   /**
    * Pipeline to process data before sending out to this output
@@ -23,7 +26,7 @@ export type OutputDevnull = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**

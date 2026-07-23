@@ -7,16 +7,16 @@ import { NodeUpgradeStatus } from "cribl-control-plane/models";
 
 let value: NodeUpgradeStatus = {
   state: 3,
-  timestamp: 423.4,
+  timestamp: 42340,
 };
 ```
 
 ## Fields
 
-| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| `active`                                                                 | [models.NodeActiveUpgradeStatus](../models/nodeactiveupgradestatus.md)   | :heavy_minus_sign:                                                       | N/A                                                                      |
-| `failed`                                                                 | [models.NodeFailedUpgradeStatus](../models/nodefailedupgradestatus.md)   | :heavy_minus_sign:                                                       | N/A                                                                      |
-| `skipped`                                                                | [models.NodeSkippedUpgradeStatus](../models/nodeskippedupgradestatus.md) | :heavy_minus_sign:                                                       | N/A                                                                      |
-| `state`                                                                  | [models.NodeUpgradeState](../models/nodeupgradestate.md)                 | :heavy_check_mark:                                                       | N/A                                                                      |
-| `timestamp`                                                              | *number*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `active`                                                                           | [models.NodeActiveUpgradeStatus](../models/nodeactiveupgradestatus.md)             | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| `failed`                                                                           | [models.NodeFailedUpgradeStatus](../models/nodefailedupgradestatus.md)             | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| `skipped`                                                                          | [models.NodeSkippedUpgradeStatus](../models/nodeskippedupgradestatus.md)           | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| `state`                                                                            | [models.NodeUpgradeState](../models/nodeupgradestate.md)                           | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `timestamp`                                                                        | *number*                                                                           | :heavy_check_mark:                                                                 | Timestamp (in Unix time) when the node entered the upgrade state, in milliseconds. |

@@ -13,8 +13,17 @@ import {
   UpgradeOptionsSystemSettingsConfSystem$outboundSchema,
 } from "./upgradeoptionssystemsettingsconfsystem.js";
 
+/**
+ * System-level operational settings for the Cribl instance.
+ */
 export type SystemTypeSystemSettingsConf = {
+  /**
+   * If <code>true</code>, enable Intercom integration for in-product messaging. Otherwise, <code>false</code>.
+   */
   intercom: boolean;
+  /**
+   * Upgrade permission policy: <code>api</code> to allow upgrades from the UI or API or <code>false</code> to disable.
+   */
   upgrade: UpgradeOptionsSystemSettingsConfSystem;
 };
 

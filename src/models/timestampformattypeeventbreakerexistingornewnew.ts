@@ -11,23 +11,53 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type EventBreakerExistingOrNewNewTimestampTypeCurrent = {
+  /**
+   * Timestamp type
+   */
   type: "current";
+  /**
+   * Length
+   */
   length?: number | undefined;
+  /**
+   * Format
+   */
   format?: string | undefined;
 };
 
 export type EventBreakerExistingOrNewNewTimestampTypeFormat = {
+  /**
+   * Timestamp type
+   */
   type: "format";
+  /**
+   * Format
+   */
   format: string;
+  /**
+   * Length
+   */
   length?: number | undefined;
 };
 
 export type EventBreakerExistingOrNewNewTimestampTypeAuto = {
+  /**
+   * Timestamp type
+   */
   type: "auto";
+  /**
+   * Length
+   */
   length: number;
+  /**
+   * Format
+   */
   format?: string | undefined;
 };
 
+/**
+ * Timestamp format
+ */
 export type TimestampFormatTypeEventBreakerExistingOrNewNew =
   | EventBreakerExistingOrNewNewTimestampTypeAuto
   | EventBreakerExistingOrNewNewTimestampTypeFormat

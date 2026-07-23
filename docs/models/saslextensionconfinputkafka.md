@@ -15,5 +15,5 @@ let value: SaslExtensionConfInputKafka = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `name`             | *string*           | :heavy_check_mark: | N/A                |
-| `value`            | *string*           | :heavy_check_mark: | N/A                |
+| `name`             | *string*           | :heavy_check_mark: | Field Name         |
+| `value`            | *string*           | :heavy_check_mark: | Field Value        |

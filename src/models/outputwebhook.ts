@@ -43,6 +43,11 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound,
+  RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+} from "./refreshrequestparamconfhealthcheckauthenticationoauthsecret.js";
+import {
   ResponseRetrySettingConfOutputWebhook,
   ResponseRetrySettingConfOutputWebhook$Outbound,
   ResponseRetrySettingConfOutputWebhook$outboundSchema,
@@ -58,9 +63,15 @@ import {
   TlsSettingsClientSideTypeCaPathCertPathExtended$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpathextended.js";
 
+/**
+ * Connector type identifier.
+ */
 export const OutputWebhookType2 = {
   Webhook: "webhook",
 } as const;
+/**
+ * Connector type identifier.
+ */
 export type OutputWebhookType2 = ClosedEnum<typeof OutputWebhookType2>;
 
 /**
@@ -125,6 +136,9 @@ export type OutputWebhookAuthenticationType2 = OpenEnum<
   typeof OutputWebhookAuthenticationType2
 >;
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputWebhookPqControls2 = {};
 
 export type OutputWebhookUrl2 = {
@@ -147,6 +161,9 @@ export type OutputWebhookWebhook2 = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: OutputWebhookType2;
   /**
    * Pipeline to process data before sending out to this output
@@ -161,7 +178,7 @@ export type OutputWebhookWebhook2 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -243,6 +260,9 @@ export type OutputWebhookWebhook2 = {
    * Authentication method to use for the HTTP request
    */
   authType?: OutputWebhookAuthenticationType2 | undefined;
+  /**
+   * TLS settings (client side)
+   */
   tls?: TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
@@ -252,6 +272,9 @@ export type OutputWebhookWebhook2 = {
    * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
    */
   loadBalanced?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
@@ -329,8 +352,17 @@ export type OutputWebhookWebhook2 = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputWebhookPqControls2 | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -377,6 +409,24 @@ export type OutputWebhookWebhook2 = {
    */
   oauthHeaders?: Array<OauthHeaderConfInputServicenowTable> | undefined;
   /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, @{product} will use the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * @{product} will update the stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, @{product} sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
+  /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
   url?: string | undefined;
@@ -384,6 +434,9 @@ export type OutputWebhookWebhook2 = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
+  /**
+   * Webhook URLs
+   */
   urls: Array<OutputWebhookUrl2>;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
@@ -414,14 +467,24 @@ export type OutputWebhookWebhook2 = {
    */
   __template_secret?: string | undefined;
   /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
+  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
 };
 
+/**
+ * Connector type identifier.
+ */
 export const OutputWebhookType1 = {
   Webhook: "webhook",
 } as const;
+/**
+ * Connector type identifier.
+ */
 export type OutputWebhookType1 = ClosedEnum<typeof OutputWebhookType1>;
 
 /**
@@ -486,6 +549,9 @@ export type OutputWebhookAuthenticationType1 = OpenEnum<
   typeof OutputWebhookAuthenticationType1
 >;
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputWebhookPqControls1 = {};
 
 export type OutputWebhookUrl1 = {
@@ -508,6 +574,9 @@ export type OutputWebhookWebhook1 = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: OutputWebhookType1;
   /**
    * Pipeline to process data before sending out to this output
@@ -522,7 +591,7 @@ export type OutputWebhookWebhook1 = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -604,6 +673,9 @@ export type OutputWebhookWebhook1 = {
    * Authentication method to use for the HTTP request
    */
   authType?: OutputWebhookAuthenticationType1 | undefined;
+  /**
+   * TLS settings (client side)
+   */
   tls?: TlsSettingsClientSideTypeCaPathCertPathExtended | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
@@ -613,6 +685,9 @@ export type OutputWebhookWebhook1 = {
    * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
    */
   loadBalanced?: boolean | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
   /**
    * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
@@ -690,8 +765,17 @@ export type OutputWebhookWebhook1 = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputWebhookPqControls1 | undefined;
+  /**
+   * Username
+   */
   username?: string | undefined;
+  /**
+   * Password
+   */
   password?: string | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -738,6 +822,24 @@ export type OutputWebhookWebhook1 = {
    */
   oauthHeaders?: Array<OauthHeaderConfInputServicenowTable> | undefined;
   /**
+   * Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, @{product} will use the refresh token to obtain new access tokens without re-sending credentials.
+   */
+  refreshTokenField?: string | undefined;
+  /**
+   * @{product} will update the stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+   */
+  rotateRefreshToken?: boolean | undefined;
+  /**
+   * Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+   */
+  refreshUrl?: string | undefined;
+  /**
+   * Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, @{product} sends only grant_type, refresh_token, and client_secret.
+   */
+  refreshRequestParams?:
+    | Array<RefreshRequestParamConfHealthCheckAuthenticationOauthSecret>
+    | undefined;
+  /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
   url: string;
@@ -745,6 +847,9 @@ export type OutputWebhookWebhook1 = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
+  /**
+   * Webhook URLs
+   */
   urls?: Array<OutputWebhookUrl1> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
@@ -774,6 +879,10 @@ export type OutputWebhookWebhook1 = {
    * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
    */
   __template_secret?: string | undefined;
+  /**
+   * Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+   */
+  __template_refreshUrl?: string | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
@@ -915,6 +1024,14 @@ export type OutputWebhookWebhook2$Outbound = {
   oauthHeaders?:
     | Array<OauthHeaderConfInputServicenowTable$Outbound>
     | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
+    | undefined;
   url?: string | undefined;
   excludeSelf?: boolean | undefined;
   urls: Array<OutputWebhookUrl2$Outbound>;
@@ -925,6 +1042,7 @@ export type OutputWebhookWebhook2$Outbound = {
   __template_onBackpressure?: string | undefined;
   __template_loginUrl?: string | undefined;
   __template_secret?: string | undefined;
+  __template_refreshUrl?: string | undefined;
   __template_url?: string | undefined;
 };
 
@@ -1003,6 +1121,12 @@ export const OutputWebhookWebhook2$outboundSchema: z.ZodType<
     .optional(),
   oauthHeaders: z.array(OauthHeaderConfInputServicenowTable$outboundSchema)
     .optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+  ).optional(),
   url: z.string().optional(),
   excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => OutputWebhookUrl2$outboundSchema)),
@@ -1013,6 +1137,7 @@ export const OutputWebhookWebhook2$outboundSchema: z.ZodType<
   __template_onBackpressure: z.string().optional(),
   __template_loginUrl: z.string().optional(),
   __template_secret: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
   __template_url: z.string().optional(),
 });
 
@@ -1157,6 +1282,14 @@ export type OutputWebhookWebhook1$Outbound = {
   oauthHeaders?:
     | Array<OauthHeaderConfInputServicenowTable$Outbound>
     | undefined;
+  refreshTokenField?: string | undefined;
+  rotateRefreshToken?: boolean | undefined;
+  refreshUrl?: string | undefined;
+  refreshRequestParams?:
+    | Array<
+      RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$Outbound
+    >
+    | undefined;
   url: string;
   excludeSelf?: boolean | undefined;
   urls?: Array<OutputWebhookUrl1$Outbound> | undefined;
@@ -1167,6 +1300,7 @@ export type OutputWebhookWebhook1$Outbound = {
   __template_onBackpressure?: string | undefined;
   __template_loginUrl?: string | undefined;
   __template_secret?: string | undefined;
+  __template_refreshUrl?: string | undefined;
   __template_url?: string | undefined;
 };
 
@@ -1245,6 +1379,12 @@ export const OutputWebhookWebhook1$outboundSchema: z.ZodType<
     .optional(),
   oauthHeaders: z.array(OauthHeaderConfInputServicenowTable$outboundSchema)
     .optional(),
+  refreshTokenField: z.string().optional(),
+  rotateRefreshToken: z.boolean().optional(),
+  refreshUrl: z.string().optional(),
+  refreshRequestParams: z.array(
+    RefreshRequestParamConfHealthCheckAuthenticationOauthSecret$outboundSchema,
+  ).optional(),
   url: z.string(),
   excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => OutputWebhookUrl1$outboundSchema)).optional(),
@@ -1255,6 +1395,7 @@ export const OutputWebhookWebhook1$outboundSchema: z.ZodType<
   __template_onBackpressure: z.string().optional(),
   __template_loginUrl: z.string().optional(),
   __template_secret: z.string().optional(),
+  __template_refreshUrl: z.string().optional(),
   __template_url: z.string().optional(),
 });
 

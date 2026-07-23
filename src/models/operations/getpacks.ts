@@ -3,17 +3,36 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type GetPacksRequest = {
   /**
-   * Comma-separated list of additional properties to include in the response. When set, the response includes a count of the specified properties in the Pack. Available values are <code>inputs</code> and <code>outputs</code>.
+   * Comma-separated list of additional properties to include in the response. When set, the response includes a count of each specified property in each Pack. Supported values: <code>inputs</code>, <code>outputs</code>, <code>collectors</code>.
    */
   with?: string | undefined;
+  /**
+   * Pagination offset
+   */
+  offset?: number | undefined;
+  /**
+   * Maximum number of items to return
+   */
+  limit?: number | undefined;
+};
+
+export type GetPacksResponse = {
+  result: models.PaginatedPackInfo;
 };
 
 /** @internal */
 export type GetPacksRequest$Outbound = {
   with?: string | undefined;
+  offset?: number | undefined;
+  limit?: number | undefined;
 };
 
 /** @internal */
@@ -23,10 +42,35 @@ export const GetPacksRequest$outboundSchema: z.ZodType<
   GetPacksRequest
 > = z.object({
   with: z.string().optional(),
+  offset: z.number().int().optional(),
+  limit: z.number().int().optional(),
 });
 
 export function getPacksRequestToJSON(
   getPacksRequest: GetPacksRequest,
 ): string {
   return JSON.stringify(GetPacksRequest$outboundSchema.parse(getPacksRequest));
+}
+
+/** @internal */
+export const GetPacksResponse$inboundSchema: z.ZodType<
+  GetPacksResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: models.PaginatedPackInfo$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+
+export function getPacksResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetPacksResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetPacksResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetPacksResponse' from JSON`,
+  );
 }

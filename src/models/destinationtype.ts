@@ -48,10 +48,12 @@ export const DestinationType = {
   Datadog: "datadog",
   Webhook: "webhook",
   Prometheus: "prometheus",
+  AmazonManagedPrometheus: "amazon_managed_prometheus",
   GooglePubsub: "google_pubsub",
   GoogleChronicle: "google_chronicle",
   Chronicle: "chronicle",
   GoogleCloudObservability: "google_cloud_observability",
+  GoogleBigquery: "google_bigquery",
   GrafanaCloud: "grafana_cloud",
   Loki: "loki",
   OpenTelemetry: "open_telemetry",
@@ -73,6 +75,7 @@ export const DestinationType = {
   Exabeam: "exabeam",
   DiskSpool: "disk_spool",
   ClickHouse: "click_house",
+  CustomerMetricsStorage: "customer_metrics_storage",
   LocalSearchStorage: "local_search_storage",
   Xsiam: "xsiam",
   Netflow: "netflow",
@@ -86,6 +89,8 @@ export const DestinationType = {
   CloudianS3: "cloudian_s3",
   ScalityS3: "scality_s3",
   AlibabaCloudS3: "alibaba_cloud_s3",
+  SnowflakeStreaming: "snowflake_streaming",
+  IbmCloudS3: "ibm_cloud_s3",
 } as const;
 export type DestinationType = OpenEnum<typeof DestinationType>;
 

@@ -39,6 +39,9 @@ import {
   TlsSettingsClientSideTypeCaPathCertPath$outboundSchema,
 } from "./tlssettingsclientsidetypecapathcertpath.js";
 
+/**
+ * Persistent queue controls.
+ */
 export type OutputMskPqControls = {};
 
 export type OutputMsk = {
@@ -46,6 +49,9 @@ export type OutputMsk = {
    * Unique ID for this output
    */
   id?: string | undefined;
+  /**
+   * Connector type identifier.
+   */
   type: "msk";
   /**
    * Pipeline to process data before sending out to this output
@@ -60,7 +66,7 @@ export type OutputMsk = {
    */
   environment?: string | undefined;
   /**
-   * Tags for filtering and grouping in @{product}
+   * Metadata tags used for categorization and filtering.
    */
   streamtags?: Array<string> | undefined;
   /**
@@ -95,6 +101,9 @@ export type OutputMsk = {
    * The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
    */
   flushPeriodSec?: number | undefined;
+  /**
+   * Kafka Schema Registry Authentication
+   */
   kafkaSchemaRegistry?:
     | KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryUrlAuth
     | undefined;
@@ -134,6 +143,9 @@ export type OutputMsk = {
    * AWS authentication method. Choose Auto to use IAM roles.
    */
   awsAuthenticationMethod: string;
+  /**
+   * Secret key
+   */
   awsSecretKey?: string | undefined;
   /**
    * Region where the MSK cluster is located
@@ -167,12 +179,21 @@ export type OutputMsk = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
+  /**
+   * TLS settings (client side)
+   */
   tls?: TlsSettingsClientSideTypeCaPathCertPath | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * Optional description for this configuration.
+   */
   description?: string | undefined;
+  /**
+   * Access key
+   */
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
@@ -230,6 +251,9 @@ export type OutputMsk = {
    * The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
    */
   pqMaxBufferSizeBytes?: string | undefined;
+  /**
+   * Persistent queue controls.
+   */
   pqControls?: OutputMskPqControls | undefined;
   /**
    * Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

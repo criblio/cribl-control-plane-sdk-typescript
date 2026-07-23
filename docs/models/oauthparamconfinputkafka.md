@@ -15,5 +15,5 @@ let value: OauthParamConfInputKafka = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `name`             | *string*           | :heavy_check_mark: | N/A                |
-| `value`            | *string*           | :heavy_check_mark: | N/A                |
+| `name`             | *string*           | :heavy_check_mark: | Parameter Name     |
+| `value`            | *string*           | :heavy_check_mark: | Parameter Value    |

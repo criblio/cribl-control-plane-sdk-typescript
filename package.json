@@ -1,6 +1,6 @@
 {
   "name": "cribl-control-plane",
-  "version": "0.9.0",
+  "version": "0.10.0-rc.4",
   "author": "Speakeasy",
   "type": "module",
   "tshy": {
@@ -22,7 +22,7 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/criblio/cribl-control-plane-sdk-typescript.git"
+    "url": "https://github.com/Cribl-Community/cribl-control-plane-sdk-typescript.git"
   },
   "scripts": {
     "lint": "oxlint --max-warnings=0 --deny-warnings src/**/*.ts src/**/*.tsx",

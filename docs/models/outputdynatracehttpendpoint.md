@@ -1,5 +1,7 @@
 # OutputDynatraceHttpEndpoint
 
+Endpoint
+
 ## Example Usage
 
 ```typescript

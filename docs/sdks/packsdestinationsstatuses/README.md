@@ -11,9 +11,68 @@
 
 List status information and optional metrics for all configured Destinations in the Worker Group or Edge Fleet within the specified Pack.
 
-### Example Usage
+### Example Usage: OutputStatusResponseExamplesGreenDestination
 
-<!-- UsageSnippet language="typescript" operationID="getOutputStatusSystemOutputsByPack" method="get" path="/p/{pack}/system/status/outputs" -->
+<!-- UsageSnippet language="typescript" operationID="getOutputStatusSystemOutputsByPack" method="get" path="/p/{pack}/system/status/outputs" example="OutputStatusResponseExamplesGreenDestination" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.statuses.list({
+    pack: "<value>",
+  });
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsStatusesList } from "cribl-control-plane/funcs/packsDestinationsStatusesList.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsStatusesList(criblControlPlane, {
+    pack: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
+    console.log(page);
+  }
+  } else {
+    console.log("packsDestinationsStatusesList failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: OutputStatusResponseExamplesYellowDestination
+
+<!-- UsageSnippet language="typescript" operationID="getOutputStatusSystemOutputsByPack" method="get" path="/p/{pack}/system/status/outputs" example="OutputStatusResponseExamplesYellowDestination" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -88,6 +147,7 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
@@ -95,9 +155,66 @@ run();
 
 Get the status and optional metrics for the specified Destination within the specified Pack.
 
-### Example Usage
+### Example Usage: OutputStatusResponseExamplesGreenDestination
 
-<!-- UsageSnippet language="typescript" operationID="getOutputStatusSystemOutputsByPackAndId" method="get" path="/p/{pack}/system/status/outputs/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="getOutputStatusSystemOutputsByPackAndId" method="get" path="/p/{pack}/system/status/outputs/{id}" example="OutputStatusResponseExamplesGreenDestination" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.destinations.statuses.get({
+    id: "<id>",
+    pack: "<value>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsDestinationsStatusesGet } from "cribl-control-plane/funcs/packsDestinationsStatusesGet.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsDestinationsStatusesGet(criblControlPlane, {
+    id: "<id>",
+    pack: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsDestinationsStatusesGet failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: OutputStatusResponseExamplesYellowDestination
+
+<!-- UsageSnippet language="typescript" operationID="getOutputStatusSystemOutputsByPackAndId" method="get" path="/p/{pack}/system/status/outputs/{id}" example="OutputStatusResponseExamplesYellowDestination" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -170,5 +287,6 @@ run();
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 401                                  | application/json                     |
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
